@@ -1,0 +1,2 @@
+module TrailDaysHelper
+end

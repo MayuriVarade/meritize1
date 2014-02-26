@@ -1,6 +1,9 @@
 Meritize::Application.routes.draw do
 
 
+  resources :trail_days
+
+
   resources :plans
 
 

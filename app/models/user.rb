@@ -54,7 +54,8 @@ class User < ActiveRecord::Base
 	def role?(role)
 	  return !!self.roles.find_by_name(role.to_s)
 	end
-
+	#method for increment sign_in count.
+	
   private
 	def encrypt_password
 	self.salt = make_salt if new_record?

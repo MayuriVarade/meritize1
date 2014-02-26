@@ -18,6 +18,7 @@ module SessionsHelper
 	end
 
 	def sign_out
+	  current_user.update_column(:last_sign_out,Time.now)
 	  cookies.delete(:remember_token)
 	  self.current_user = nil
 	end
