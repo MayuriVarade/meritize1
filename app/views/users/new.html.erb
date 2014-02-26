@@ -36,6 +36,7 @@
     <% else %>
         <div class = "field">
          <%= hidden_field_tag "user[role_ids][]", 2 %>
+         <%= f.hidden_field :plan_id, :value => 3%>
          <%= f.hidden_field :plan_type, :value => "free"%>
         </div><br />
        
