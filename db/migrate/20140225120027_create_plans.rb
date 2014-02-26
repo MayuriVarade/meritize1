@@ -3,7 +3,6 @@ class CreatePlans < ActiveRecord::Migration
     create_table :plans do |t|
       t.string :name
       t.string :price
-
       t.timestamps
     end
   end

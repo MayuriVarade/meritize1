@@ -15,8 +15,9 @@ class SessionsController < ApplicationController
        tot_count = count + 1 
        user.update_column(:sign_in_count,tot_count)
        user.update_column(:last_sign_in,Time.now)
-       if current_user.sign_in_count == 1
-       redirect_to change_password_path
+       
+       if count == 1 and current_user.role?(:admin)
+          redirect_to change_password_path
        else
         redirect_to user_root_path
        end 

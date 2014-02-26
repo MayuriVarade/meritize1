@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20140226122317) do
     t.string   "plan_type"
     t.string   "companyname"
     t.string   "hear_aboutus"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",          :default => 1
     t.datetime "last_sign_in"
     t.datetime "last_sign_out"
   end

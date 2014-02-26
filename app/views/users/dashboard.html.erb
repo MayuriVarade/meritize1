@@ -4,7 +4,7 @@
   <ul>
 	 Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
 	 
-	  <li><%= link_to 'Manage Plans', new_plan_path %></li>
+	  <li><%= link_to 'Manage Plans', plans_path %></li>
 	   <li><%= link_to 'Manage Trail days plan', new_trail_day_path %></li>
 	<% else %>
 	  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
