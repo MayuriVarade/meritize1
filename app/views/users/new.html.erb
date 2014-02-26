@@ -1,0 +1,46 @@
+
+  <h1>Sign up</h1>
+  <%= form_for(@user) do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+      <div class="field">
+        <%= f.label :firstname %><br />
+        <%= f.text_field :firstname %>
+      </div>
+      <div class="field">
+        <%= f.label :lastname %><br />
+        <%= f.text_field :lastname %>
+      </div>
+      <div class="field">
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+      </div>
+      <div class="field">
+      <%= f.label :companyname %><br />
+      <%= f.text_field :companyname %>
+      </div>
+      <div class="field">
+     
+      <%= f.hidden_field :password ,:value => @random %>
+      <%= f.hidden_field :password_confirmation ,:value => @random %>
+      </div>
+      <div class="field">
+      <%= f.label :hear_aboutus %><br />
+      <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3' %>
+      </div>
+    <% if signed_in?%>
+        <div class="field">
+      	         
+           <%= hidden_field_tag "user[role_ids][]", 3 %>
+               
+        </div>
+    <% else %>
+        <div class = "field">
+         <%= hidden_field_tag "user[role_ids][]", 2 %>
+         <%= f.hidden_field :plan_type, :value => "free"%>
+        </div><br />
+       
+      <% end %>      
+        <div class="actions">
+        <%= f.submit "Sign up" %>
+        </div>
+  <% end %>

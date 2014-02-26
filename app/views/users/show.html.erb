@@ -1,0 +1,18 @@
+<table class="profile" summary="Profile Information"> 
+	<tr>
+		<td class ="main">
+			
+
+			</td>
+			<td class="sidebar round">
+				<strong>User Name </strong>    <%= current_user.username %><br/>
+			    <strong> Email  </strong>  <%= current_user.email %><br/>
+				<%= link_to 'Edit User', edit_user_path(current_user.id) %><br/>
+				<%= link_to 'change password', change_password_path%>
+			</td>
+	</tr>
+
+</table>
+
+
+

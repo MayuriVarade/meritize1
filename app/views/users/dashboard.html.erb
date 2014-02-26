@@ -1,0 +1,12 @@
+
+<h1>Welcome to Dashbroad</h1>
+	<% if current_user.role? :productmanager %>
+  <ul>
+	 Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
+	 
+	  <li><%= link_to 'Manage Plans', new_plan_path %></li>
+	<% else %>
+	  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
+	  Email:<%= current_user.email %><br/>
+	<% end %>
+  </ul>
