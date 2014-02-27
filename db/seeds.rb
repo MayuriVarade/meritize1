@@ -11,6 +11,7 @@
      Plan.create(:name => "Applaud")
 	 Plan.create(:name => "Award")
      Plan.create(:name => "Alloy")
+     
      padmin = User.create(:username => 'productadmin', :email=> 'productadmin@padmin.com', :password => 'admin123!', :firstname => "padmin", 
 	:lastname => "padmin")
      padmin.roles = [Role.first]

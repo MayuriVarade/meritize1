@@ -7,7 +7,7 @@
 	  <li><%= link_to 'Manage Plans', plans_path %></li>
 	   <li><%= link_to 'Manage Trail days plan', new_trail_day_path %></li>
 	<% elsif current_user.role? :admin %>
-       Only <%= @plan_expiry %> days left for your trail plan. you can upgrade it by Subscribing below plan.
+       Only <%= @plan_expiry %> days left for your trial plan. you can upgrade it by Subscribing below plan.
 	<% else %>
 	  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
 	  Email:<%= current_user.email %><br/>

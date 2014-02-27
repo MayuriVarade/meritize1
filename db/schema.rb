@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140226122317) do
+ActiveRecord::Schema.define(:version => 20140227092730) do
 
   create_table "plans", :force => true do |t|
     t.string   "name"
@@ -59,6 +59,11 @@ ActiveRecord::Schema.define(:version => 20140226122317) do
     t.integer  "sign_in_count",          :default => 1
     t.datetime "last_sign_in"
     t.datetime "last_sign_out"
+    t.integer  "admin_user_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
 end

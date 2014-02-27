@@ -1,8 +1,12 @@
 class SessionsController < ApplicationController
  
 	def new
-   	 @title="Sign in"
-  	end
+    if signed_in?
+      redirect_to("/dashboard")
+    else
+      @title="Sign in"
+    end  
+  end
 	def create
     user = User.authenticate(params[:session][:email], params[:session][:password])
     if user.nil?
