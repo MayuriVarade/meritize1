@@ -1,6 +1,8 @@
 class TrailDaysController < ApplicationController
   # GET /trail_days
   # GET /trail_days.json
+  before_filter :authenticate, :only => [:edit, :update,:index,:new]
+
   def index
     @trail_days = TrailDay.all
 
@@ -79,5 +81,9 @@ class TrailDaysController < ApplicationController
       format.html { redirect_to trail_days_url }
       format.json { head :no_content }
     end
+  end
+  private
+  def authenticate
+    deny_access unless signed_in?
   end
 end

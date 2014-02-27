@@ -15,7 +15,8 @@ class UsersController < ApplicationController
   end
 
    def dashboard
-      @users = User.all
+      @user = User.find_by_id(current_user)
+      @plan_expiry = plan_expiry     
    end
 
    def create
@@ -85,5 +86,5 @@ class UsersController < ApplicationController
   def assign_password
   (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
   end
-
+  
 end
