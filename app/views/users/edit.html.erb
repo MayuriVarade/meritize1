@@ -21,7 +21,10 @@
 			<%= f.label "profile Logo" %><br/>
 			<%= f.file_field :photo %><br/>
 		</div><br/>
-
+        <div class="field">
+			<%= f.label "Select time zone" %><br/>
+			<%= f.time_zone_select :time_zone %>
+		</div><br/>
 		<div class="actions">
 			<%= f.submit "Update" %>
 		</div>
