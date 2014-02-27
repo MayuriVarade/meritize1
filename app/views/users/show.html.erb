@@ -5,9 +5,17 @@
 
 			</td>
 			<td class="sidebar round">
-				<strong>User Name </strong>    <%= current_user.username %><br/>
+				<strong>First Name </strong> <%= @user.firstname %><br/>
+				<strong>Last Name </strong> <%= @user.lastname %><br/>
+				<% if current_user.photo.blank? %>
+				 	<strong>gravtar </strong><br/>
+				 	<%= image_tag avatar_url(@user) %><br/>
+				<% else %>
+                	<strong>profile photo</strong> <br/>
+                	<%= image_tag @user.photo.url(:small) %><br/>
+                <% end %>
 			    <strong> Email  </strong>  <%= current_user.email %><br/>
-				<%= link_to 'Edit User', edit_user_path(current_user.id) %><br/>
+				<%= link_to 'Genral Setting', edit_user_path(current_user.id) %><br/>
 				<%= link_to 'change password', change_password_path%>
 			</td>
 	</tr>

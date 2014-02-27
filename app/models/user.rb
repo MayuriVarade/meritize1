@@ -2,25 +2,26 @@ require 'digest'
 class User < ActiveRecord::Base
   attr_accessor :password
 
-  attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus
-  
+  attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo
+   has_attached_file :photo,:styles =>{:small => "150x150>"}
    has_and_belongs_to_many :roles
    has_one :plan   
   
   #model based validation
-  validates :firstname, :presence => true, 
+   validates :firstname, :presence => true, 
                   :length => { :maximum => 50 }
-  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  validates :email, :presence => true,
+   validates :email, :presence => true,
                      :format => { :with => email_regex},
                      :uniqueness => { :case_sensitive => false }
 
-  validates :password,  :confirmation => true
+   validates :password,  :confirmation => true
 
-  before_save :encrypt_password
-  before_create { generate_token(:auth_token) }
+   before_save :encrypt_password
+   before_create { generate_token(:auth_token) }
 
+    
     #method for password reset
 	def send_password_reset
 	  generate_token(:password_reset_token)
@@ -54,8 +55,7 @@ class User < ActiveRecord::Base
 	def role?(role)
 	  return !!self.roles.find_by_name(role.to_s)
 	end
-	#method for increment sign_in count.
-	
+		
   private
 	def encrypt_password
 	self.salt = make_salt if new_record?

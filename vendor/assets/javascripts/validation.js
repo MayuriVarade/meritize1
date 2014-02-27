@@ -1,7 +1,59 @@
+//  Jquery for server side validation for sign_up.
+  jQuery(document).ready(function() {
+    jQuery("#new_user").validate({
+	errorElement:'div',
+	rules: {
+	 "user[firstname]":{
+					          required: true
+						},
+	  "user[lastname]":{
+					          required: true
+					   },
+	  "user[username]":{
+							   required: true,
+							   minlength:4,
+							   
+						},
+	  "user[email]":{
+								required:true,
+								email:true,
+								
+						},
+	  "user[companyname]":{
+					             required: true
+	     				  }
+						
+		},
+	messages: {
+	"user[firstname]":{
+		                   	required:  "Please enter the first name"
+                    		},
+  	"user[lastname]":{
+		                	required:  "Please enter the last name"
+											},
+	 "user[username]":{
+							required: "Please enter username",
+							minlength:jQuery.format("do not enter less than 4 characters"),
+							
+					 },
+	 "user[email]":{
+						required: "Please enter email address",
+						email: "Please enter valid email id",
+						
+				 },
+	 "user[companyname]":{
+		                   	required:  "Please enter the company name"
+                        }
+				
+																
+		}
+		
+		
+	});
+
+
 //  Jquery for server side validation password strength.
 
-jQuery(document).ready(function() {
- 
 	jQuery('#change_password_new_password, #change_password_new_password_confirmation').on('keyup', function(e) {
  
 	if(jQuery('#change_password_new_password').val() != '' && jQuery('#change_password_new_password_confirmation').val() != '' && jQuery('#change_password_new_password').val() != jQuery('#change_password_new_password_confirmation').val())
