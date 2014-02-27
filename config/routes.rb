@@ -2,8 +2,10 @@ Meritize::Application.routes.draw do
 
 
   resources :trail_days
-
-
+  
+  resources :subscriptions
+    get "/plan" => "subscriptions#plan"
+    get "paypal/checkout", to: 'subscriptions#paypal_checkout'
   resources :plans
 
 

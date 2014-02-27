@@ -1,0 +1,24 @@
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:20px">
+<table>
+  <tr>
+    
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @subscriptions.to_a.each do |subscription| %>
+  <tr>    
+    <td><%= subscription.email %></td>
+    <td><%= link_to 'Show', subscription %></td>
+    <td><%= link_to 'Edit', edit_subscription_path(subscription) %></td>
+    <td><%= link_to 'Destroy', subscription, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+
