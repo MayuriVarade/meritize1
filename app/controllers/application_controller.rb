@@ -14,4 +14,22 @@ class ApplicationController < ActionController::Base
     tz = current_user ? current_user.time_zone : nil
     Time.zone = tz || ActiveSupport::TimeZone["UTC"]
   end	
+
+
+
+
+# def current_plan
+#   if session[:plan_id]
+#     @current_plan ||= Plan.find(session[:plan_id])
+#     session[:plan_id] = nil if @current_plan.purchased_at
+#   end
+  
+#   if session[:plan_id].nil?
+#     @current_plan = Plan.create!
+#     session[:plan_id] ||= @current_plan.id
+#   end
+#   @current_plan
+# end
+
+
 end

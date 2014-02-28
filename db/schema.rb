@@ -11,13 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140228062706) do
+
+ActiveRecord::Schema.define(:version => 20140228044751) do
+
+  create_table "payment_notifications", :force => true do |t|
+    t.text     "params"
+    t.integer  "plan_id"
+    t.string   "status"
+    t.string   "transasction_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "paypal_payments", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
 
   create_table "plans", :force => true do |t|
     t.string   "name"
     t.string   "price"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -33,6 +50,19 @@ ActiveRecord::Schema.define(:version => 20140228062706) do
 
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
   add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
+
+
+  create_table "subscriptions", :force => true do |t|
+    t.string   "email"
+    t.integer  "plan_id"
+    t.integer  "user_id"
+    t.string   "paypal_payment_token"
+    t.string   "paypal_customer_token"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.string   "paypal_recurring_profile_token"
+    t.string   "token"
+  end
 
   create_table "settings", :force => true do |t|
     t.string   "company_name"

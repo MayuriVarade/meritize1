@@ -10,6 +10,6 @@
   <%= @plan.price %>
 </p>
 
-
+<%= link_to "Checkout", @plan.paypal_url(subscriptions_url, payment_notifications_url) %>
 <%= link_to 'Edit', edit_plan_path(@plan) %> |
 <%= link_to 'Back', plans_path %>

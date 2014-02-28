@@ -16,6 +16,9 @@ class UsersController < ApplicationController
   end
 
    def dashboard
+      # @users = User.all
+      @plans = Plan.all
+
       @user = User.find_by_id(current_user)
       @plan_expiry = plan_expiry  
      
@@ -68,7 +71,7 @@ class UsersController < ApplicationController
    def change_password
 
     @user = User.find(current_user.id)
-
+    
     if request.post?
       if User.authenticate(@user.email,
         params[:change_password][:old_password]) == @user
