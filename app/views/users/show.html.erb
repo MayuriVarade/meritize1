@@ -16,7 +16,8 @@
                 <% end %>
 			    <strong> Email  </strong>  <%= current_user.email %><br/>
 				<%= link_to 'General Setting', edit_user_path(current_user.id) %><br/>
-				<%= link_to 'change password', change_password_path%>
+				<%= link_to 'change password', change_password_path%><br/>
+				<%= link_to 'Manage Users', admin_user_path%><br/>
 			</td>
 	</tr>
 

@@ -1,0 +1,27 @@
+
+<%= link_to "Add User" , new_user_path %>
+<h1>Listing Users</h1>
+ <%= form_tag admin_user_path, :method => 'get' do %>
+       <%= text_field_tag :search, params[:search], :class=>"textfield2" %>
+       <%= submit_tag "Search", :class_name => nil %>
+  
+  <% end %>
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @adminusers.each do |adminusers| %>
+  <tr>
+    <td><%= adminusers.firstname rescue nil %></td>
+    <td><%= adminusers.lastname rescue nil%></td>
+    <td><%= link_to 'Edit', edit_user_path(adminusers,:type=>"adminuser") %></td>
+    
+  </tr>
+<% end %>
+</table>
+
+<br />

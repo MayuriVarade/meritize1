@@ -7,6 +7,7 @@ Meritize::Application.routes.draw do
   get "password_resets/new"
   match '/change_password', :controller => 'users', :action => 'change_password'
   resources :users 
+  match '/admin_user', :to =>'users#admin_user'
   resources :sessions, :only => [:new,:create,:destroy,:edit]
   root :to => 'sessions#new'
   match 'dashboard' => 'users#dashboard', :as => 'user_root'

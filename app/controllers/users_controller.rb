@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
    before_filter :authenticate, :only => [:edit, :update,:dashboard]
-   before_filter :correct_user, :only => [:edit, :update,:show]
-  
+   before_filter :correct_user, :only => [:show]
+   before_filter :correct_user_edit, :only => [:edit,:update]
+
   def show
     @user = User.find(params[:id])
 
@@ -19,12 +20,22 @@ class UsersController < ApplicationController
       @plan_expiry = plan_expiry  
      
    end
+   def admin_user
+        @searchuser ||= [] 
+        @adminusers = User.find_all_by_admin_user_id(current_user, :conditions => ['firstname LIKE ?', "%#{params[:search]}%"])
+        @adminusers.each do |adminuser|
+        fullname = adminuser.firstname
+        @searchuser << fullname
+       end
+        @searchuser
+        
+   end
 
    def create
       @user = User.new(params[:user])
       @random_password = params[:user][:password]
       if @user.save
-
+         
         UserVerification.welcome_email(@user,@random_password).deliver
         redirect_to root_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
       else
@@ -41,7 +52,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated."
-      redirect_to @user
+      
+      if params[:page_name] == "admin"
+          redirect_to admin_user_path
+      else
+        flash[:success] = "Profile updated."
+        redirect_to @user
+      end  
     else
       @title = "Edit user"
       render 'edit'
@@ -84,6 +101,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     redirect_to("/dashboard",:notice => 'You cannot access this page') unless current_user == @user
   end
+  def correct_user_edit
+     if current_user.role?(:admin)
+      @user = User.find(params[:id])
+      redirect_to("/dashboard",:notice => 'You cannot access this page') unless current_user.id == @user.admin_user_id || current_user.id == @user.id
+     else
+       @user = User.find(params[:id])
+      redirect_to("/dashboard",:notice => 'You cannot access this page') unless current_user == @user
+     end 
+  end
+
 
   def assign_password
   (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
