@@ -1,18 +1,12 @@
 Meritize::Application.routes.draw do
 
 
+  resources :settings
   resources :trail_days
-
-
   resources :plans
-
-
   get "password_resets/new"
-
   match '/change_password', :controller => 'users', :action => 'change_password'
-
   resources :users 
- 
   resources :sessions, :only => [:new,:create,:destroy,:edit]
   root :to => 'sessions#new'
   match 'dashboard' => 'users#dashboard', :as => 'user_root'
