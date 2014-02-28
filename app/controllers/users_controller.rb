@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
    before_filter :authenticate, :only => [:edit, :update,:dashboard]
-   before_filter :correct_user, :only => [:edit, :update]
+   before_filter :correct_user, :only => [:edit, :update,:show]
   
   def show
     @user = User.find(params[:id])
@@ -19,7 +19,8 @@ class UsersController < ApplicationController
       @plans = Plan.all
 
       @user = User.find_by_id(current_user)
-      @plan_expiry = plan_expiry     
+      @plan_expiry = plan_expiry  
+     
    end
 
    def create
@@ -84,8 +85,9 @@ class UsersController < ApplicationController
   
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_path) unless current_user=(@user)
+    redirect_to("/dashboard",:notice => 'You cannot access this page') unless current_user == @user
   end
+
   def assign_password
   (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
   end

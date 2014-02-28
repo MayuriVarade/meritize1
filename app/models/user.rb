@@ -2,10 +2,11 @@ require 'digest'
 class User < ActiveRecord::Base
   attr_accessor :password
 
-  attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo
+  attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo,:time_zone
    has_attached_file :photo,:styles =>{:small => "150x150>"}
    has_and_belongs_to_many :roles
-   has_one :plan   
+   has_one :plan
+   has_many :settings   
   
   #model based validation
    validates :firstname, :presence => true, 

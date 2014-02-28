@@ -11,6 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20140228044751) do
 
   create_table "payment_notifications", :force => true do |t|
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20140228044751) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
 
   create_table "plans", :force => true do |t|
     t.string   "name"
@@ -49,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20140228044751) do
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
   add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
+
   create_table "subscriptions", :force => true do |t|
     t.string   "email"
     t.integer  "plan_id"
@@ -59,6 +62,16 @@ ActiveRecord::Schema.define(:version => 20140228044751) do
     t.datetime "updated_at",                     :null => false
     t.string   "paypal_recurring_profile_token"
     t.string   "token"
+  end
+
+  create_table "settings", :force => true do |t|
+    t.string   "company_name"
+    t.string   "website_address"
+    t.text     "description"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "user_id"
+    t.integer  "core_value_id"
   end
 
   create_table "trail_days", :force => true do |t|
@@ -72,8 +85,8 @@ ActiveRecord::Schema.define(:version => 20140228044751) do
     t.string   "email"
     t.string   "firstname"
     t.string   "lastname"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "encrypted_password"
     t.string   "salt"
     t.string   "auth_token"
@@ -91,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20140228044751) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.string   "time_zone",              :default => "UTC"
   end
 
 end
