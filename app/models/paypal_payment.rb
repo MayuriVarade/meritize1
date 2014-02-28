@@ -26,6 +26,7 @@ class PaypalPayment < ActiveRecord::Base
   		payer_id: @subscription.paypal_customer_token,
   		description: @subscription.plan.name,
   		amount: @subscription.plan.price,
+      
   		currency: "USD"
   		)
   	response = PayPal::Recurring.new(options).send(action)

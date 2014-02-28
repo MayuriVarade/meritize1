@@ -11,4 +11,14 @@ class UserMailer < ActionMailer::Base
     mail :to => user.email, :subject => "Password Reset"
   end
 
+  def welcome_email(user)
+        @user = user
+        
+        @url  = 'http://sandbox.paypal.com'
+        mail(
+          to: user.email,
+          subject: 'Welcome to Paypal'
+        )
+      end
+
 end
