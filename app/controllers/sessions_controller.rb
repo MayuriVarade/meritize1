@@ -42,7 +42,7 @@ class SessionsController < ApplicationController
          else
           redirect_to user_root_path
          end 
-
+      end
     end
  
    	def destroy
