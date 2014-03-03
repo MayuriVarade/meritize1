@@ -2,7 +2,7 @@ class UsersController < ApplicationController
    before_filter :authenticate, :only => [:edit, :update,:dashboard]
    before_filter :correct_user, :only => [:show]
    before_filter :correct_user_edit, :only => [:edit,:update]
-   layout 'profile'
+   layout :custom_layout
 
   def show
     @user = User.find(params[:id])
@@ -144,6 +144,20 @@ class UsersController < ApplicationController
 
     def assign_password
       (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
+    end
+      def custom_layout
+        case action_name
+         when "edit"
+          "profile" 
+         when "change_password"
+          "profile"  
+         when "dashboard"
+          "admin" 
+         when "show"
+          "admin" 
+         else
+          "application"
+        end
     end
    
  

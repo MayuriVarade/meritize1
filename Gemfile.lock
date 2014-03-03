@@ -84,6 +84,7 @@ GEM
     paypal-sdk-core (0.2.7)
       multi_json (~> 1.0)
       xml-simple
+    pg (0.17.1)
     polyglot (0.3.4)
     rack (1.4.5)
     rack-cache (1.2)
@@ -149,6 +150,7 @@ DEPENDENCIES
   paypal-recurring
   paypal-sdk-adaptivepayments
   paypal-subscribe!
+  pg
   rails (= 3.2.14)
   sass-rails (~> 3.2.3)
   therubyracer
