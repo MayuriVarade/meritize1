@@ -87,6 +87,12 @@ ActiveRecord::Schema.define(:version => 20140301125155) do
     t.string   "token"
   end
 
+  create_table "trail_days", :force => true do |t|
+    t.integer  "days"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "trial_days", :force => true do |t|
     t.integer  "days"
     t.datetime "created_at", :null => false

@@ -15,6 +15,7 @@ Meritize::Application.routes.draw do
     match '/adminuser_logs', :to =>'users#adminuser_logs'
     match '/users/:id/delete', :to => "users#destroy"
     match '/users/:id/status', :to => "users#toggled_status"
+   
 
     resources :sessions, :only => [:new,:create,:destroy,:edit]
     root :to => 'sessions#new'
