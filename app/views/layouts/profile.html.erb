@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="">	
+	<title>Meritize</title>
+	<meta name="viewport" content="">
+
+
+	<%= stylesheet_link_tag "bootstrap.min.css","theme.css","animate.css","flexslider.css" %>
+	<%= javascript_include_tag "application","jquery","bootstrap", "jquery_002","theme" %>
+	<%= csrf_meta_tag %>
+	<%= yield :scripts %>
+    <%= yield :styles %>
+</head>
+<body id="about-us">
+	<header class="navbar navbar-inverse normal" role="banner">
+  		<div class="container">
+   		  <div class="navbar-header">
+		      	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+   			  <a href="#" class="navbar-brand"><img src="/assets/logo.png" alt=""></a>    		</div>
+    		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+			
+			
+			<ul class="nav navbar-nav">
+				
+      				<li class="dropdown">
+        				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Home</a>
+        			</li>
+					
+        			<li class="dropdown">
+        				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pricing</a>
+        			</li>
+					
+        			<li class="dropdown">
+          				<a href="#" class="dropdown-toggle" data-toggle="dropdown">About</a>
+        			</li>
+					
+					<li class="dropdown">
+          				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Props</a>
+        			</li>
+					
+					<li class="dropdown">
+          				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Vote</a>
+        			</li>
+					
+					<li class="dropdown">
+          				<a href="#" class="dropdown-toggle" data-toggle="dropdown">WoW</a>
+        			</li>
+					
+					<li class="dropdown">
+          				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact</a>
+        			</li>
+
+      			</ul>
+				
+				
+      			<ul class="nav navbar-nav navbar-right">
+      			 	<% if signed_in? %>
+	      				<li class="dropdown">
+	      					
+	        				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	          					<%= current_user.fullname %> <b class="caret"></b>
+	          				</a>
+	          				
+	          				<ul class="dropdown-menu">
+								<li><a href="#">Profile</a></li>
+								<li><%= link_to 'change password', change_password_path%></li>
+								<li><a href="#">Help</a></li>
+								<li><%= link_to "Logout", signout_path, :method => :delete %></li>
+					        </ul>
+	        			</li>
+      				<% end %>
+        			
+        			
+        			
+      			</ul>
+      			
+    		</nav>
+  		</div>
+	</header>
+
+
+	
+  <%= yield %>
+	
+
+	<div id="footer">
+		<div class="container">
+			
+			<div class="row credits">
+				<div class="col-md-12" style="color:#FFFFFF">
+					&copy; 2014 Meritize. Motivate, earn, reward.
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	  	$(function() {
+			$('.flexslider').flexslider({
+				directionNav: false,
+				slideshowSpeed: 4000
+			});
+			$('[data-toggle="tooltip"]').tooltip();
+	  	});
+	</script>
+
+</body></html>
