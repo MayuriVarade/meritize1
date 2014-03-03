@@ -14,7 +14,7 @@ jQuery(function() {
 </script>
 
 
-<h1>Track Users</h1>
+<h1>User Activities</h1>
  <%= form_tag adminuser_logs_path, :method => 'get' do %>
        <%= text_field_tag :search, params[:search], :class=>"textfield2" %>
        <%= submit_tag "Search", :class_name => nil %>
@@ -26,7 +26,8 @@ jQuery(function() {
     <th>First Name</th>
     <th>Last Name</th>
     <th>Signin time</th>
-    <th>Signout time</th> 
+    <th>Signout time</th>
+    <th>Ip address</th> 
     <th>Sign count</th> 
     <th></th>
   </tr>
@@ -38,6 +39,7 @@ jQuery(function() {
     <td><%= adminusers.lastname rescue nil%></td>
     <td><%= adminusers.sign_in_time.strftime("%e %b %Y %H:%m:%S%p") rescue nil%></td>
     <td><%= adminusers.sign_out_time.strftime("%e %b %Y %H:%m:%S%p") rescue nil%></td>
+     <td><%= adminusers.ip_address rescue nil%></td>
     <td><%= adminusers.sign_in_count rescue nil%></td>
   </tr>
 <% end %>

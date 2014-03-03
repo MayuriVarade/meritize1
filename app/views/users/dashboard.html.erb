@@ -5,7 +5,7 @@
 	 Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
 	 
 	  <li><%= link_to 'Manage Plans', plans_path %></li>
-	   <li><%= link_to 'Manage Trial days plan', new_trial_day_path %></li>
+	   <li><%= link_to 'Manage Trial days plan', edit_trial_day_path(@trial_days) %></li>
 	<% elsif current_user.role? :admin %>
        Only <%= @plan_expiry %> days left for your trial plan. you can upgrade it by Subscribing below plan.
 	<% else %>
@@ -35,14 +35,12 @@
             <li class="fees"><span>$0.50</span><span>$0.50</span><span>$1.00</span></li>  
                       
             <li>
+              <!-- button for checkout -->
               <% @plans.each do |plan| %>
               <span class="pt-no">
-              
               <% @subscription = plan.subscriptions.build %>
                 <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id, user_id: current_user.id) %>
-                              
-
-              </span>
+               </span>
               <% end %>
             </li>
             
