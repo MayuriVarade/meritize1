@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_timezone
   include SessionsHelper
   def plan_expiry
-      @plan_expiry = (current_user.created_at + 14.days)
+      @trial_days = TrialDay.first
+      @plan_expiry = (current_user.created_at + @trial_days.days.days)
       @current_date = (Time.zone.now)
       @remaining_days = (@plan_expiry - @current_date).to_i / 1.day
   end
