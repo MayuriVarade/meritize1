@@ -14,7 +14,9 @@ class ApplicationController < ActionController::Base
     tz = current_user ? current_user.time_zone : nil
     Time.zone = tz || ActiveSupport::TimeZone["UTC"]
   end	
-
+  def fullname
+  "#{firstname} #{lastname}"
+  end
 
 
 

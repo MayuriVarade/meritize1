@@ -19,6 +19,12 @@ module SessionsHelper
 
 	def sign_out
 	  current_user.update_column(:last_sign_out,Time.now)
+	  if current_user.role?(:user)
+	  	@adminuserLog = AdminuserLog.find_all_by_user_id(current_user.id).last
+	  	unless @adminuserLog.nil?
+          @adminuserLog.update_column(:sign_out_time,Time.now)
+        end  
+	  end
 	  cookies.delete(:remember_token)
 	  self.current_user = nil
 	end

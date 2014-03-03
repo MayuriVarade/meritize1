@@ -2,6 +2,7 @@ class UsersController < ApplicationController
    before_filter :authenticate, :only => [:edit, :update,:dashboard]
    before_filter :correct_user, :only => [:show]
    before_filter :correct_user_edit, :only => [:edit,:update]
+   
 
   def show
     @user = User.find(params[:id])
@@ -23,22 +24,39 @@ class UsersController < ApplicationController
       @plan_expiry = plan_expiry  
      
    end
+   def toggled_status
+        @users = User.find(params[:id])
+        @users.status = !@users.status?
+        @users.save!
+        redirect_to "/admin_user"
+    end
+
+
    def admin_user
         @searchuser ||= [] 
-        @adminusers = User.find_all_by_admin_user_id(current_user, :conditions => ['firstname LIKE ?', "%#{params[:search]}%"])
+        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname or lastname or fullname LIKE ?", "%#{params[:search]}%"])
         @adminusers.each do |adminuser|
-        fullname = adminuser.firstname
+        fullname = adminuser.fullname
         @searchuser << fullname
        end
-        @searchuser
-        
+       @searchuser
    end
+   def adminuser_logs
+       @searchuser ||= [] 
+       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname or lastname or fullname LIKE ?", "%#{params[:search]}%"])
+       @adminusers.each do |adminuser|
+        fullname = adminuser.fullname
+        @searchuser << fullname
+       end
+       @searchuser 
+   end
+
 
    def create
       @user = User.new(params[:user])
       @random_password = params[:user][:password]
       if @user.save
-         
+        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ") 
         UserVerification.welcome_email(@user,@random_password).deliver
         redirect_to root_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
       else
@@ -53,7 +71,9 @@ class UsersController < ApplicationController
 
    def update
     @user = User.find(params[:id])
+     params[:user].delete(:password) if params[:user][:password].blank? 
     if @user.update_attributes(params[:user])
+       @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
       flash[:success] = "Profile updated."
       
       if params[:page_name] == "admin"
@@ -91,6 +111,13 @@ class UsersController < ApplicationController
           render :action => 'change_password'
       end
     end
+     def destroy
+      @user = User.find(params[:id])
+      @user.destroy
+      flash[:notice] = "Successfully destroyed user."
+      redirect_to  admin_user_path
+     end
+    
 
    end
   
@@ -118,5 +145,5 @@ class UsersController < ApplicationController
   def assign_password
   (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
   end
-  
+ 
 end

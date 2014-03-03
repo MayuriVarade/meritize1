@@ -9,6 +9,7 @@ gem 'rails', '3.2.14'
 gem 'execjs'
 gem 'therubyracer'
 gem 'paperclip'
+gem 'impressionist'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -22,6 +23,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem  'jquery-ui-rails'
 gem 'paypal-recurring'
 gem 'paypal-sdk-adaptivepayments'
 gem 'paypal-subscribe', :git => "git@github.com:dsci/paypal-subscribe.git"

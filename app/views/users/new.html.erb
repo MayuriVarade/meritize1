@@ -32,6 +32,7 @@
         <%= f.hidden_field :admin_user_id ,:value => current_user.id %> 
         <%= f.hidden_field :password ,:value => @random %>
         <%= f.hidden_field :password_confirmation ,:value => @random %>     
+         
       </div>
     <% else %>
         <div class="field">
@@ -60,6 +61,7 @@
          <%= f.hidden_field :plan_type, :value => "free"%>
          <%= f.hidden_field :password ,:value => @random %>
          <%= f.hidden_field :password_confirmation ,:value => @random %>
+          
         </div><br />
        
     <% end %>      

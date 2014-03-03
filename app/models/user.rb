@@ -2,8 +2,9 @@ require 'digest'
 class User < ActiveRecord::Base
   attr_accessor :password
 
-  attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo,:time_zone
+  attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo,:time_zone,:fullname
    has_attached_file :photo,:styles =>{:small => "150x150>"}
+   validates_attachment_content_type :photo, :content_type => ["image/jpg", "image/jpeg", "image/png"]
    has_and_belongs_to_many :roles
    has_one :plan
    has_many :settings   
@@ -17,7 +18,7 @@ class User < ActiveRecord::Base
                      :format => { :with => email_regex},
                      :uniqueness => { :case_sensitive => false }
 
-   validates :password,  :confirmation => true
+   validates :password,  :confirmation => true,:on => :create
 
    before_save :encrypt_password
    before_create { generate_token(:auth_token) }
@@ -56,7 +57,7 @@ class User < ActiveRecord::Base
 	def role?(role)
 	  return !!self.roles.find_by_name(role.to_s)
 	end
-		
+			
   private
 	def encrypt_password
 	self.salt = make_salt if new_record?
