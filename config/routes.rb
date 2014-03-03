@@ -4,6 +4,7 @@ Meritize::Application.routes.draw do
   resources :trial_days
   resources :settings  
   resources :subscriptions
+  
     get "/plan" => "subscriptions#plan"
     get "paypal/checkout", to: 'subscriptions#paypal_checkout'
 
@@ -15,7 +16,7 @@ Meritize::Application.routes.draw do
     match '/adminuser_logs', :to =>'users#adminuser_logs'
     match '/users/:id/delete', :to => "users#destroy"
     match '/users/:id/status', :to => "users#toggled_status"
-
+    match '/history', :to => "subscriptions#history"
     resources :sessions, :only => [:new,:create,:destroy,:edit]
     root :to => 'sessions#new'
     match 'dashboard' => 'users#dashboard', :as => 'user_root'

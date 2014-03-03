@@ -20,6 +20,8 @@ class UsersController < ApplicationController
       # @users = User.all
       @plans = Plan.all
       @trialday = TrialDay.first
+      # @history = history
+
       @user = User.find_by_id(current_user)
       @plan_expiry = plan_expiry  
      
