@@ -1,19 +1,81 @@
-<%= @history %>
+
+<div id="masthead">
+	
+	<div class="container">
+		
+		<div class="masthead-pad">
+			
+			<div class="masthead-text">
+				<h2>Payment History</h2>
+				
+			</div> <!-- /.masthead-text -->
+			
+		</div>
+		
+	</div> <!-- /.container -->	
+	
+</div> <!-- /#masthead -->
 
 
-<% startdate = Time.now.beginning_of_month %> 
-<% enddate = Time.now.end_of_month %> 
-<%= startdate.strftime("%e %b %Y") %> &nbsp TO
-&nbsp<%= enddate.strftime("%e %b %Y") %></br> 
-<% @a = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
-total_amount = <%= @a.sum(:price) %></br>
+
+
+<div id="content">
+
+	<div class="container">
+      
+       <table class="table table-bordered table-striped table-highlight">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          	<% number_of_months = 0..1 %>
+             <% number_of_months.each.with_index(1) do |month_offset, index| %>
+
+           </br> <% startdate = month_offset.months.ago.beginning_of_month %>
+            <% enddate = month_offset.month.ago.end_of_month %>
+            <tr>
+              <td>   <%= index %></td>
+              <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
+                 &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
+               </td>
+               <% @s = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
+
+              <td> <%= @s.sum(:price) %></td>
+              <td>Paid using Visa credit card ending in 7654</td>
+            </tr>
+         
+            <% end %>
+          </tbody>
+        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
+      </div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
 
 
 
-</br> <% startdate = 1.months.ago.beginning_of_month %>
-<% enddate = 1.month.ago.end_of_month %>
-<%= startdate.strftime("%e %b %Y") %> &nbsp TO
-&nbsp<%= enddate.strftime("%e %b %Y") %></br> 
-<% @b = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
-total_amount = <%= @b.sum(:price) %></br>
+
+<script>
+
+$(function () {
+	
+	Theme.init ();
+	
+});
+
+</script>
+
+
+
+
+
+
+
+
 

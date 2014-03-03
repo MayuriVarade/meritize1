@@ -762,7 +762,7 @@ a:focus, button:focus {
     left:590px;
     width:364px;
     height:530px;
-    background-image: url("../assets/charactor.png");
+    background-image: url("/assets/charactor.png");
     background-repeat: no-repeat; }
     @media (max-width: 991px) {
       #home #hero .img {
@@ -987,7 +987,7 @@ a:focus, button:focus {
   #home #slider .slide-wrapper {
     border-bottom: 1px solid #E4E4E4; }
     #home #slider .slide-wrapper .slideshow {
-      background: url("../assets/slider-bg.png") 0 0 no-repeat;
+      background: url("/assets/slider-bg.png") 0 0 no-repeat;
       margin: 0 auto;
       margin-top: 35px;
       width: 844px;
@@ -1031,7 +1031,7 @@ a:focus, button:focus {
           -webkit-transform: translateX(0px) !important;
           transform: translateX(0px) !important; }
         #home #slider .slide-wrapper .slideshow .btn-nav.prev {
-          background: url("../assets/slide-left.png") 0 0 no-repeat;
+          background: url("/assets/slide-left.png") 0 0 no-repeat;
           left: 91px;
           -moz-transform: translateX(-48px);
           -o-transform: translateX(-48px);
@@ -1042,7 +1042,7 @@ a:focus, button:focus {
             #home #slider .slide-wrapper .slideshow .btn-nav.prev {
               left: 30px; } }
         #home #slider .slide-wrapper .slideshow .btn-nav.next {
-          background: url("../assets/slide-right.png") 0 0 no-repeat;
+          background: url("/assets/slide-right.png") 0 0 no-repeat;
           right: 91px;
           -moz-transform: translateX(48px);
           -o-transform: translateX(48px);
@@ -1287,7 +1287,7 @@ a:focus, button:focus {
       margin: auto 0;
       width: 19px;
       height: 58px;
-      background: url("../assets/slide-arrow.png") no-repeat;
+      background: url("/assets/slide-arrow.png") no-repeat;
       left: 30px;
       -moz-transform: rotate(180deg);
       -o-transform: rotate(180deg);
@@ -1305,7 +1305,7 @@ a:focus, button:focus {
         margin: auto 0;
         width: 19px;
         height: 58px;
-        background: url("../assets/slide-arrow.png") no-repeat;
+        background: url("/assets/slide-arrow.png") no-repeat;
         right: 30px; }
   #home2 #hero nav {
     z-index: 999;
@@ -1392,7 +1392,7 @@ a:focus, button:focus {
         #home2 #hero .slides .slide.first {
           padding-top: 50px; } }
       #home2 #hero .slides .slide.first .bg {
-        background-image: url("../assets/8203794182_8004f8f636_b.jpg");
+        background-image: url("/assets/8203794182_8004f8f636_b.jpg");
         background-position: center 18%; }
         #home2 #hero .slides .slide.first .bg:after {
           background: rgba(52, 52, 58, 0.6); }
@@ -1472,7 +1472,7 @@ a:focus, button:focus {
           padding-top: 40px; } }
       #home2 #hero .slides .slide.second .bg {
         /*background-image: url('http://24.media.tumblr.com/899355a7363be380170ecfcbdc9744d7/tumblr_myp93odkni1st5lhmo1_1280.jpg');*/
-        background-image: url("../assets/9011116378_32e56983e3_b.jpg");
+        background-image: url("/assets/9011116378_32e56983e3_b.jpg");
         background-position: center 29%; }
         #home2 #hero .slides .slide.second .bg:after {
           background: rgba(5, 11, 29, 0.55); }
@@ -1536,7 +1536,7 @@ a:focus, button:focus {
           #home2 #hero .slides .slide.third {
             padding-top: 50px; } }
         #home2 #hero .slides .slide.third .bg {
-          background-image: url("../assets/5783999789_9d06e5d7df_b.jpg");
+          background-image: url("/assets/5783999789_9d06e5d7df_b.jpg");
           background-position: center 15%; }
           #home2 #hero .slides .slide.third .bg:after {
             background: rgba(3, 9, 27, 0.5); }
@@ -2169,7 +2169,7 @@ a:focus, button:focus {
     -ms-animation-delay: 0.15s;
     animation-delay: 0.15s;
     /*background-image: url("../../images/bg2.png");*/
-    background-image: url("../assets/tumblr_mq7ejb3POL1st5lhmo1_1280.jpg"); }
+    background-image: url("/assets/tumblr_mq7ejb3POL1st5lhmo1_1280.jpg"); }
     @media (max-width: 991px) {
       #home3 #hero #cover-image {
         padding-top: 65px; } }
