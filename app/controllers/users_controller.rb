@@ -19,9 +19,7 @@ class UsersController < ApplicationController
    def dashboard
       # @users = User.all
       @plans = Plan.all
-
       @trial_days = TrialDay.first
-
       @user = User.find_by_id(current_user)
       @plan_expiry = plan_expiry  
      
