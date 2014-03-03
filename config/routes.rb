@@ -1,6 +1,6 @@
 Meritize::Application.routes.draw do
 
-
+  root :to => 'homes#index'
   resources :trial_days
   resources :settings  
   resources :subscriptions
