@@ -6,6 +6,7 @@ Meritize::Application.routes.draw do
 
   
   resources :subscriptions
+  
     get "/plan" => "subscriptions#plan"
     get "paypal/checkout", to: 'subscriptions#paypal_checkout'
 

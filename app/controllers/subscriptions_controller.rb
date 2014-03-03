@@ -13,11 +13,12 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions/new
   # GET /subscriptions/new.json
   	def new
-  	  @subscription = Subscription.new(:user_id => params[:user_id], :token => params[:token])
-  	  plan = Plan.find(params[:plan_id]) 
+  	  @subscription = Subscription.new(:user_id => params[:user_id], :token => params[:token], :price => params[:price])
+  	  plan = Plan.find(params[:plan_id])      
   	  @subscription = plan.subscriptions.build
   	  if params[:PayerID]   
   		@subscription.user_id = params[:user_id]
+      @subscription.price = params[:price]
   		@subscription.paypal_customer_token = params[:PayerID]
   		@subscription.paypal_payment_token = params[:token]  		
   		@subscription.email = @subscription.paypal.checkout_details.email
@@ -79,17 +80,20 @@ class SubscriptionsController < ApplicationController
 
 
 # Logic Of Subscribe For Transaction Completion Process
-  def paypal_checkout
-  	plan = Plan.find(params[:plan_id])
-  	subscription = plan.subscriptions.build
-    user = User.find_by_id(params[:user_id])
-    
-   # raise user.inspect
-  		redirect_to subscription.paypal.checkout_url(
-  			return_url: new_subscription_url(:plan_id => plan.id,:user_id => user.id, :price => plan.price),
-  			cancel_url: root_url
-  			)
 
+  def paypal_checkout
+  	plan = Plan.find(params[:plan_id])    
+  	subscription = plan.subscriptions.build
+    user = User.find_by_id(params[:user_id])    
+  	redirect_to subscription.paypal.checkout_url(
+  		return_url: new_subscription_url(:plan_id => plan.id,:user_id => user.id, :price => plan.price),
+  		cancel_url: root_url
+  		)
+  end
+
+   def history
+   @history = history
+   redirect_to root_path    
   end
 
 

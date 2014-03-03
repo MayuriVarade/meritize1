@@ -15,11 +15,7 @@ class SessionsController < ApplicationController
     	render 'new'
     else
        sign_in user
-       if params[:remember_me]
-          cookies.permanent[:auth_token] = user.auth_token
-      else
-         cookies[:auth_token] = user.auth_token  
-       end
+       
        count = current_user.sign_in_count
        tot_count = count + 1 
        user.update_column(:sign_in_count,tot_count)
