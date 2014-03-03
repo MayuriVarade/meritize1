@@ -91,9 +91,8 @@ class SubscriptionsController < ApplicationController
   		)
   end
 
-   def history
-   @history = history
-   redirect_to root_path    
+  def history
+      
   end
 
 

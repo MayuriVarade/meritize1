@@ -16,6 +16,7 @@
 <% if signed_in? %>
 		<li><%= link_to "Home", user_root_path %></li>
 		<li><%= link_to "Profile", current_user %></li>
+		<li><%= link_to "History", history_path %></li>
 	<% if current_user.role? :admin %>   
 		<li><%= link_to "Setting", settings_path %></li>
     <% end %> 		

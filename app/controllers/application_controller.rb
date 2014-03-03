@@ -8,16 +8,7 @@ class ApplicationController < ActionController::Base
       @remaining_days = (@plan_expiry - @current_date).to_i / 1.day
   end
 
-  def history
-    
-
-   # date = DateTime.now.utc   
-   # Subscription.where('created_at >= ? and created_at <= ?', date.beginning_of_month, date.utc.end_of_month).sum('price')
-    
-    # Subscription.where('created_at >= ? and created_at <= ?', startdate.beginning_of_month, enddate.utc.end_of_month).sum('price') 
-     
-     @subscription = Subscription.find(:all).group_by{|subscription| subscription.created_at.at_beginning_of_month}
-  end
+  
 
   private
   # this method for allows the user to set time zone according to country.

@@ -1,10 +1,19 @@
 <%= @history %>
-<!-- 
 
-    <% startdate = Time.now.beginning_of_month %>
-    <% enddate = Time.now.end_of_month %>   
-   <% @S = Subscription.select("price").where("created_at >=
-'#{startdate}' AND created_at <='#{enddate}' ") %>
- total_amount = <%= @S.sum(:price) %>
-<%= Subscription.where('created_at BETWEEN ? AND ? ', DateTime.now.beginning_of_month - 1.month, DateTime.now.beginning_of_month).sum(:price) %> -->
+
+<% startdate = Time.now.beginning_of_month %> 
+<% enddate = Time.now.end_of_month %> 
+<%= startdate.strftime("%e %b %Y") %> &nbsp TO
+&nbsp<%= enddate.strftime("%e %b %Y") %></br> 
+<% @a = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
+total_amount = <%= @a.sum(:price) %></br>
+
+
+
+</br> <% startdate = 1.months.ago.beginning_of_month %>
+<% enddate = 1.month.ago.end_of_month %>
+<%= startdate.strftime("%e %b %Y") %> &nbsp TO
+&nbsp<%= enddate.strftime("%e %b %Y") %></br> 
+<% @b = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
+total_amount = <%= @b.sum(:price) %></br>
 

@@ -1,23 +1,27 @@
     <!-- <%= @history %> -->
-  <% @subscription.keys.sort.each do |month| %>
-  <div class="month">
-    <h2>Month starting <%= month.to_s %></h2>
-    <!-- Total order quantity: <%= @subscription[month].collect(&:price).sum %> -->
-  </div>
-<% end %>
 
 
 
-
-    <% startdate = Time.now.beginning_of_month %>
-    <% enddate = Time.now.end_of_month %>   
-   <% @S = Subscription.select("price").where("created_at >=
-   '#{startdate}' AND created_at <='#{enddate}' ") %>
-   total_amount = <%= @S.sum(:price) %>
+  <!--  <%= startdate = Time.now.beginning_of_month %>&nbsp TO 
+   &nbsp<%= enddate = Time.now.end_of_month %></br>   
+   <% @a = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
+   total_amount = <%= @a.sum(:price) %></br>
 
 
-   <%= Subscription.where('created_at BETWEEN ? AND ? ', DateTime.now.beginning_of_month - 1.month, DateTime.now.beginning_of_month).sum(:price) %> 
 
+   </br><%= startdate = 1.months.ago.beginning_of_month %>&nbsp TO
+   &nbsp<%= enddate = 1.month.ago.end_of_month %></br>
+   <% @b = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
+   total_amount = <%= @b.sum(:price) %></br>
+
+
+ -->
+<!-- 
+   <% @b = Subscription.where('created_at BETWEEN ? AND ? ', DateTime.now.beginning_of_month - 1.month, DateTime.now.beginning_of_month) %> 
+   total_amount = <%= @b.sum(:price) %></br> -->
+
+
+<!-- 
  
   <% array ||= [] %>
   <% date = DateTime.now %>
@@ -31,7 +35,7 @@
   <%= array %>
 
 
-
+ -->
 
 
 <h1>Welcome to Dashbroad</h1>

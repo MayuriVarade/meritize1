@@ -19,7 +19,7 @@ class UsersController < ApplicationController
    def dashboard
       # @users = User.all
       @plans = Plan.all
-      @history = history
+      # @history = history
       @user = User.find_by_id(current_user)
       @plan_expiry = plan_expiry  
      
