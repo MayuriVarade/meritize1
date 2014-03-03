@@ -85,6 +85,15 @@ ActiveRecord::Schema.define(:version => 20140301125155) do
     t.datetime "updated_at",                     :null => false
     t.string   "paypal_recurring_profile_token"
     t.string   "token"
+    t.string   "price"
+    t.date     "date"
+    t.string   "total_amount"
+  end
+
+  create_table "trail_days", :force => true do |t|
+    t.integer  "days"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "trail_days", :force => true do |t|
