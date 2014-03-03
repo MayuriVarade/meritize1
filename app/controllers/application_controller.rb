@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_timezone
   include SessionsHelper
+  #Method for trial days 
   def plan_expiry
       @trial_days = TrialDay.first
       @plan_expiry = (current_user.created_at + @trial_days.days.days)

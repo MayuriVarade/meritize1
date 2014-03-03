@@ -12,6 +12,8 @@
      Plan.create(:name => "Applaud", :price => "0.50")
 	 Plan.create(:name => "Award", :price => "0.50")
      Plan.create(:name => "Alloy", :price => "1.00")
+     
+     TrialDay.create(:days =>"14")
 
 
      padmin = User.create(:username => 'productadmin', :email=> 'productadmin@padmin.com', :password => 'admin123!', :firstname => "padmin", 
