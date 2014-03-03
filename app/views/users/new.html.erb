@@ -1,11 +1,17 @@
-<% content_for :scripts do %>
-    <%= javascript_include_tag "application","jquery.validate.min", "validation" %>
-<% end %>
+  <% content_for :scripts do %>
+      <%= javascript_include_tag "application","jquery.validate.min", "validation" %>
+  <% end %>
+  <% if signed_in? %>
+     <h1>Add User</h1>
+  <% else %>
+
   <h1>Sign up</h1>
+  <% end %>
   <%= form_for(@user) do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
+    <% if signed_in?%>
       <div class="field">
-        <%= f.label :firstname %><br />
+        <%= f.label :firstname %><br/>
         <%= f.text_field :firstname %>
       </div>
       <div class="field">
@@ -20,24 +26,42 @@
       <%= f.label :companyname %><br />
       <%= f.text_field :companyname %>
       </div>
-
       <div class="field">
-      <%= f.label :hear_aboutus %><br />
-      <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3' %>
+      	        
+        <%= hidden_field_tag "user[role_ids][]", 3 %>
+        <%= f.hidden_field :admin_user_id ,:value => current_user.id %> 
+        <%= f.hidden_field :password ,:value => @random %>
+        <%= f.hidden_field :password_confirmation ,:value => @random %>     
+         
       </div>
-    <% if signed_in?%>
-        <div class="field">
-      	         
-           <%= hidden_field_tag "user[role_ids][]", 3 %>
-               
-        </div>
     <% else %>
+        <div class="field">
+          <%= f.label :firstname %><br/>
+          <%= f.text_field :firstname %>
+        </div>
+        <div class="field">
+          <%= f.label :lastname %><br />
+          <%= f.text_field :lastname %>
+        </div>
+        <div class="field">
+        <%= f.label :email %><br />
+        <%= f.text_field :email %>
+        </div>
+        <div class="field">
+        <%= f.label :companyname %><br />
+        <%= f.text_field :companyname %>
+        </div>
+        <div class="field">
+          <%= f.label :hear_aboutus %><br />
+          <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3' %>
+        </div>
         <div class = "field">
          <%= hidden_field_tag "user[role_ids][]", 2 %>
          <%= f.hidden_field :plan_id, :value => 3%>
          <%= f.hidden_field :plan_type, :value => "free"%>
          <%= f.hidden_field :password ,:value => @random %>
          <%= f.hidden_field :password_confirmation ,:value => @random %>
+          
         </div><br />
        
     <% end %>      

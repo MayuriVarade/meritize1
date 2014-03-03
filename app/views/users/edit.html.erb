@@ -12,12 +12,14 @@
 		<div class="field">
 			<%= f.label :lastname %><br />
 			<%= f.text_field :lastname %>
+			<%= f.hidden_field :fullname ,:value => @user.fullname %>
+
 		</div>
 		<div class="field">
 			<%= f.label :email %><br />
 			<%= f.text_field :email %>
 		</div>
-		<div class="field">
+			<div class="field">
 			<%= f.label "profile Logo" %><br/>
 			<%= f.file_field :photo %><br/>
 		</div><br/>
@@ -25,6 +27,10 @@
 			<%= f.label "Select time zone" %><br/>
 			<%= f.time_zone_select :time_zone %>
 		</div><br/>
+		<% if params[:type] == "adminuser" %>
+		<%= hidden_field_tag("page_name", "admin") %>
+		
+		<% end %>
 		<div class="actions">
 			<%= f.submit "Update" %>
 		</div>

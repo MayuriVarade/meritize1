@@ -7,6 +7,7 @@
 			<td class="sidebar round">
 				<strong>First Name </strong> <%= @user.firstname %><br/>
 				<strong>Last Name </strong> <%= @user.lastname %><br/>
+				
 				<% if current_user.photo.blank? %>
 				 	<strong>gravtar </strong><br/>
 				 	<%= image_tag avatar_url(@user) %><br/>
@@ -16,7 +17,12 @@
                 <% end %>
 			    <strong> Email  </strong>  <%= current_user.email %><br/>
 				<%= link_to 'General Setting', edit_user_path(current_user.id) %><br/>
-				<%= link_to 'change password', change_password_path%>
+				<%= link_to 'change password', change_password_path%><br/>
+
+				<% if current_user.role? :admin %>
+					<%= link_to 'Manage Users', admin_user_path%><br/>
+					<%= link_to 'Track Users', adminuser_logs_path%><br/>
+				<% end %>
 			</td>
 	</tr>
 

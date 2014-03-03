@@ -9,15 +9,14 @@ class ApplicationController < ActionController::Base
   end
 
   def history
-   # Subscription.where(:plan_id=>3).sum(:price)
-    # Subscription.sum(:price).to_s 
+    
 
    # date = DateTime.now.utc   
    # Subscription.where('created_at >= ? and created_at <= ?', date.beginning_of_month, date.utc.end_of_month).sum('price')
     
     # Subscription.where('created_at >= ? and created_at <= ?', startdate.beginning_of_month, enddate.utc.end_of_month).sum('price') 
      
-     # @subscription = Subscription.find(:all).group_by{|subscription| subscription.created_at.at_beginning_of_month}
+     @subscription = Subscription.find(:all).group_by{|subscription| subscription.created_at.at_beginning_of_month}
   end
 
   private
@@ -26,7 +25,9 @@ class ApplicationController < ActionController::Base
     tz = current_user ? current_user.time_zone : nil
     Time.zone = tz || ActiveSupport::TimeZone["UTC"]
   end	
-
+  def fullname
+  "#{firstname} #{lastname}"
+  end
 
 
 

@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140228111210) do
+ActiveRecord::Schema.define(:version => 20140301125155) do
+
+  create_table "adminuser_logs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "admin_user_id"
+    t.datetime "sign_in_time"
+    t.datetime "sign_out_time"
+    t.string   "ip_address"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "username"
+    t.string   "fullname"
+    t.string   "email"
+    t.string   "sign_in_count"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "payment_notifications", :force => true do |t|
     t.text     "params"
@@ -80,6 +96,12 @@ ActiveRecord::Schema.define(:version => 20140228111210) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "trial_days", :force => true do |t|
+    t.integer  "days"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "email"
@@ -105,6 +127,8 @@ ActiveRecord::Schema.define(:version => 20140228111210) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "time_zone",              :default => "UTC"
+    t.boolean  "status",                 :default => true
+    t.string   "fullname",               :default => "1"
   end
 
 end
