@@ -17,7 +17,6 @@ jQuery(function() {
 
 
 
-
 <div id="masthead">
   
   <div class="container">
@@ -41,7 +40,13 @@ jQuery(function() {
 <div id="content">
 
 <div class="container">
-  <div style="margin-bottom:10px"> <%= link_to "Add new User" , new_user_path,:class=>"btn btn-primary " %></div>
+    <section class="round">
+        <% flash.each do |key, value| %>
+      <div class="flash <%= key %>" style = "font-size:18px;"><%= value %></div>
+      <% end %>
+  </section>
+
+  <div style="margin-bottom:10px"> <%= link_to "Add new User" , new_user_path(:type =>"adminuser"),:class=>"btn btn-primary " %></div>
    <%= form_tag admin_user_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"}  do %>
      <%= text_field_tag :search, params[:search], :class=>"input-medium" %>
       <%= submit_tag "Search", :class_name => nil,:class=> "btn btn-primary",:style=> "margin-bottom:10px; padding:5px 10px" %>
