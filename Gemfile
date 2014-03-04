@@ -5,11 +5,16 @@ gem 'rails', '3.2.14'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+#Comment mysql2 gem while pushing the updates to server  
 gem 'mysql2'
+
+# Postgres gem used to create database on server
+gem 'pg'
 gem 'execjs'
 gem 'therubyracer'
 gem 'paperclip'
 gem 'impressionist'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -27,6 +32,7 @@ gem  'jquery-ui-rails'
 gem 'paypal-recurring'
 gem 'paypal-sdk-adaptivepayments'
 gem 'paypal-subscribe', :git => "git@github.com:dsci/paypal-subscribe.git"
+gem 'pg'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

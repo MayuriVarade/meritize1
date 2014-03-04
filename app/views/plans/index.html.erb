@@ -1,0 +1,175 @@
+
+
+
+<div id="masthead">
+	
+	<div class="container">
+		
+		<div class="masthead-pad">
+			
+			<div class="masthead-text">
+				<h2>Plan</h2>
+				
+			</div> <!-- /.masthead-text -->
+			
+		</div>
+		
+	</div> <!-- /.container -->	
+	
+</div> <!-- /#masthead -->
+
+
+
+
+<div id="content">
+
+	<div class="container">
+		
+		
+		<div class="row">
+			
+			<div class="span12">
+				
+				 
+				
+				
+				
+				<div class="pricing-plans plans-4">
+				
+				    <div class="plan-container">
+				        <div class="plan">
+					        <div class="plan-header">
+				                
+					        	
+				                
+					            <div class="plan-price">
+				                	Applaud<span class="term">&nbsp;</span>
+								</div> <!-- /plan-price -->
+								
+					        </div> <!-- /plan-header -->       
+					        
+					        <div class="plan-features">
+							<ul>					
+									<li><strong>Free</strong> setup</li>
+									<li><strong>20</strong> Website</li>
+									<li><strong>35</strong> Projects</li>
+									<li><strong>Unlimited</strong> Storage</li>
+									<li><strong>$150</strong> Google Adwords Credit</li>
+								</ul>
+							</div> <!-- /plan-features -->
+							
+									<div class="plan-actions">	
+							     <% a = @plans[0]%> 
+                                   <% @subscription = a.subscriptions.build %>
+							  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id, user_id: current_user.id), :class =>"btn" %>		
+							
+							</div>  
+							<!-- /plan-actions -->
+				
+						</div> <!-- /plan -->
+				    </div> <!-- /plan-container -->
+				    
+				    <div class="plan-container best-value">
+				        <div class="plan">
+					        <div class="plan-header">
+				                
+					        	
+				                
+					            <div class="plan-price">
+				                	Award<span class="term">&nbsp;</span>
+								</div> <!-- /plan-price -->
+								
+					        </div> <!-- /plan-header -->	          
+					        
+					        <div class="plan-features">
+								<ul>					
+									<li><strong>Free</strong> setup</li>
+									<li><strong>20</strong> Website</li>
+									<li><strong>35</strong> Projects</li>
+									<li><strong>Unlimited</strong> Storage</li>
+									<li><strong>$150</strong> Google Adwords Credit</li>
+								</ul>
+							</div> <!-- /plan-features -->
+							
+							<div class="plan-actions">	
+							     <% a = @plans[1]%> 
+                                   <% @subscription = a.subscriptions.build %>
+							  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id, user_id: current_user.id), :class =>"btn" %>		
+							
+							</div> <!-- /plan-actions -->
+				
+						</div> <!-- /plan -->
+				    </div> <!-- /plan-container -->
+				    
+				    <div class="plan-container">
+				        <div class="plan">
+				 
+					        <div class="plan-header">
+				                
+					        	
+				                
+					            <div class="plan-price">
+				                Alloy<span class="term">&nbsp;</span>
+								</div> <!-- /plan-price -->
+								
+					        </div> <!-- /plan-header -->	       
+					        
+					        <div class="plan-features">
+								<ul>
+									<li><strong>Free</strong> setup</li>
+									<li><strong>Unlimited</strong> Website</li>
+									<li><strong>Unlimited</strong> Projects</li>
+									<li><strong>Unlimited</strong> Storage</li>
+									<li><strong>$250</strong> Google Adwords Credit</li>
+								</ul>
+							</div> <!-- /plan-features -->
+							
+							<div class="plan-actions">
+								<%# raise @plans.inspect%>
+							   	       
+							   	        <% a = @plans[2]%> 
+                                   <% @subscription = a.subscriptions.build %>
+							  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id, user_id: current_user.id), :class =>"btn" %>		
+					
+								  			
+							</div> <!-- /plan-actions -->
+				   
+						</div> <!-- /plan -->
+						
+				    </div> <!-- /plan-container -->
+				   
+				</div>
+				
+			</div> <!-- /.span12 -->
+			
+		</div> <!-- /.row -->
+		
+		
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
+
+
+
+
+
+
+
+
+
+
+<script>
+
+$(function () {
+	
+	Theme.init ();
+	
+});
+
+</script>
+
+</body>
+</html>
+

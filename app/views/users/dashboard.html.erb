@@ -1,20 +1,21 @@
 
-<h1>Welcome to Dashbroad</h1>
-	<% if current_user.role? :productmanager %>
-  <ul>
-	 Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
-	 
-	  <li><%= link_to 'Manage Plans', plans_path %></li>
-	   <li><%= link_to 'Manage Trial days plan', edit_trial_day_path(@trial_days) %></li>
-	<% elsif current_user.role? :admin %>
-       Only <%= @plan_expiry %> days left for your trial plan. you can upgrade it by Subscribing below plan.
-	<% else %>
-	  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
-	  Email:<%= current_user.email %><br/>
-	<% end %>
-  </ul>
 
-  <div class="container" style="margin-top:60px">
+<div id="masthead">
+  
+  <div class="container">
+    
+    <div class="masthead-pad">
+      
+      <div class="masthead-text">
+        <h2>Dashbroad</h2>
+        
+      </div> <!-- /.masthead-text -->
+      
+    </div>
+    
+  </div> <!-- /.container --> 
+  
+</div> <!-- /#masthead -->
 
 
 

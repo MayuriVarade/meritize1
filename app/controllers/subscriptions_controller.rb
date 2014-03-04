@@ -92,7 +92,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def history
-      
+      render :layout=>"admin"
   end
 
 

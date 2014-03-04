@@ -1,22 +1,38 @@
-<%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
-  <% if @user.errors.any? %>
-    <div class="error_messages">
-      <h2>Form is invalid</h2>
-      <ul>
-        <% for message in @user.errors.full_messages %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="actions"><%= f.submit "Update Password" %></div>
-<% end %>
 
+<div class="container">
+      <div class="row header">
+        <div class="col-md-8 message">
+          <h3>Forgot Password ? </h3>
+                    
+           <%= form_for @user, :url => password_reset_path(params[:id]),:html =>{:id =>"contact-form"} do |f| %>
+            <% if @user.errors.any? %>
+              <div class="error_messages">
+                <h2>Form is invalid</h2>
+                <ul>
+                  <% for message in @user.errors.full_messages %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %> 
+            <div class="form-group">
+                <label for="name">Password</label>
+                
+                  <%= f.password_field :password ,:class=> "form-control"%>
+              </div>
+               <div class="form-group">
+                <label for="name">Password confirmation</label>
+                
+                  <%= f.password_field :password_confirmation ,:class=> "form-control"%>
+              </div>
+              
+              
+              <div class="submit">
+                <%= f.submit "Update Password",:class=>"button button-small" %>
+              
+              </div>
+          <% end %>
+        </div>
+        
+      </div>
+ </div>

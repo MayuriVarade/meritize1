@@ -1,32 +1,85 @@
-<table class="profile" summary="Profile Information"> 
-	<tr>
-		<td class ="main">
+
+<div id="masthead">
+	
+	<div class="container">
+		
+		<div class="masthead-pad">
 			
-
-			</td>
-			<td class="sidebar round">
-				<strong>First Name </strong> <%= @user.firstname %><br/>
-				<strong>Last Name </strong> <%= @user.lastname %><br/>
+			<div class="masthead-text">
+				<h2>User Profile</h2>
 				
-				<% if current_user.photo.blank? %>
-				 	<strong>gravtar </strong><br/>
-				 	<%= image_tag avatar_url(@user) %><br/>
-				<% else %>
-                	<strong>profile photo</strong> <br/>
-                	<%= image_tag @user.photo.url(:small) %><br/>
-                <% end %>
-			    <strong> Email  </strong>  <%= current_user.email %><br/>
-				<%= link_to 'General Setting', edit_user_path(current_user.id) %><br/>
-				<%= link_to 'change password', change_password_path%><br/>
-
-				<% if current_user.role? :admin %>
-					<%= link_to 'Manage Users', admin_user_path%><br/>
-					<%= link_to 'User Activities', adminuser_logs_path%><br/>
-				<% end %>
-			</td>
-	</tr>
-
-</table>
+			</div> <!-- /.masthead-text -->
+			
+		</div>
+		
+	</div> <!-- /.container -->	
+	
+</div> <!-- /#masthead -->
 
 
+
+
+<div id="content">
+
+	<div class="container">		
+		
+		<div class="row">
+		
+		<div class="span12">
+		
+				<h2>Edit Basic Settings</h2>
+							
+							
+							
+							<br />
+							
+							<table class="table table-bordered table-striped table-highlight">
+							
+							<tr>
+								<td colspan="2">
+									<% if current_user.photo.blank? %>
+				 						<strong>gravtar </strong><br/>
+				 						<%= image_tag avatar_url(@user) %><br/>
+									<% else %>
+					                	<strong>profile photo</strong> <br/>
+					                	<%= image_tag @user.photo.url(:small) %><br/>
+                					<% end %></td>
+							  </tr>
+							  
+								<tr>
+								<td>Username</td>
+								<td><%= @user.username %></td>
+							  </tr>
+							  <tr>
+								<td>First Name</td>
+								<td><%= @user.firstname %></td>
+							  </tr>
+							  <tr>
+								<td>Last Name</td>
+								<td><%= @user.lastname %></td>
+							  </tr>
+							  <tr>
+								<td>Email Address</td>
+								<td><%= @user.email %></td>
+							  </tr>
+							</table>
+							
+							
+							<div class="form-actions">
+										
+							<%= link_to 'Edit Profile', edit_user_path(current_user.id),:class=>"btn btn-primary btn-large" %>			
+										
+		  					</div>
+		</div>
+			
+			
+			
+		</div> <!-- /.row -->
+		
+		
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
 
