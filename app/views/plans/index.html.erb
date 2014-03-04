@@ -28,11 +28,51 @@
 			
 			<div class="span12" style="margin-left:150px">
 				
-				 
-				
-				
 				
 				<div class="pricing-plans plans-4">
+					 <% if current_user.role? :productmanager %> 
+					<div id="content">
+
+	                    <div class="container">
+      
+                       <table class="table table-bordered table-striped table-highlight">
+                            <thead>
+            <tr>
+             
+              <th>Name</th>
+              <th>price</th>
+               <th>description1</th>
+                <th>description1</th>
+                 <th>description1</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          	<% @plans.each do |plan| %>
+
+         
+            <tr>
+                   <td><%= plan.name %></td>
+                   <td><%= plan.price %></td>
+                   <td><%= plan.description1 %></td>
+                   <td><%= plan.description2 %></td>
+                   <td><%= plan.description3 %></td>
+                   <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
+                   <td><%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+                <% end %>
+         
+          </tbody>
+        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
+      </div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
+
+			<% else current_user.role? :admin%>
+
 				
 				    <div class="plan-container">
 				        <div class="plan">
@@ -61,7 +101,7 @@
                                         Analyze participation
                                         View reports
 									</li>
-									<li><strong>$0.50</strong>per month per active user
+									<li><strong>$0.50</strong> per month per active user
                                         Pay only for users that login and use Meritize</li>
 									 
 								</ul>
@@ -157,7 +197,7 @@
 						</div> <!-- /plan -->
 						
 				    </div> <!-- /plan-container -->
-				   
+				   <% end %>
 				</div>
 				
 			</div> <!-- /.span12 -->

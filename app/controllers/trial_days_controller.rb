@@ -1,5 +1,7 @@
 class TrialDaysController < ApplicationController
+=
    before_filter :authenticate, :only => [:edit, :update,:show,:new,:index]
+
   layout "admin"
   # GET /trial_days
   # GET /trial_days.json

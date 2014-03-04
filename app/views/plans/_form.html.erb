@@ -1,25 +1,116 @@
-<%= form_for(@plan) do |f| %>
-  <% if @plan.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@plan.errors.count, "error") %> prohibited this plan from being saved:</h2>
 
-      <ul>
-      <% @plan.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+
+
+
+
+
+
+
+<div id="masthead">
+  
+  <div class="container">
+    
+    <div class="masthead-pad">
+      
+      <div class="masthead-text">
+        <h2>Manage Plans</h2>
+        
+      </div> <!-- /.masthead-text -->
+      
     </div>
-  <% end %>
+    
+  </div> <!-- /.container --> 
+  
+</div> <!-- /#masthead -->
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :price %><br />
-    <%= f.text_field :price %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+
+
+
+<div id="content">
+
+  <div class="container">   
+    
+    <div class="row">
+    
+    <div class="span12">
+    
+        
+              
+              
+              
+              
+              
+              
+              <%= form_for (@plan) do |f|  %>   
+                <fieldset>
+                  
+                  
+                  
+                  <div class="control-group">                     
+                    <label for="firstname" class="control-label">Plan name</label>
+                    <div class="controls">
+                      
+                      <%= f.text_field :name ,:class=>"input-medium" %>   
+                    </div> <!-- /controls -->       
+                  </div> <!-- /control-group -->
+                  
+                  
+                  <div class="control-group">                     
+                    <label for="lastname" class="control-label">Price</label>
+                    <div class="controls">
+                      <%= f.text_field :price,:class=>"input-medium" %>
+                      <span id="passstrength" class="help-block">
+                    </div> <!-- /controls -->       
+                  </div> <!-- /control-group -->
+                  
+                  
+                  <div class="control-group">                     
+                    <label for="email" class="control-label">Description1</label>
+                    <div class="controls">
+                      <%= f.text_field :description1,:class=>"input-medium" %>
+                     
+                      
+                    </div> <!-- /controls -->       
+                  </div> <!-- /control-group -->
+                  
+                  
+                
+                    <div class="control-group">                     
+                    <label for="email" class="control-label">Description2</label>
+                    <div class="controls">
+                      <%= f.text_field :description1,:class=>"input-medium" %>
+                     
+                      
+                    </div> <!-- /controls -->       
+                  </div>
+                  
+                  
+                  
+                    <div class="control-group">                     
+                    <label for="email" class="control-label">Description3</label>
+                    <div class="controls">
+                      <%= f.text_field :description1,:class=>"input-medium" %>
+                     
+                      
+                    </div> <!-- /controls -->       
+                  </div>
+          
+                  <div class="form-actions">
+                     <%= f.submit 'Update',:class=> "btn btn-primary btn-large"%>
+                    
+                  </div> <!-- /form-actions -->
+                </fieldset>
+              <% end %>
+              
+              
+              
+    </div>
+      
+      
+      
+    </div> <!-- /.row -->
+    
+    
+  </div> <!-- /.container -->
+
+</div> <!-- /#content -->

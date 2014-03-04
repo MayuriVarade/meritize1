@@ -1,7 +1,9 @@
 class SubscriptionsController < ApplicationController
+
    before_filter :authenticate, :only => [:edit, :update,:show,:new,:index]
 
  layout "admin"
+
   def index
   	@subscriptions = Subscription.all
     
