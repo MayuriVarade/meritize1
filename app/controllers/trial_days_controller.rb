@@ -1,5 +1,5 @@
 class TrialDaysController < ApplicationController
-
+=
    before_filter :authenticate, :only => [:edit, :update,:show,:new,:index]
 
   layout "admin"
