@@ -1,23 +1,23 @@
-//  $ for server side validation for sign_up.
-  $(document).ready(function() {
+//  jQuery for server side validation for sign_up.
+  jQuery(document).ready(function() {
    
-//  $ for server side validation password strength.
+//  jQuery for server side validation password strength.
 
-	$('#change_password_new_password').keyup(function(e) {
-     var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
-     var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+	jQuery('#change_password_new_password').keyup(function(e) {
+     var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*jQuery", "g");
+     var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*jQuery", "g");
      var enoughRegex = new RegExp("(?=.{6,}).*", "g");
-     if (false == enoughRegex.test($(this).val())) {
-             $('#passstrength').html('Password is too short (minimum is 6 characters)');
-     } else if (strongRegex.test($(this).val())) {
-             $('#passstrength').className = 'ok';
-             $('#passstrength').html('Strong!');
-     } else if (mediumRegex.test($(this).val())) {
-             $('#passstrength').className = 'alert';
-             $('#passstrength').html('Medium!');
+     if (false == enoughRegex.test(jQuery(this).val())) {
+             jQuery('#passstrength').html('Password is too short (minimum is 6 characters)');
+     } else if (strongRegex.test(jQuery(this).val())) {
+             jQuery('#passstrength').className = 'ok';
+             jQuery('#passstrength').html('Strong!');
+     } else if (mediumRegex.test(jQuery(this).val())) {
+             jQuery('#passstrength').className = 'alert';
+             jQuery('#passstrength').html('Medium!');
      } else {
-             $('#passstrength').className = 'error';
-             $('#passstrength').html('Weak!');
+             jQuery('#passstrength').className = 'error';
+             jQuery('#passstrength').html('Weak!');
      }
      return true;
 	});

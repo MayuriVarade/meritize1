@@ -1,80 +1,148 @@
-	<div class="container">
-			<div class="row header">
-				<div class="col-md-8 message">
-					<h3>Profile</h3>
-					<p>
-						A little bit about me
-					</p>
+
+
+	<div id="masthead">
+		
+		<div class="container">
+			
+			<div class="masthead-pad">
+				
+				<div class="masthead-text">
+					<h2>Edit Profile</h2>
 					
-				<%= form_for @user, :html => {:multipart => true,:id =>"contact-form" } do |f|%>	
-					<%= render 'shared/error_messages', :object => f.object %>
-					<img src="https://app.divshot.com/img/placeholder-100x100.gif">&nbsp;&nbsp;
-         			 Upload photo <%= f.file_field :photo,:class => "button button-small" %></a>
-		          		  
-						<div class="form-group">
-				    		<label for="name">User Name</label>
-				    		
-				    		<%= f.text_field :username ,:class=> "form-control"%>
-				  		</div>
-				  		<div class="form-group">
-				    		<label for="email">First Name</label>
-				    		<%= f.text_field :firstname,:class=> "form-control" %>
-				  		</div>
-				  		<div class="form-group">
-				    		<label for="email">Last Name</label>
-				    		<%= f.text_field :lastname,:class=> "form-control" %>
-				  		</div>
-				  		<div class="form-group">
-				    		<label for="phone">Email address</label>
-				    		<%= f.text_field :email,:class=> "form-control" %>
-				  		</div>
-				  		<div class="form-group">
-				    		<label for="phone">Password</label>
-				    		<%= f.text_field :password,:class=> "form-control" %>
-				  		</div>
-				  		<div class="form-group">
-				    		<label for="phone">Password confirmation</label>
-				    		<%= f.text_field :password_confirmation,:class=> "form-control" %>
-				    		<% if params[:type] == "adminuser" %>
-								<%= hidden_field_tag("page_name", "admin") %>
-							<% end %>
-				  		</div>
-				  		
-				  		<div class="form-group">
-				    		<label for="message">Timezone</label>
-				    		
-							 <%= f.time_zone_select :time_zone %>
-							
-							<span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span>
-							
-							
-							          <label class="form-label">Email notifications</label>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" checked="checked">Yes, send me emails as soon as I get Props</label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" checked="checked">Yes, remind me if I haven't given Props to someone else in a while</label>
-          </div>
-          <div checked="checked" class="checkbox">
-            <label>
-              <input type="checkbox" checked="checked">Yes, remind me when it's time to vote</label>
-          </div>
-							
-							
-				  		</div>
-				  		<div class="submit">
-				  			
-				  			<%= f.submit "Save changes to my profile",:class=>"button button-small" %>
-				  		</div>
-			<% end %>
-				</div>
+				</div> <!-- /.masthead-text -->
 				
 			</div>
 			
-			
-			
-			
-		</div>
+		</div> <!-- /.container -->	
+		
+	</div> <!-- /#masthead -->
 
+
+
+
+	<div id="content">
+
+		<div class="container">		
+			
+			<div class="row">
+			
+			<div class="span12">
+			
+					
+								
+								
+								
+								
+								
+						<%= form_for @user, :html => {:multipart => true,:id =>"contact-form",:class=>"form-horizontal" } do |f|%>	
+						<%= render 'shared/error_messages', :object => f.object %>
+									<fieldset>
+										<img src="https://app.divshot.com/img/placeholder-100x100.gif">&nbsp;&nbsp;
+         			 					Upload photo <%= f.file_field :photo,:class => "button button-small" %></a>
+										<div class="control-group">											
+											<label for="username" class="control-label">Username</label>
+											<div class="controls">
+												
+												<%= f.text_field :username ,:class=> "input-medium disabled"%>
+												
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										<div class="control-group">											
+											<label for="username" class="control-label">Firstname</label>
+											<div class="controls">
+												
+												<%= f.text_field :firstname,:class=> "input-medium disabled" %>
+												
+											</div> <!-- /controls -->				
+										</div>
+										<div class="control-group">											
+											<label for="username" class="control-label">Lastname</label>
+											<div class="controls">
+												
+												<%= f.text_field :lastname,:class=> "input-medium disabled" %>
+												
+											</div> <!-- /controls -->				
+										</div>
+										
+										<div class="control-group">											
+											<label for="firstname" class="control-label">Email Address</label>
+											<div class="controls">
+												<%= f.text_field :email,:class=> "input-medium disabled" %>
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label for="lastname" class="control-label">Password</label>
+											<div class="controls">
+												<%= f.text_field :password,:class=> "input-medium " %>
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										<div class="control-group">											
+											<label for="lastname" class="control-label">Password confirmation</label>
+											<div class="controls">
+												<%= f.text_field :password_confirmation,:class=> "input-medium " %>
+											<% if params[:type] == "adminuser" %>
+												<%= hidden_field_tag("page_name", "admin") %>
+											<% end %>	
+											</div> <!-- /controls -->				
+										</div>
+										
+										<div class="control-group">											
+											<label for="email" class="control-label">Time Zone</label>
+											<div class="controls">
+												 <%= f.time_zone_select :time_zone %>
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span>
+										
+										
+										
+										<label class="form-label">Email notifications</label>
+	          <div class="checkbox">
+	            <label>
+	              <input type="checkbox" checked="checked">Yes, send me emails as soon as I get Props</label>
+	          </div>
+	          <div class="checkbox">
+	            <label>
+	              <input type="checkbox" checked="checked">Yes, remind me if I haven't given Props to someone else in a while</label>
+	          </div>
+	          <div checked="checked" class="checkbox">
+	            <label>
+	              <input type="checkbox" checked="checked">Yes, remind me when it's time to vote</label>
+	          </div>
+			  
+			 
+										
+										
+										
+										
+										
+										
+										
+											
+											<br>
+										
+											
+										<div class="form-actions">
+											
+										<%= f.submit "Save changes to my profile",:class=>"btn btn-primary btn-large" %>	
+											
+										</div> <!-- /form-actions -->
+									</fieldset>
+								<% end %>
+								
+								
+								
+			</div>
+				
+				
+				
+			</div> <!-- /.row -->
+			
+			
+		</div> <!-- /.container -->
+
+	</div> <!-- /#content -->
