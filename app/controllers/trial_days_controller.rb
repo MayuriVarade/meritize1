@@ -1,4 +1,5 @@
 class TrialDaysController < ApplicationController
+  
   layout "admin"
   # GET /trial_days
   # GET /trial_days.json

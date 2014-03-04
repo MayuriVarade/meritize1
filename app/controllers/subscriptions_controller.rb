@@ -1,5 +1,6 @@
 class SubscriptionsController < ApplicationController
- layout "admin"
+
+  layout "admin"
   def index
   	@subscriptions = Subscription.all
     

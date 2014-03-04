@@ -1,4 +1,5 @@
 class PlansController < ApplicationController
+  
   layout "admin"
   # GET /plans
   # GET /plans.json
