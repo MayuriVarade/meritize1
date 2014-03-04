@@ -1,21 +1,26 @@
 <%= form_for(@trial_day) do |f| %>
   <% if @trial_day.errors.any? %>
-    <div id="error_explanation">
+    <div class="control-group"> 
       <h2><%= pluralize(@trial_day.errors.count, "error") %> prohibited this trial_day from being saved:</h2>
-
+<div class="controls">
       <ul>
       <% @trial_day.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
+       </div>
     </div>
   <% end %>
 
-  <div class="field">
+     <div class="control-group"> 
     <%= f.label :days %><br />
+    <div class="controls">
     <%= f.number_field :days %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+<div class="form-actions",style="background-image: linear-gradient(to bottom, #A0C277, #7DA64B)">
+   <%= f.submit 'Update Trial Days',:class=> "btn btn-primary btn-large"%>
+  </div> 
+
+
 <% end %>

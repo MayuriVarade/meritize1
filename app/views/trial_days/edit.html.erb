@@ -1,6 +1,14 @@
-<h1>Editing trial_day</h1>
+<!-- Manage Trial Days -->
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @trial_day %> |
-<%= link_to 'Back', trial_days_path %>
+<div class="container">
+			<div class="row header">
+				<div class="col-md-8 message">
+				     <div class="form-group">
+				    		<label for="name"><h3>Manage Trial Days</h3></label>
+				    		        <%= render 'form' %>
+                                    <%= link_to 'Show', @trial_day %> |
+                                    <%= link_to 'Back', trial_days_path %>
+				  	 </div>
+		         </div>
+		    </div>
+</div>
