@@ -10,15 +10,28 @@
     <div class="masthead-pad">
       
       <div class="masthead-text">
-        <h2>Dashboard</h2>
-        <p>You are currently working on 4 projects, with 23 total tasks.</p>
+        <h2>Welcome to Dashbroad</h2>
+        <% if current_user.role? :productmanager %>
+           <ul>
+               Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
+   
+             <li><%= link_to 'Manage Plans', plans_path %></li>
+              <li><%= link_to 'Manage Trial days plan', new_trial_day_path %></li>
+          <% elsif current_user.role? :admin %>
+            Only <%= @plan_expiry %> days left for your trial plan.You can upgrade it by Subscribing below plan.
+         <% else %>
+           User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
+           Email:<%= current_user.email %><br/>
+        <% end %>
+             </ul>
+
+        
       </div> <!-- /.masthead-text -->
     </div>
   </div> 
   <!-- /.container -->  
   
 </div> <!-- /#masthead -->
-
 
 
 

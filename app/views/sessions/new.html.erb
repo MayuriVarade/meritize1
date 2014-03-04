@@ -15,7 +15,7 @@
 					<div class="formy">
 						<div class="row">
 							<div class="col-md-12">
-								<%= form_for(:session, :url => sessions_path) do |f| %>
+								<%= form_for(:session, :url => sessions_path,:html => {:id=>"signin" } ) do |f| %>
 							  		<div class="form-group">
 							    		<label for="email">Email address</label>
 							    		<%= f.text_field :email, :class => "form-control" %>

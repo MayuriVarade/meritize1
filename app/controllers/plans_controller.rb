@@ -1,5 +1,7 @@
 class PlansController < ApplicationController
-  
+
+  before_filter :authenticate, :only => [:edit, :update,:show,:new,:index]
+
   layout "admin"
   # GET /plans
   # GET /plans.json
@@ -16,20 +18,10 @@ class PlansController < ApplicationController
     end
   end
 
-
-  # def create
-  #   @plan = Plan.new(params[:plan])
-  #   UserMailer.welcome_email(@plan).deliver
-  #   respond_to do |format|
-  #     if @plan.save
-  #       format.html { redirect_to @plan, notice: 'Plan was successfully created.' }
-  #       format.json { render json: @plan, status: :created, location: @plan }
-  #     else
-  #       format.html { render action: "new" }
-  #       format.json { render json: @plan.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  private
+    def authenticate
+      deny_access unless signed_in?
+    end
 
   
 end

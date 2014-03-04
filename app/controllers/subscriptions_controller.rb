@@ -1,6 +1,9 @@
 class SubscriptionsController < ApplicationController
 
-  layout "admin"
+   before_filter :authenticate, :only => [:edit, :update,:show,:new,:index]
+
+ layout "admin"
+
   def index
   	@subscriptions = Subscription.all
     
@@ -103,5 +106,11 @@ class SubscriptionsController < ApplicationController
   	 def paypal
   	 	PaypalPayment.new(self)
   	 end
+     
+    def authenticate
+      deny_access unless signed_in?
+    end
+
+
 end
 

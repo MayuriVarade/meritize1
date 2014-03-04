@@ -1,6 +1,6 @@
  <!-- SignUp page -->
 
-    <%= form_for(@user) do |f| %>
+    <%= form_for @user ,:html => {:multipart => true,:id =>"new_user",:class=>"form-horizontal" } do |f| %>
    
         <% if signed_in?%>
 
