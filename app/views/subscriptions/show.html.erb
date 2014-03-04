@@ -1,14 +1,71 @@
 
-<p id="notice"><%= notice %></p>
+<div id="masthead">
+	
+	<div class="container">
+		
+		<div class="masthead-pad">
+			
+			<div class="masthead-text">
+				<h2></h2>
+				
+			</div> <!-- /.masthead-text -->
+			
+		</div>
+		
+	</div> <!-- /.container -->	
+	
+</div> <!-- /#masthead -->
 
 
 
-<p>
-  <b>Email:</b>
-  <%= @subscription.email %>
-</p>
+
+<div id="content">
+
+	<div class="container">
+      
+       <table class="table table-bordered table-striped table-highlight">
+          <thead>
+            <tr>
+             
+              <th>Email</th>
+              <th></th>
+              
+            </tr>
+          </thead>
+          <tbody>
+                  <tr>
+                  	
+                  <td> <%= @subscription.email %></td>
+                  <td>"Thank you for subscribing!"</td>
+              </tr>
+          
+        </table> <%= link_to 'Plans', plans_path, :class =>"btn btn-primary btn-large" %>
+
+
+      </div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
 
 
 
-<%= link_to 'Back', subscriptions_path %>
-<%= link_to 'Plans', root_path %>
+
+<script>
+
+$(function () {
+	
+	Theme.init ();
+	
+});
+
+</script>
+
+
+
+
+
+
+
+
+

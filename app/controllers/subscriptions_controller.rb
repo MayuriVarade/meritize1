@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
- 
+ layout "admin"
   def index
   	@subscriptions = Subscription.all
     
@@ -38,7 +38,7 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.new(params[:subscription])    
     if @subscription.save_with_payment
       
-      # UserMailer.welcome_email(@subscription).deliver
+      UserMailer.welcome_email(@subscription).deliver
       redirect_to @subscription, :notice => "Thank you for subscribing!"
     else
       render :new
