@@ -1,0 +1,195 @@
+<!-- Select Plan From This Page -->
+<div id="masthead">
+	
+	<div class="container">
+		
+		<div class="masthead-pad">
+			
+			<div class="masthead-text">
+				<h2>Plan</h2>
+				
+			</div> <!-- /.masthead-text -->
+			
+		</div>
+		
+	</div> <!-- /.container -->	
+	
+</div> <!-- /#masthead -->
+
+
+
+
+<div id="content">
+
+	<div class="container">
+		
+		
+		<div class="row">
+			
+			<div class="span12">
+				
+				 
+				
+				
+				
+				<div class="pricing-plans plans-4">
+				
+				    <div class="plan-container">
+				        <div class="plan">
+					        <div class="plan-header">
+				                
+					        	
+				                
+					            <div class="plan-price">
+				                	Applaud<span class="term">&nbsp;</span>
+								</div> <!-- /plan-price -->
+								
+					        </div> <!-- /plan-header -->       
+					        
+					        <div class="plan-features">
+							<ul>					
+									<li>Send props
+                                        Grant points when you send props
+                                        Join in on props by others
+                                        See a stream of props
+                                        See previous winners
+                                        See who is giving you props
+                                        See a Wall-of-Winners</li>
+									<li>Select a winner
+                                        Choose to have points expire
+                                        Send automated reminders to users
+                                        Analyze participation
+                                        View reports
+									</li>
+									<li><strong>$0.50</strong>per month per active user
+                                        Pay only for users that login and use Meritize</li>
+									 
+								</ul>
+							</div> <!-- /plan-features -->
+							
+									<div class="plan-actions">	
+							     <% a = @plans[0]%> 
+                                   <% @subscription = a.subscriptions.build %>
+							  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id, user_id: current_user.id), :class =>"btn" %>		
+							
+							</div>  
+							<!-- /plan-actions -->
+				
+						</div> <!-- /plan -->
+				    </div> <!-- /plan-container -->
+				    
+				    <div class="plan-container best-value">
+				        <div class="plan">
+					        <div class="plan-header">
+				                
+					        	
+				                
+					            <div class="plan-price">
+				                	Award<span class="term">&nbsp;</span>
+								</div> <!-- /plan-price -->
+								
+					        </div> <!-- /plan-header -->	          
+					        
+					        <div class="plan-features", style="padding-bottom: 4.5em;">
+								<ul>					
+									<li>Vote for a winner
+                                        Pick company core values when voting
+                                        See previous winners
+                                        See who you have voted for
+                                        See a Wall-of-Winners</li>
+									<li>Select a winner
+                                        Control who can be voted for
+                                        Send automated reminders to users
+                                        Analyze participation
+                                        View reports</li>
+									<li><strong>$0.50</strong> per month per active user
+                                        Pay only for users that login and use Meritize</li>
+									
+								</ul>
+							</div> <!-- /plan-features -->
+							
+							<div class="plan-actions">	
+							     <% a = @plans[1]%> 
+                                   <% @subscription = a.subscriptions.build %>
+							  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id, user_id: current_user.id), :class =>"btn" %>		
+							
+							</div> <!-- /plan-actions -->
+				
+						</div> <!-- /plan -->
+				    </div> <!-- /plan-container -->
+				    
+				    <div class="plan-container">
+				        <div class="plan">
+				 
+					        <div class="plan-header">
+				                
+					        	
+				                
+					            <div class="plan-price">
+				                Alloy<span class="term">&nbsp;</span>
+								</div> <!-- /plan-price -->
+								
+					        </div> <!-- /plan-header -->	       
+					        
+					        <div class="plan-features", style="padding-bottom: 8em;">
+								<ul>
+									<li>Props and Voting
+                                        Everything in the Applaud
+                                        and the Award plans </li>
+									<li>Everything in the Applaud
+                                        and the Award plans</li>
+									<li><strong>$1.00 </strong>per month per active user
+                                        Pay only for users that login and use Meritize</li>
+									
+								</ul>
+							</div> <!-- /plan-features -->
+							
+							<div class="plan-actions">
+								<%# raise @plans.inspect%>
+							   	       
+							   	        <% a = @plans[2]%> 
+                                   <% @subscription = a.subscriptions.build %>
+							  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id, user_id: current_user.id), :class =>"btn" %>		
+					
+								  			
+							</div> <!-- /plan-actions -->
+				   
+						</div> <!-- /plan -->
+						
+				    </div> <!-- /plan-container -->
+				   
+				</div>
+				
+			</div> <!-- /.span12 -->
+			
+		</div> <!-- /.row -->
+		
+		
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
+
+
+
+
+
+
+
+
+
+
+<script>
+
+$(function () {
+	
+	Theme.init ();
+	
+});
+
+</script>
+
+</body>
+</html>
+
