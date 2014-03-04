@@ -3790,13 +3790,13 @@ a:focus, button:focus {
               font-weight: 400; }
   #signup .already-account {
     text-align: center;
-    color: #fff;
+    color: #333;
     margin-top: 25px;
     margin-bottom: 70px;
     font-size: 13px;
     font-weight: 500; }
     #signup .already-account a {
-      color: #fff;
+      color: #333;
       text-decoration: underline; }
     #signup .already-account .popover-content {
       color: #000;

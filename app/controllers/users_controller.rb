@@ -88,6 +88,13 @@ class UsersController < ApplicationController
     end
    end
 
+    def destroy
+      @user = User.find(params[:id])
+      @user.destroy
+      flash[:notice] = "Successfully destroyed user."
+      redirect_to  admin_user_path
+    end
+
    def change_password
 
     @user = User.find(current_user.id)
@@ -111,13 +118,7 @@ class UsersController < ApplicationController
           render :action => 'change_password'
       end
     end
-     def destroy
-      @user = User.find(params[:id])
-      @user.destroy
-      flash[:notice] = "Successfully destroyed user."
-      redirect_to  admin_user_path
-     end
-    
+     
 
    end
   
@@ -158,6 +159,8 @@ class UsersController < ApplicationController
           when "admin_user"
           "admin" 
           when "adminuser_logs"
+          "admin"
+          when "add_adminuser"
           "admin"
          else
           "application"
