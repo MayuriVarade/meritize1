@@ -37,13 +37,12 @@
       
                        <table class="table table-bordered table-striped table-highlight">
                             <thead>
-            <tr>
-             
-              <th>Name</th>
-              <th>price</th>
-               <th>description1</th>
-                <th>description1</th>
-                 <th>description1</th>
+                           <tr>
+                  <th>Name</th>
+                  <th>price</th>
+                  <th>description1</th>
+                  <th>description2</th>
+                 <th>description3</th>
               <th></th>
               <th></th>
             </tr>
@@ -64,7 +63,7 @@
                 <% end %>
          
           </tbody>
-        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
+        </table>
       </div> <!-- /.container -->
 
 </div> <!-- /#content -->
@@ -72,7 +71,7 @@
 </div> <!-- /#wrapper -->
 
 			<% else current_user.role? :admin%>
-
+                      	
 				
 				    <div class="plan-container">
 				        <div class="plan">
@@ -87,23 +86,11 @@
 					        </div> <!-- /plan-header -->       
 					        
 					        <div class="plan-features">
-							<ul>					
-									<li>Send props
-                                        Grant points when you send props
-                                        Join in on props by others
-                                        See a stream of props
-                                        See previous winners
-                                        See who is giving you props
-                                        See a Wall-of-Winners</li>
-									<li>Select a winner
-                                        Choose to have points expire
-                                        Send automated reminders to users
-                                        Analyze participation
-                                        View reports
-									</li>
-									<li><strong>$0.50</strong> per month per active user
-                                        Pay only for users that login and use Meritize</li>
-									 
+							<ul>	  <% a = @plans[0]%> 			
+									<li><%= a.description1 %></li>
+									<li><%= a.description2 %></li>
+									<li><%= a.description3 %></li>
+									     
 								</ul>
 							</div> <!-- /plan-features -->
 							
@@ -119,6 +106,7 @@
 				    </div> <!-- /plan-container -->
 				    
 				    <div class="plan-container best-value">
+
 				        <div class="plan">
 					        <div class="plan-header">
 				                
@@ -131,20 +119,11 @@
 					        </div> <!-- /plan-header -->	          
 					        
 					        <div class="plan-features", style="padding-bottom: 4.5em;">
-								<ul>					
-									<li>Vote for a winner
-                                        Pick company core values when voting
-                                        See previous winners
-                                        See who you have voted for
-                                        See a Wall-of-Winners</li>
-									<li>Select a winner
-                                        Control who can be voted for
-                                        Send automated reminders to users
-                                        Analyze participation
-                                        View reports</li>
-									<li><strong>$0.50</strong> per month per active user
-                                        Pay only for users that login and use Meritize</li>
-									
+								<ul>	 <% a = @plans[1]%> 				
+									<li><%= a.description1 %></li>
+									<li><%= a.description2 %></li>
+									<li><%= a.description3 %></li>
+								
 								</ul>
 							</div> <!-- /plan-features -->
 							
@@ -172,14 +151,10 @@
 					        </div> <!-- /plan-header -->	       
 					        
 					        <div class="plan-features", style="padding-bottom: 8em;">
-								<ul>
-									<li>Props and Voting
-                                        Everything in the Applaud
-                                        and the Award plans </li>
-									<li>Everything in the Applaud
-                                        and the Award plans</li>
-									<li><strong>$1.00 </strong>per month per active user
-                                        Pay only for users that login and use Meritize</li>
+								<ul>	 <% a = @plans[2]%> 
+									<li><%= a.description1%></li>
+									<li><%= a.description2 %></li>
+									<li><%= a.description3 %></li>
 									
 								</ul>
 							</div> <!-- /plan-features -->
@@ -198,6 +173,7 @@
 						
 				    </div> <!-- /plan-container -->
 				   <% end %>
+
 				</div>
 				
 			</div> <!-- /.span12 -->

@@ -5,10 +5,11 @@ Meritize::Application.routes.draw do
   resources :settings  
   resources :subscriptions
   
-    get "/plan" => "subscriptions#plan"
+    
     get "paypal/checkout", to: 'subscriptions#paypal_checkout'
 
   resources :plans
+
     get "password_resets/new"
     match '/change_password', :controller => 'users', :action => 'change_password'
     resources :users 
@@ -27,6 +28,8 @@ Meritize::Application.routes.draw do
     match  '/users/:id/edit',  :to => "users#edit" 
     match '/signout', :to =>'sessions#destroy'
   resources :password_resets
+
+  get "/plan" => "subscriptions#plan"
   
 
 

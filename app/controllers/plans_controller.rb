@@ -63,11 +63,11 @@ def show
   # PUT /plans/1.json
   def update
     @plan = Plan.find(params[:id])
-
+    
     respond_to do |format|
       if @plan.update_attributes(params[:plan])
 
-        format.html { redirect_to @plan, notice: 'Plan was successfully updated.' }
+        format.html { redirect_to plans_path, notice: 'Plan was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
