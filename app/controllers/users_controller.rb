@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
    def admin_user
         @searchuser ||= [] 
-        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname or lastname or fullname LIKE ?", "%#{params[:search]}%"])
+        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname or lastname LIKE ?", "%#{params[:search]}%"])
         @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
    end
    def adminuser_logs
        @searchuser ||= [] 
-       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname or lastname or fullname LIKE ?", "%#{params[:search]}%"])
+       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname or lastname LIKE ?", "%#{params[:search]}%"])
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
