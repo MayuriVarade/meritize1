@@ -22,5 +22,34 @@
      return true;
 	});
 
+
+        jQuery("#signin").validate({
+        errorElement:'span',
+        rules: {
+            "session[email]":{
+                          required: true,
+                          email: true
+                         },
+         
+        
+          "session[password]":{
+                                  required: true,
+                                 }
+
+            },
+        messages: {
+            "session[email]":{
+                         required:  "Please enter the field",
+                         email   :  "Please enter Valid Email Id"
+                         },
+        
+        
+             "session[password]":{
+                              required:"Please enter field"
+                             }                    
+            }
+        });
+
+
  
 });

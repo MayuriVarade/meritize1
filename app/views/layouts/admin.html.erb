@@ -16,10 +16,10 @@
 	
 	
 	
-
-    <%= javascript_include_tag "application","modernizr-2.5.3.min.js" %>
-	<%= stylesheet_link_tag "font-awesome.css","bootstrap.css","bootstrap-responsive.css","jquery-ui-1.8.21.custom.css","application1.css" %>
-		
+    <%= javascript_include_tag "application","jquery","bootstrap", "jquery_002","theme","modernizr-2.5.3.min.js" %>
+   	<%= stylesheet_link_tag "font-awesome.css","bootstrap.css","bootstrap-responsive.css","jquery-ui-1.8.21.custom.css","application1.css" %>
+	<%= yield :scripts %>
+    <%= yield :styles %>	
  
 </head>
 
@@ -192,8 +192,9 @@
 						<b class="caret"></b>					</a>	
 				
 					<ul class="dropdown-menu">							
-						<li><a href="/plans">Plan</a></li>
-						<li><a href="/history">History</a></li>
+						<li><a href="#">Plan</a></li>
+						<li><a href="#">Payment</a></li>
+						<li><a href="#">History</a></li>
 
 					</ul>    				
 				</li>
@@ -203,7 +204,6 @@
 		</div> <!-- /.nav-collapse -->
 	</div> <!-- /.container -->
 </div> <!-- /#header -->
-
 
 
 

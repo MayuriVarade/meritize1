@@ -42,7 +42,7 @@ jQuery(function() {
 
 <div class="container">
   <div style="margin-bottom:10px"> <%= link_to "Add new User" , new_user_path,:class=>"btn btn-primary " %></div>
-   <%= form_tag admin_user_path, :method => 'get' do %>
+   <%= form_tag admin_user_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"}  do %>
      <%= text_field_tag :search, params[:search], :class=>"input-medium" %>
       <%= submit_tag "Search", :class_name => nil,:class=> "btn btn-primary",:style=> "margin-bottom:10px; padding:5px 10px" %>
    
@@ -71,10 +71,11 @@ jQuery(function() {
 
               <td><%= link_to format_boolean(adminusers.status?), {:controller => 'users', :action => 'toggled_status', :id => adminusers.id} %></td>
             </tr>
-            
+             
           </tbody>
           <% end %>
         </table>
+       
       </div> 
 
 </div> 
