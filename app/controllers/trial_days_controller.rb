@@ -1,4 +1,5 @@
 class TrialDaysController < ApplicationController
+   before_filter :authenticate, :only => [:edit, :update,:show,:new,:index]
   layout "admin"
   # GET /trial_days
   # GET /trial_days.json
@@ -81,4 +82,10 @@ class TrialDaysController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+    def authenticate
+      deny_access unless signed_in?
+    end
+  
 end
