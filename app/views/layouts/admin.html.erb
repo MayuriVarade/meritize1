@@ -14,13 +14,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,800">
+	
 	
 
-
+    <%= javascript_include_tag "application","modernizr-2.5.3.min.js" %>
 	<%= stylesheet_link_tag "font-awesome.css","bootstrap.css","bootstrap-responsive.css","jquery-ui-1.8.21.custom.css","application1.css" %>
 		
-    <%= javascript_include_tag "application","modernizr-2.5.3.min.js" %>
+ 
 </head>
 
 <body>
@@ -139,11 +139,19 @@
 				<% if current_user.role? :admin %>
 				<li class="dropdown">	
 				   <%= link_to 'Users', admin_user_path ,:class=>"dropdown-toggle"%>
-				   <%= link_to 'User Activities', adminuser_logs_path,:class=>"dropdown-toggle"%>				
+				   				
 					
 					
 					</a>	    				
 				</li>
+				<li class="dropdown">	
+				   <%= link_to 'User Activities', adminuser_logs_path,:class=>"dropdown-toggle"%>
+				   				
+					
+					
+					</a>	    				
+				</li>
+				
 				<% end %>
                 <% if current_user.role? :productmanager %>
 				<li class="dropdown">	
@@ -231,7 +239,6 @@
 
 
 
-<%= javascript_include_tag "jquery-1.7.2.min.js","jquery-ui-1.8.21.custom.min.js","jquery.ui.touch-punch.min.js","bootstrap.min.js","Theme.js" %>
 
 <script>
 

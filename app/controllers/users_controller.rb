@@ -148,13 +148,17 @@ class UsersController < ApplicationController
       def custom_layout
         case action_name
          when "edit"
-          "profile" 
-         when "change_password"
-          "profile"  
+          "admin" 
          when "dashboard"
           "admin" 
          when "show"
           "admin" 
+         when "change_password"
+          "admin"  
+          when "admin_user"
+          "admin" 
+          when "adminuser_logs"
+          "admin"
          else
           "application"
         end
