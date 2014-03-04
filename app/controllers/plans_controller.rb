@@ -50,7 +50,7 @@ def show
 
     respond_to do |format|
       if @plan.save
-        format.html { redirect_to @plan, notice: 'Plan was successfully created.' }
+        format.html { redirect_to plans_path, notice: 'Plan was successfully created.' }
         format.json { render json: @plan, status: :created, location: @plan }
       else
         format.html { render action: "new" }
@@ -67,7 +67,7 @@ def show
     respond_to do |format|
       if @plan.update_attributes(params[:plan])
 
-        format.html { redirect_to @plan, notice: 'Plan was successfully updated.' }
+        format.html { redirect_to plans_path, notice: 'Plan was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
