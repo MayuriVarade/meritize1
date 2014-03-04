@@ -38,9 +38,7 @@
 			
 			<ul>
 				<li class="dropdown">
-					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-						View Your Site				
-						<b class="caret"></b>					</a>
+					
 					
 					<ul class="dropdown-menu pull-right">
 						<li><a href="javascript:;">Meritize</a></li>
@@ -102,7 +100,7 @@
 					<a href="/dashboard">
 						<i class="icon-home"></i>
 						<span>Home</span>					</a>				</li>
-				
+				<% if current_user.role? :admin %>
 				<li class="dropdown">					
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						<span>Props</span> 
@@ -136,7 +134,7 @@
 					<span>Results</span> 
 					</a>	    				
 				</li>
-				<% if current_user.role? :admin %>
+				
 				<li class="dropdown">	
 				   <%= link_to 'Users', admin_user_path ,:class=>"dropdown-toggle"%>
 				   				
@@ -168,8 +166,8 @@
 					</a>	    				
 				</li>
 				<% end %>
-
-				
+             
+			<% if current_user.role? :admin %>	
 				<li class="dropdown">					
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						
@@ -198,7 +196,7 @@
 
 					</ul>    				
 				</li>
-				
+			<% end %>	
 				
 			</ul>
 		</div> <!-- /.nav-collapse -->

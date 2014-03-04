@@ -56,9 +56,16 @@ class UsersController < ApplicationController
       @user = User.new(params[:user])
       @random_password = params[:user][:password]
       if @user.save
-        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ") 
-        UserVerification.welcome_email(@user,@random_password).deliver
-        redirect_to root_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
+        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+        
+            UserVerification.welcome_email(@user,@random_password).deliver
+            
+         if params[:page_name] == "admin"
+           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporay password send to user."}  
+        
+        else   
+          redirect_to root_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
+        end  
       else
         @title = "Sign Up"
         render 'new'

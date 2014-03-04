@@ -1,4 +1,4 @@
-  
+
     <div id="masthead">
       
       <div class="container">
@@ -19,24 +19,29 @@
 
  
     <div id="content">
-
+       <section class="round">
+                        <% flash.each do |key, value| %>
+                      <div class="flash <%= key %>" style = "font-size:18px"><%= value %></div>
+                      <% end %>
+        </section>
+         <%= render 'shared/error_messages', :object => f.object %>
       <div class="container">   
         
         <div class="row">
         
         <div class="span12">
-              
+               
            
              
                     <fieldset>
                     
-
+                    
                       
                       <div class="control-group">                     
                         <label for="username" class="control-label">Firstname</label>
                         <div class="controls">
                           
-                          <%= f.text_field :firstname,:class=> "input-medium " %>
+                          <%= f.text_field :firstname,:class=> "input-medium ",:style=>"height:auto" %>
                           
                         </div> <!-- /controls -->       
                       </div>
@@ -44,7 +49,7 @@
                         <label for="username" class="control-label">Lastname</label>
                         <div class="controls">
                           
-                          <%= f.text_field :lastname,:class=> "input-medium " %>
+                          <%= f.text_field :lastname,:class=> "input-medium ",:style=>"height:auto" %>
                           
                         </div> <!-- /controls -->       
                       </div>
@@ -52,13 +57,13 @@
                       <div class="control-group">                     
                         <label for="firstname" class="control-label">Email Address</label>
                         <div class="controls">
-                          <%= f.text_field :email,:class=> "input-medium " %>
+                          <%= f.text_field :email,:class=> "input-medium ",:style=>"height:auto" %>
                         </div> <!-- /controls -->       
                       </div> <!-- /control-group -->
                       <div class="control-group">                     
                         <label for="firstname" class="control-label">company name</label>
                         <div class="controls">
-                          <%= f.text_field :companyname, :class => "input-medium " %>
+                          <%= f.text_field :companyname, :class => "input-medium ",:style=>"height:auto" %>
                         </div> <!-- /controls -->       
                       </div> 
 
@@ -68,6 +73,9 @@
                        <%= f.hidden_field :admin_user_id ,:value => current_user.id %>
                        <%= f.hidden_field :password ,:value => @random %>
                        <%= f.hidden_field :password_confirmation ,:value => @random %>
+                        <% if params[:type] == "adminuser" %>
+                                <%= hidden_field_tag("page_name", "admin") %>
+                          <% end %>
                     </div>
 
                             

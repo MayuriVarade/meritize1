@@ -10,9 +10,10 @@
 
 
         <% else %>  
-          <%= render 'shared/error_messages', :object => f.object %>
+          
        <body id="signup">
         <div class="container">
+
           <div class="row header">
             <div class="col-md-12">
               <h3 class="logo">
@@ -27,10 +28,17 @@
               <div class="wrapper clearfix">
                 <div class="formy">
                   <div class="row">
+                    
                     <div class="col-md-12">
                   
-                       
+                        <section class="round">
+                          <% flash.each do |key, value| %>
+                              <div class="flash <%= key %>"><%= value %></div>
+                         <% end %>
+                         <%= render 'shared/error_messages', :object => f.object %>
+                      </section> 
                            <div class="form-group">
+
                             <label for="name">First name</label>
                              <%= f.text_field :firstname, :class => "form-control" %>
                          </div>
@@ -60,6 +68,8 @@
                              <%= f.hidden_field :plan_type, :value => "free"%>
                              <%= f.hidden_field :password ,:value => @random %>
                              <%= f.hidden_field :password_confirmation ,:value => @random %>
+                            
+
                 
                         </div>
                         <div class="checkbox">
