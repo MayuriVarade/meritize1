@@ -1,0 +1,105 @@
+    <div id="masthead">
+      
+      <div class="container">
+        
+        <div class="masthead-pad">
+          
+          <div class="masthead-text">
+            <h2>Manage user</h2>
+            
+          </div> <!-- /.masthead-text -->
+          
+        </div>
+        
+      </div> <!-- /.container --> 
+      
+    </div> <!-- /#masthead -->
+
+
+ 
+    <div id="content">
+
+      <div class="container">   
+        
+        <div class="row">
+        
+        <div class="span12">
+              
+                  
+                  
+                  
+              <%= form_for @user, :html => {:multipart => true,:id =>"contact-form",:class=>"form-horizontal" } do |f|%>  
+              <%= render 'shared/error_messages', :object => f.object %>
+                    <fieldset>
+                    
+
+                      
+                      <div class="control-group">                     
+                        <label for="username" class="control-label">Firstname</label>
+                        <div class="controls">
+                          
+                          <%= f.text_field :firstname,:class=> "input-medium " %>
+                          
+                        </div> <!-- /controls -->       
+                      </div>
+                      <div class="control-group">                     
+                        <label for="username" class="control-label">Lastname</label>
+                        <div class="controls">
+                          
+                          <%= f.text_field :lastname,:class=> "input-medium " %>
+                          
+                        </div> <!-- /controls -->       
+                      </div>
+                      
+                      <div class="control-group">                     
+                        <label for="firstname" class="control-label">Email Address</label>
+                        <div class="controls">
+                          <%= f.text_field :email,:class=> "input-medium " %>
+                        </div> <!-- /controls -->       
+                      </div> <!-- /control-group -->
+                      <div class="control-group">                     
+                        <label for="firstname" class="control-label">company name</label>
+                        <div class="controls">
+                          <%= f.text_field :companyname, :class => "input-medium " %>
+                        </div> <!-- /controls -->       
+                      </div> 
+
+                       <div class="field">
+                  
+                       <%= hidden_field_tag "user[role_ids][]", 3 %>
+                       <%= f.hidden_field :admin_user_id ,:value => current_user.id %>
+                       <%= f.hidden_field :password ,:value => @random %>
+                       <%= f.hidden_field :password_confirmation ,:value => @random %>
+                    </div>
+
+                            
+                     
+                                      
+                      
+                      
+                      
+                      
+                      
+                      
+                        
+                      
+                        
+                      <div class="form-actions">
+                        
+                      <%= f.submit "Create user account",:class=>"btn btn-primary btn-large" %>  
+                        
+                      </div> <!-- /form-actions -->
+                    </fieldset>
+                  <% end %>
+
+
+      </div>
+        
+        
+        
+      </div> <!-- /.row -->
+      
+      
+    </div> <!-- /.container -->
+
+  </div> <!-- /#content -->

@@ -1,116 +1,95 @@
  <!-- SignUp page -->
 
- <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
-  <% content_for :scripts do %>
-      <%= javascript_include_tag "application","jquery.validate","jquery.validate.min", "validation" %>
-  <% end %>
-  <% if signed_in? %>
-     <h1>Add User</h1>
-  <% else %>
- <body id="signup">
-  <div class="container">
-    <div class="row header">
-      <div class="col-md-12">
-        <h3 class="logo">
-          <a href="#"><img src="assets/logo.png" alt=""></a>
-        </h3>
-        <h4>Set up your new account today.</h4>
-        
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="wrapper clearfix">
-          <div class="formy">
-            <div class="row">
-              <div class="col-md-12">
-              <%= form_for(@user) do |f| %>
-              <%= render 'shared/error_messages', :object => f.object %>
-              <% if signed_in?%>
-                  <div class="form-group">
-                      <label for="name">First name</label>
-                       <%= f.text_field :firstname, :class => "form-control" %>
-                   </div>
-                       <div class="form-group">
-                      <label for="name">Last name</label>
-                       <%= f.text_field :firstname, :class => "form-control" %>
-                    </div>
-                    <div class="form-group">
-                      <label for="email">Email address</label>
-                       <%= f.text_field :email, :class => "form-control"  %>
-                     </div>
+    <%= form_for(@user) do |f| %>
+   
+        <% if signed_in?%>
 
+                 
+           <%= render :partial => 'users/add_adminuser',:locals => {:f => f} ,:layout => 'layouts/admin' %>
+
+
+
+        <% else %>  
+          <%= render 'shared/error_messages', :object => f.object %>
+       <body id="signup">
+        <div class="container">
+          <div class="row header">
+            <div class="col-md-12">
+              <h3 class="logo">
+                <a href="#"><img src="assets/logo.png" alt=""></a>
+              </h3>
+              <h4>Set up your new account today.</h4>
+              
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="wrapper clearfix">
+                <div class="formy">
+                  <div class="row">
+                    <div class="col-md-12">
+                  
+                       
+                           <div class="form-group">
+                            <label for="name">First name</label>
+                             <%= f.text_field :firstname, :class => "form-control" %>
+                         </div>
+                             <div class="form-group">
+                            <label for="name">Last name</label>
+                             <%= f.text_field :firstname, :class => "form-control" %>
+                          </div>
                           <div class="form-group">
-                      <label for="name">Company name</label>
-                      <%= f.text_field :companyname, :class => "form-control" %>
-                      
-                    </div>
-                   <div class="field">
+                            <label for="email">Email address</label>
+                             <%= f.text_field :email, :class => "form-control"  %>
+                           </div>
+
+                                <div class="form-group">
+                            <label for="name">Company name</label>
+                            <%= f.text_field :companyname, :class => "form-control" %>
+                            
+                          </div>
+                                <div class="form-group">
+                            <label for="name">Hear AboutUs</label>
+                              <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3', :class => "form-control"  %>
+                            
+                          </div>
+
+                          <div class = "field">
+                             <%= hidden_field_tag "user[role_ids][]", 2 %>
+                             <%= f.hidden_field :plan_id, :value => 3%>
+                             <%= f.hidden_field :plan_type, :value => "free"%>
+                             <%= f.hidden_field :password ,:value => @random %>
+                             <%= f.hidden_field :password_confirmation ,:value => @random %>
                 
-                     <%= hidden_field_tag "user[role_ids][]", 3 %>
-                     <%= f.hidden_field :admin_user_id ,:value => current_user.id %> 
-                     <%= f.hidden_field :password ,:value => @random %>
-                     <%= f.hidden_field :password_confirmation ,:value => @random %>     
-                  </div>
-
-                  <% else %>
-                     <div class="form-group">
-                      <label for="name">First name</label>
-                       <%= f.text_field :firstname, :class => "form-control" %>
-                   </div>
-                       <div class="form-group">
-                      <label for="name">Last name</label>
-                       <%= f.text_field :firstname, :class => "form-control" %>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> You have read &amp; agree to the 
+                                <a href="#">Terms of service</a>.
+                            </label>
+                          </div>
+                        
+                         <div class="already-account" style="margin-bottom:0">
+                            Already have an account?
+                            <a title="" data-original-title="" href="/signin">Sign in here</a>
+                
+                          </div>
+                           <div class="submit">
+                            <%= f.submit "Create my account", :class =>"button-clear"  %>
+                          </div>
+                         
+                          <% end %>
+                         <% end %>
+                          
+                     
                     </div>
-                    <div class="form-group">
-                      <label for="email">Email address</label>
-                       <%= f.text_field :email, :class => "form-control"  %>
-                     </div>
-
-                          <div class="form-group">
-                      <label for="name">Company name</label>
-                      <%= f.text_field :companyname, :class => "form-control" %>
-                      
-                    </div>
-                          <div class="form-group">
-                      <label for="name">Hear AboutUs</label>
-                        <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3', :class => "form-control"  %>
-                      
-                    </div>
-
-                    <div class = "field">
-                       <%= hidden_field_tag "user[role_ids][]", 2 %>
-                       <%= f.hidden_field :plan_id, :value => 3%>
-                       <%= f.hidden_field :plan_type, :value => "free"%>
-                       <%= f.hidden_field :password ,:value => @random %>
-                       <%= f.hidden_field :password_confirmation ,:value => @random %>
-          
-                  </div>
-                   <% end %>
-                    <div class="checkbox">
-                      <label>
-                          <input type="checkbox"> You have read &amp; agree to the 
-                          <a href="#">Terms of service</a>.
-                      </label>
-                    </div>
-                    <div class="submit">
-                      <%= f.submit "Create my account", :class =>"button-clear"  %>
-                      </div>
-                    <% end %>
-                <% end %>
+                  </div>            
+                </div>
               </div>
-            </div>            
+             
+            </div>
           </div>
         </div>
-        <div class="already-account">
-          Already have an account?
-          <a title="" data-original-title="" href="/signin" data-toggle="popover" data-placement="top" data-content="Go to sign in!" data-trigger="manual">Sign in here</a>
-          
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script type="text/javascript">
     $(function () {
