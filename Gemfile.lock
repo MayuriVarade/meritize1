@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:dsci/paypal-subscribe.git
+  remote: git://github.com/dsci/paypal-subscribe.git
   revision: 08d775f64691e595bd3282326b81fa696d773286
   specs:
     paypal-subscribe (0.3.0)
