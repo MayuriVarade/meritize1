@@ -37,8 +37,16 @@
 						<%= form_for @user, :html => {:multipart => true,:id =>"contact-form",:class=>"form-horizontal" } do |f|%>	
 						<%= render 'shared/error_messages', :object => f.object %>
 									<fieldset>
-										<img src="https://app.divshot.com/img/placeholder-100x100.gif">&nbsp;&nbsp;
-         			 					Upload photo <%= f.file_field :photo,:class => "button button-small" %></a>
+										
+                                       <div class="control-group">											
+											<label for="username" class="control-label">Upload photo</label>
+											<div class="controls">
+												
+												<%= f.file_field :photo%></a>
+												
+											</div> <!-- /controls -->				
+										</div>
+
 										<div class="control-group">											
 											<label for="username" class="control-label">Username</label>
 											<div class="controls">
@@ -73,13 +81,13 @@
 										
 										
 										<div class="control-group">											
-											<label for="lastname" class="control-label">Password</label>
+											<label for="password" class="control-label">Password</label>
 											<div class="controls">
 												<%= f.text_field :password,:class=> "input-medium " %>
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										<div class="control-group">											
-											<label for="lastname" class="control-label">Password confirmation</label>
+											<label for="password" class="control-label">Password confirmation</label>
 											<div class="controls">
 												<%= f.text_field :password_confirmation,:class=> "input-medium " %>
 											<% if params[:type] == "adminuser" %>
