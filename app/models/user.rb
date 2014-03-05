@@ -10,15 +10,15 @@ class User < ActiveRecord::Base
    has_many :settings   
   
   #model based validation
-   validates :firstname, :presence => true, 
-                  :length => { :maximum => 50 }
-   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+   # validates :firstname, :presence => true, 
+   #                :length => { :maximum => 50 }
+   # email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-   validates :email, :presence => true,
-                     :format => { :with => email_regex},
-                     :uniqueness => { :case_sensitive => false }
+   # # validates :email, :presence => true,
+   #                   :format => { :with => email_regex},
+   #                   :uniqueness => { :case_sensitive => false }
 
-   validates :password,  :confirmation => true,:on => :create
+    validates :password,  :confirmation => true,:on => :create
 
    before_save :encrypt_password
    before_create { generate_token(:auth_token) }
