@@ -1,5 +1,5 @@
  <!-- SignUp page -->
-
+     <%= javascript_include_tag "jquery-1.5.2.min","jquery.validate.min","validation" %>
     <%= form_for @user ,:html => {:multipart => true,:id =>"new_user",:class=>"form-horizontal" } do |f| %>
    
         <% if signed_in?%>
@@ -17,7 +17,7 @@
           <div class="row header">
             <div class="col-md-12">
               <h3 class="logo">
-                <a href="#"><img src="assets/logo.png" alt=""></a>
+                <a href="#">Meritize</a>
               </h3>
               <h4>Set up your new account today.</h4>
               
@@ -39,25 +39,25 @@
                       </section> 
                            <div class="form-group">
 
-                            <label for="name">First name</label>
+                            <label for="name">First name </label><span class="star">*</span>
                              <%= f.text_field :firstname, :class => "form-control" %>
                          </div>
                              <div class="form-group">
-                            <label for="name">Last name</label>
-                             <%= f.text_field :firstname, :class => "form-control" %>
+                            <label for="name">Last name</label><span class="star">*</span>
+                             <%= f.text_field :lastname, :class => "form-control" %>
                           </div>
                           <div class="form-group">
-                            <label for="email">Email address</label>
+                            <label for="email">Email address</label><span class="star">*</span>
                              <%= f.text_field :email, :class => "form-control"  %>
                            </div>
 
                                 <div class="form-group">
-                            <label for="name">Company name</label>
+                            <label for="name">Company name</label><span class="star">*</span>
                             <%= f.text_field :companyname, :class => "form-control" %>
                             
                           </div>
                                 <div class="form-group">
-                            <label for="name">Hear AboutUs</label>
+                            <label for="name">How did you hear About Us?</label>
                               <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3', :class => "form-control"  %>
                             
                           </div>

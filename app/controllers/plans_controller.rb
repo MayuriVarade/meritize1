@@ -1,8 +1,5 @@
 class PlansController < ApplicationController
-
- 
-
-  layout "admin"
+layout "admin"
   # GET /plans
   # GET /plans.json
   def index
@@ -63,7 +60,7 @@ def show
   # PUT /plans/1.json
   def update
     @plan = Plan.find(params[:id])
-
+    
     respond_to do |format|
       if @plan.update_attributes(params[:plan])
 
@@ -92,6 +89,4 @@ def show
     def authenticate
       deny_access unless signed_in?
     end
-
-  
 end

@@ -17,26 +17,19 @@
     </div>
   <% end %>
     
-  <%= f.hidden_field :plan_id %>
-  <%= f.hidden_field :paypal_customer_token %>
-  <%= f.hidden_field :paypal_payment_token %>  
-  <%= f.hidden_field :user_id %>
-  <%= f.hidden_field :price %>
+                  <%= f.hidden_field :plan_id %>
+                  <%= f.hidden_field :paypal_customer_token %>
+                  <%= f.hidden_field :paypal_payment_token %>  
+                  <%= f.hidden_field :user_id %>
+                  <%= f.hidden_field :price %>
   
   
-  
-  
-  
-  
-								
-							    <div class="control-group">
-									<label class="control-label" for="form-field-2"><%= f.label :email %></label>
-
-									<div class="controls">
-										<%= f.email_field :email, :autofocus => true,:id=>"form-field-2" %>
-										
-									</div>
-								</div>
+		 <div class="control-group">
+				 <label class="control-label" for="form-field-2"><%= f.label :email %></label>
+             <div class="controls">
+								 <%= f.email_field :email, :autofocus => true,:id=>"form-field-2" %>
+						 </div>
+					 </div>
 								
 								
  <div class="form-actions">

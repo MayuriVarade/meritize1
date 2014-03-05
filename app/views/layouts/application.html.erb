@@ -6,12 +6,9 @@
 
 
 	<title>Meritize</title>
-
-
-
-  <%= stylesheet_link_tag "bootstrap.min.css","theme.css"%>
-    <%= csrf_meta_tags %>
-  <%= yield :scripts %>
+         <%= stylesheet_link_tag "bootstrap.min.css","theme.css"%>
+         <%= csrf_meta_tags %>
+         <%= yield :scripts %>
 	<!-- javascript -->
 
  <%= javascript_include_tag "application","jquery.js","bootstrap.js","theme.js" %>
@@ -21,23 +18,9 @@
 </head>
 
 <body>
-
-<header>
-
-
-
-
-
-
-
-</header>
-
-
-
 <%= yield %>
 
 </section>
-
 
 </body>
 </html>

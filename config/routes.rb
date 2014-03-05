@@ -9,7 +9,7 @@ Meritize::Application.routes.draw do
     get "paypal/checkout", to: 'subscriptions#paypal_checkout'
 
   resources :plans
-    get "/plan" => "subscriptions#plan"
+  
     get "password_resets/new"
     match '/change_password', :controller => 'users', :action => 'change_password'
     resources :users 
@@ -17,8 +17,8 @@ Meritize::Application.routes.draw do
     match '/adminuser_logs', :to =>'users#adminuser_logs'
     match '/users/:id/delete', :to => "users#destroy"
     match '/users/:id/status', :to => "users#toggled_status"
-
     match '/history', :to => "subscriptions#history"
+    match '/users/validations/check_email', :to=>"users#check_email"
 
     resources :sessions, :only => [:new,:create,:destroy,:edit]
     root :to => 'sessions#new'
@@ -28,6 +28,8 @@ Meritize::Application.routes.draw do
     match  '/users/:id/edit',  :to => "users#edit" 
     match '/signout', :to =>'sessions#destroy'
   resources :password_resets
+
+  get "/plan" => "subscriptions#plan"
   
 
 

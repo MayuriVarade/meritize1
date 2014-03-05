@@ -50,16 +50,18 @@
                         <div class="controls">
                           
                           <%= f.text_field :lastname,:class=> "input-medium ",:style=>"height:auto" %>
-                          
+                            
                         </div> <!-- /controls -->       
                       </div>
                       
-                      <div class="control-group">                     
-                        <label for="firstname" class="control-label">Email Address</label>
-                        <div class="controls">
-                          <%= f.text_field :email,:class=> "input-medium ",:style=>"height:auto" %>
-                        </div> <!-- /controls -->       
-                      </div> <!-- /control-group -->
+                       <div class="control-group">                     
+                          <label for="email" class="control-label">Email</label>
+                          <div class="controls">
+                            <%= f.text_field :email, :class=> "input-medium ",:style=>"height:auto" %>
+                          </div> <!-- /controls -->       
+                        </div>
+                      
+                     
                       <div class="control-group">                     
                         <label for="firstname" class="control-label">company name</label>
                         <div class="controls">
@@ -77,20 +79,7 @@
                                 <%= hidden_field_tag("page_name", "admin") %>
                           <% end %>
                     </div>
-
-                            
-                     
-                                      
-                      
-                      
-                      
-                      
-                      
-                      
-                        
-                      
-                        
-                      <div class="form-actions">
+                    <div class="form-actions">
                         
                       <%= f.submit "Create user account",:class=>"btn btn-primary btn-large" %>  
                         
