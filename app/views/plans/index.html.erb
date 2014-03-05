@@ -38,20 +38,19 @@
                        <table class="table table-bordered table-striped table-highlight">
                             <thead>
                            <tr>
-                  <th>Name</th>
-                  <th>price</th>
-                  <th>description1</th>
-                  <th>description2</th>
-                 <th>description3</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-          	<% @plans.each do |plan| %>
+                             <th>Name</th>
+                             <th>price</th>
+                             <th>description1</th>
+                             <th>description2</th>
+                             <th>description3</th>
+                             <th></th>
+                             <th></th>
+                          </tr>
+                           </thead>
+                     <tbody>
+          	          <% @plans.each do |plan| %>
 
-         
-            <tr>
+                  <tr>
                    <td><%= plan.name %></td>
                    <td><%= plan.price %></td>
                    <td><%= plan.description1 %></td>
@@ -59,11 +58,10 @@
                    <td><%= plan.description3 %></td>
                    <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
                    <td><%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
+                  </tr>
                 <% end %>
-         
-          </tbody>
-        </table>
+                   </tbody>
+                  </table>
       </div> <!-- /.container -->
 
 </div> <!-- /#content -->
@@ -91,7 +89,7 @@
 									<li><%= a.description2 %></li>
 									<li><%= a.description3 %></li>
 									     
-								</ul>
+							</ul>
 							</div> <!-- /plan-features -->
 							
 									<div class="plan-actions">	
@@ -156,7 +154,7 @@
 									<li><%= a.description2 %></li>
 									<li><%= a.description3 %></li>
 									
-								</ul>
+							    </ul>
 							</div> <!-- /plan-features -->
 							
 							<div class="plan-actions">
@@ -186,15 +184,6 @@
 </div> <!-- /#content -->
 
 </div> <!-- /#wrapper -->
-
-
-
-
-
-
-
-
-
 
 <script>
 
