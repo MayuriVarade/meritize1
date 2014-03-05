@@ -38,16 +38,18 @@
                        <table class="table table-bordered table-striped table-highlight">
                             <thead>
                            <tr>
-                  <th>Name</th>
-                  <th>price</th>
-                  <th>description1</th>
-                  <th>description2</th>
-                 <th>description3</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
+
+                             <th>Name</th>
+                             <th>price</th>
+                             <th>For User</th>
+                             <th>For Admin</th>
+                             <th>Active User Price Description</th>
+                             <th></th>
+                             <th></th>
+                          </tr>
+                           </thead>
+                     <tbody>
+
           	<% @plans.each do |plan| %>
 
          
@@ -91,7 +93,9 @@
 									<li><%= a.description2 %></li>
 									<li><%= a.description3 %></li>
 									     
-								</ul>
+
+							</ul>
+
 							</div> <!-- /plan-features -->
 							
 									<div class="plan-actions">	
@@ -156,7 +160,7 @@
 									<li><%= a.description2 %></li>
 									<li><%= a.description3 %></li>
 									
-								</ul>
+							    </ul>
 							</div> <!-- /plan-features -->
 							
 							<div class="plan-actions">

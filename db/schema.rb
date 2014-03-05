@@ -93,12 +93,6 @@ ActiveRecord::Schema.define(:version => 20140304120837) do
     t.string   "total_amount"
   end
 
-  create_table "trail_days", :force => true do |t|
-    t.integer  "days"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "trial_days", :force => true do |t|
     t.integer  "days"
     t.datetime "created_at", :null => false
