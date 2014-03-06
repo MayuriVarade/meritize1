@@ -9,4 +9,4 @@ ActionMailer::Base.smtp_settings = {
   :enable_starttls_auto => true
 }
 
-ActionMailer::Base.default_url_options[:host] = "http://meritize-test.herokuapp.com/"
+ActionMailer::Base.default_url_options[:host] = "meritize-test.herokuapp.com/"

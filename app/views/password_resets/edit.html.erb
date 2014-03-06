@@ -4,7 +4,7 @@
         <div class="col-md-8 message">
           <h3>Forgot Password ? </h3>
                     
-           <%= form_for @user, :url => password_reset_path(params[:id]),:html =>{:id =>"contact-form"} do |f| %>
+           <%= form_for @user, :url => password_reset_path(params[:id]),:html =>{:id =>"password-edit"} do |f| %>
             <% if @user.errors.any? %>
               <div class="error_messages">
                 <h2>Form is invalid</h2>

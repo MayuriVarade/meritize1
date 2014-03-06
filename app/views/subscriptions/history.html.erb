@@ -26,10 +26,10 @@
        <table class="table table-bordered table-striped table-highlight">
           <thead>
             <tr>
-              <th>#</th>
+              <th>Sr.No</th>
               <th>Date</th>
               <th>Amount</th>
-              <th></th>
+              <th>Payment Mode</th>
             </tr>
           </thead>
           <tbody>
@@ -45,7 +45,7 @@
                </td>
                <% @s = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
 
-              <td> <%= @s.sum(:price) %></td>
+              <td> <%= @s.sum(:price) rescue nil%></td>
               <td>Paid using Visa credit card ending in 7654</td>
             </tr>
          

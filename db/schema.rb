@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(:version => 20140304120837) do
     t.datetime "photo_updated_at"
     t.string   "time_zone",              :default => "UTC"
     t.boolean  "status",                 :default => true
-    t.string   "fullname",               :default => "1"
+    t.string   "fullname"
   end
 
 end

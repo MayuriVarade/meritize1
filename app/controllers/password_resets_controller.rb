@@ -1,5 +1,5 @@
 class PasswordResetsController < ApplicationController
-  layout 'profile'
+  layout :custom_layout
   def create
     user = User.find_by_email(params[:email])
 
@@ -26,5 +26,18 @@ class PasswordResetsController < ApplicationController
       render :edit
     end
   end
+private
+def custom_layout
+        case action_name
+         when "edit"
+           "profile" 
+         else
+          "application"
+        end
+    end
+    
+
+
+
 
 end

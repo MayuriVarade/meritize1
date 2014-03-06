@@ -54,17 +54,18 @@
 				<li class="dropdown">
 				<% if current_user.role? :productmanager %>	
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Product manager						
+						<%= current_user.firstname.capitalize rescue nil%>  <%= current_user.lastname.capitalize rescue nil%>					
 						<b class="caret"></b>
 				  </a>
 				<% elsif current_user.role? :admin %>
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						HR Admin						
+						 
+						  <%= current_user.firstname.capitalize rescue nil%>  <%= current_user.lastname.capitalize rescue nil%>				
 						<b class="caret"></b>
 				  </a>
 				<% else %>
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<%= current_user.fullname %>						
+						<%= current_user.firstname.capitalize rescue nil%>  <%= current_user.lastname.capitalize rescue nil%>					
 						<b class="caret"></b>
 				  </a>
 				<% end %>	

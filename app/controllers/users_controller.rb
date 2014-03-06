@@ -81,12 +81,12 @@ class UsersController < ApplicationController
          
     if @user.update_attributes(params[:user])
        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
-      flash[:success] = "Profile updated."
+      flash[:success] = "Profile updated successfully."
       
       if params[:page_name] == "admin"
           redirect_to admin_user_path
       else
-        flash[:success] = "Profile updated."
+        flash[:notice] = "Profile updated successfully."
         redirect_to @user
       end  
     else
@@ -98,7 +98,7 @@ class UsersController < ApplicationController
     def destroy
       @user = User.find(params[:id])
       @user.destroy
-      flash[:notice] = "Successfully destroyed user."
+      flash[:notice] = "User deleted successfully."
       redirect_to  admin_user_path
     end
 
@@ -114,7 +114,7 @@ class UsersController < ApplicationController
         params[:change_password][:new_password_confirmation]
 
           if @user.save
-            flash[:notice] = 'Password successfully update'
+            flash[:notice] = 'Password successfully updated'
             redirect_to change_password_path
           else
             flash[:error] = 'New password mismatch'

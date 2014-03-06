@@ -19,32 +19,19 @@
 
 
 
-<div id="content">
 
-	<div class="container">
-		
-		
-		<div class="row" >
-			
-			<div class="span12" style="margin-left:150px">
-				
-				
-				<div class="pricing-plans plans-4">
-					 <% if current_user.role? :productmanager %> 
-					<div id="content">
-
-	                    <div class="container">
-      
+           <% if current_user.role? :productmanager %>
                        <table class="table table-bordered table-striped table-highlight">
                             <thead>
                            <tr>
                              <th>Name</th>
-                             <th>price</th>
+                             <th>Price</th>
                              <th>All User</th>
                              <th>Admin Users</th>
                              <th>Pricing</th>
-                             <th></th>
-                             <th></th>
+                             <th>Action</th>
+                             
+                             
                           </tr>
                            </thead>
                      <tbody>
@@ -58,8 +45,8 @@
                    <td><%= plan.description1 %></td>
                    <td><%= plan.description2 %></td>
                    <td><%= plan.description3 %></td>
-                   <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
-                   <td><%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                   <td><%= link_to 'Edit', edit_plan_path(plan) %>
+                   <%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
 
@@ -67,13 +54,27 @@
                   </table>
 
       </div> <!-- /.container -->
-
+</div>
 </div> <!-- /#content -->
 
 </div> <!-- /#wrapper -->
 
 			<% else current_user.role? :admin%>
-                      	
+           <div id="content">
+
+	<div class="container">
+		
+		
+		<div class="row" >
+			
+			<div class="span12" style="margin-left:150px">
+				
+				
+				<div class="pricing-plans plans-4">
+					  
+					<div id="content">
+
+	                    <div class="container">           	
 				
 				    <div class="plan-container">
 				        <div class="plan">

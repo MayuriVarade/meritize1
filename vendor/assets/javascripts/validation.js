@@ -54,139 +54,213 @@
             }
         });
 
-// sign up validations
-$("#new_user").validate({
-errorElement:'span',
-rules: {
+    // sign up validations
+    $("#new_user").validate({
+    errorElement:'span',
+    rules: {
 
-
-"user[firstname]" :{
-required: true
-
-},
-
-"user[lastname]" :{
-required: true
-
-},
-
-"user[email]" :{
-required: true,
-email: true
-/* remote:"/users/validations/check_email" */
-
-
-},
-"user[companyname]" :{
-required: true
-
-
-}
-},
-
-  messages: {
 
     "user[firstname]" :{
-required: "Please enter your First name"
+    required: true
 
-},
+    },
+
     "user[lastname]" :{
-required: "Please enter your Last name"
+    required: true
 
-},
+    },
+
     "user[email]" :{
-required: "Please enter your Email Address",
- email:  "Please enter Valid Email Id",
- /* remote:"email id already exists" */
-},
-
-"user[companyname]" :{
-required: "Please enter your Company name"
+    required: true,
+    email: true
+    /* remote:"/users/validations/check_email" */
 
 
-}
-
-  }
-
-
-
-    });
+    },
+    "user[companyname]" :{
+    required: true
 
 
-// $("#edit_user_16").validate({
-// errorElement:'span',
-// rules: {
+    }
+    },
+
+      messages: {
+
+        "user[firstname]" :{
+    required: "Please enter your First name"
+
+    },
+        "user[lastname]" :{
+    required: "Please enter your Last name"
+
+    },
+        "user[email]" :{
+    required: "Please enter your Email Address",
+     email:  "Please enter Valid Email Id",
+     /* remote:"email id already exists" */
+    },
+
+    "user[companyname]" :{
+    required: "Please enter your Company name"
 
 
-// "user[firstname]" :{
-// required: true
+    }
 
-// },
-
-// "user[lastname]" :{
-// required: true,
-// },
-// "user[email]" :{
-// required: true,
-// email: true
-// },
-// "user[password]" :{
-// required: true,
-// }
-// },
-
-//   messages: {
-
- 
-//     "user[firstname]" :{
-// required: "Please enter your First name"
-
-// },
-//    "user[lastname]" :{
-// required: "Please enter your Last name"
-
-// },
-//    "user[email]" :{
-// required: "Please enter your Email Address"
-//  email:  "Please enter Valid Email Id"
-
-// },
-//     "user[password]" :{
-// required: "Please enter password",
-
-
-// }
-
-//   }
+      }
 
 
 
-//    });
-// jQuery("#contact-form").validate({
-// errorElement:'span',
-// rules: {
-
-// "email" :{
-// required: true
-// email: true
-
-// }
-// },
-
-//   messages: {
-
-
-// "user[companyname]" :{
-// required: "Please enter your Email Address"
-
-
-// }
-
-//   }
+        });
 
 
 
-//     });
+     jQuery("#forgot-form").validate({
+     errorElement:'span',
+     rules: {
+
+     "email" :{
+            required: true,
+             email: true
+
+            }
+        },
+
+       messages: {
+
+
+     "email" :{
+                required: "Please Enter Your Registered Email Address",
+                email:   "Please Enter Valid Email Address"
+
+             }
+
+       }
+
+
+
+        });
+
+    $("#change-password").validate({
+        errorElement:'span',
+        rules: {
+            "change_password[old_password]":{
+                          required: true,
+                         
+                         },
+         
+        
+          "change_password[new_password]":{
+                                  required: true,
+                                 },
+
+            
+           "change_password[new_password_confirmation]":{
+                                        required:true,
+                                        equalTo: "#change_password_new_password"
+                                    }
+                        
+         
+                
+                                                                
+        },
+
+
+
+
+
+        messages: {
+            "change_password[old_password]":{
+                         required:  "Please enter current password",
+                         
+                         
+
+                        
+                         },
+        
+        
+             "change_password[new_password]":{
+                              required:"Please enter new password"
+                             },   
+
+
+             "change_password[new_password_confirmation]":{
+                                                    required:"Please enter confirmation password",
+                                                    equalTo: "Password does not match"
+                                                }
+
+
+
+
+            },
+
+         
+
+
+
+
+
+        });
+
+
+    $("#password-edit").validate({
+        errorElement:'span',
+        rules: {
+            "user[password]":{
+                          required: true,
+                         
+                         },
+         
+        
+            
+           "user[password_confirmation]":{
+                                        required:true,
+                                        equalTo: "#user_password"
+                                    }
+                        
+         
+                
+                                                                
+        },
+
+
+
+
+
+        messages: {
+            "user[password]":{
+                         required:  "Please enter temporary password",
+                         
+                         
+
+                        
+                         },
+        
+        
+             "user[password_confirmation]":{
+                                                    required:"Please enter confirmation password",
+                                                    equalTo: "Password does not match"
+                                                }
+
+
+
+
+            },
+
+         
+
+
+
+
+
+        });
+
+
+   
+
+
+
+
+
 
  
 });

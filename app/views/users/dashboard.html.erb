@@ -10,17 +10,17 @@
     <div class="masthead-pad">
       
       <div class="masthead-text">
-        <h2>Welcome to Dashbroad</h2>
+        <h2>Welcome to Dashboard</h2>
         <% if current_user.role? :productmanager %>
            <ul>
                Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
    
              
           <% elsif current_user.role? :admin %>
-            Only <%= @plan_expiry %> days left for your trial plan.You can upgrade it by Subscribing below plan.
+            Only <%= @plan_expiry %> days left for your trial plan.You can upgrade it by Subscribing plan.
          <% else %>
-           User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
-           Email:<%= current_user.email %><br/>
+          <!--  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
+           Email:<%= current_user.email %><br/> -->
         <% end %>
     </ul>
 

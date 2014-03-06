@@ -56,11 +56,18 @@
                             <%= f.text_field :companyname, :class => "form-control" %>
                             
                           </div>
-                                <div class="form-group">
+                          <div class="form-group">
                             <label for="name">How did you hear About Us?</label>
                               <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3', :class => "form-control"  %>
                             
                           </div>
+                           <div class="form-group">
+                            <label for="name">Plan</label>
+                             <%= f.select :plan_id, Plan.find(:all,:order=>"id desc").map{|s| [s.name, s.id]},:class => "form-control"%>
+                            
+                          </div>
+ 
+                        
 
                           <div class = "field">
                              <%= hidden_field_tag "user[role_ids][]", 2 %>

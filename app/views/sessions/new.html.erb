@@ -16,6 +16,12 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="wrapper clearfix">
+					 <section class="round">
+                          <% flash.each do |key, value| %>
+                              <div class="flash <%= key %>"><%= value %></div>
+                         <% end %>
+                        
+                      </section>
 					<div class="formy">
 						<div class="row">
 							<div class="col-md-12">
@@ -51,7 +57,7 @@
 					<li><%= link_to "Sign out", signout_path, :method => :delete %></li>
 					<% else %>
 
-                 <%= link_to "Create one here", signup_path %>
+                 <%= link_to "Create one here", signup_path ,:style =>"font-size:15px; color:white;"%>
 
                 <% end %>
                </div>
