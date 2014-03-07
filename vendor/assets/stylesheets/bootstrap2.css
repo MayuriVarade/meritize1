@@ -1237,6 +1237,8 @@ table {
     max-width: 100%;
 }
 th {
+    background: -moz-linear-gradient(center top , #2A4F60 0%, #223741 100%) repeat scroll 0 0 transparent;
+    color: #FFFFFF;
     text-align: left;
 }
 .table {
