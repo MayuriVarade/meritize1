@@ -1,4 +1,7 @@
-<div id="first-option">
+
+
+
+  <div id="first-option">
     <div class="container">
 
 <% if current_user.role? :productmanager %>
@@ -28,7 +31,7 @@
                    <td><%= plan.description2 %></td>
                    <td><%= plan.description3 %></td>
                    <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
-                   
+                   <td><%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
                 <% end %>
          
@@ -52,10 +55,10 @@
                   <td><%= plan.description1 %></td>
                 </tr>
                 <tr>
-                  <td><%= plan.description1 %></td>
+                  <td><%= plan.description2 %></td>
                 </tr>
                 <tr>
-                  <td><%= plan.description2 %></td>
+                  <td><%= plan.description3 %></td>
                 </tr>
                 <tr>
                   <td  style="text-align:center">
@@ -73,10 +76,10 @@
                   <td><%= plan.description1 %></td>
                 </tr>
                 <tr>
-                  <td><%= plan.description1 %></td>
+                  <td><%= plan.description2 %></td>
                 </tr>
                 <tr>
-                  <td><%= plan.description2 %></td>
+                  <td><%= plan.description3 %></td>
                 </tr>
                 <tr>
 

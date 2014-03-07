@@ -1,6 +1,13 @@
 
   <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
+<%= stylesheet_link_tag "dashboard.css" %>
+<%= javascript_include_tag "jquery.js" %>
 
+<script type="text/javascript"> 
+      $(document).ready( function() {
+        $('#deletesuccess').delay(10000).fadeOut();
+      });
+    </script>
 <script>
 var data = <%= raw @searchuser %>;
 
@@ -15,9 +22,16 @@ jQuery(function() {
 });
 </script>
 
+
+
+
   <div id="info">
      <div class="container">
-  
+   <div id="deletesuccess" class="jumbotron">
+        <h1>Vote for the Employee of the Month</h1> 
+        <p>Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?<br></p>
+        <p></p>
+      </div>
     <div class="navbar navbar-default">
         <div class="container">
           <div class="navbar-header">
@@ -52,7 +66,7 @@ jQuery(function() {
       </div>
       <table class="table table-hover table-bordered table-responsive table-condensed">
   <tr>
-    <th>#</th>
+    <th>Sr.No</th>
     <th>First Name</th>
     <th>Last Name</th>
     <th colspan="3">Action</th>
