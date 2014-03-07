@@ -27,61 +27,72 @@
     
                    <%= form_for (@plan) do |f|  %>   
                 <fieldset>
-                   <div class="control-group">                     
-                    <label for="firstname" class="control-label">Plan name</label>
-                    <div class="controls">
-                      
-                      <%= f.text_field :name ,:class=>"input-medium" %>   
-                    </div> <!-- /controls -->       
-                  </div> <!-- /control-group -->
+                     <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">                     
+                           <label for="firstname" class="control-label">Plan name</label>
+                           <div class="controls">
+                           <%= f.text_field :name ,:class=>"form-control" %>   
+                         </div> <!-- /controls -->       
+                      </div> <!-- /control-group -->
+                    </div>
+                  </div>
                   
+                    <div class="row">
+                       <div class="col-md-6">
+                         <div class="form-group">                    
+                           <label for="lastname" class="control-label">Price</label>
+                          <div class="controls">
+                          <%= f.text_field :price,:class=>"form-control" %>
+                          <span id="passstrength" class="help-block">
+                          </div> <!-- /controls -->       
+                        </div> <!-- /control-group -->
+                       </div>
+                     </div>
                   
-                  <div class="control-group">                     
-                    <label for="lastname" class="control-label">Price</label>
-                    <div class="controls">
-                      <%= f.text_field :price,:class=>"input-medium" %>
-                      <span id="passstrength" class="help-block">
-                    </div> <!-- /controls -->       
-                  </div> <!-- /control-group -->
-                  
-                  
-                  <div class="control-group">                     
-                    <label for="email" class="control-label"> All Users </label>
-                    <div class="controls">
-                      <%= f.text_field :description1,:class=>"input-medium" %>
-                     
-                      
-                    </div> <!-- /controls -->       
-                  </div> <!-- /control-group -->
-                  
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">                      
+                          <label for="email" class="control-label"> All Users </label>
+                          <div class="controls">
+                           <%= f.text_field :description1,:class=>"form-control" %>
+                        </div> <!-- /controls -->       
+                      </div> <!-- /control-group -->
+                     </div>
+                  </div>
                   
 
                 
-                    <div class="control-group">                     
+                      <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group">                    
                     <label for="email" class="control-label">Admin Users</label>
 
                     <div class="controls">
-                      <%= f.text_field :description2,:class=>"input-medium" %>
+                      <%= f.text_field :description2,:class=>"form-control" %>
                      
-                      
+                        </div>
+                       </div>
                     </div> <!-- /controls -->       
                   </div>
                   
 
                   
                   
-                    <div class="control-group">                     
+                    <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group">                     
                     <label for="email" class="control-label">Pricing</label>
 
                     <div class="controls">
-                      <%= f.text_field :description3,:class=>"input-medium" %>
-                     
+                      <%= f.text_field :description3,:class=>"form-control" %>
                       
                     </div> <!-- /controls -->       
                   </div>
-          
+                  </div>   
+                  </div>
                   <div class="form-actions">
-                     <%= f.submit 'Update',:class=> "btn btn-primary btn-large"%>
+                     <%= f.submit 'Update',:class=> "button button-primary"%>
                     
                   </div> <!-- /form-actions -->
                </fieldset>

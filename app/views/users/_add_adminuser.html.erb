@@ -36,41 +36,61 @@
              
                     <fieldset>
                     
-                    
-                      
-                      <div class="control-group">                     
-                        <label for="username" class="control-label">First Name</label>
-                        <div class="controls">
+
+
+                       <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group">                     
+                        <label for="username" class="control-label">Firstname</label>
+                      <div class="controls">
                           
-                          <%= f.text_field :firstname,:class=> "input-medium ",:style=>"height:auto" %>
+                          <%= f.text_field :firstname,:class=> "form-control",:style=>"height:auto" %>
                           
                         </div> <!-- /controls -->       
                       </div>
-                      <div class="control-group">                     
-                        <label for="username" class="control-label">Last Name</label>
+
+
+                      </div>
+                       </div>
+                       <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group">                     
+                        <label for="username" class="control-label">Lastname</label>
+
                         <div class="controls">
                           
-                          <%= f.text_field :lastname,:class=> "input-medium ",:style=>"height:auto" %>
+                          <%= f.text_field :lastname,:class=> "form-control",:style=>"height:auto" %>
                             
                         </div> <!-- /controls -->       
                       </div>
-                      
-                       <div class="control-group">                     
-                          <label for="email" class="control-label">Email</label>
-                          <div class="controls">
-                            <%= f.text_field :email, :class=> "input-medium ",:style=>"height:auto" %>
-                          </div> <!-- /controls -->       
-                        </div>
-                      
-                     
-                      <div class="control-group">                     
-                        <label for="firstname" class="control-label">Company Name</label>
+
+                      </div>
+                       </div>
+                      <div class="row">
+                      <div class="col-md-6">
+                       <div class="form-group">                     
+                        <label for="username" class="control-label">Email</label>
+
+
                         <div class="controls">
-                          <%= f.text_field :companyname, :class => "input-medium ",:style=>"height:auto" %>
+                          
+                          
+                            <%= f.text_field :email, :class=> "form-control",:style=>"height:auto" %>
+                        </div> <!-- /controls -->       
+                      </div>
+                      </div>
+                       </div>
+                     <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group">                     
+                        <label for="firstname" class="control-label">Company name</label>
+                        <div class="controls">
+                          <%= f.text_field :companyname, :class => "form-control",:style=>"height:auto" %>
                         </div> <!-- /controls -->       
                       </div> 
-
-                       <div class="field">
+                      </div>
+                       </div>
+                       
                   
                        <%= hidden_field_tag "user[role_ids][]", 3 %>
                        <%= f.hidden_field :admin_user_id ,:value => current_user.id %>
@@ -79,12 +99,13 @@
                         <% if params[:type] == "adminuser" %>
                                 <%= hidden_field_tag("page_name", "admin") %>
                           <% end %>
-                    </div>
-                    <div class="form-actions">
-                        
-                      <%= f.submit "Create user account",:class=>"btn btn-primary btn-large" %>  
-                        
-                      </div> <!-- /form-actions -->
+         
+
+                       <div class="form-group">
+                      <%= f.submit "Create user account",:class=>"button button-primary" %>  
+                        </div>
+                    
+
                     </fieldset>
                  
 

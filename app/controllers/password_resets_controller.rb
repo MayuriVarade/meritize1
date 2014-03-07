@@ -1,5 +1,9 @@
 class PasswordResetsController < ApplicationController
-  layout :custom_layout
+
+
+  layout 'application'
+
+
   def create
     user = User.find_by_email(params[:email])
 

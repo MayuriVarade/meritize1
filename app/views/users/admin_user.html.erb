@@ -1,5 +1,5 @@
 
-<%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
+  <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
 
 <script>
 var data = <%= raw @searchuser %>;
@@ -15,75 +15,89 @@ jQuery(function() {
 });
 </script>
 
-
-
-<div id="masthead">
+  <div id="info">
+     <div class="container">
   
-  <div class="container">
-    
-    <div class="masthead-pad">
-      
-      <div class="masthead-text">
-        <h2>Manage User</h2>
+    <div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+              <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Manage Users</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li>
+                <%= link_to "Add new User" , new_user_path(:type =>"adminuser")%>
+                
+              </li>
+              
         
-      </div> 
-      
-    </div>
-    
-  </div>
-  
-</div> 
+              <li class="pull-right">
+            <form class="navbar-form navbar-left">
+                  <div class="form-group">
 
+                    <%= form_tag admin_user_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"}  do %>
 
+                    <%= text_field_tag :search, params[:search], :class=>"form-control" %>    <%= submit_tag "Search", :class_name => nil,:class=> "button button-small"%>
 
-
-<div id="content">
-
-<div class="container">
-    <section class="round">
-        <% flash.each do |key, value| %>
-      <div class="flash <%= key %>" style = "font-size:15px;text-align:center;"><%= value %></div>
-      <% end %>
-  </section>
-
-  <div style="margin-bottom:10px"> <%= link_to "Add new User" , new_user_path(:type =>"adminuser"),:class=>"btn btn-primary " %></div>
-   <%= form_tag admin_user_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"}  do %>
-     <%= text_field_tag :search, params[:search], :class=>"input-medium" %>
-      <%= submit_tag "Search", :class_name => nil,:class=> "btn btn-primary",:style=> "margin-bottom:10px; padding:5px 10px" %>
-   
+                     <% end %>
+                     </div>
+                   </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <table class="table table-hover table-bordered table-responsive table-condensed">
+  <tr>
+    <th>#</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th colspan="3">Action</th>
+  </tr>
+  <% @adminusers.each.with_index(1) do |adminusers,index| %>
+  <tr>
+    <td><%= index %></td>
+    <td><%= adminusers.firstname rescue nil %></td>
+    <td><%= adminusers.lastname rescue nil%></td>
+    <td><a href="<%= edit_user_path(adminusers,:type=>"adminuser")%>">Edit</a></td>
+    <td><a href="/users/<%= adminusers.id %>/delete" onclick="if(confirm('Are you sure you want to delete this page?'))  return true;  else  return  false;" class = "icon-3 info-tooltip" >Delete</a></td>
+    <td><%= link_to format_boolean(adminusers.status?), {:controller => 'users', :action => 'toggled_status', :id => adminusers.id} %></td>
+  </tr>
    <% end %>
-
+</table>
         
-     
+        <!-- <div align="right">
+          <ul class="pagination">
+            <li>
+              <a href="#">Prev</a>
+            </li>
+            <li>
+              <a href="#">1</a>
+            </li>
+            <li>
+              <a href="#">2</a>
+            </li>
+            <li>
+              <a href="#">3</a>
+            </li>
+            <li>
+              <a href="#">4</a>
+            </li>
+            <li>
+              <a href="#">Next</a>
+            </li>
+          </ul>
+        </div>
+      </div> -->
+      <hr>
       
-       <table class="table table-bordered table-striped table-highlight">
-          <thead>
-            <tr>
-              
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th colspan="3">Action</th>
-            </tr>
-          </thead>
-          <% @adminusers.each do |adminusers| %>
-          <tbody>
-            <tr>
-              
-              <td><%= adminusers.firstname rescue nil %></td>
-              <td><%= adminusers.lastname rescue nil%></td>
-              <td><%= link_to 'Edit', edit_user_path(adminusers,:type=>"adminuser") %></td>
-              <td><a href="/users/<%= adminusers.id %>/delete" onclick="if(confirm('Are you sure you want to delete this page?'))  return true;  else  return false;" class = "icon-3 info-tooltip" >Delete</a></td>
+   
+  </div>
 
-              <td><%= link_to format_boolean(adminusers.status?), {:controller => 'users', :action => 'toggled_status', :id => adminusers.id} %></td>
-            </tr>
-             
-          </tbody>
-          <% end %>
-        </table>
-       
-      </div> 
 
-</div> 
 
-</div> 
-</div>
+</html>
+

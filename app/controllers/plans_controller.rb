@@ -1,12 +1,12 @@
 class PlansController < ApplicationController
-layout "admin"
+layout "profile"
   # GET /plans
   # GET /plans.json
   def index
   	
     @plans = Plan.all
     
-      @subscription = Subscription.find_by_user_id(current_user.id) rescue nil
+      @subscription = Subscription.find_by_email(current_user.email) 
       # raise current_user.id.inspect
       respond_to do |format|
       format.html # index.html.erb

@@ -1,199 +1,104 @@
-<!-- Select Plan From This Page -->
-<div id="masthead">
-	
-	<div class="container">
-		
-		<div class="masthead-pad">
-			
-			<div class="masthead-text">
-				<h2>Plan</h2>
-				
-			</div> <!-- /.masthead-text -->
-			
-		</div>
-		
-	</div> <!-- /.container -->	
-	
-</div> <!-- /#masthead -->
-              <% if current_user.role? :productmanager %>
+<div id="first-option">
+    <div class="container">
+
+<% if current_user.role? :productmanager %>
+
+        
+      
                        <table class="table table-bordered table-striped table-highlight">
                             <thead>
                            <tr>
                              <th>Name</th>
-                             <th>Price</th>
-                             <th>All User</th>
-                             <th>Admin Users</th>
-                             <th>Pricing</th>
-                             <th>Action</th>
-                             
-                             
+                             <th>price</th>
+                             <th>description1</th>
+                             <th>description2</th>
+                             <th>description3</th>
                           </tr>
                            </thead>
                      <tbody>
-          	<% @plans.each do |plan| %>
+            <% @plans.each do |plan| %>
 
+         
             <tr>
-
                    <td><%= plan.name %></td>
                    <td><%= plan.price %></td>
                    <td><%= plan.description1 %></td>
                    <td><%= plan.description2 %></td>
                    <td><%= plan.description3 %></td>
-                   <td><%= link_to 'Edit', edit_plan_path(plan) %>
-                   <%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                  </tr>
+                   <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
+                   
+            </tr>
                 <% end %>
+         
+          </tbody>
+        </table>
+        <% elsif current_user.role? :admin%>
 
-                   </tbody>
-                  </table>
+    
+    <h1>Plan</h1>
 
-      </div> <!-- /.container -->
-</div>
-</div> <!-- /#content -->
+     
+      <table class="table table-hover table-bordered table-responsive table-condensed">
+         <% @plans.each do |plan| %>
+             <% if @subscription.nil? %>
+            <tr>
+              <td><table class="table table-hover table-bordered table-responsive table-condensed">
+                <tr>
+                  <td class="jumbotron"><h2 style="text-align:center"><%= plan.name %></h2></td>
+                </tr>
+                <tr>
+                  <td><%= plan.description1 %></td>
+                </tr>
+                <tr>
+                  <td><%= plan.description1 %></td>
+                </tr>
+                <tr>
+                  <td><%= plan.description2 %></td>
+                </tr>
+                <tr>
+                  <td  style="text-align:center">
+                  <% @subscription = plan.subscriptions.build %>
+                      <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id), :class=>"button button-small" %></td>
+                  
+                </tr>
+              </table></td>
+               <% else %>
+                <td><table class="table table-hover table-bordered table-responsive table-condensed">
+                <tr>
+                  <td class="jumbotron"><h2 style="text-align:center"><%= plan.name %></h2></td>
+                </tr>
+                <tr>
+                  <td><%= plan.description1 %></td>
+                </tr>
+                <tr>
+                  <td><%= plan.description1 %></td>
+                </tr>
+                <tr>
+                  <td><%= plan.description2 %></td>
+                </tr>
+                <tr>
 
-</div> <!-- /#wrapper -->
+                  <% subscription = plan.subscriptions.build %>
+                    <% if @subscription.plan_id == plan.id%>
+                   <td style="text-align:center"><a class="button button-small" href="#"> <span>Current Plan</span> </a> </td>
+               </tr
+                <% else %>
+                 <tr>
+                  <td  style="text-align:center">
+                  <% @subscription = plan.subscriptions.build %>
+                      <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id), :class=>"button button-small" %>
+                      </td>
+                   </tr>
+              
+                <% end %>
+              </table></td>
+         
+              <% end %>
+        <% end %>
+            </tr>
+          </table>
+  
+  <% end %>
 
-			<% else current_user.role? :admin%>
-           <div id="content">
-
-	<div class="container">
-		
-		
-		<div class="row" >
-			
-			<div class="span12" style="margin-left:150px">
-				
-				
-				<div class="pricing-plans plans-4">
-					  
-					<div id="content">
-
-	                    <div class="container">           	
-				
-				    <div class="plan-container">
-				        <div class="plan">
-					        <div class="plan-header">
-				                
-					        	
-				                
-					            <div class="plan-price">
-				                	Applaud<span class="term">&nbsp;</span>
-								</div> <!-- /plan-price -->
-								
-					        </div> <!-- /plan-header -->       
-					        
-					        <div class="plan-features">
-							<ul>	  <% a = @plans[0]%> 			
-									<li><%= a.description1 %></li>
-									<li><%= a.description2 %></li>
-									<li><%= a.description3 %></li>
-							</ul>
-
-							</div> <!-- /plan-features -->
-							
-									<div class="plan-actions">	
-							     <% a = @plans[0]%> 
-                                   <% @subscription = a.subscriptions.build %>
-							  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id, user_id: current_user.id), :class =>"btn" %>		
-							
-							</div>  
-							<!-- /plan-actions -->
-				
-						</div> <!-- /plan -->
-				    </div> <!-- /plan-container -->
-				    
-				    <div class="plan-container best-value">
-
-				        <div class="plan">
-					        <div class="plan-header">
-				                
-					        	
-				                
-					            <div class="plan-price">
-				                	Award<span class="term">&nbsp;</span>
-								</div> <!-- /plan-price -->
-								
-					        </div> <!-- /plan-header -->	          
-					        
-					        <div class="plan-features", style="padding-bottom: 4.5em;">
-								<ul>	 <% a = @plans[1]%> 				
-									<li><%= a.description1 %></li>
-									<li><%= a.description2 %></li>
-									<li><%= a.description3 %></li>
-								
-								</ul>
-							</div> <!-- /plan-features -->
-							
-							<div class="plan-actions">	
-							     <% a = @plans[1]%> 
-                                   <% @subscription = a.subscriptions.build %>
-							  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id, user_id: current_user.id), :class =>"btn" %>		
-							
-							</div> <!-- /plan-actions -->
-				
-						</div> <!-- /plan -->
-				    </div> <!-- /plan-container -->
-				    
-				    <div class="plan-container">
-				        <div class="plan">
-				 
-					        <div class="plan-header">
-				                
-					        	
-				                
-					            <div class="plan-price">
-				                Alloy<span class="term">&nbsp;</span>
-								</div> <!-- /plan-price -->
-								
-					        </div> <!-- /plan-header -->	       
-					        
-					        <div class="plan-features", style="padding-bottom: 8em;">
-								<ul>	 <% a = @plans[2]%> 
-									<li><%= a.description1%></li>
-									<li><%= a.description2 %></li>
-									<li><%= a.description3 %></li>
-									
-							    </ul>
-							</div> <!-- /plan-features -->
-							
-							<div class="plan-actions">
-								<%# raise @plans.inspect%>
-							   	       
-							   	        <% a = @plans[2]%> 
-                                   <% @subscription = a.subscriptions.build %>
-							  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id, user_id: current_user.id), :class =>"btn" %>		
-					
-								  			
-							</div> <!-- /plan-actions -->
-				   
-						</div> <!-- /plan -->
-						
-				    </div> <!-- /plan-container -->
-				   <% end %>
-
-				</div>
-				
-			</div> <!-- /.span12 -->
-			
-		</div> <!-- /.row -->
-		
-		
-	</div> <!-- /.container -->
-
-</div> <!-- /#content -->
-
-</div> <!-- /#wrapper -->
-
-<script>
-
-$(function () {
-	
-	Theme.init ();
-	
-});
-
-</script>
-
-</body>
-</html>
-
+    </div>
+  </div>

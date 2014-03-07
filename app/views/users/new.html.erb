@@ -5,7 +5,7 @@
         <% if signed_in?%>
           
                  
-           <%= render :partial => 'users/add_adminuser',:locals => {:f => f} ,:layout => 'layouts/admin' %>
+           <%= render :partial => 'users/add_adminuser',:locals => {:f => f} ,:layout => 'layouts/profile' %>
 
 
 
@@ -17,7 +17,9 @@
           <div class="row header">
             <div class="col-md-12">
               <h3 class="logo">
+
                 <a href="/">Meritize</a>
+
               </h3>
               <h4>Set up your new account today.</h4>
               
@@ -43,6 +45,7 @@
                              <%= f.text_field :firstname, :class => "form-control" %>
                          </div>
                              <div class="form-group">
+
                             <label for="name">Last name</label><span class="star">*</span>
                              <%= f.text_field :lastname, :class => "form-control" %>
                           </div>
@@ -55,21 +58,24 @@
                             <label for="name">Company name</label><span class="star">*</span>
                             <%= f.text_field :companyname, :class => "form-control" %>
                             
+
                           </div>
                           <div class="form-group">
                             <label for="name">How did you hear About Us?</label>
                                    
                                    <%= f.select :hear_aboutus, options_for_select([["Select One", ""], "From a Friend", "Google search", "Other search engine","Facebook","Twitter","LinkedIn","Blog" ]), {}, { :class => 'form-control' } %>
                                   <!-- <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3', :class => "form-control"  %> -->
-                            
-                          </div>
-                           <div class="form-group">
-                            <label for="name">Plan</label>
 
+                               </div>
+                                
+                                <div class="form-group">
+                            <label for="plan_name">Plan</label>
+                             <%= f.select :plan_name, ['Applaud','Award','Alloy'], :selected => 'Alloy',{}, { :class => 'form-control' } %>
                             
-                             <%= f.select(:plan_id, Plan.find(:all,:order=>"id desc").map{|s| [s.name, s.id]}, {}, { :class => 'form-control' }) %>
-                            
-                          </div>
+                               </div>
+
+
+                                
                           
                           <div class = "field">
                              <%= hidden_field_tag "user[role_ids][]", 2 %>
@@ -90,10 +96,13 @@
                         
                          <div class="already-account" style="margin-bottom:0">
                             Already have an account?
+
                             <%= link_to "Sign In", signin_path %>
                 
+
                           </div>
                            <div class="submit">
+
                             <%= f.submit "Create my account", :class =>"button-clear"  %>
                           </div>
                          
@@ -110,12 +119,7 @@
           </div>
         </div>
 
-  <script type="text/javascript">
-    $(function () {
-      $(".already-account a").popover();
-      $(".already-account a").popover('show');
-    });
-  </script>
+
 
 </body>
 

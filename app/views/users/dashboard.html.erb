@@ -1,51 +1,44 @@
 <!-- Admin side Dashboard Page -->
 
-   <%= stylesheet_link_tag "dashboard.css" %>
 
+<%= stylesheet_link_tag "dashboard.css" %>
+<%= javascript_include_tag "jquery.js" %>
 
-<div id="masthead">
-  
-  <div class="container">
-    
-    <div class="masthead-pad">
-      
-      <div class="masthead-text">
-        <h2>Welcome to Dashboard</h2>
-        <% if current_user.role? :productmanager %>
+<div id="info">
+
+      <div class="container">
+           <h2>Welcome to Dashboard</h2>
+          <% if current_user.role? :productmanager %>
+
            <ul>
                Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
    
              
           <% elsif current_user.role? :admin %>
-            Only <%= @plan_expiry %> days left for your trial plan.You can upgrade it by Subscribing plan.
+            <div id="deletesuccess" class="jumbotron">
+                Only <%= @plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
+             </div>
          <% else %>
           <!--  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
            Email:<%= current_user.email %><br/> -->
         <% end %>
-    </ul>
-
-        
-      </div> <!-- /.masthead-text -->
+      
+        <h1>Vote for the Employee of the Month</h1> 
+        <p>Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?<br></p>
+        <p></p>
+     
+   
     </div>
-  </div> 
-  <!-- /.container -->  
-  
-</div> <!-- /#masthead -->
+     
+   
+  </div>
 
 
-
-
-
-
-<script>
-
-$(function () {
-  
-  Theme.init ();
-  
-});
-
-</script>
+<script type="text/javascript"> 
+      $(document).ready( function() {
+        $('#deletesuccess').delay(10000).fadeOut();
+      });
+    </script>
 
 </body>
 </html>

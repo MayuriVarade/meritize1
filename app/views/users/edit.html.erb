@@ -18,115 +18,89 @@
 	</div> <!-- /#masthead -->
 
 
+	<div class="container">
+			<div class="row header">
+				<div class="col-md-8 message">
+					<h3>Profile</h3>
+					<p>
+						A little bit about me</p>
+
+						<%= form_for @user, :html => {:multipart=> true, :class=>"form-horizontal", :id =>"new_user"} do |f|%>
+						<%= render 'shared/error_messages', :object=> f.object%>
+					      
+                        <div class="form-group">
+				    		<label for="name">Upload photo</label>
+				    		<%= f.file_field :photo%>
 
 
-	<div id="content">
+				    		
+				  		</div>
 
-		<div class="container">		
-			
-			<div class="row">
-			
-			<div class="span12">
-			
+						<div class="form-group">
+				    		<label for="email">Userame</label>
+				    		<%= f.text_field :username, :class=>"form-control"%>
+
+				    		
+				  		</div>
+				  		<div class="form-group">
+				    		<label for="name">First name</label>
+				    		<%= f.text_field :firstname, :class=>"form-control"%>
+				    		
+				  		</div>
+				  		<div class="form-group">
+				    		<label for="name">Last name</label>
+				    		<%= f.text_field :lastname, :class=>"form-control"%>
+				    		<%= f.hidden_field :email,:value=> params[:user][:email] rescue nil %>
+
+				    		
+				  		</div>
+				  		
+				  		<div class="form-group">
+				    		<label for="phone">Password</label>
+				    		<%= f.password_field :password, :class=>"form-control"%>
+
+				  		</div>
+
+				  		<div class="form-group">
+				    		<label for="phone">Password Confirmation</label>
+				    		<%= f.password_field :password_confirmation, :class=>"form-control"%>
+                             <% if params[:type] == "adminuser" %>
+                              <%= hidden_field_tag("page_name", "admin") %>
+                              <% end %>
+				  		</div>
+
+				  		<div class="form-group">
+				  		<label for="message">Timezone</label>&nbsp;&nbsp;
+				    		
+		               <%= f.time_zone_select :time_zone%>
+                       </div>
+							<span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span>
 							
-						<%= form_for @user, :html => {:multipart => true,:class=>"form-horizontal",:id =>"new_user" } do |f|%>	
-						<%= render 'shared/error_messages', :object => f.object %>
-									<fieldset>
-										
-                                       <div class="control-group">											
-											<label for="username" class="control-label">Upload Photo</label>
-											<div class="controls">
-												
-												<%= f.file_field :photo%></a>
-												
-											</div> <!-- /controls -->				
-										</div>
-										<div class="control-group">											
-											<label for="username" class="control-label">User Name</label>
-											<div class="controls">
-												
-												<%= f.text_field :username,:class=> "input-medium disabled" %>
-												
-											</div> <!-- /controls -->				
-										</div>
+							
+							          <label class="form-label">Email notifications</label>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" checked="checked">Yes, send me emails as soon as I get Props</label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" checked="checked">Yes, remind me if I haven't given Props to someone else in a while</label>
+          </div>
+          <div checked="checked" class="checkbox">
+            <label>
+              <input type="checkbox" checked="checked">Yes, remind me when it's time to vote</label>
+          </div>
+				  		<div class="submit" style="margin-top:20px">
+				  			<input type="submit" value="Save changes to my profile" class="button button-small" >
+				  		</div>
+				  		<% end%>
 
-										<div class="control-group">											
-											<label for="username" class="control-label">First Name</label>
-											<div class="controls">
-												
-												<%= f.text_field :firstname,:class=> "input-medium disabled" %>
-												
-											</div> <!-- /controls -->				
-										</div>
-										<div class="control-group">											
-											<label for="username" class="control-label">Last Name</label>
-											<div class="controls">
-												
-												<%= f.text_field :lastname,:class=> "input-medium disabled" %>
-												<%= f.hidden_field :email,:value=> params[:user][:email] rescue nil %>
-											</div> <!-- /controls -->				
-										</div>
-										
-										
-										
-										
-										<div class="control-group">											
-											<label for="password" class="control-label">Password</label>
-											<div class="controls">
-												<%= f.password_field :password,:class=> "input-medium " %>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										<div class="control-group">											
-											<label for="password" class="control-label">Password Confirmation</label>
-											<div class="controls">
-												<%= f.password_field :password_confirmation,:class=> "input-medium " %>
-												
-											<% if params[:type] == "adminuser" %>
-												<%= hidden_field_tag("page_name", "admin") %>
-											<% end %>	
-											</div> <!-- /controls -->				
-										</div>
-										
-										<div class="control-group">											
-											<label for="email" class="control-label">Time Zone</label>
-											<div class="controls">
-												 <%= f.time_zone_select :time_zone %>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span>
-										
-										
-										
-										<label class="form-label">Email notifications</label>
-	                                <div class="checkbox">
-	                                <label>
-	                                  <input type="checkbox" checked="checked">Yes, send me emails as soon as I get Props</label>
-	                               </div>
-	                                <div class="checkbox">
-	                                <label>
-	                                    <input type="checkbox" checked="checked">Yes, remind me if I haven't given Props to someone else in a while</label>
-	                               </div>
-	                               <div checked="checked" class="checkbox">
-	                               <label>
-	                                   <input type="checkbox" checked="checked">Yes, remind me when it's time to vote</label>
-	                               </div>
-			  	                     <br>
-									<div class="form-actions">
-											
-										<%= f.submit "Save changes to my profile",:class=>"btn btn-primary btn-large" %>	
-											
-										</div> <!-- /form-actions -->
-									</fieldset>
-								<% end %>
-								
+				
+				</div>
+				
 			</div>
-				
-				
-			</div> <!-- /.row -->
 			
 			
-		</div> <!-- /.container -->
-
-	</div> <!-- /#content -->
+			
+			
+		</div>
