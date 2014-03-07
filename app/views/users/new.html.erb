@@ -17,7 +17,7 @@
           <div class="row header">
             <div class="col-md-12">
               <h3 class="logo">
-                <a href="#"><img src="assets/logo.png" alt=""></a>
+               <a href="#">Meritize </a>
               </h3>
               <h4>Set up your new account today.</h4>
               
@@ -44,7 +44,7 @@
                          </div>
                              <div class="form-group">
                             <label for="name">Last name</label>
-                             <%= f.text_field :firstname, :class => "form-control" %>
+                             <%= f.text_field :lastname, :class => "form-control" %>
                           </div>
                           <div class="form-group">
                             <label for="email">Email address</label>
@@ -55,7 +55,15 @@
                             <label for="name">Company name</label>
                             <%= f.text_field :companyname, :class => "form-control" %>
                             
-                          </div>
+                               </div>
+                                
+                                <div class="form-group">
+                            <label for="plan_name">Plan</label>
+                             <%= f.select :plan_name, ['Applaud','Award','Alloy'], :selected => 'Alloy' %>
+                            
+                               </div>
+
+
                                 <div class="form-group">
                             <label for="name">Hear AboutUs</label>
                               <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3', :class => "form-control"  %>
@@ -72,12 +80,12 @@
 
                 
                         </div>
-                        <div class="checkbox">
+                        <!-- <div class="checkbox">
                             <label>
                                 <input type="checkbox"> You have read &amp; agree to the 
                                 <a href="#">Terms of service</a>.
                             </label>
-                          </div>
+                          </div> -->
                         
                          <div class="already-account" style="margin-bottom:0">
                             Already have an account?
