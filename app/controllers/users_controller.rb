@@ -62,10 +62,10 @@ class UsersController < ApplicationController
             
          if params[:page_name] == "admin"
           
-           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporay password send to user."}  
+           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}  
         
         else   
-          redirect_to root_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
+          redirect_to signup_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
         end  
       else
         @title = "Sign Up"
@@ -82,12 +82,12 @@ class UsersController < ApplicationController
          
     if @user.update_attributes(params[:user])
        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
-      flash[:success] = "Profile updated."
+      flash[:success] = "Profile updated successfully."
       
       if params[:page_name] == "admin"
           redirect_to admin_user_path
       else
-        flash[:success] = "Profile updated."
+        flash[:notice] = "Profile updated successfully."
         redirect_to @user
       end  
     else
@@ -99,7 +99,7 @@ class UsersController < ApplicationController
     def destroy
       @user = User.find(params[:id])
       @user.destroy
-      flash[:notice] = "Successfully destroyed user."
+      flash[:notice] = "User deleted successfully."
       redirect_to  admin_user_path
     end
 
@@ -115,7 +115,7 @@ class UsersController < ApplicationController
         params[:change_password][:new_password_confirmation]
 
           if @user.save
-            flash[:notice] = 'Password successfully update'
+            flash[:notice] = 'Password successfully updated'
             redirect_to change_password_path
           else
             flash[:error] = 'New password mismatch'

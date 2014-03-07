@@ -50,7 +50,7 @@
 				  		<div class="form-group">
 				    		<label for="name">Last name</label>
 				    		<%= f.text_field :lastname, :class=>"form-control"%>
-				    		<%= f.hidden_field :email, :value=>current_user.email%>
+				    		<%= f.hidden_field :email,:value=> params[:user][:email] rescue nil %>
 
 				    		
 				  		</div>

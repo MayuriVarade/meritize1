@@ -1,4 +1,5 @@
-
+   
+    <%= javascript_include_tag "jquery-1.5.2.min","jquery.validate.min","validation" %>
     <div id="masthead">
       
       <div class="container">
@@ -36,6 +37,7 @@
                     <fieldset>
                     
 
+
                        <div class="row">
                       <div class="col-md-6">
                       <div class="form-group">                     
@@ -46,6 +48,7 @@
                           
                         </div> <!-- /controls -->       
                       </div>
+
 
                       </div>
                        </div>
@@ -67,6 +70,7 @@
                       <div class="col-md-6">
                        <div class="form-group">                     
                         <label for="username" class="control-label">Email</label>
+
 
                         <div class="controls">
                           
@@ -95,12 +99,13 @@
                         <% if params[:type] == "adminuser" %>
                                 <%= hidden_field_tag("page_name", "admin") %>
                           <% end %>
-                  
+         
 
                        <div class="form-group">
                       <%= f.submit "Create user account",:class=>"button button-primary" %>  
                         </div>
                     
+
                     </fieldset>
                  
 

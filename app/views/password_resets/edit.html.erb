@@ -7,7 +7,9 @@
         <div class="col-md-8 message">
           <h3>Forgot Password ? </h3>
                     
+
            <%= form_for @user, :url => password_reset_path(params[:id]),:html =>{:id =>"forgot-form"} do |f| %>
+
             <% if @user.errors.any? %>
               <div class="error_messages">
                 <h2>Form is invalid</h2>
@@ -19,6 +21,7 @@
               </div>
             <% end %> 
             <div class="form-group">
+              <h2>Please Enter The Recieved Temoprary Password Below</h2>
                 <label for="name">Password</label>
                 
                   <%= f.password_field :password ,:class=> "form-control"%>

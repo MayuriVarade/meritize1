@@ -15,8 +15,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	
 	
-	
-    <%= javascript_include_tag "application","jquery","bootstrap", "jquery_002","theme","modernizr-2.5.3.min.js" %>
+	  
+    <%= javascript_include_tag "application","jquery"%>
    	<%= stylesheet_link_tag "font-awesome.css","bootstrap.css","bootstrap-responsive.css","jquery-ui-1.8.21.custom.css","application1.css" %>
 	<%= yield :scripts %>
     <%= yield :styles %>	
@@ -54,17 +54,22 @@
 				<li class="dropdown">
 				<% if current_user.role? :productmanager %>	
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Product manager -	<%= current_user.firstname %>					
+
+						<%= current_user.firstname.capitalize rescue nil%>  <%= current_user.lastname.capitalize rescue nil%>					
+
 						<b class="caret"></b>
 				  </a>
 				<% elsif current_user.role? :admin %>
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						HR Admin - <%= current_user.firstname %>						
+
+						 
+						  <%= current_user.firstname.capitalize rescue nil%>  <%= current_user.lastname.capitalize rescue nil%>				
+
 						<b class="caret"></b>
 				  </a>
 				<% else %>
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<%= current_user.fullname %>						
+						<%= current_user.firstname.capitalize rescue nil%>  <%= current_user.lastname.capitalize rescue nil%>					
 						<b class="caret"></b>
 				  </a>
 				<% end %>	

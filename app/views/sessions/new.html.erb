@@ -8,7 +8,9 @@
 		<div class="row header">
 			<div class="col-md-12">
 				<h3 class="logo">
-					<a href="#">Meritize </a>
+
+					<a href="#">Meritize</a>
+
 				</h3>
 				<h4>Sign in to your account.</h4>
 			</div>
@@ -16,6 +18,12 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="wrapper clearfix">
+					 <section class="round">
+                          <% flash.each do |key, value| %>
+                              <div class="flash <%= key %>"><%= value %></div>
+                         <% end %>
+                        
+                      </section>
 					<div class="formy">
 						<div class="row">
 							<div class="col-md-12">
@@ -35,7 +43,9 @@
 							      			<%= label_tag :remember_me %>
 							    		
 							  		</div>
-							  		<p><%= link_to "Forgot password?", new_password_reset_path %></p>
+
+							  		<p><%= link_to "Forgot Password?", new_password_reset_path %></p>
+
 							  		<div class="submit">
 							  			<%= f.submit "Sign in to my account", :class =>"button-clear"%>
 								  										  									  		</div>
@@ -51,7 +61,7 @@
 					<li><%= link_to "Sign out", signout_path, :method => :delete %></li>
 					<% else %>
 
-                 <%= link_to "Create one here", signup_path %>
+                 <%= link_to "Create one here", signup_path ,:style =>"font-size:15px; color:white;"%>
 
                 <% end %>
                </div>
@@ -60,11 +70,3 @@
 	</div>
 
 </body>
-
-
-
-
-
-
-
-

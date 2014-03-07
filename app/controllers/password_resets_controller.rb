@@ -1,6 +1,8 @@
 class PasswordResetsController < ApplicationController
 
+
   layout 'application'
+
 
   def create
     user = User.find_by_email(params[:email])
@@ -8,7 +10,7 @@ class PasswordResetsController < ApplicationController
     if user
       
       user.send_password_reset
-      redirect_to root_url, :notice => "Email sent with password reset instructions."
+      redirect_to password_resets_new_url, :notice => "Email sent with password reset instructions."
     else
       redirect_to password_resets_new_url, :notice => "No account found with that email address."
     end
@@ -28,5 +30,13 @@ class PasswordResetsController < ApplicationController
       render :edit
     end
   end
-
+private
+def custom_layout
+        case action_name
+         when "edit"
+           "profile" 
+         else
+          "application"
+        end
+    end
 end
