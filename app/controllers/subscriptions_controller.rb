@@ -86,13 +86,17 @@ class SubscriptionsController < ApplicationController
 # Logic Of Subscribe For Transaction Completion Process
 
   def paypal_checkout
-  	plan = Plan.find(params[:plan_id])    
+  	plan = Plan.find(params[:plan_id])  
+   
   	subscription = plan.subscriptions.build
-    user = User.find_by_id(params[:user_id])    
-  	redirect_to subscription.paypal.checkout_url(
+    user = User.find_by_id(params[:user_id]) 
+
+    
+      redirect_to subscription.paypal.checkout_url(
   		return_url: new_subscription_url(:plan_id => plan.id,:user_id => current_user.id, :price => plan.price),
   		cancel_url: root_url
   		)
+  
   end
 
   def history
