@@ -15,12 +15,7 @@
 	</div> <!-- /.container -->	
 	
 </div> <!-- /#masthead -->
-
-
-
-
-
-           <% if current_user.role? :productmanager %>
+              <% if current_user.role? :productmanager %>
                        <table class="table table-bordered table-striped table-highlight">
                             <thead>
                            <tr>
@@ -37,7 +32,6 @@
                      <tbody>
           	<% @plans.each do |plan| %>
 
-         
             <tr>
 
                    <td><%= plan.name %></td>
