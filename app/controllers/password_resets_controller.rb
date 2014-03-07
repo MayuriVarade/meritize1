@@ -6,7 +6,7 @@ class PasswordResetsController < ApplicationController
     if user
       
       user.send_password_reset
-      redirect_to root_url, :notice => "Email sent with password reset instructions."
+      redirect_to password_resets_new_url, :notice => "Email sent with password reset instructions."
     else
       redirect_to password_resets_new_url, :notice => "No account found with that email address."
     end
@@ -35,9 +35,4 @@ def custom_layout
           "application"
         end
     end
-    
-
-
-
-
 end

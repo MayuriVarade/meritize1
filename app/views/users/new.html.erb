@@ -3,7 +3,7 @@
     <%= form_for @user ,:html => {:multipart => true,:id =>"new_user",:class=>"form-horizontal" } do |f| %>
    
         <% if signed_in?%>
-
+          
                  
            <%= render :partial => 'users/add_adminuser',:locals => {:f => f} ,:layout => 'layouts/admin' %>
 
@@ -17,7 +17,7 @@
           <div class="row header">
             <div class="col-md-12">
               <h3 class="logo">
-                <a href="#">Meritize</a>
+                <a href="/">Meritize</a>
               </h3>
               <h4>Set up your new account today.</h4>
               
@@ -33,7 +33,7 @@
                   
                         <section class="round">
                           <% flash.each do |key, value| %>
-                              <div class="flash <%= key %>"><%= value %></div>
+                              <div class="flash <%= key %>", style= "margin-left:-15px;margin-bottom:20px;color:#6ED5E4"><%= value %></div>
                          <% end %>
                          <%= render 'shared/error_messages', :object => f.object %>
                       </section> 
@@ -58,17 +58,19 @@
                           </div>
                           <div class="form-group">
                             <label for="name">How did you hear About Us?</label>
-                              <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3', :class => "form-control"  %>
+                                   
+                                   <%= f.select :hear_aboutus, options_for_select([["Select One", ""], "From a Friend", "Google search", "Other search engine","Facebook","Twitter","LinkedIn","Blog" ]), {}, { :class => 'form-control' } %>
+                                  <!-- <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3', :class => "form-control"  %> -->
                             
                           </div>
                            <div class="form-group">
                             <label for="name">Plan</label>
-                             <%= f.select :plan_id, Plan.find(:all,:order=>"id desc").map{|s| [s.name, s.id]},:class => "form-control"%>
+
+                            
+                             <%= f.select(:plan_id, Plan.find(:all,:order=>"id desc").map{|s| [s.name, s.id]}, {}, { :class => 'form-control' }) %>
                             
                           </div>
- 
-                        
-
+                          
                           <div class = "field">
                              <%= hidden_field_tag "user[role_ids][]", 2 %>
                              <%= f.hidden_field :plan_id, :value => 3%>
@@ -88,7 +90,7 @@
                         
                          <div class="already-account" style="margin-bottom:0">
                             Already have an account?
-                            <a title="" data-original-title="" href="/signin">Sign in here</a>
+                            <%= link_to "Sign In", signin_path %>
                 
                           </div>
                            <div class="submit">

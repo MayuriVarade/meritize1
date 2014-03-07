@@ -64,7 +64,7 @@ class UsersController < ApplicationController
            redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporay password send to user."}  
         
         else   
-          redirect_to root_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
+          redirect_to signup_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
         end  
       else
         @title = "Sign Up"

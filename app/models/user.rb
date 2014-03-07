@@ -12,11 +12,9 @@ class User < ActiveRecord::Base
   #model based validation
    # validates :firstname, :presence => true, 
    #                :length => { :maximum => 50 }
-   # email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-   # # validates :email, :presence => true,
-   #                   :format => { :with => email_regex},
-   #                   :uniqueness => { :case_sensitive => false }
+    validates :email,:uniqueness => { :case_sensitive => false }
 
     validates :password,  :confirmation => true,:on => :create
 
