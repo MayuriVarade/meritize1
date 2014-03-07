@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 <div id="masthead">
   
   <div class="container">
@@ -24,29 +17,17 @@
 </div> <!-- /#masthead -->
 
 
-
-
 <div id="content">
 
-  <div class="container">   
+    <div class="container">   
     
-    <div class="row">
+       <div class="row">
     
-    <div class="span12">
+           <div class="span12">
     
-        
-              
-              
-              
-              
-              
-              
-              <%= form_for (@plan) do |f|  %>   
+                   <%= form_for (@plan) do |f|  %>   
                 <fieldset>
-                  
-                  
-                  
-                  <div class="control-group">                     
+                   <div class="control-group">                     
                     <label for="firstname" class="control-label">Plan name</label>
                     <div class="controls">
                       
@@ -65,7 +46,7 @@
                   
                   
                   <div class="control-group">                     
-                    <label for="email" class="control-label">Description1</label>
+                    <label for="email" class="control-label"> All Users </label>
                     <div class="controls">
                       <%= f.text_field :description1,:class=>"input-medium" %>
                      
@@ -74,9 +55,11 @@
                   </div> <!-- /control-group -->
                   
                   
+
                 
                     <div class="control-group">                     
-                    <label for="email" class="control-label">Description2</label>
+                    <label for="email" class="control-label">Admin Users</label>
+
                     <div class="controls">
                       <%= f.text_field :description2,:class=>"input-medium" %>
                      
@@ -84,10 +67,12 @@
                     </div> <!-- /controls -->       
                   </div>
                   
+
                   
                   
                     <div class="control-group">                     
-                    <label for="email" class="control-label">Description3</label>
+                    <label for="email" class="control-label">Pricing</label>
+
                     <div class="controls">
                       <%= f.text_field :description3,:class=>"input-medium" %>
                      
@@ -99,18 +84,9 @@
                      <%= f.submit 'Update',:class=> "btn btn-primary btn-large"%>
                     
                   </div> <!-- /form-actions -->
-                </fieldset>
-              <% end %>
-              
-              
-              
-    </div>
-      
-      
-      
-    </div> <!-- /.row -->
-    
-    
-  </div> <!-- /.container -->
-
+               </fieldset>
+              <% end %>     
+              </div>
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
 </div> <!-- /#content -->

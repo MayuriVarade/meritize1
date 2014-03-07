@@ -1,5 +1,5 @@
  <!-- SignUp page -->
-
+     <%= javascript_include_tag "jquery-1.5.2.min","jquery.validate.min","validation" %>
     <%= form_for @user ,:html => {:multipart => true,:id =>"new_user",:class=>"form-horizontal" } do |f| %>
    
         <% if signed_in?%>
@@ -39,20 +39,21 @@
                       </section> 
                            <div class="form-group">
 
-                            <label for="name">First name</label>
+                            <label for="name">First name </label><span class="star">*</span>
                              <%= f.text_field :firstname, :class => "form-control" %>
                          </div>
                              <div class="form-group">
-                            <label for="name">Last name</label>
+
+                            <label for="name">Last name</label><span class="star">*</span>
                              <%= f.text_field :lastname, :class => "form-control" %>
                           </div>
                           <div class="form-group">
-                            <label for="email">Email address</label>
+                            <label for="email">Email address</label><span class="star">*</span>
                              <%= f.text_field :email, :class => "form-control"  %>
                            </div>
 
                                 <div class="form-group">
-                            <label for="name">Company name</label>
+                            <label for="name">Company name</label><span class="star">*</span>
                             <%= f.text_field :companyname, :class => "form-control" %>
                             
                                </div>

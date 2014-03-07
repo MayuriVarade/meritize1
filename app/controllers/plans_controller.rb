@@ -1,8 +1,5 @@
 class PlansController < ApplicationController
-
- 
-
-  layout "admin"
+layout "admin"
   # GET /plans
   # GET /plans.json
   def index
@@ -50,7 +47,7 @@ def show
 
     respond_to do |format|
       if @plan.save
-        format.html { redirect_to @plan, notice: 'Plan was successfully created.' }
+        format.html { redirect_to plans_path, notice: 'Plan was successfully created.' }
         format.json { render json: @plan, status: :created, location: @plan }
       else
         format.html { render action: "new" }
@@ -92,6 +89,4 @@ def show
     def authenticate
       deny_access unless signed_in?
     end
-
-  
 end

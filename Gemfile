@@ -31,7 +31,7 @@ gem 'jquery-rails'
 gem  'jquery-ui-rails'
 gem 'paypal-recurring'
 gem 'paypal-sdk-adaptivepayments'
-gem 'paypal-subscribe', :git => "git@github.com:dsci/paypal-subscribe.git"
+gem 'paypal-subscribe', :github => "dsci/paypal-subscribe"
 gem 'pg'
 
 # To use ActiveModel has_secure_password

@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
    def admin_user
         @searchuser ||= [] 
-        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname or lastname or fullname LIKE ?", "%#{params[:search]}%"])
+        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
         @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
    end
    def adminuser_logs
        @searchuser ||= [] 
-       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname or lastname or fullname LIKE ?", "%#{params[:search]}%"])
+       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
@@ -125,11 +125,11 @@ class UsersController < ApplicationController
           render :action => 'change_password'
       end
     end
-     
-
    end
+ 
+   
   
-    
+
   private
     def authenticate
       deny_access unless signed_in?
@@ -148,7 +148,13 @@ class UsersController < ApplicationController
         redirect_to("/dashboard",:notice => 'You cannot access this page') unless current_user == @user
        end 
     end
-
+    
+ #    def check_email
+ #    @user = User.find_by_email(params[:user][:email]) 
+ #      respond_to do |format|
+ #          format.json { render :json => !@user }
+ #     end
+ #  end
 
     def assign_password
       (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
@@ -173,6 +179,7 @@ class UsersController < ApplicationController
           "application"
         end
     end
-   
+    
+    
  
 end
