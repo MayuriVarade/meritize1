@@ -62,7 +62,7 @@ class UsersController < ApplicationController
             
          if params[:page_name] == "admin"
           
-           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporay password send to user."}  
+           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}  
         
         else   
           redirect_to signup_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
