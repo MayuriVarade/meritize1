@@ -18,24 +18,20 @@
 	</div> <!-- /#masthead -->
 
 
-
-
 	<div class="container">
 			<div class="row header">
 				<div class="col-md-8 message">
 					<h3>Profile</h3>
 					<p>
-						A little bit about me					</p>
+						A little bit about me</p>
 
 						<%= form_for @user, :html => {:multipart=> true, :class=>"form-horizontal", :id =>"new_user"} do |f|%>
 						<%= render 'shared/error_messages', :object=> f.object%>
 					      
-                     
-         			   
-		  	
                         <div class="form-group">
 				    		<label for="name">Upload photo</label>
 				    		<%= f.file_field :photo%>
+
 
 				    		
 				  		</div>
@@ -77,11 +73,7 @@
 				  		<label for="message">Timezone</label>&nbsp;&nbsp;
 				    		
 		               <%= f.time_zone_select :time_zone%>
-      
-        
-							
-							
-				  		</div>
+                       </div>
 							<span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span>
 							
 							
@@ -102,6 +94,7 @@
 				  			<input type="submit" value="Save changes to my profile" class="button button-small" >
 				  		</div>
 				  		<% end%>
+
 				
 				</div>
 				

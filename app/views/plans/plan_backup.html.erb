@@ -1,0 +1,173 @@
+<!-- Select Plan From This Page -->
+<div id="masthead">
+	
+	<div class="container">
+		
+		<div class="masthead-pad">
+			
+			<div class="masthead-text">
+				<h2>Plan</h2>
+				
+			</div> <!-- /.masthead-text -->
+			
+		</div>
+		
+	</div> <!-- /.container -->	
+	
+</div> <!-- /#masthead -->
+
+
+
+
+<div id="content">
+
+	<div class="container">
+		
+		
+		<div class="row" >
+			
+			<div class="span12" style="margin-left:150px">
+				
+				
+				<div class="pricing-plans plans-4">
+
+		<% if current_user.role? :productmanager %>
+
+					<div id="content">
+
+	                 <div class="container">
+      
+                       <table class="table table-bordered table-striped table-highlight">
+                            <thead>
+                           <tr>
+                             <th>Name</th>
+                             <th>price</th>
+                             <th>description1</th>
+                             <th>description2</th>
+                             <th>description3</th>
+                             <th></th>
+                             <th></th>
+                          </tr>
+                           </thead>
+                     <tbody>
+          	<% @plans.each do |plan| %>
+
+         
+            <tr>
+                   <td><%= plan.name %></td>
+                   <td><%= plan.price %></td>
+                   <td><%= plan.description1 %></td>
+                   <td><%= plan.description2 %></td>
+                   <td><%= plan.description3 %></td>
+                   <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
+                   <td><%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+                <% end %>
+         
+          </tbody>
+        </table>
+      </div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
+
+
+
+
+			<% elsif current_user.role? :admin%>
+                      	
+				
+				    <body>
+	<div id="content">
+
+		<div class="price-chart">
+			
+			<div class="pt-table">	
+				<div class="pt-body">
+					<ul class="pt-rows">
+				  <% @plans.each do |plan| %>
+				  	 <% if @subscription.nil? %>
+
+						<li class="title"><%= plan.name %></li>
+						<li class="fees"><%= plan.price %></li>	
+						<li class="fees"><%= plan.description1 %></li>
+						<li class="fees"><%= plan.description2 %></li>
+						<li class="fees"><%= plan.description2 %></li>	
+											
+						<li>
+						<span class="pt-no">							
+						<% @subscription = plan.subscriptions.build %>
+						<%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id) %>
+						</span>
+
+                       <% else %>
+
+                         <li class="title"><%= plan.name %></li>
+						<li class="fees"><%= plan.price %></li>	
+						<li class="fees"><%= plan.description1 %></li>
+						<li class="fees"><%= plan.description2 %></li>
+						<li class="fees"><%= plan.description2 %></li>	
+											
+						<li>
+						<span class="pt-no">							
+						<% subscription = plan.subscriptions.build %>
+						<% if @subscription.plan_id == plan.id%>
+						Current Plan 
+						<% else %>
+						<%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: subscription.plan_id) %>
+						<% end %>
+						</span>
+
+                      
+					<% end %>
+				<% end %>
+						</li>
+						
+					</ul>
+				</div>
+				
+			</div>
+		</div>
+		
+</div>
+</body></html>
+
+				   <% end %>
+
+				</div>
+				
+			</div> <!-- /.span12 -->
+			
+		</div> <!-- /.row -->
+		
+		
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
+
+
+
+
+
+
+
+
+
+
+<script>
+
+$(function () {
+	
+	Theme.init ();
+	
+});
+
+</script>
+
+</body>
+</html>
+
+                               
