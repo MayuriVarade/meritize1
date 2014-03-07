@@ -2,7 +2,7 @@ class SubscriptionsController < ApplicationController
 
    before_filter :authenticate, :only => [:edit, :update,:show,:new,:index]
 
- layout "admin"
+ layout "profile"
 
   def index
   	@subscriptions = Subscription.all
@@ -96,7 +96,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def history
-      render :layout=>"admin"
+      render :layout=>"profile"
   end
 
 

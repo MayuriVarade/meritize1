@@ -61,6 +61,7 @@ class UsersController < ApplicationController
             UserVerification.welcome_email(@user,@random_password).deliver
             
          if params[:page_name] == "admin"
+          
            redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporay password send to user."}  
         
         else   
@@ -162,19 +163,19 @@ class UsersController < ApplicationController
       def custom_layout
         case action_name
          when "edit"
-          "admin" 
+          "profile" 
          when "dashboard"
-          "admin" 
+          "profile" 
          when "show"
-          "admin" 
+          "profile" 
          when "change_password"
-          "admin"  
+          "profile"  
           when "admin_user"
-          "admin" 
+          "profile" 
           when "adminuser_logs"
-          "admin"
-          when "add_adminuser"
-          "admin"
+          "profile"
+         when "add_adminuser"
+          "profile"
          else
           "application"
         end

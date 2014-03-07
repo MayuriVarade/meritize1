@@ -1,25 +1,38 @@
 <%= javascript_include_tag "jquery-1.5.2.min","jquery.validate.min","validation" %>
-<div class="container">
-			<div class="row header">
-				<div class="col-md-8 message">
-					<h3>Forgot Password ? </h3>
-					<p>
-						Enter your email address and in just a minute we will send a brand new, but temporary, password to your email account. Check your spam folder just in case the email gremlins decide to drop it in that folder.
-					</p>
-					
-					<%= form_tag password_resets_path,:id => "contact-form", :method => :post do %>	
-						<div class="form-group">
-				    		<label for="name">Email Address</label>
-				    		 <%= text_field_tag :email, params[:email],:class=> "form-control" %>
-				  		</div>
-				  		
-				  		<div class="submit">
-				  			
-				  			<%= submit_tag "Reset Password",:class=>"button button-small" %>
-				  		</div>
-					<% end %>
-				</div>
+
+		<!-- Forgot Password Page -->
+    <body id="signup">
+	<div class="container">
+		<div class="row header">
+			<div class="col-md-12">
 				
+				<h4> Forgot password? </h4>
+				   <p>
+						Enter your email address and in just a minute we will send a brand new, </br>but temporary,password to your email account.
+
+						</br> Check your spam folder just in case the email gremlins decide to drop it in that folder.
+					</p>
 			</div>
-			
 		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="wrapper clearfix">
+					<div class="formy">
+						<div class="row">
+							<div class="col-md-12">
+								<%= form_tag password_resets_path,:id => "forgot-form", :method => :post do %>	
+
+							  		<div class="form-group">
+				    		        <label for="name">Email Address</label>
+				    		        <%= text_field_tag :email, params[:email],:class=> "form-control" %>
+				  		            </div>
+
+							  		
+							  		<div class="submit">
+							  			<%= submit_tag "Reset Password",:class=>"button-clear" %>
+							  			</div>
+							<% end %>
+							</div>
+						</div>						
+					</div>
+				

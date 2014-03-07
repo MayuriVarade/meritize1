@@ -1,5 +1,5 @@
 class PlansController < ApplicationController
-layout "admin"
+layout "profile"
   # GET /plans
   # GET /plans.json
   def index

@@ -140,7 +140,8 @@
 				   				
 					
 					
-					</a>	    				
+					</a>
+					<% end %>	    				
 				</li>
 				<li class="dropdown">	
 				   <%= link_to 'User Activities', adminuser_logs_path,:class=>"dropdown-toggle"%>
@@ -150,7 +151,7 @@
 					</a>	    				
 				</li>
 				
-				<% end %>
+				
                 <% if current_user.role? :productmanager %>
 				<li class="dropdown">	
 				   <%= link_to 'Manage Plans', plans_path,:class=>"dropdown-toggle" %>				
@@ -172,7 +173,7 @@
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						
 						<span>Setting</span> 
-						<b class="caret"></b>					</a>	
+						<b class="caret"></b></a>	
 				
 					<ul class="dropdown-menu">							
 						<li><a href="#">General</a></li>
@@ -187,7 +188,7 @@
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						
 						<span>Billing</span> 
-						<b class="caret"></b>					</a>	
+						<b class="caret"></b></a>	
 				
 					<ul class="dropdown-menu">							
 						<li><a href="/plans">Plan</a></li>

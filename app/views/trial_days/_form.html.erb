@@ -2,7 +2,7 @@
   <% if @trial_day.errors.any? %>
     <div class="control-group"> 
       <h2><%= pluralize(@trial_day.errors.count, "error") %> prohibited this trial_day from being saved:</h2>
-<div class="controls">
+     <div class="controls">
       <ul>
       <% @trial_day.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -12,14 +12,18 @@
     </div>
   <% end %>
 
-     <div class="control-group"> 
+      <div class="row">
+      <div class="col-md-6">
+      <div class="form-group"> 
     <%= f.label :days %><br />
     <div class="controls">
-    <%= f.number_field :days %>
+    <%= f.number_field :days,:class=>"form-control"  %>
+  </div>
+</div>
   </div>
 </div>
 <div class="form-actions",style="background-image: linear-gradient(to bottom, #A0C277, #7DA64B)">
-   <%= f.submit 'Update Trial Days',:class=> "btn btn-primary btn-large"%>
+   <%= f.submit 'Update Trial Days',:class=> "button button-primary" ,:style =>"margin-top:20px"%>
   </div> 
 
 

@@ -5,7 +5,7 @@
         <% if signed_in?%>
 
                  
-           <%= render :partial => 'users/add_adminuser',:locals => {:f => f} ,:layout => 'layouts/admin' %>
+           <%= render :partial => 'users/add_adminuser',:locals => {:f => f} ,:layout => 'layouts/profile' %>
 
 
 
@@ -17,7 +17,7 @@
           <div class="row header">
             <div class="col-md-12">
               <h3 class="logo">
-                <a href="#"><img src="assets/logo.png" alt=""></a>
+                <a href="#"><img src="/assets/logo.png" alt=""></a>
               </h3>
               <h4>Set up your new account today.</h4>
               
@@ -81,10 +81,11 @@
                         
                          <div class="already-account" style="margin-bottom:0">
                             Already have an account?
-                            <a title="" data-original-title="" href="/signin">Sign in here</a>
-                
+                            <%=link_to "Sign in here",signin_path, :data=>"" %>
+          
                           </div>
                            <div class="submit">
+
                             <%= f.submit "Create my account", :class =>"button-clear"  %>
                           </div>
                          
@@ -101,12 +102,7 @@
           </div>
         </div>
 
-  <script type="text/javascript">
-    $(function () {
-      $(".already-account a").popover();
-      $(".already-account a").popover('show');
-    });
-  </script>
+
 
 </body>
 

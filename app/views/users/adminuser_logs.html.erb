@@ -13,47 +13,48 @@ jQuery(function() {
 });
 </script>
 
+ <div id="info">
+     <div class="container">
+    <section class="round">
+        <% flash.each do |key, value| %>
+      <div class="flash <%= key %>" style = "font-size:18px;"><%= value %></div>
+      <% end %>
+  </section>
 
-  <div id="masthead">
-    
-    <div class="container">
-      
-      <div class="masthead-pad">
+
+
+  <div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+              <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">User Activities</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+           
+              
         
-        <div class="masthead-text">
-          <h2>User Activities</h2>
-          
-        </div> 
-        
+              <li class="pull-right">
+            <form class="navbar-form navbar-left">
+                  <div class="form-group">
+                    <%= form_tag adminuser_logs_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"} do %>
+                      <%= text_field_tag :search, params[:search], :class=>"form-control" %>
+
+                     <%= submit_tag "Search", :class_name => nil,:class=> "button button-small" %>
+                     <% end %>
+                     </div>
+                   </form>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      
-    </div>
-    
-  </div> 
-
-
-
-
-  <div id="content">
-
-        
-    <div class="container">
      
            
 
-       <%= form_tag adminuser_logs_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"} do %>
-                <div class="control-group">                      
-                  
-                    <div class="controls">
-                      
-                     
-                       <%= text_field_tag :search, params[:search], :class=>"input-medium" %>
-                         <%= submit_tag "Search", :class_name => nil,:class=> "btn btn-primary " %>
-                    </div> <!-- /controls -->       
-                  </div> <!-- /control-group -->
-           
-           
-      <% end %>
+
         
          <table class="table table-bordered table-striped table-highlight">
             <thead>
@@ -87,7 +88,7 @@ jQuery(function() {
           </table>
         </div> 
 
-  </div> 
-
-  </div> 
+        </div> 
   </div>
+
+ 

@@ -2,7 +2,7 @@ class TrialDaysController < ApplicationController
 
    before_filter :authenticate, :only => [:edit, :update,:show,:new,:index]
 
-  layout "admin"
+  layout "profile"
   # GET /trial_days
   # GET /trial_days.json
   def index
@@ -64,7 +64,8 @@ class TrialDaysController < ApplicationController
 
     respond_to do |format|
       if @trial_day.update_attributes(params[:trial_day])
-        format.html { redirect_to edit_trial_day_path(@trial_day), notice: 'Trial day was successfully updated.' }
+        flash[:notice] = "Trial day was successfully updated."
+        format.html { redirect_to edit_trial_day_path(@trial_day)}  
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
