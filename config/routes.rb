@@ -1,5 +1,5 @@
 Meritize::Application.routes.draw do
-
+mount Ckeditor::Engine => '/ckeditor'
   root :to => 'homes#index'
   resources :trial_days
   resources :settings  

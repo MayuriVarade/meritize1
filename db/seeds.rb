@@ -14,7 +14,7 @@
 	 Plan.create(:name => "Award", :price => "0.50")
    Plan.create(:name => "Alloy", :price => "1.00")
      
-    TrialDay.create(:days =>"14")
+   TrialDay.create(:days =>"14")
 
 
 

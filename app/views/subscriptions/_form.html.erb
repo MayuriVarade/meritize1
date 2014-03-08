@@ -24,21 +24,25 @@
                   <%= f.hidden_field :price %>
   
   
-		 <div class="control-group">
+		 
+                       <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group">
 				 <label class="control-label" for="form-field-2"><%= f.label :email %></label>
              <div class="controls">
-								 <%= f.email_field :email, :autofocus => true,:id=>"form-field-2" %>
+								 <%= f.email_field :email, :autofocus => true,:id=>"form-field-2", :class => "form-control" %>
 						 </div>
 					 </div>
+						 </div>
+           </div>		
 								
-								
- <div class="form-actions">
-    <%= f.submit "Subscribe",:class=>"btn btn-primary" %>
+ <div class="form-group">
+    <%= f.submit "Subscribe",:class=>"button button-primary" %>
     
     
   <span class="extra_buttons">
 
-  	<%= link_to 'Plans', plans_path ,:class=>"btn btn-primary" %>
+  	<%= link_to 'Plans', plans_path ,:class=>"button button-primary" %>
 
 
 </span>
