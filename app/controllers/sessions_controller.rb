@@ -39,6 +39,8 @@ class SessionsController < ApplicationController
             redirect_to change_password_path
          elsif (plan_expiry <= 0) && (current_user.role?(:admin))
            redirect_to ("https://developer.paypal.com")
+         elsif current_user.role?(:admin)
+          redirect_to admin_user_path
          else
           redirect_to user_root_path
          end 

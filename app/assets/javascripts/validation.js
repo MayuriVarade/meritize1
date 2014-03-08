@@ -1,4 +1,3 @@
-
 //  $ for server side validation for sign_up.
   $(document).ready(function() {
    
