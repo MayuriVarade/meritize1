@@ -33,6 +33,7 @@ class UsersController < ApplicationController
 
 
    def admin_user
+       @plan_expiry = plan_expiry  
         @searchuser ||= [] 
         @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
         @adminusers.each do |adminuser|

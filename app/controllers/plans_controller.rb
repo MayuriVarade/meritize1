@@ -5,7 +5,8 @@ layout "profile"
   def index
   	
     @plans = Plan.all
-    
+     @plan_expiry = plan_expiry 
+
       @subscription = Subscription.find_by_email(current_user.email) 
       # raise current_user.id.inspect
       respond_to do |format|
@@ -17,10 +18,11 @@ layout "profile"
 
 def show
     @plan = Plan.find(params[:id])
-
+        
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @plan }
+
     end
   end
 
@@ -59,7 +61,7 @@ def show
   # PUT /plans/1
   # PUT /plans/1.json
   def update
-    @plan = Plan.find(params[:id])
+         @plan = Plan.find(params[:id])
     
     respond_to do |format|
       if @plan.update_attributes(params[:plan])
@@ -89,4 +91,8 @@ def show
     def authenticate
       deny_access unless signed_in?
     end
+
+    def plan_params
+    params.require(:plan).permit(:description1, :description2,:description3)
+  end
 end

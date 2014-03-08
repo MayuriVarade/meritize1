@@ -81,7 +81,7 @@
                       <div class="form-group">                     
                         <label for="firstname" class="control-label">Company name</label>
                         <div class="controls">
-                          <%= f.text_field :companyname, :class => "form-control",:style=>"height:auto" %>
+                          <%= f.text_field :companyname,:value => current_user.companyname, :class => "form-control",:style=>"height:auto" %>
                         </div> <!-- /controls -->       
                       </div> 
                       </div>

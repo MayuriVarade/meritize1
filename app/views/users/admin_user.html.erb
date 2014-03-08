@@ -25,13 +25,23 @@ jQuery(function() {
 
 
 
-  <div id="info">
+  
      <div class="container">
-   <div id="deletesuccess" class="jumbotron">
-        <h1>Vote for the Employee of the Month</h1> 
-        <p>Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?<br></p>
-        <p></p>
-      </div>
+  <div id="deletesuccess">
+        
+          <% if current_user.role? :productmanager %>
+           <ul>
+               Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
+   
+             
+          <% elsif current_user.role? :admin %>
+            Only <%= @plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
+         <% else %>
+           User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
+           Email:<%= current_user.email %><br/>
+        <% end %>
+    </div>
+
     <div class="navbar navbar-default">
         <div class="container">
           <div class="navbar-header">
@@ -40,13 +50,17 @@ jQuery(function() {
             </button>
             <a class="navbar-brand" href="#">Manage Users</a>
           </div>
-          <div class="collapse navbar-collapse">
+         
             <ul class="nav navbar-nav">
-              <li>
-                <%= link_to "Add new User" , new_user_path(:type =>"adminuser")%>
-                
-              </li>
               
+                 <form class="navbar-form navbar-left">
+                  <div class="form-group">
+
+                  <%= link_to "Add new User" , new_user_path(:type =>"adminuser"), :class_name => nil,:class=> "button button-small"%>
+                    
+
+                     </div>
+                   </form>
         
               <li class="pull-right">
             <form class="navbar-form navbar-left">
@@ -61,8 +75,8 @@ jQuery(function() {
                    </form>
               </li>
             </ul>
-          </div>
-        </div>
+       
+         </div>
       </div>
       <table class="table table-hover table-bordered table-responsive table-condensed">
   <tr>
@@ -111,7 +125,7 @@ jQuery(function() {
    
   </div>
 
-
+</div>
 
 </html>
 

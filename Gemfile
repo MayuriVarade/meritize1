@@ -7,7 +7,7 @@ gem 'rails', '3.2.14'
 
 #Comment mysql2 gem while pushing the updates to server  
 gem 'mysql2'
-
+gem 'ckeditor'
 # Postgres gem used to create database on server
 gem 'sqlite3'
  gem 'execjs'

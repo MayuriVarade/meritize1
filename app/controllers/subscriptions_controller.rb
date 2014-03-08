@@ -43,7 +43,8 @@ class SubscriptionsController < ApplicationController
     if @subscription.save_with_payment
       
       # UserMailer.welcome_email(@subscription).deliver
-      redirect_to @subscription, :notice => "Thank you for subscribing!"
+      redirect_to :action => 'show', :id =>  @subscription.plan_id
+     
     else
       render :new
     end
