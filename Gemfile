@@ -6,13 +6,9 @@ gem 'rails', '3.2.14'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #Comment mysql2 gem while pushing the updates to server  
-<<<<<<< HEAD
-#gem 'mysql2'
-
-=======
 gem 'mysql2'
 gem 'ckeditor'
->>>>>>> 1aa1586b3925d1c60fb9637e60f5723ae2504ca8
+
 # Postgres gem used to create database on server
 #gem 'sqlite3'
  gem 'execjs'
