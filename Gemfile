@@ -15,7 +15,7 @@ gem 'ckeditor'
 gem 'therubyracer'
 gem 'paperclip'
 gem 'impressionist'
-
+gem  'prototype-rails'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

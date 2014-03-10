@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140308060622) do
+ActiveRecord::Schema.define(:version => 20140310111521) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(:version => 20140308060622) do
     t.string   "frequency_type"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "core_values", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "setting_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "payment_notifications", :force => true do |t|
@@ -85,10 +93,14 @@ ActiveRecord::Schema.define(:version => 20140308060622) do
     t.string   "company_name"
     t.string   "website_address"
     t.text     "description"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.integer  "user_id"
     t.integer  "core_value_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "subscriptions", :force => true do |t|

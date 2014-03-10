@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
    validates_attachment_content_type :photo, :content_type => ["image/jpg", "image/jpeg", "image/png"]
    has_and_belongs_to_many :roles
    has_one :plan
-   has_many :settings  
+   has_one :settings  
 
   
   #model based validation

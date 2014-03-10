@@ -1,4 +1,4 @@
-<%= form_for(@setting) do |f| %>
+<%= form_for @setting ,:html => {:multipart => true} do |f| %>
   <% if @setting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
@@ -14,18 +14,24 @@
   <div class="field">
     <%= f.label :company_name %><br />
     <%= f.text_field :company_name %>
-  </div>
-  <div class="field">
-    <%= f.label :website_address %><br />
-    <%= f.text_field :website_address %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
     <%= f.hidden_field :user_id , :value => current_user.id %>
   </div>
-  
+    <div class="field">
+    <%= f.label "Company Logo" %><br />
+    <%= f.file_field :photo %> 
+   </div>
+     <%= f.fields_for :core_values do |builder| %>
+          <tr>
+            <td><%= render "core_value_fields", :f => builder %></td>
+          </tr>
+     <% end %>
+    <div><%= link_to_add_fields "Add another core value", f, :core_values %></div>
+  <div class="field">
+    <%= f.label :website_address %><br />
+    <%= f.text_field :website_address %><br />
+  </div>
+   
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save", :class => "btn btn-primary"%>
   </div>
 <% end %>
