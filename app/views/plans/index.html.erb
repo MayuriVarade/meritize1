@@ -46,7 +46,7 @@
                    <td><%= plan.forusers.try(:html_safe) %></td>
                    <td><%= plan.foradmins.try(:html_safe) %></td>
                    <td><%= plan.pricing.try(:html_safe) %></td>
-                   <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
+                   <td><%= link_to 'Edit', edit_plan_path(plan),:class=> "btn btn-primary" %></td>
                   
             </tr>
                 <% end %>
