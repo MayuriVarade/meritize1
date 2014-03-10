@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140304120837) do
+ActiveRecord::Schema.define(:version => 20140308060622) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -52,6 +52,9 @@ ActiveRecord::Schema.define(:version => 20140304120837) do
     t.string   "description1"
     t.string   "description2"
     t.string   "description3"
+    t.text     "forusers"
+    t.text     "foradmins"
+    t.text     "pricing"
   end
 
   create_table "roles", :force => true do |t|
@@ -126,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20140304120837) do
     t.string   "time_zone",              :default => "UTC"
     t.boolean  "status",                 :default => true
     t.string   "fullname"
+    t.string   "plan_name"
   end
 
 end

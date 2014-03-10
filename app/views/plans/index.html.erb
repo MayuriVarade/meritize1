@@ -43,9 +43,9 @@
             <tr>
                    <td><%= plan.name %></td>
                    <td><%= plan.price %></td>
-                   <td><%= plan.description1.try(:html_safe) %></td>
-                   <td><%= plan.description2.try(:html_safe) %></td>
-                   <td><%= plan.description3.try(:html_safe) %></td>
+                   <td><%= plan.forusers.try(:html_safe) %></td>
+                   <td><%= plan.foradmins.try(:html_safe) %></td>
+                   <td><%= plan.pricing.try(:html_safe) %></td>
                    <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
                   
             </tr>
