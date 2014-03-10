@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140308060622) do
+ActiveRecord::Schema.define(:version => 20140310111746) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -27,16 +27,6 @@ ActiveRecord::Schema.define(:version => 20140308060622) do
     t.string   "sign_in_count"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-  end
-
-  create_table "award_frequencies", :force => true do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer  "vote_setting_id"
-    t.integer  "user_id"
-    t.string   "frequency_type"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
   end
 
   create_table "payment_notifications", :force => true do |t|
@@ -56,12 +46,9 @@ ActiveRecord::Schema.define(:version => 20140308060622) do
   create_table "plans", :force => true do |t|
     t.string   "name"
     t.string   "price"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "user_id"
-    t.string   "description1"
-    t.string   "description2"
-    t.string   "description3"
     t.text     "forusers"
     t.text     "foradmins"
     t.text     "pricing"
@@ -140,13 +127,6 @@ ActiveRecord::Schema.define(:version => 20140308060622) do
     t.boolean  "status",                 :default => true
     t.string   "fullname"
     t.string   "plan_name"
-  end
-
-  create_table "vote_settings", :force => true do |t|
-    t.string   "award_program_name"
-    t.text     "intro_text"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
   end
 
 end
