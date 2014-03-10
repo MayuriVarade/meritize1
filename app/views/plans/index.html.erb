@@ -102,20 +102,24 @@
                 </tr>
                 <tr>
 
+
                   <td  style="text-align:center">                        
+
                         <% subscription = plan.subscriptions.build %>
                         <% if @subscription.plan_id == plan.id%>
-                         <a class="button button-small" href="#"> <span>Current Plan</span> </a> 
+                          <td style="text-align:center;height:72px;">   
+                          <a class="button button-small" href="#"> <span>Current Plan</span> </a> </td>
  
                         <% else %>
 
-                <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"),paypal_checkout_path(plan_id:subscription.plan_id) %>
+                <td style="text-align:center;height:72px;">  
+                <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"),paypal_checkout_path(plan_id:subscription.plan_id) %> </td>
+                  </tr>
 
                         <% end %>
                         
-                             </td>
-
-                   </tr>
+                            
+                  
               
                
               </table></td>
