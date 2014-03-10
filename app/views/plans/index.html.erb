@@ -14,7 +14,7 @@
            Email:<%= current_user.email %><br/>
         <% end %>
     </div>
-  
+  </div>
 
   <div id="first-option">
     <div class="container">
@@ -46,7 +46,7 @@
                    <td><%= plan.forusers.try(:html_safe) %></td>
                    <td><%= plan.foradmins.try(:html_safe) %></td>
                    <td><%= plan.pricing.try(:html_safe) %></td>
-                   <td><%= link_to 'Edit', edit_plan_path(plan),:class=> "btn btn-primary" %></td>
+                   <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
                   
             </tr>
                 <% end %>
@@ -56,7 +56,7 @@
         <% elsif current_user.role? :admin%>
 
     
-    <h1>Plans</h1>
+    <h1>Plan</h1>
 
      
       <table>
@@ -65,21 +65,21 @@
             <tr>
               <td style="width:33.33%"><table class="table table-hover table-bordered table-responsive table-condensed">
                 <tr>
-                 <th><h2 style="text-align:center; margin-top:10px"><%= plan.name %></h2></th>
+                  <th class="jumbotron"><h2 style="text-align:center"><%= plan.name %></h2></th>
                 </tr>
                 <tr>
-                  <td style="height:90px"><%= plan.description1.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.forusers.try(:html_safe) %></td>
                 </tr>
                 <tr>
 
-                  <td style="height:90px"><%= plan.description2.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.foradmins.try(:html_safe) %></td>
                 </tr>
                 <tr>
-                  <td style="height:90px"><%= plan.description3.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.pricing.try(:html_safe) %></td>
 
                 </tr>
                 <tr>
-                  <td style="text-align:center;height:72px;">
+                  <td  style="text-align:center">
                   <% @subscription = plan.subscriptions.build %>
                       <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id) %></td>
                   
@@ -88,30 +88,34 @@
                <% else %>
                 <td style="width:33.33%"><table class="table table-hover table-bordered table-responsive table-condensed">
                 <tr>
-                 <th> <h2 style="text-align:center; margin-top:10px"><%= plan.name %></h2></th>
+                  <td class="jumbotron"><h2 style="text-align:center"><%= plan.name %></h2></td>
                 </tr>
                 <tr>
-                  <td style="height:90px"><%= plan.description1.try(:html_safe) %></td>
-                </tr>
-                <tr>
-
-                  <td style="height:90px"><%= plan.description2.try(:html_safe) %></td>
-                </tr>
-                <tr>
-                  <td style="height:90px"><%= plan.description3.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.forusers.try(:html_safe) %></td>
                 </tr>
                 <tr>
 
-                                       
+                  <td style="height:90px"><%= plan.foradmins.try(:html_safe) %></td>
+                </tr>
+                <tr>
+                  <td style="height:90px"><%= plan.pricing.try(:html_safe) %></td>
+                </tr>
+                <tr>
+
+
+                  <td  style="text-align:center">                        
+
                         <% subscription = plan.subscriptions.build %>
                         <% if @subscription.plan_id == plan.id%>
                           <td style="text-align:center;height:72px;">   
                           <a class="button button-small" href="#"> <span>Current Plan</span> </a> </td>
  
                         <% else %>
+
                 <td style="text-align:center;height:72px;">  
                 <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"),paypal_checkout_path(plan_id:subscription.plan_id) %> </td>
                   </tr>
+
                         <% end %>
                         
                             
@@ -128,5 +132,4 @@
   <% end %>
 
     </div>
-  </div>
   </div>
