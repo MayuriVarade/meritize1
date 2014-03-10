@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20140308060622) do
-
+ActiveRecord::Schema.define(:version => 20140304120837) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -51,9 +49,9 @@ ActiveRecord::Schema.define(:version => 20140308060622) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "user_id"
-    t.text     "description1"
-    t.text     "description2"
-    t.text     "description3"
+    t.string   "description1"
+    t.string   "description2"
+    t.string   "description3"
   end
 
   create_table "roles", :force => true do |t|
@@ -95,12 +93,6 @@ ActiveRecord::Schema.define(:version => 20140308060622) do
     t.string   "total_amount"
   end
 
-  create_table "trail_days", :force => true do |t|
-    t.integer  "days"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "trial_days", :force => true do |t|
     t.integer  "days"
     t.datetime "created_at", :null => false
@@ -134,7 +126,6 @@ ActiveRecord::Schema.define(:version => 20140308060622) do
     t.string   "time_zone",              :default => "UTC"
     t.boolean  "status",                 :default => true
     t.string   "fullname"
-    t.string   "plan_name"
   end
 
 end
