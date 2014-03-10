@@ -1,29 +1,12 @@
 <%= javascript_include_tag "jquery-1.5.2.min","jquery.validate.min","validation" %>
 
-	<div id="masthead">
-		
-		<div class="container">
-			
-			<div class="masthead-pad">
-				
-				<div class="masthead-text">
-					<h2>Edit Profile</h2>
-					
-				</div> <!-- /.masthead-text -->
-				
-			</div>
-			
-		</div> <!-- /.container -->	
-		
-	</div> <!-- /#masthead -->
-
+	
 
 	<div class="container">
 			<div class="row header">
+				<h2>Edit Profile</h2>
 				<div class="col-md-8 message">
-					<h3>Profile</h3>
-					<p>
-						A little bit about me</p>
+					
 
 						<%= form_for @user, :html => {:multipart=> true, :class=>"form-horizontal", :id =>"new_user"} do |f|%>
 						<%= render 'shared/error_messages', :object=> f.object%>
