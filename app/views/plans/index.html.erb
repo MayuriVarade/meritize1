@@ -43,9 +43,9 @@
             <tr>
                    <td><%= plan.name %></td>
                    <td><%= plan.price %></td>
-                   <td><%= plan.description1.try(:html_safe) %></td>
-                   <td><%= plan.description2.try(:html_safe) %></td>
-                   <td><%= plan.description3.try(:html_safe) %></td>
+                   <td><%= plan.forusers.try(:html_safe) %></td>
+                   <td><%= plan.foradmins.try(:html_safe) %></td>
+                   <td><%= plan.pricing.try(:html_safe) %></td>
                    <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
                   
             </tr>
@@ -56,7 +56,7 @@
         <% elsif current_user.role? :admin%>
 
     
-    <h1>Plan</h1>
+    <h1>Plans</h1>
 
      
       <table>
@@ -65,7 +65,7 @@
             <tr>
               <td style="width:33.33%"><table class="table table-hover table-bordered table-responsive table-condensed">
                 <tr>
-                  <th class="jumbotron"><h2 style="text-align:center"><%= plan.name %></h2></th>
+                 <th><h2 style="text-align:center; margin-top:10px"><%= plan.name %></h2></th>
                 </tr>
                 <tr>
                   <td style="height:90px"><%= plan.description1.try(:html_safe) %></td>
@@ -79,7 +79,7 @@
 
                 </tr>
                 <tr>
-                  <td  style="text-align:center">
+                  <td style="text-align:center;height:72px;">
                   <% @subscription = plan.subscriptions.build %>
                       <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id) %></td>
                   
@@ -88,7 +88,7 @@
                <% else %>
                 <td style="width:33.33%"><table class="table table-hover table-bordered table-responsive table-condensed">
                 <tr>
-                  <td class="jumbotron"><h2 style="text-align:center"><%= plan.name %></h2></td>
+                 <th> <h2 style="text-align:center; margin-top:10px"><%= plan.name %></h2></th>
                 </tr>
                 <tr>
                   <td style="height:90px"><%= plan.description1.try(:html_safe) %></td>
@@ -102,13 +102,13 @@
                 </tr>
                 <tr>
 
-                  <td  style="text-align:center">                        
+                  <td  style="text-align:center;height:72px;">                        
                         <% subscription = plan.subscriptions.build %>
                         <% if @subscription.plan_id == plan.id%>
                          <a class="button button-small" href="#"> <span>Current Plan</span> </a> 
  
                         <% else %>
-                        <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id:                      subscription.plan_id) %>
+                         <%= link_to image_tag("https://www.paypal.     com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id:                      subscription.plan_id) %>
                         <% end %>
                         
                              </td>
