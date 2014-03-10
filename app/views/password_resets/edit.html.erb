@@ -2,13 +2,16 @@
 <%= javascript_include_tag "jquery-1.5.2.min","jquery.validate.min","validation" %>
 
 <body id="signup">
-<div class="container">
-      <div class="row header">
-        <div class="col-md-8 message">
+<div class="row">
+      <div class="col-md-12">
+        <div class="wrapper clearfix">
+          <div class="formy">
+            <div class="row">
+              <div class="col-md-12">
           <h3>Forgot Password ? </h3>
                     
 
-           <%= form_for @user, :url => password_reset_path(params[:id]),:html =>{:id =>"forgot-form"} do |f| %>
+           <%= form_for @user, :url => password_reset_path(params[:id]),:html =>{:id =>"password-edit"} do |f| %>
 
             <% if @user.errors.any? %>
               <div class="error_messages">
@@ -21,7 +24,7 @@
               </div>
             <% end %> 
             <div class="form-group">
-              <h2>Please Enter The Recieved Temoprary Password Below</h2>
+              <h3>Please Enter The Recieved Temoprary Password Below.</h3>
                 <label for="name">Password</label>
                 
                   <%= f.password_field :password ,:class=> "form-control"%>
@@ -38,8 +41,6 @@
               
               </div>
           <% end %>
-        </div>
-        
       </div>
- </div>
-</div>
+            </div>            
+          </div>
