@@ -16,6 +16,7 @@
     <%= f.text_field :company_name %>
     <%= f.hidden_field :user_id , :value => current_user.id %>
   </div>
+
     <div class="field">
     <%= f.label "Company Logo" %><br />
     <%= f.file_field :photo %> 
@@ -30,7 +31,7 @@
     <%= f.label :website_address %><br />
     <%= f.text_field :website_address %><br />
   </div>
-   
+
   <div class="actions">
     <%= f.submit "Save", :class => "btn btn-primary"%>
   </div>

@@ -83,9 +83,10 @@ class UsersController < ApplicationController
          
     if @user.update_attributes(params[:user])
        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
-      flash[:success] = "Profile updated successfully."
+      
       
       if params[:page_name] == "admin"
+          flash[:success] = "Profile updated successfully."
           redirect_to admin_user_path
       else
         flash[:notice] = "Profile updated successfully."
@@ -176,6 +177,8 @@ class UsersController < ApplicationController
           when "adminuser_logs"
           "profile"
          when "add_adminuser"
+          "profile"
+         when "show"
           "profile"
          else
           "application"

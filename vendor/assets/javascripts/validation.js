@@ -70,6 +70,14 @@
 
     },
 
+    "user[password]":{
+     required: true,
+    },
+    "user[password_confirmation]":{
+                                        required:true,
+                                        equalTo: "#user_password"
+    },
+    
     "user[email]" :{
     required: true,
     email: true
@@ -86,15 +94,25 @@
 
       messages: {
 
-        "user[firstname]" :{
+    "user[firstname]" :{
     required: "Please enter your First name"
 
     },
-        "user[lastname]" :{
+    "user[lastname]" :{
     required: "Please enter your Last name"
 
     },
-        "user[email]" :{
+    "user[password]":{
+     required:  "Please enter temporary password",
+                                        
+     },
+        
+      "user[password_confirmation]":{
+         required:"Please enter confirmation password",
+         equalTo: "Password does not match"
+     },
+
+    "user[email]" :{
     required: "Please enter your Email Address",
      email:  "Please enter Valid Email Id",
      /* remote:"email id already exists" */
