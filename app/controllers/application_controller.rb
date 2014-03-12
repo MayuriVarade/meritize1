@@ -9,6 +9,13 @@ class ApplicationController < ActionController::Base
       @current_date = (Time.zone.now)
       @remaining_days = (@plan_expiry - @current_date).to_i / 1.day
   end
+  #Method for counting days which is used for validation
+  def days_validation
+    @start_cycle =  @vote_setting.start_cycle.to_date 
+    @end_cycle   =  @vote_setting.end_cycle.to_date
+    @days_count  =  (@end_cycle - @start_cycle).round
+  end
+
 
   private
   # this method for allows the user to set time zone according to country.

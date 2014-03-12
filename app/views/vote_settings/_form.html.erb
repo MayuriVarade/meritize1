@@ -1,0 +1,77 @@
+<%= form_for(@vote_setting) do |f| %>
+  <% if @vote_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@vote_setting.errors.count, "error") %> prohibited this vote_setting from being saved:</h2>
+
+      <ul>
+      <% @vote_setting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :award_program_name %><br />
+    <%= f.text_field :award_program_name %>
+  </div>
+  <div class="field">
+    <%= f.label :award_frequency_type %><br />
+    <%= f.select :award_frequency_type, [["Select", "Select"],["Monthly", "Monthly"], ["Weekly", "Weekly"],["Quaterly", "Quaterly"]]%>
+
+  </div>
+  <div class="field">
+    <%= f.label :start_cycle %><br />
+    <%= f.datetime_select :start_cycle %>
+  </div>
+  <div class="field">
+    <%= f.label :end_cycle %><br />
+    <%= f.datetime_select :end_cycle %>
+    <%= f.hidden_field :user_id , :value => current_user.id %>
+  </div><br />
+  <div class="field">
+  <% if params[:action] == "edit" %>
+      <% @past_vote_cycles.each do |past_vote_cycles| %>
+      Past Cycles :  <%= past_vote_cycles.start_cycle.to_date %>&nbsp; &nbsp; &nbsp; to &nbsp; &nbsp; &nbsp;  
+                     <%= past_vote_cycles.end_cycle.to_date %>  <br/>
+
+      <% end %>  
+  <% end %>
+  </div><br />
+
+  <div class="field">
+    <%= f.label "Reminder email sent to voters - From name:" %><br />
+    <%= f.text_field :email_sender_name %>
+  </div>
+  <div class="field">
+    <%= f.label "Reminder email sent to voters - From email:" %><br />
+     <%= f.text_field :email_sender_email %>
+  </div>
+  <div class="field">
+    <%= f.label "Reminder email #1 sent to voters - Subject:" %><br />
+     <%= f.text_field :email_sender_subject1 %>
+  </div>
+   <div class="field">
+    <%= f.label "Reminder email #1 sent to voters - Body:" %><br />
+     <%= f.text_area :email_sender_body1,:rows =>3,:columns =>4 %>
+  </div>
+   <div class="field">
+    <%= f.label "Reminder email #2 sent to voters - Subject:" %><br />
+     <%= f.text_field :email_sender_subject2 %>
+  </div>
+   <div class="field">
+    <%= f.label "Reminder email #2 sent to voters - Body:" %><br />
+     <%= f.text_area :email_sender_body2,:rows =>3,:columns =>4 %>
+  </div>
+    <div class="field">
+    <%= f.label "Reminder email #3 sent to voters - Subject:" %><br />
+     <%= f.text_field :email_sender_subject3 %>
+  </div>
+   <div class="field">
+    <%= f.label "Reminder email #3 sent to voters - Body:" %><br />
+     <%= f.text_area :email_sender_body3,:rows =>3,:columns =>4 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
