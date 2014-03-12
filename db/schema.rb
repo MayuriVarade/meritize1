@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140312071145) do
+ActiveRecord::Schema.define(:version => 20140312131411) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -180,6 +180,9 @@ ActiveRecord::Schema.define(:version => 20140312071145) do
     t.text     "email_sender_body2"
     t.string   "email_sender_subject3"
     t.text     "email_sender_body3"
+    t.boolean  "is_autopick_winner"
+    t.boolean  "is_admin_reminder"
+    t.boolean  "is_allow_vote"
   end
 
 end

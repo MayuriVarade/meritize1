@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     @end_cycle   =  @vote_setting.end_cycle.to_date
     @days_count  =  (@end_cycle - @start_cycle).round
   end
-
+   
 
   private
   # this method for allows the user to set time zone according to country.

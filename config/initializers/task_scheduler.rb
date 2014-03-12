@@ -2,7 +2,7 @@ require 'rufus-scheduler'
 
 scheduler = Rufus::Scheduler.new
 
-scheduler.in '3s' do
+scheduler.in '1d' do
   @vote_cycle = VoteSetting.all
   @vote_cycle.each do |vc|
     if vc.award_frequency_type == "Monthly"

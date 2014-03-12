@@ -1,8 +1,10 @@
 class VoteSettingsController < ApplicationController
   # GET /vote_settings
   # GET /vote_settings.json
+  layout 'profile'
+
   def index
-    @vote_settings = VoteSetting.all
+    @vote_settings = VoteSetting.find_all_by_user_id(current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,10 +44,10 @@ class VoteSettingsController < ApplicationController
   # POST /vote_settings.json
   def create
     @vote_setting = VoteSetting.new(params[:vote_setting])
-    
+   
     respond_to do |format|
       if @vote_setting.save
-        format.html { redirect_to @vote_setting, notice: 'Vote setting was successfully created.' }
+        format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote setting was successfully created.' }
         format.json { render json: @vote_setting, status: :created, location: @vote_setting }
       else
         format.html { render action: "new" }
@@ -62,7 +64,7 @@ class VoteSettingsController < ApplicationController
     respond_to do |format|
       if @vote_setting.update_attributes(params[:vote_setting])
         @vote_cycle = VoteCycle.create(:start_cycle => @vote_setting.start_cycle ,:end_cycle => @vote_setting.end_cycle ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
-        format.html { redirect_to @vote_setting, notice: 'Vote setting was successfully updated.' }
+        format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote setting was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

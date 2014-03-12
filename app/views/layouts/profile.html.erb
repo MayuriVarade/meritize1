@@ -61,9 +61,33 @@
 
 					    <li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-15"></i><span>Setting</span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">General</a></li>
+                        	<% @setting_count = Setting.find_all_by_user_id(current_user.id) rescue nil %>
+                       <% if @setting_count.count < 1 %>
+                          <li><%= link_to new_setting_path do %>
+  						         <i class="nav-icon-14"></i><span>General</span></a>
+					            <% end %>
+					            </li>
+                        <% else %>
+                           <li><%= link_to edit_setting_path(@setting_count) do %>
+  						         <i class="nav-icon-14"></i><span>General</span></a>
+					            <% end %>
+					            </li>
+                        <% end %>
+                            
                             <li><a href="#">Props</a></li>
-                            <li><a href="#">Vote</a></li>
+                              <% @voting_count = VoteSetting.find_all_by_user_id(current_user.id) rescue nil %>
+                             
+                            <% if @voting_count.count < 1 %>
+		                          <li><%= link_to new_vote_setting_path do %>
+		  						         <i class="nav-icon-14"></i><span>Vote</span></a>
+							            <% end %>
+							            </li>
+                        	<% else %>
+		                           <li><%= link_to edit_vote_setting_path(@voting_count) do %>
+		  						         <i class="nav-icon-14"></i><span>Vote</span></a>
+							            <% end %>
+							            </li>
+                        	<% end %>
                         </ul>
                     </li>
 					
