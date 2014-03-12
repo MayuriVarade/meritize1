@@ -1,6 +1,7 @@
 class SettingsController < ApplicationController
   # GET /settings
   # GET /settings.json
+  layout 'profile'
   before_filter :authenticate, :only => [:edit, :update,:index,:show]
   before_filter :correct_user, :only => [:edit, :update,:show,:new]
   
@@ -29,8 +30,9 @@ class SettingsController < ApplicationController
   def new
     @setting = Setting.new
     3.times do
-      core_value = @setting .core_values.build
-     end
+
+      core_values = @setting.core_values.build
+    end
 
     respond_to do |format|
       format.html # new.html.erb
