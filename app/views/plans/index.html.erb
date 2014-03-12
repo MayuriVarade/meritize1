@@ -1,9 +1,10 @@
+  <%= javascript_include_tag "jquery.js" %>
   <div id="info">
 
       <div class="container">
           <% if current_user.role? :productmanager %>
            <ul>
-               Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
+               Welcome <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
    
              
           <% elsif current_user.role? :admin %>
@@ -42,14 +43,16 @@
          
             <tr>
                    <td><%= plan.name %></td>
+
                    <td><%= plan.price %></td>
                    <td><%= plan.forusers.try(:html_safe) %></td>
                    <td><%= plan.foradmins.try(:html_safe) %></td>
                    <td><%= plan.pricing.try(:html_safe) %></td>
                    <td><%= link_to 'Edit', edit_plan_path(plan),:class=> "btn btn-primary" %></td>
                   
+
             </tr>
-                <% end %>
+               <% end %>
          
           </tbody>
         </table>
@@ -59,7 +62,7 @@
     <h1>Plans</h1>
 
      
-      <table>
+      <table style = "width:100%;">
          <% @plans.each do |plan| %>
              <% if @subscription.nil? %>
             <tr>
@@ -112,6 +115,7 @@
                         <% end %>
                         
                              </td>
+
 
                    </tr>
               

@@ -28,6 +28,9 @@ class SettingsController < ApplicationController
   # GET /settings/new.json
   def new
     @setting = Setting.new
+    3.times do
+      core_value = @setting .core_values.build
+     end
 
     respond_to do |format|
       format.html # new.html.erb

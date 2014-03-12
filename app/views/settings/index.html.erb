@@ -1,10 +1,11 @@
 <h1>Listing settings</h1>
 
-<table>
+<table border="1">
   <tr>
     <th>Company name</th>
     <th>Website address</th>
-    <th>Description</th>
+     <th>Company Logo</th>
+    
     <th></th>
     <th></th>
     <th></th>
@@ -14,7 +15,8 @@
   <tr>
     <td><%= @settings.company_name rescue nil%></td>
     <td><%= @settings.website_address rescue nil%></td>
-    <td><%= @settings.description rescue nil%></td>
+    <td><%= image_tag @settings.photo.url(:small) %></td>
+    
     
     <% unless @settings.nil?%>
     <td><%= link_to 'Show', @settings %></td><br/>
