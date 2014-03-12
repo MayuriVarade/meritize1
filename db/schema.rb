@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140310111746) do
+ActiveRecord::Schema.define(:version => 20140312112859) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(:version => 20140310111746) do
     t.string   "sign_in_count"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "nominees", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "username"
+    t.string   "email"
+    t.string   "fullname"
+    t.integer  "vote_setting_id"
   end
 
   create_table "payment_notifications", :force => true do |t|

@@ -1,0 +1,133 @@
+
+
+  <div id="info">   
+      
+      <div class="container">
+
+     
+
+      <div class="jumbotron">
+        <p>Use this page to nominate who can win the award. You don't have to have nominees. If you don't have any nominees, your voters can vote for any voter. If you do have nominees, your voters will have to vote for one of the nominees.</p>
+        <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+      </div>
+
+      
+        <div class="form-group">
+          <label class="control-label">For voting period</label>
+          <div class="controls">
+            <select class="form-control">
+              <option>Current voting period - 12/1 to 12/31</option>
+              <option>11/1 to 11/30</option>
+              <option>10/1 to 10/31</option>
+            </select>
+          </div><br>
+          
+        </div>
+
+
+
+    <div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+              <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Search For Nominees</a>
+          </div>
+         
+            <ul class="nav navbar-nav">
+              
+                 <form class="navbar-form navbar-left">
+                  <div class="controls">
+
+
+<!-- 
+                  <% @nominees.each do |nominee| %>
+                  <%= form_for ([nominee]) do |f| %>
+                   <div class="field">
+                    <br><%= f.label :fullname %><br />
+                    <%= f.collection_select :fullname, User.all , :fullname,:fullname %></br>    
+                    </div>
+
+                    <div class="field">
+                      <br><%= f.label :email %><br />
+                      <%= f.collection_select :email, User.all, :email,:email %></br>      
+                  </div> 
+
+
+
+                  </br><div class="actions">
+                    <%= f.submit %>
+                  </div>
+               
+                    <% end %>
+                    <% end %> -->
+
+                    
+
+                  <%= link_to "Add new Nominee" , new_nominee_path(:type =>"adminuser"), :class_name => nil,:class=> "button button-small"%>
+                    
+                     </div>
+                   </form>
+        
+              
+            </ul>
+       
+         </div>
+      </div>
+
+
+
+
+
+
+
+
+<h3>Nominees</h3>
+<table class="table table-hover table-bordered table-responsive table-condensed">
+<thead>
+  <tr>             
+              <th>Name</th>
+              <th>Email</th>
+              <th></th>    
+  </tr>
+  </thead>
+  <tbody>
+
+        <% @nominees.each do |nominee| %>
+        
+        <tr>
+         
+          <td><%= nominee.fullname %></td>
+          <td><%= nominee.email %></td></br>
+
+          <td align="center">
+          <%= link_to 'Remove From Nominees', nominee, method: :delete, data: { confirm: 'Are you sure?' } %>
+         </td>
+
+        </tr>
+          <% end %>
+   </tbody>
+</table>
+
+<!--    <%= link_to 'New Nominee', new_nominee_path %>
+   -->
+    </div>  
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

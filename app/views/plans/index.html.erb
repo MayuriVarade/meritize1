@@ -68,14 +68,14 @@
                  <th><h2 style="text-align:center; margin-top:10px"><%= plan.name %></h2></th>
                 </tr>
                 <tr>
-                  <td style="height:90px"><%= plan.description1.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.forusers.try(:html_safe) %></td>
                 </tr>
                 <tr>
 
-                  <td style="height:90px"><%= plan.description2.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.foradmins.try(:html_safe) %></td>
                 </tr>
                 <tr>
-                  <td style="height:90px"><%= plan.description3.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.pricing.try(:html_safe) %></td>
 
                 </tr>
                 <tr>
@@ -91,14 +91,14 @@
                  <th> <h2 style="text-align:center; margin-top:10px"><%= plan.name %></h2></th>
                 </tr>
                 <tr>
-                  <td style="height:90px"><%= plan.description1.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.forusers.try(:html_safe) %></td>
                 </tr>
                 <tr>
 
-                  <td style="height:90px"><%= plan.description2.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.foradmins.try(:html_safe) %></td>
                 </tr>
                 <tr>
-                  <td style="height:90px"><%= plan.description3.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.pricing.try(:html_safe) %></td>
                 </tr>
                 <tr>
 
@@ -108,7 +108,7 @@
                          <a class="button button-small" href="#"> <span>Current Plan</span> </a> 
  
                         <% else %>
-                         <%= link_to image_tag("https://www.paypal.     com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id:                      subscription.plan_id) %>
+                         <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"),                        paypal_checkout_path(plan_id:subscription.plan_id) %> 
                         <% end %>
                         
                              </td>

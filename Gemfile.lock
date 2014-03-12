@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/dsci/paypal-subscribe.git
+  remote: git@github.com:dsci/paypal-subscribe.git
   revision: 08d775f64691e595bd3282326b81fa696d773286
   specs:
     paypal-subscribe (0.3.0)
@@ -66,6 +66,7 @@ GEM
     jquery-ui-rails (4.0.5)
       railties (>= 3.1.0)
     json (1.8.1)
+    jsonschema (2.0.2)
     libv8 (3.16.14.3)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -87,6 +88,9 @@ GEM
     paypal-sdk-core (0.2.7)
       multi_json (~> 1.0)
       xml-simple
+    paypal_adaptive (0.3.7)
+      json (~> 1.0)
+      jsonschema (~> 2.0.0)
     pg (0.17.1)
     polyglot (0.3.4)
     rack (1.4.5)
@@ -154,6 +158,7 @@ DEPENDENCIES
   paypal-recurring
   paypal-sdk-adaptivepayments
   paypal-subscribe!
+  paypal_adaptive
   pg
   rails (= 3.2.14)
   sass-rails (~> 3.2.3)
