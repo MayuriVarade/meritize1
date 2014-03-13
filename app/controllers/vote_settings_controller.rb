@@ -71,8 +71,8 @@ class VoteSettingsController < ApplicationController
   def update
     @vote_setting = VoteSetting.find(params[:id])
       vote_setting = params[:vote_setting]
-    sc = %w(1 2 3).map { |e| prop["start_cycle(#{e}i)"].to_i }
-    ec = %w(1 2 3).map { |e| prop["end_cycle(#{e}i)"].to_i }
+    sc = %w(1 2 3).map { |e| vote_setting["start_cycle(#{e}i)"].to_i }
+    ec = %w(1 2 3).map { |e| vote_setting["end_cycle(#{e}i)"].to_i }
     sc = sc.join("-").to_date
     ec = ec.join("-").to_date
 
