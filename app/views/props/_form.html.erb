@@ -1,3 +1,9 @@
+<% content_for :styles do %>
+ <%= stylesheet_link_tag "application"%>
+ 
+ 
+<% end %>
+
   <div id="info">
 
     <%= form_for(@prop) do |f| %>
@@ -44,11 +50,11 @@
                     <tr>
                       <td>Current cycle:</td>
                       <td>
-                        <%= f.date_select :start_cycle, :class=>"form-control" %>
+                        <%= f.text_field :start_cycle, :class=>"form-control" %>
                       </td>
                       <td>to</td>
                       <td>
-                        <%= f.date_select :end_cycle , :class=>"form-control"%>
+                        <%= f.text_field :end_cycle , :class=>"form-control"%>
                       </td>
                     </tr>
                     <tr>
