@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
    has_and_belongs_to_many :roles
    has_one :plan
    has_one :settings  
+   has_one :prop
 
   
   #model based validation

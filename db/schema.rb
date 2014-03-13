@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140313053506) do
+ActiveRecord::Schema.define(:version => 20140313055610) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -73,6 +73,15 @@ ActiveRecord::Schema.define(:version => 20140313053506) do
     t.text     "forusers"
     t.text     "foradmins"
     t.text     "pricing"
+  end
+
+  create_table "prop_cycles", :force => true do |t|
+    t.datetime "start_cycle"
+    t.datetime "end_cycle"
+    t.integer  "user_id"
+    t.integer  "prop_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "props", :force => true do |t|

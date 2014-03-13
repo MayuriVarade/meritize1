@@ -73,8 +73,11 @@
 					            <% end %>
 					            </li>
                         <% end %>
-                            
+                        	<% if current_user.prop %>
+                            <li><%= link_to "Props" ,edit_prop_path(current_user.prop) %></li>
+                            <% else %>
                             <li><%= link_to "Props" ,new_prop_path %></li>
+                            <% end %>
                               <% @voting_count = VoteSetting.find_all_by_user_id(current_user.id) rescue nil %>
                              
                             <% if @voting_count.count < 1 %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  start_cycle: 2014-03-13 11:26:10
+  end_cycle: 2014-03-13 11:26:10
+  user_id: 1
+  prop_id: 1
+
+two:
+  start_cycle: 2014-03-13 11:26:10
+  end_cycle: 2014-03-13 11:26:10
+  user_id: 1
+  prop_id: 1
