@@ -54,7 +54,10 @@
         <%= f.hidden_field :user_id, :value => current_user.id %>
       
   
-    
+    <tr>
+        <td><%= f.label :intro %></td>
+        <td><%= f.text_area :intro , :rows =>3 ,:class=>"form-control" %></td>
+      </tr>
     
 
      <tr>
@@ -132,10 +135,7 @@
       </tr>
     
     
-   <tr>
-        <td><%= f.label :intro %></td>
-        <td><%= f.text_area :intro , :rows =>3 ,:class=>"form-control" %></td>
-      </tr>
+   
   
     
     
