@@ -5,13 +5,19 @@ class NomineesController < ApplicationController
 
 
   def index
-      vote_setting = VoteSetting.find(params[:vote_setting_id])  
-     
-      @nominees = User.find_all_by_admin_user_id(current_user.id)
+      
+      @nominees = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
       respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @nominees }
       
+      @searchuser ||= [] 
+        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+        @adminusers.each do |adminuser|
+        fullname = adminuser.fullname
+        @searchuser << fullname
+       end
+       @searchuser
       
     end
   end

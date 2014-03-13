@@ -1,6 +1,31 @@
+ <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
+
+  <%= stylesheet_link_tag "dashboard.css" %>
+ 
+
+   <script type="text/javascript"> 
+      jQuery(document).ready( function() {
+        jQuery('#deletesuccess').delay(10000).fadeOut();
+      });
+    </script>
+
+  <script>
+  var data = <%= raw @searchuser %>;
 
 
-<div id="info">   
+  jQuery(function() {
+
+    jQuery( "#search" ).autocomplete(
+    {
+       source:data
+    });
+      
+  });
+  </script>
+
+
+
+  <div id="info">   
       
       <div class="container">
 
@@ -12,22 +37,51 @@
       </div>
 
       
-        <div class="form-group">
-          <label class="control-label">For voting period</label>
-          <div class="controls">
-            <select class="form-control">
-            <% @nominees.each do |nominee| %>
-              <option><%= nominee.start_cycle %>
-              </br><%= nominee.end_cycle %></option>
-              <% end %>              
-            </select>
-
-          </div><br>
-          
-        </div>
 
 
-   
+
+
+
+
+
+    <div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+              <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Manage Nominee</a>
+          </div>
+         
+            <ul class="nav navbar-nav">
+              
+                 <form class="navbar-form navbar-left">
+                  <div class="form-group">
+
+                  <%= link_to "Add new Nominee" , new_nominee_path(:type =>"adminuser"), :class_name => nil,:class=> "button button-small"%>
+                    
+
+                     </div>
+                   </form>
+        
+              <li class="pull-right">
+            <form class="navbar-form navbar-left">
+                  <div class="form-group">
+
+                    <%= form_tag admin_user_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"}  do %>
+
+                    <%= text_field_tag :search, params[:search], :class=>"form-control" %>    <%= submit_tag "Search", :class_name => nil,:class=> "button button-small"%>
+
+                     <% end %>
+                     </div>
+                   </form>
+              </li>
+            </ul>
+       
+         </div>
+      </div>
+
+
 
 
 
@@ -38,6 +92,7 @@
 <thead>
   <tr>        
 
+
               <th>User Name</th>
               <th>User Email</th>
               <th></th>    
@@ -47,18 +102,17 @@
 
         <% @nominees.each do |nominee| %>
         
-        <tr>       
+        <tr>
+         
 
           <td><%= nominee.fullname %></td>
           <td><%= nominee.email %></td></br>
 
           <td align="center">
-
-        
+          
          <%= link_to format_boolean(nominee.status?), {:controller => 'nominees', :action => 'toggled_status', :id => nominee.id} %> 
 
-
-         
+       <!--   <%= link_to 'Destroy', nominee, method: :delete, data: { confirm: 'Are you sure?' } %> -->
          </td>
 
         </tr>
