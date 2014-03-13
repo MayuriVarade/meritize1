@@ -3,7 +3,7 @@ class VoteSettingsController < ApplicationController
   # GET /vote_settings.json
   layout 'profile'
   before_filter :authenticate, :only => [:edit, :update,:index,:show]
-  before_filter :correct_user, :only => [:edit, :update,:show,:new]
+  before_filter :correct_user, :only => [:edit, :update,:show]
 
   def index
     @vote_settings = VoteSetting.find_all_by_user_id(current_user.id)

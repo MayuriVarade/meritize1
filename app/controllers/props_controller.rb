@@ -1,6 +1,6 @@
 class PropsController < ApplicationController
   before_filter :authenticate
-  before_filter :correct_user ,:except => [:new,:create]
+  before_filter :correct_user, :only => [:edit, :update,:show]
 
   layout 'profile'
   # GET /props
