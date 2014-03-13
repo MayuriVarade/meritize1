@@ -1,4 +1,13 @@
 Meritize::Application.routes.draw do
+  resources :props
+
+
+  get "props/index"
+
+  get "props/new"
+
+  get "props/edit"
+
   resources :vote_settings
   
 
