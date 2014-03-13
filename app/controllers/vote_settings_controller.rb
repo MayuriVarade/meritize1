@@ -37,7 +37,7 @@ class VoteSettingsController < ApplicationController
   # GET /vote_settings/1/edit
   def edit
     @vote_setting = VoteSetting.find(params[:id])
-    @past_vote_cycles = VoteCycle.find_all_by_vote_setting_id(@vote_setting.id)
+    @past_vote_cycles = @vote_setting.vote_cycles
   end
 
   # POST /vote_settings
@@ -70,17 +70,33 @@ class VoteSettingsController < ApplicationController
   # PUT /vote_settings/1.json
   def update
     @vote_setting = VoteSetting.find(params[:id])
-     
-    respond_to do |format|
-      if @vote_setting.update_attributes(params[:vote_setting])
-        @vote_cycle = VoteCycle.create(:start_cycle => @vote_setting.start_cycle ,:end_cycle => @vote_setting.end_cycle ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
-        format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote setting was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
-      end
-    end
+      vote_setting = params[:vote_setting]
+    sc = %w(1 2 3).map { |e| prop["start_cycle(#{e}i)"].to_i }
+    ec = %w(1 2 3).map { |e| prop["end_cycle(#{e}i)"].to_i }
+    sc = sc.join("-").to_date
+    ec = ec.join("-").to_date
+
+    osc = @vote_setting.start_cycle
+    oec = @vote_setting.end_cycle
+    if sc > ec 
+      redirect_to :back ,:notice => "Start cycle cannot be greater."
+    else
+       diff = ec - sc + 1
+        if diff < 28 || diff > 31
+          redirect_to :back, :notice => "Please select proper date."
+        else 
+            respond_to do |format|
+              if @vote_setting.update_attributes(params[:vote_setting])
+                @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
+                format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote setting was successfully updated.' }
+                format.json { head :no_content }
+              else
+                format.html { render action: "edit" }
+                format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
+              end
+            end
+          end  
+     end     
   end
 
 
