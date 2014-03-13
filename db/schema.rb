@@ -29,16 +29,6 @@ ActiveRecord::Schema.define(:version => 20140310111521) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "award_frequencies", :force => true do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer  "vote_setting_id"
-    t.integer  "user_id"
-    t.string   "frequency_type"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
   create_table "core_values", :force => true do |t|
     t.string   "title"
     t.text     "description"
@@ -64,12 +54,9 @@ ActiveRecord::Schema.define(:version => 20140310111521) do
   create_table "plans", :force => true do |t|
     t.string   "name"
     t.string   "price"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "user_id"
-    t.string   "description1"
-    t.string   "description2"
-    t.string   "description3"
     t.text     "forusers"
     t.text     "foradmins"
     t.text     "pricing"
@@ -107,13 +94,13 @@ ActiveRecord::Schema.define(:version => 20140310111521) do
     t.string   "email"
     t.integer  "plan_id"
     t.integer  "user_id"
+    t.string   "price"
     t.string   "paypal_payment_token"
     t.string   "paypal_customer_token"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.string   "paypal_recurring_profile_token"
     t.string   "token"
-    t.string   "price"
     t.date     "date"
     t.string   "total_amount"
   end
@@ -152,13 +139,6 @@ ActiveRecord::Schema.define(:version => 20140310111521) do
     t.boolean  "status",                 :default => true
     t.string   "fullname"
     t.string   "plan_name"
-  end
-
-  create_table "vote_settings", :force => true do |t|
-    t.string   "award_program_name"
-    t.text     "intro_text"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
   end
 
 end
