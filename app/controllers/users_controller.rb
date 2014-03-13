@@ -44,7 +44,9 @@ class UsersController < ApplicationController
        end
        @searchuser
    end
+
    #method for searching a adminuser_logs and showing list of adminuser_logs
+
    def adminuser_logs
        @searchuser ||= [] 
        @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
@@ -133,7 +135,7 @@ class UsersController < ApplicationController
     end
    end
  
-   
+
   
 
   private

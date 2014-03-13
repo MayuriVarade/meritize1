@@ -12,11 +12,12 @@ class User < ActiveRecord::Base
    has_many :settings 
    belongs_to :nominee 
 
+
    has_one :settings  
    has_one :prop
    has_one :vote_setting
    has_one :setting
-  
+
   #model based validation
    # validates :firstname, :presence => true, 
    #                :length => { :maximum => 50 }

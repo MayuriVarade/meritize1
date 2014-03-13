@@ -36,7 +36,7 @@ gem 'paypal-sdk-adaptivepayments'
 # gem 'paypal-subscribe', :github => "dsci/paypal-subscribe"
 gem 'pg'
 gem 'paypal_adaptive'
-gem 'paypal-subscribe', :git => "git@github.com:dsci/paypal-subscribe.git"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

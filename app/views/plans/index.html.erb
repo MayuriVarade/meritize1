@@ -1,4 +1,4 @@
-  <%= javascript_include_tag "jquery.js" %>
+<%= javascript_include_tag "jquery.js" %>
   <div id="info">
 
       <div class="container">
@@ -109,6 +109,7 @@
                         <% subscription = plan.subscriptions.build %>
                         <% if @subscription.plan_id == plan.id%>
                          <a class="button button-small" href="#"> <span>Current Plan</span> </a> 
+
  
                         <% else %>
                          <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"),                        paypal_checkout_path(plan_id:subscription.plan_id) %> 
