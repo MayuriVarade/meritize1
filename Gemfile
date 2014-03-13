@@ -11,11 +11,12 @@ gem 'ckeditor'
 
 # Postgres gem used to create database on server
 #gem 'sqlite3'
- gem 'execjs'
+gem 'execjs'
 gem 'therubyracer'
 gem 'paperclip'
 gem 'impressionist'
-gem  'prototype-rails'
+gem 'prototype-rails'
+gem 'rufus-scheduler'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

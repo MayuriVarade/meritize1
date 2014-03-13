@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140310111521) do
+ActiveRecord::Schema.define(:version => 20140312131411) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -140,5 +140,38 @@ ActiveRecord::Schema.define(:version => 20140310111521) do
     t.string   "fullname"
     t.string   "plan_name"
   end
+
+
+  create_table "vote_cycles", :force => true do |t|
+    t.datetime "start_cycle"
+    t.datetime "end_cycle"
+    t.integer  "user_id"
+    t.integer  "vote_setting_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "vote_settings", :force => true do |t|
+    t.string   "award_program_name"
+    t.string   "award_frequency_type"
+    t.datetime "start_cycle"
+    t.datetime "end_cycle"
+    t.text     "intro_text"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "user_id"
+    t.string   "email_sender_name"
+    t.string   "email_sender_email"
+    t.string   "email_sender_subject1"
+    t.text     "email_sender_body1"
+    t.string   "email_sender_subject2"
+    t.text     "email_sender_body2"
+    t.string   "email_sender_subject3"
+    t.text     "email_sender_body3"
+    t.boolean  "is_autopick_winner"
+    t.boolean  "is_admin_reminder"
+    t.boolean  "is_allow_vote"
+  end
+
 
 end

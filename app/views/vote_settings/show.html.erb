@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Award program name:</b>
+  <%= @vote_setting.award_program_name %>
+</p>
+
+<p>
+  <b>Award frequency type:</b>
+  <%= @vote_setting.award_frequency_type %>
+</p>
+
+<p>
+  <b>Start cycle:</b>
+  <%= @vote_setting.start_cycle %>
+</p>
+
+<p>
+  <b>End cycle:</b>
+  <%= @vote_setting.end_cycle %>
+</p>
+
+<p>
+  <b>Intro text:</b>
+  <%= @vote_setting.intro_text %>
+</p>
+
+
+<%= link_to 'Edit', edit_vote_setting_path(@vote_setting) %> |
+<%= link_to 'Back', vote_settings_path %>
