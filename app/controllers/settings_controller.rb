@@ -89,10 +89,11 @@ class SettingsController < ApplicationController
     end
   end
  private
+  #method for deny access if users try to access the pages without login.
   def authenticate
     deny_access unless signed_in?
   end
-  
+   #method for deny access if users try to access user details.
   def correct_user
     @user = User.find(current_user)
     redirect_to("/dashboard",:notice => 'You cannot access this page') unless current_user == @user && current_user.role?(:admin)

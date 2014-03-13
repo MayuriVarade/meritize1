@@ -2,6 +2,8 @@ class VoteSettingsController < ApplicationController
   # GET /vote_settings
   # GET /vote_settings.json
   layout 'profile'
+  before_filter :authenticate, :only => [:edit, :update,:index,:show]
+  before_filter :correct_user, :only => [:edit, :update,:show,:new]
 
   def index
     @vote_settings = VoteSetting.find_all_by_user_id(current_user.id)
@@ -42,10 +44,12 @@ class VoteSettingsController < ApplicationController
 
   # POST /vote_settings
   # POST /vote_settings.json
+  #method for creating vote_setting and new trigger cycles and pastcycles. 
   def create
     @vote_setting = VoteSetting.new(params[:vote_setting])
     sc =  @vote_setting.start_cycle.to_date
     ec =  @vote_setting.end_cycle.to_date
+    #method for days validations when creating vote_setting and new trigger cycles and pastcycles. 
     if sc > ec 
       redirect_to :back ,:notice => "Start cycle cannot be greater."
     else
@@ -68,6 +72,7 @@ class VoteSettingsController < ApplicationController
 
   # PUT /vote_settings/1
   # PUT /vote_settings/1.json
+  #method for updating vote_setting and new trigger cycles and pastcycles. 
   def update
     @vote_setting = VoteSetting.find(params[:id])
       vote_setting = params[:vote_setting]
@@ -102,6 +107,7 @@ class VoteSettingsController < ApplicationController
 
   # DELETE /vote_settings/1
   # DELETE /vote_settings/1.json
+  #method for deleting votesetting.
   def destroy
     @vote_setting = VoteSetting.find(params[:id])
     @vote_setting.destroy
@@ -140,4 +146,17 @@ class VoteSettingsController < ApplicationController
           end
       end
   end
+
+   private
+     #method for deny access if users try to access the pages without login.
+    def authenticate
+      deny_access unless signed_in?
+    end
+     #method for deny access if users try to access user details.
+    def correct_user
+      @vote_setting = VoteSetting.find(params[:id])
+      unless @vote_setting.user_id == current_user.id
+        redirect_to user_root_path, :notice => "Access Denied"
+      end
+    end
 end
