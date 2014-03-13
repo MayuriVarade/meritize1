@@ -1,4 +1,7 @@
 class PropsController < ApplicationController
+  before_filter :authenticate
+  before_filter :correct_user ,:except => [:new,:create]
+
   layout 'profile'
   # GET /props
   # GET /props.json
@@ -37,7 +40,7 @@ class PropsController < ApplicationController
   def edit
     @prop = Prop.find(params[:id])
     @past_cycles = @prop.prop_cycles
-    
+
   end
 
   # POST /props
@@ -110,4 +113,19 @@ class PropsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    
+    def authenticate
+      deny_access unless signed_in?
+    end
+
+    def correct_user
+      @prop = Prop.find(params[:id])
+      unless @prop.user_id == current_user.id
+        redirect_to user_root_path, :notice => "Access Denied"
+      end
+    end
+    
+
 end
