@@ -5,4 +5,6 @@ class Prop < ActiveRecord::Base
   
   belongs_to :user
   has_many :prop_cycles
+  validates_presence_of :start_point,:end_point,:step_point
+  validates_numericality_of :start_point,:end_point,:step_point
 end
