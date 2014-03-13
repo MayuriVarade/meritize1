@@ -1,0 +1,40 @@
+<%= form_for(@nominee) do |f| %>
+  <% if @nominee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@nominee.errors.count, "error") %> prohibited this nominee from being saved:</h2>
+
+      <ul>
+      <% @nominee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+      <br><%= f.label :Start_Cycle %>
+      <%= f.collection_select :start_cycle, VoteSetting.all , :start_cycle,:start_cycle %> 
+      <%= f.label :End_Cycle %>
+      <%= f.collection_select :end_cycle, VoteSetting.all , :end_cycle,:end_cycle %></br>   
+  </div>
+
+
+  <div class="field">
+      <br><%= f.label "Name" %><br />
+      <%= f.collection_select :fullname, User.where(:id => 2..5) , :fullname,:fullname %></br>    
+  </div>
+
+
+
+  <div class="field">
+      <br><%= f.label "Email" %><br />
+      <%= f.collection_select :email, User.where(:id => 2..5), :email,:email %></br>      
+  </div> 
+
+
+
+  </br><div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

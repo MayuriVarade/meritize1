@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140313055610) do
+ActiveRecord::Schema.define(:version => 20140313105839) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -29,22 +29,26 @@ ActiveRecord::Schema.define(:version => 20140313055610) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "award_frequencies", :force => true do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer  "vote_setting_id"
-    t.integer  "user_id"
-    t.string   "frequency_type"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
   create_table "core_values", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.integer  "setting_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "nominees", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "username"
+    t.string   "email"
+    t.string   "fullname"
+    t.integer  "vote_setting_id"
+    t.datetime "start_cycle"
+    t.datetime "end_cycle"
+    t.boolean  "status"
+
   end
 
   create_table "payment_notifications", :force => true do |t|
@@ -64,12 +68,9 @@ ActiveRecord::Schema.define(:version => 20140313055610) do
   create_table "plans", :force => true do |t|
     t.string   "name"
     t.string   "price"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "user_id"
-    t.string   "description1"
-    t.string   "description2"
-    t.string   "description3"
     t.text     "forusers"
     t.text     "foradmins"
     t.text     "pricing"

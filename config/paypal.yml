@@ -27,7 +27,7 @@ development:
 production:
   <<: *default
   mode: live
-  username: meritize_api1.gmail.com
-  password: 1393481147 
-  signature:  An5ns1Kso7MWUdW4ErQKJJJ4qi4-AtabrMytIC4-k8z2nrASkzE9BNfQ 
+  username: kipl456_api1.gmail.com 
+  password: 1394623811    
+  signature:  AFcWxV21C7fd0v3bYYYRCpSSRl31Ar1DAqAJG0GsdwyQmldV.XxRssk. 
  
