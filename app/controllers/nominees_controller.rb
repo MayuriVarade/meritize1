@@ -5,17 +5,24 @@ class NomineesController < ApplicationController
 
 
   def index
-    @nominees = Nominee.all
-
-    respond_to do |format|
+      vote_setting = VoteSetting.find(params[:vote_setting_id])  
+     
+      @nominees = User.find_all_by_admin_user_id(current_user.id)
+      respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @nominees }
-
+      
       
     end
   end
 
 
+  def toggled_status
+        @nominees = User.find(params[:id])
+        @nominees.status = !@nominees.status?
+        @nominees.save!
+        redirect_to nominees_path
+  end
 
   
 
@@ -62,6 +69,8 @@ class NomineesController < ApplicationController
     end
   end
 
+
+
   # PUT /nominees/1
   # PUT /nominees/1.json
   def update
@@ -77,6 +86,8 @@ class NomineesController < ApplicationController
       end
     end
   end
+
+  
 
   # DELETE /nominees/1
   # DELETE /nominees/1.json
