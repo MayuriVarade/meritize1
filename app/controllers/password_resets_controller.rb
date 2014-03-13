@@ -1,9 +1,7 @@
 class PasswordResetsController < ApplicationController
-
-
   layout 'application'
 
-
+  #method for sending the temporary passowrd for passowrd reset.
   def create
     user = User.find_by_email(params[:email])
 
@@ -30,13 +28,14 @@ class PasswordResetsController < ApplicationController
       render :edit
     end
   end
-private
-def custom_layout
+  #method for allowing to user to use differnt layout to individual page.
+  private
+     def custom_layout
         case action_name
          when "edit"
-           "profile" 
-         else
+          "profile" 
+        else
           "application"
         end
-    end
+      end
 end

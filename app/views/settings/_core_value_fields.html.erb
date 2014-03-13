@@ -1,16 +1,16 @@
-<div class="fields">
-<p>
- <%= f.label "Title" %>
-  <%= f.text_field :title  %>
-</p>
 
-
-<p>
-  <%= f.label "Description" %>
-  <%= f.text_area :description,:rows =>3,:columns=> 2 %>
-  
-  <%= link_to_remove_fields "remove", f %>
-</p>
-</div>
+                  <div class = "fields">
+	                  <div class="col-md-4">
+	                   
+	                    <%= f.text_field :title ,:class=>"form-control" %>
+	                  </div>
+	                  <div class="col-md-8">
+	                    <%= f.text_area :description,:rows =>3,:class=>"form-control" %>
+	                    <%= link_to_remove_fields "remove", f %>
+	                    
+	                  </div>
+                   </div>
+           
+              
 
 

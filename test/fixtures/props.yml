@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  enable: false
+  assign_points: false
+  start_point: 1
+  end_point: 1
+  step_point: 1
+  reset_point: MyString
+  user_id: 1
+  start_cycle: 2014-03-13 11:05:06
+  end_cycle: 2014-03-13 11:05:06
+  name: MyString
+  email: MyString
+  subject: MyString
+  body: MyText
+  subject2: MyString
+  body2: MyText
+  subject3: MyString
+  body3: MyText
+  intro: MyText
+
+two:
+  enable: false
+  assign_points: false
+  start_point: 1
+  end_point: 1
+  step_point: 1
+  reset_point: MyString
+  user_id: 1
+  start_cycle: 2014-03-13 11:05:06
+  end_cycle: 2014-03-13 11:05:06
+  name: MyString
+  email: MyString
+  subject: MyString
+  body: MyText
+  subject2: MyString
+  body2: MyText
+  subject3: MyString
+  body3: MyText
+  intro: MyText
