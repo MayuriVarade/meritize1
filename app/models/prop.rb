@@ -4,4 +4,5 @@ class Prop < ActiveRecord::Base
   				  :step_point, :subject, :subject2, :subject3, :user_id
   
   belongs_to :user
+  has_many :prop_cycles
 end
