@@ -1,31 +1,78 @@
-<%= form_for(@setting) do |f| %>
-  <% if @setting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+<div class="container">
+        <%= form_for @setting ,:html => {:multipart => true} do |f| %>
+        <% if @setting.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
 
-      <ul>
-      <% @setting.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+            <ul>
+            <% @setting.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+       
 
-  <div class="field">
-    <%= f.label :company_name %><br />
-    <%= f.text_field :company_name %>
-  </div>
-  <div class="field">
-    <%= f.label :website_address %><br />
-    <%= f.text_field :website_address %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-    <%= f.hidden_field :user_id , :value => current_user.id %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+        <h1>Settings - General</h1>
+        <table class="table table-hover table-responsive table-condensed">
+          <tbody>
+            <tr>
+              <td>
+                <label class="form-label">Company name:</label>
+              </td>
+              <td>
+                 <%= f.text_field :company_name,:class=>"form-control"  %>
+                 <%= f.hidden_field :user_id , :value => current_user.id %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Company logo:</label>
+              </td>
+              <td>
+                <%= f.file_field :photo %> 
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Website address:</label>
+              </td>
+              <td>
+                 <%= f.text_field :website_address,:class=>"form-control"  %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Core values:</label>
+              </td>
+              <td>
+                <div class="row"> 
+
+                    <%= f.fields_for :core_values do |builder| %>
+            
+                          <%= render "core_value_fields", :f => builder %>
+            
+                    <% end %>
+                
+                              
+                  <%= link_to_add_fields "Add another core value", f, :core_values %>
+                
+                </div>
+              </td>
+            </tr>
+              <tr>
+              <td>
+                
+              </td>
+              <td>
+                  <%= f.submit "Save", :class => "btn btn-primary"%>
+               
+              </td>
+            </tr>
+
+
+
+          </tbody>
+        </table>
+        <% end %>
+      </div>

@@ -72,7 +72,8 @@
                   <div class="controls">
 
                   <%= link_to "Add new Nominee" , new_nominee_path(:type =>"adminuser"), :class_name => nil,:class=> "button button-small"%>
-                    
+                  
+                    <%= text_field_tag :search, params[:search], :class=>"form-control" %>    <%= submit_tag "Search", :class_name => nil,:class=> "button button-small"%>
                      </div>
                    </form>
         

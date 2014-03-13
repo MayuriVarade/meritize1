@@ -11,11 +11,12 @@ gem 'ckeditor'
 gem 'sqlite3'
 # Postgres gem used to create database on server
 #gem 'sqlite3'
- gem 'execjs'
+gem 'execjs'
 gem 'therubyracer'
 gem 'paperclip'
 gem 'impressionist'
-
+gem 'prototype-rails'
+gem 'rufus-scheduler'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -35,7 +36,7 @@ gem 'paypal-sdk-adaptivepayments'
 # gem 'paypal-subscribe', :github => "dsci/paypal-subscribe"
 gem 'pg'
 gem 'paypal_adaptive'
-gem 'paypal-subscribe', :git => "git@github.com:dsci/paypal-subscribe.git"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

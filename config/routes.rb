@@ -1,38 +1,50 @@
 Meritize::Application.routes.draw do
+
   resources :nominees
 
 
-mount Ckeditor::Engine => '/ckeditor'
+
+  resources :props
+
+
+  get "props/index"
+
+  get "props/new"
+
+  get "props/edit"
+
+  resources :vote_settings
+  
+
+  mount Ckeditor::Engine => '/ckeditor'
+
   root :to => 'homes#index'
   resources :trial_days
   resources :settings  
-  resources :subscriptions
-  
+  resources :subscriptions  
     
     get "paypal/checkout", to: 'subscriptions#paypal_checkout'
     match"/success", :to=> "subscriptions#success", :as => 'success'
 
   resources :plans
-  
-    get "password_resets/new"
-    match '/change_password', :controller => 'users', :action => 'change_password'
-    resources :users 
-    match '/admin_user', :to =>'users#admin_user'
-    match '/adminuser_logs', :to =>'users#adminuser_logs'
-    match '/users/:id/delete', :to => "users#destroy"
-    match '/users/:id/status', :to => "users#toggled_status"
-    match '/history', :to => "subscriptions#history"
-    match '/users/validations/check_email', :to=>"users#check_email"
-
-    resources :sessions, :only => [:new,:create,:destroy,:edit]
-    root :to => 'sessions#new'
+  get "password_resets/new"
+  match '/change_password', :controller => 'users', :action => 'change_password'
+  resources :users 
+  match '/admin_user', :to =>'users#admin_user'
+  match '/adminuser_logs', :to =>'users#adminuser_logs'
+  match '/users/:id/delete', :to => "users#destroy"
+  match '/users/:id/status', :to => "users#toggled_status"
+  match '/history', :to => "subscriptions#history"
+  match '/users/validations/check_email', :to=>"users#check_email"
+ 
+  resources :sessions, :only => [:new,:create,:destroy,:edit]
+  root :to => 'sessions#new'
     match 'dashboard' => 'users#dashboard', :as => 'user_root'
     match '/signup', :to =>'users#new'
     match '/signin', :to =>'sessions#new'
     match  '/users/:id/edit',  :to => "users#edit" 
     match '/signout', :to =>'sessions#destroy'
   resources :password_resets
-
   get "/plan" => "subscriptions#plan"
   
 

@@ -42,6 +42,7 @@ class UsersController < ApplicationController
        end
        @searchuser
    end
+   
    def adminuser_logs
        @searchuser ||= [] 
        @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
@@ -83,9 +84,10 @@ class UsersController < ApplicationController
          
     if @user.update_attributes(params[:user])
        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
-      flash[:success] = "Profile updated successfully."
+      
       
       if params[:page_name] == "admin"
+          flash[:success] = "Profile updated successfully."
           redirect_to admin_user_path
       else
         flash[:notice] = "Profile updated successfully."
@@ -129,7 +131,7 @@ class UsersController < ApplicationController
     end
    end
  
-   
+
   
 
   private
@@ -176,6 +178,8 @@ class UsersController < ApplicationController
           when "adminuser_logs"
           "profile"
          when "add_adminuser"
+          "profile"
+         when "show"
           "profile"
          else
           "application"

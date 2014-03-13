@@ -64,9 +64,22 @@
 
 					    <li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-15"></i><span>Setting</span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">General</a></li>
-                            <li><a href="#">Props</a></li>
-                            <li><a href="#">Vote</a></li>
+                        	<% if current_user.setting %>
+                            <li><%= link_to "General" ,edit_setting_path(current_user.setting) %></li>
+                            <% else %>
+                            <li><%= link_to "General" ,new_setting_path %></li>
+                            <% end %>
+                        	<% if current_user.prop %>
+                            <li><%= link_to "Props" ,edit_prop_path(current_user.prop) %></li>
+                            <% else %>
+                            <li><%= link_to "Props" ,new_prop_path %></li>
+                            <% end %>
+                            <% if current_user.vote_setting %>
+                            <li><%= link_to "Votes" ,edit_vote_setting_path(current_user.vote_setting) %></li>
+                            <% else %>
+                            <li><%= link_to "Votes" ,new_vote_setting_path %></li>
+                            <% end %>
+                            
                         </ul>
                     </li>
 					
