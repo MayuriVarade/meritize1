@@ -44,16 +44,26 @@ class VoteSettingsController < ApplicationController
   # POST /vote_settings.json
   def create
     @vote_setting = VoteSetting.new(params[:vote_setting])
-   
-    respond_to do |format|
-      if @vote_setting.save
-        format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote setting was successfully created.' }
-        format.json { render json: @vote_setting, status: :created, location: @vote_setting }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
-      end
-    end
+    sc =  @vote_setting.start_cycle.to_date
+    ec =  @vote_setting.end_cycle.to_date
+    if sc > ec 
+      redirect_to :back ,:notice => "Start cycle cannot be greater."
+    else
+      diff = ec - sc + 1
+        if diff < 28 || diff > 31
+          redirect_to :back, :notice => "Please select proper date."
+        else
+          respond_to do |format|
+            if @vote_setting.save
+              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote setting was successfully created.' }
+              format.json { render json: @vote_setting, status: :created, location: @vote_setting }
+            else
+              format.html { render action: "new" }
+              format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
+            end
+          end
+         end 
+       end  
   end
 
   # PUT /vote_settings/1
