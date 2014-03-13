@@ -10,80 +10,134 @@
       </ul>
     </div>
   <% end %>
+  <table class="table table-responsive">
+    <tbody>
+      <tr>
+        <td><%= f.label :enable %></td>
+        <td>
+          <div class="checkbox"><%= f.check_box :enable %></div>
+        </td>
+      </tr>
+  
+      <tr>
+        <td><%= f.label :assign_points %></td>
+        <td><%= f.check_box :assign_points , :class=>"form-control" %></td>
+      </tr>
+  
+      <tr>
+        <td><%= f.label :start_point %></td>
+        <td><%= f.number_field :start_point , :class=>"form-control" %></td>
+      </tr>
+  
+    
+    
+   <tr>
+        <td><%= f.label :end_point %></td>
+        <td><%= f.number_field :end_point , :class=>"form-control"%></td>
+      </tr>
+  
+    
+    
 
-  <div class="field">
-    <%= f.label :enable %><br />
-    <%= f.check_box :enable %>
-  </div>
-  <div class="field">
-    <%= f.label :assign_points %><br />
-    <%= f.check_box :assign_points %>
-  </div>
-  <div class="field">
-    <%= f.label :start_point %><br />
-    <%= f.number_field :start_point %>
-  </div>
-  <div class="field">
-    <%= f.label :end_point %><br />
-    <%= f.number_field :end_point %>
-  </div>
-  <div class="field">
-    <%= f.label :step_point %><br />
-    <%= f.number_field :step_point %>
-  </div>
-  <div class="field">
-    <%= f.label :reset_point %><br />
-    <%= f.text_field :reset_point %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :start_cycle %><br />
-    <%= f.datetime_select :start_cycle %>
-  </div>
-  <div class="field">
-    <%= f.label :end_cycle %><br />
-    <%= f.datetime_select :end_cycle %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :subject %><br />
-    <%= f.text_field :subject %>
-  </div>
-  <div class="field">
-    <%= f.label :body %><br />
-    <%= f.text_area :body %>
-  </div>
-  <div class="field">
-    <%= f.label :subject2 %><br />
-    <%= f.text_field :subject2 %>
-  </div>
-  <div class="field">
-    <%= f.label :body2 %><br />
-    <%= f.text_area :body2 %>
-  </div>
-  <div class="field">
-    <%= f.label :subject3 %><br />
-    <%= f.text_field :subject3 %>
-  </div>
-  <div class="field">
-    <%= f.label :body3 %><br />
-    <%= f.text_area :body3 %>
-  </div>
-  <div class="field">
-    <%= f.label :intro %><br />
-    <%= f.text_area :intro %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+     <tr>
+        <td><%= f.label :step_point %></td>
+        <td><%= f.number_field :step_point , :class=>"form-control"%></td>
+      </tr>
+    
+    
+   <tr>
+        <td><%= f.label :reset_point %></td>
+        <td><%= f.select :reset_point, options_for_select([ ["Never reset points, let points accumulate forever","1"], ["Monthly","2"], ["Quaterly","3"]]) %></td>
+      </tr>
+  
+    
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+      
+  
+    
+    
+
+     <tr>
+        <td><%= f.label :start_cycle %></td>
+        <td><%= f.date_select :start_cycle %></td>
+      </tr>
+    
+    
+
+     <tr>
+        <td><%= f.label :end_cycle %></td>
+        <td><%= f.date_select :end_cycle %></td>
+      </tr>
+    
+    
+   <tr>
+        <td><%= f.label :name %></td>
+        <td><%= f.text_field :name , :class=>"form-control" %></td>
+      </tr>
+  
+    
+    
+   <tr>
+        <td><%= f.label :email %></td>
+        <td><%= f.text_field :email , :class=>"form-control" %></td>
+      </tr>
+  
+    
+    
+   <tr>
+        <td><%= f.label :subject %></td>
+        <td><%= f.text_field :subject , :class=>"form-control" %></td>
+      </tr>
+  
+
+     <tr>
+        <td><%= f.label :body %></td>
+        <td><%= f.text_area :body , :rows =>3 ,:class=>"form-control" %></td>
+      </tr>
+    
+   
+     <tr>
+        <td><%= f.label :subject2 %></td>
+        <td><%= f.text_field :subject2 , :class=>"form-control" %></td>
+      </tr>
+    
+    
+
+     <tr>
+        <td><%= f.label :body2 %></td>
+        <td><%= f.text_area :body2 , :rows =>3 ,:class=>"form-control" %></td>
+      </tr>
+    
+    
+   <tr>
+        <td><%= f.label :subject3 %></td>
+        <td><%= f.text_field :subject3 , :class=>"form-control" %></td>
+      </tr>
+  
+    
+    
+
+     <tr>
+        <td><%= f.label :body3 %></td>
+        <td><%= f.text_area :body3 , :rows =>3, :class=>"form-control" %></td>
+      </tr>
+    
+    
+   <tr>
+        <td><%= f.label :intro %></td>
+        <td><%= f.text_area :intro , :rows =>3 ,:class=>"form-control" %></td>
+      </tr>
+  
+    
+    
+ <tr>
+              <td>
+                <label class="form-label"></label>
+              </td>
+              <td>
+                 <%= f.submit "Save", :class => "btn btn-primary"%>
+              </td>
+            </tr>
 <% end %>
+ </tbody>
+        </table>
