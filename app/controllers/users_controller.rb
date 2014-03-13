@@ -24,14 +24,16 @@ class UsersController < ApplicationController
       @plan_expiry = plan_expiry  
      
    end
+   # this method allows admin to activate or deactivate users
    def toggled_status
         @users = User.find(params[:id])
         @users.status = !@users.status?
-        @users.save!
-        redirect_to "/admin_user"
+        @users.update_column(:status,@users.status)
+        
+        redirect_to admin_user_path
     end
 
-
+   #method for searching a admin_user and showing list of admin_user
    def admin_user
        @plan_expiry = plan_expiry  
         @searchuser ||= [] 
@@ -42,7 +44,9 @@ class UsersController < ApplicationController
        end
        @searchuser
    end
-   
+
+   #method for searching a adminuser_logs and showing list of adminuser_logs
+
    def adminuser_logs
        @searchuser ||= [] 
        @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
@@ -53,7 +57,7 @@ class UsersController < ApplicationController
        @searchuser 
    end
 
-
+  #method for create new_user and sending them verification emails.
    def create
       @user = User.new(params[:user])
       @random_password = params[:user][:password]
@@ -78,7 +82,7 @@ class UsersController < ApplicationController
    def edit
     @title = "Edit user"
    end
-
+   #method for create updating existing users.
    def update
     @user = User.find(params[:id])
          
@@ -98,14 +102,14 @@ class UsersController < ApplicationController
       render 'edit'
     end
    end
-
+    #method for deleting users.
     def destroy
       @user = User.find(params[:id])
       @user.destroy
       flash[:notice] = "User deleted successfully."
       redirect_to  admin_user_path
     end
-
+   #method for change the users password to new password.
    def change_password
 
     @user = User.find(current_user.id)
@@ -135,21 +139,22 @@ class UsersController < ApplicationController
   
 
   private
+    #method for deny access if users try to access the pages without login.
     def authenticate
       deny_access unless signed_in?
     end
-    
+     #method for deny access if users try to access user details.
     def correct_user
       @user = User.find(params[:id])
-      redirect_to("/dashboard",:notice => 'You cannot access this page') unless current_user == @user
+      redirect_to(user_root_path,:notice => 'You cannot access this page') unless current_user == @user
     end
     def correct_user_edit
        if current_user.role?(:admin)
         @user = User.find(params[:id])
-        redirect_to("/dashboard",:notice => 'You cannot access this page') unless current_user.id == @user.admin_user_id || current_user.id == @user.id
+        redirect_to(user_root_path,:notice => 'You cannot access this page') unless current_user.id == @user.admin_user_id || current_user.id == @user.id
        else
          @user = User.find(params[:id])
-        redirect_to("/dashboard",:notice => 'You cannot access this page') unless current_user == @user
+        redirect_to(user_root_path,:notice => 'You cannot access this page') unless current_user == @user
        end 
     end
     
@@ -163,6 +168,7 @@ class UsersController < ApplicationController
     def assign_password
       (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
     end
+    #method for allowing to user to use differnt layout to individual page.
       def custom_layout
         case action_name
          when "edit"

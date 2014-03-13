@@ -4,7 +4,7 @@ class SubscriptionsController < ApplicationController
 
  layout "profile"
 
-  
+  #  Method for Subscription return url
 def success
   @subscription = Subscription.new(:user_id => params[:user_id], :token => params[:token], :price => params[:price])
       plan = Plan.find(params[:plan_id])      

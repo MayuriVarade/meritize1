@@ -88,7 +88,7 @@
                 <label class="form-label">Intro text displayed to voter:</label>
               </td>
               <td>
-                 <%= f.text_area :intro_text,:rows =>3,:columns =>4 %>
+                 <%= f.cktext_area :intro_text,:rows =>3,:columns =>4 %>
               </td>
             </tr>
             <tr>
@@ -121,7 +121,7 @@
                 <label class="form-label">Reminder email #1 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.text_area :email_sender_body1,:rows =>3,:class=>"form-control"  %>
+                <%= f.cktext_area :email_sender_body1,:rows =>3,:class=>"form-control"  %>
               </td>
             </tr>
             <tr>
@@ -137,7 +137,7 @@
                 <label class="form-label">Reminder email #2 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.text_area :email_sender_body2,:rows =>3,:class=>"form-control"%>
+                <%= f.cktext_area :email_sender_body2,:rows =>3,:class=>"form-control"%>
               </td>
             </tr>
             <tr>
@@ -153,7 +153,7 @@
                 <label class="form-label">Reminder email #3 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.text_area :email_sender_body3,:rows =>3,:class=>"form-control"%>
+                <%= f.cktext_area :email_sender_body3,:rows =>3,:class=>"form-control"%>
               </td>
             </tr>
              <tr>
