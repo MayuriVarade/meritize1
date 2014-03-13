@@ -1,4 +1,7 @@
 Meritize::Application.routes.draw do
+  resources :nominees
+
+
 mount Ckeditor::Engine => '/ckeditor'
   root :to => 'homes#index'
   resources :trial_days
@@ -7,6 +10,7 @@ mount Ckeditor::Engine => '/ckeditor'
   
     
     get "paypal/checkout", to: 'subscriptions#paypal_checkout'
+    match"/success", :to=> "subscriptions#success", :as => 'success'
 
   resources :plans
   
@@ -31,8 +35,6 @@ mount Ckeditor::Engine => '/ckeditor'
 
   get "/plan" => "subscriptions#plan"
   
-
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

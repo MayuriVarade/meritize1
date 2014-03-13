@@ -39,6 +39,10 @@
                          <% end %>
                          <%= render 'shared/error_messages', :object => f.object %>
                       </section> 
+
+                          
+                         
+
                            <div class="form-group">
 
                             <label for="name">First name </label><span class="star">*</span>
@@ -70,7 +74,9 @@
                                 
                                 <div class="form-group">
                             <label for="plan_name">Plan</label>
-                             <%= f.select :plan_name, options_for_select(["Alloy","Award","Applaud"]),{}, {:class => 'form-control' } %>
+                            
+                             <%= f.select :plan_name, options_for_select([["Alloy", ""],"Award", "Applaud"]), {}, { :class => 'form-control' } %>
+                             
                             
                                </div>
 

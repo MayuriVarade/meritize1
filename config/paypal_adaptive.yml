@@ -1,0 +1,13 @@
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  environment: "production"
+  username: "meritize_api1.gmail.com"
+  password: "1393481147"
+  signature: "An5ns1Kso7MWUdW4ErQKJJJ4qi4-AtabrMytIC4-k8z2nrASkzE9BNfQ "
+  application_id: "APP-80W284485P519543T"
+  api_cert_file: "/path/to_cert"

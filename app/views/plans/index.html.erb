@@ -1,130 +1,107 @@
-  <div id="info">
-
-      <div class="container">
-          <% if current_user.role? :productmanager %>
-           <ul>
-               Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
-   
-             
-          <% elsif current_user.role? :admin %>
-          <%# raise @plan_expiry.inspect %>
-            Only <%= @plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
-         <% else %>
+ <div id="info">
+     <div class="container">
+       <% if current_user.role? :productmanager %>
+        <ul>
+           Welcome  <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
+            <% elsif current_user.role? :admin %>
+           Only <%= @plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
+            <% else %>
            User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
            Email:<%= current_user.email %><br/>
         <% end %>
     </div>
   
-
-  <div id="first-option">
+ <div id="first-option">
     <div class="container">
+        <% if current_user.role? :productmanager %>
+             <table class="table table-bordered table-striped table-highlight">
+               <thead>
+                 <tr>
+                 <th>Name</th>
+                 <th>Price</th>
+                 <th>All User</th>
+                 <th>All Admin</th>
+                 <th>Pricing</th>
+                 <th>Action</th>
+                 </tr>
+               </thead>
 
-<% if current_user.role? :productmanager %>
-
-        
-      
-                       <table class="table table-bordered table-striped table-highlight">
-                            <thead>
-                           <tr>
-                             <th>Name</th>
-
-                             <th>Price</th>
-                             <th>All User</th>
-                             <th>All Admin</th>
-                             <th>Pricing</th>
-                             <th>Action</th>
-
-                          </tr>
-                           </thead>
-                     <tbody>
+            <tbody>
             <% @plans.each do |plan| %>
-
-         
             <tr>
-                   <td><%= plan.name %></td>
-                   <td><%= plan.price %></td>
-                   <td><%= plan.forusers.try(:html_safe) %></td>
-                   <td><%= plan.foradmins.try(:html_safe) %></td>
-                   <td><%= plan.pricing.try(:html_safe) %></td>
-                   <td><%= link_to 'Edit', edit_plan_path(plan),:class=> "btn btn-primary" %></td>
-                  
-            </tr>
-                <% end %>
-         
-          </tbody>
-        </table>
+              <td><%= plan.name %></td>
+              <td><%= plan.price %></td>
+              <td><%= plan.forusers.try(:html_safe) %></td>
+              <td><%= plan.foradmins.try(:html_safe) %></td>
+              <td><%= plan.pricing.try(:html_safe) %></td>
+              <td><%= link_to 'Edit', edit_plan_path(plan),:class=> "btn btn-primary" %></td>
+             </tr>
+            <% end %>
+            </tbody>
+            </table>
+
         <% elsif current_user.role? :admin%>
-
-    
-    <h1>Plans</h1>
-
-     
-      <table>
-         <% @plans.each do |plan| %>
+         <h1>Plans</h1>
+            <table>
+             <% @plans.each do |plan| %>
              <% if @subscription.nil? %>
-            <tr>
+             <tr>
               <td style="width:33.33%"><table class="table table-hover table-bordered table-responsive table-condensed">
-                <tr>
-                 <th><h2 style="text-align:center; margin-top:10px"><%= plan.name %></h2></th>
-                </tr>
-                <tr>
-                  <td style="height:90px"><%= plan.description1.try(:html_safe) %></td>
-                </tr>
-                <tr>
+            <tr>
+              <th><h2 style="text-align:center; margin-top:10px"><%= plan.name %></h2></th>
+            </tr>
+            <tr>
+              <td style="height:90px"><%= plan.forusers.try(:html_safe) %></td>
+            </tr>
+            <tr>
+              <td style="height:90px"><%= plan.foradmins.try(:html_safe) %></td>
+            </tr>
+            <tr>
+             <td style="height:90px"><%= plan.pricing.try(:html_safe) %></td>
+            </tr>
+            <tr>
+             <td style="text-align:center;height:72px;">
+              <% @subscription = plan.subscriptions.build %>
+              <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id) %>
+             </td>
+            </tr>
+            </table>
+             </td>
 
-                  <td style="height:90px"><%= plan.description2.try(:html_safe) %></td>
-                </tr>
-                <tr>
-                  <td style="height:90px"><%= plan.description3.try(:html_safe) %></td>
-
-                </tr>
-                <tr>
-                  <td style="text-align:center;height:72px;">
-                  <% @subscription = plan.subscriptions.build %>
-                      <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id: @subscription.plan_id) %></td>
-                  
-                </tr>
-              </table></td>
                <% else %>
+
                 <td style="width:33.33%"><table class="table table-hover table-bordered table-responsive table-condensed">
                 <tr>
                  <th> <h2 style="text-align:center; margin-top:10px"><%= plan.name %></h2></th>
                 </tr>
                 <tr>
-                  <td style="height:90px"><%= plan.description1.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.forusers.try(:html_safe) %></td>
                 </tr>
                 <tr>
-
-                  <td style="height:90px"><%= plan.description2.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.foradmins.try(:html_safe) %></td>
                 </tr>
                 <tr>
-                  <td style="height:90px"><%= plan.description3.try(:html_safe) %></td>
+                  <td style="height:90px"><%= plan.pricing.try(:html_safe) %></td>
                 </tr>
                 <tr>
-
                   <td  style="text-align:center;height:72px;">                        
-                        <% subscription = plan.subscriptions.build %>
-                        <% if @subscription.plan_id == plan.id%>
-                         <a class="button button-small" href="#"> <span>Current Plan</span> </a> 
- 
-                        <% else %>
-                         <%= link_to image_tag("https://www.paypal.     com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id:                      subscription.plan_id) %>
-                        <% end %>
-                        
-                             </td>
+                    <% subscription = plan.subscriptions.build %>
+                    <% if @subscription.plan_id == plan.id%>
+                    <a class="button button-small" href="#"> <span>Current Plan</span> </a> 
 
-                   </tr>
-              
-               
-              </table></td>
-         
-              <% end %>
-        <% end %>
+                    <% else %>
+
+                    <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_path(plan_id:subscription.plan_id) %> 
+               <% end %>
+                </td>
+                </tr>
+               </table>
+             </td>
+          <% end %>
+         <% end %>
             </tr>
           </table>
-  
-  <% end %>
-
-    </div>
-  </div>
+         <% end %>
+          </div>
+       </div>
   </div>
