@@ -5,7 +5,7 @@ class NomineesController < ApplicationController
 
 
   def index
-      # vote_setting = VoteSetting.find(params[:vote_setting_id])  
+      vote_setting = VoteSetting.find(params[:vote_setting_id])  
      
       @nominees = User.find_all_by_admin_user_id(current_user.id)
       respond_to do |format|

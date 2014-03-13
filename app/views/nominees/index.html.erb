@@ -1,5 +1,31 @@
 
 
+<div id="info">   
+      
+      <div class="container">
+
+     
+
+      <div class="jumbotron">
+        <p>Use this page to nominate who can win the award. You don't have to have nominees. If you don't have any nominees, your voters can vote for any voter. If you do have nominees, your voters will have to vote for one of the nominees.</p>
+        <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+      </div>
+
+      
+        <div class="form-group">
+          <label class="control-label">For voting period</label>
+          <div class="controls">
+            <select class="form-control">
+            <% @nominees.each do |nominee| %>
+              <option><%= nominee.start_cycle %>
+              </br><%= nominee.end_cycle %></option>
+              <% end %>              
+            </select>
+
+          </div><br>
+          
+        </div>
+
 
    
 
