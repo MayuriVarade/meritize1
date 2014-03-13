@@ -37,7 +37,7 @@ class VoteSettingsController < ApplicationController
   # GET /vote_settings/1/edit
   def edit
     @vote_setting = VoteSetting.find(params[:id])
-    @past_vote_cycles = VoteCycle.find_all_by_vote_setting_id(@vote_setting.id).(:order => 'id DESC')
+    @past_vote_cycles = VoteCycle.find_all_by_vote_setting_id(@vote_setting.id)
   end
 
   # POST /vote_settings
