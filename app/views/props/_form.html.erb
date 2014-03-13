@@ -54,7 +54,10 @@
         <%= f.hidden_field :user_id, :value => current_user.id %>
       
   
-    
+    <tr>
+        <td><%= f.label :intro %></td>
+        <td><%= f.text_area :intro , :rows =>3 ,:class=>"form-control" %></td>
+      </tr>
     
 
      <tr>
@@ -68,6 +71,15 @@
         <td><%= f.label :end_cycle %></td>
         <td><%= f.date_select :end_cycle %></td>
       </tr>
+      <% if params[:action] == "edit" %>
+      <tr>
+        <td>Past Cycles</td>
+        <td><% @past_cycles.each do |pc| %>
+          <%= pc.start_cycle.to_date %>&nbsp; &nbsp;to&nbsp; &nbsp;<%= pc.end_cycle.to_date %><br/>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
     
     
    <tr>
@@ -123,10 +135,7 @@
       </tr>
     
     
-   <tr>
-        <td><%= f.label :intro %></td>
-        <td><%= f.text_area :intro , :rows =>3 ,:class=>"form-control" %></td>
-      </tr>
+   
   
     
     

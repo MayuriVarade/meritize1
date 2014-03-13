@@ -36,6 +36,8 @@ class PropsController < ApplicationController
   # GET /props/1/edit
   def edit
     @prop = Prop.find(params[:id])
+    @past_cycles = @prop.prop_cycles
+    
   end
 
   # POST /props
@@ -53,7 +55,7 @@ class PropsController < ApplicationController
         else
           respond_to do |format|
             if @prop.save
-              format.html { redirect_to :back, notice: 'Prop was successfully created.' }
+              format.html { redirect_to edit_prop_path(@prop), notice: 'Prop was successfully created.' }
               format.json { render json: @prop, status: :created, location: @prop }
             else
               format.html { render action: "new" }
