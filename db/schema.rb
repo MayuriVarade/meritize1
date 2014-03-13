@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(:version => 20140313105839) do
     t.datetime "start_cycle"
     t.datetime "end_cycle"
     t.boolean  "status"
-
   end
 
   create_table "payment_notifications", :force => true do |t|
