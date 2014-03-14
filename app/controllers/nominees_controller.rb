@@ -6,7 +6,7 @@ class NomineesController < ApplicationController
 
   def index
       
-      @nominees = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+     @nominees = Nominee.all
       respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @nominees }

@@ -110,9 +110,13 @@
 
           <td align="center">
           
+       <!--    
          <%= link_to format_boolean(nominee.status?), {:controller => 'nominees', :action => 'toggled_status', :id => nominee.id} %> 
+ -->
 
-       <!--   <%= link_to 'Destroy', nominee, method: :delete, data: { confirm: 'Are you sure?' } %> -->
+
+
+        <%= link_to 'Destroy', nominee, method: :delete, data: { confirm: 'Are you sure?' } %> 
          </td>
 
         </tr>
@@ -123,20 +127,4 @@
 
     </div>  
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
