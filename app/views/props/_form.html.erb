@@ -1,145 +1,153 @@
-<%= form_for(@prop) do |f| %>
-  <% if @prop.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@prop.errors.count, "error") %> prohibited this prop from being saved:</h2>
+<% content_for :styles do %>
+ <%= stylesheet_link_tag "application"%>
+ 
+ 
+<% end %>
 
-      <ul>
-      <% @prop.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <table class="table table-responsive">
-    <tbody>
-      <tr>
-        <td><%= f.label :enable %></td>
-        <td>
-          <div class="checkbox"><%= f.check_box :enable %></div>
-        </td>
-      </tr>
-  
-      <tr>
-        <td><%= f.label :assign_points %></td>
-        <td><%= f.check_box :assign_points , :class=>"form-control" %></td>
-      </tr>
-  
-      <tr>
-        <td><%= f.label :start_point %></td>
-        <td><%= f.number_field :start_point , :class=>"form-control" %></td>
-      </tr>
-  
-    
-    
-   <tr>
-        <td><%= f.label :end_point %></td>
-        <td><%= f.number_field :end_point , :class=>"form-control"%></td>
-      </tr>
-  
-    
-    
+  <div id="info">
 
-     <tr>
-        <td><%= f.label :step_point %></td>
-        <td><%= f.number_field :step_point , :class=>"form-control"%></td>
-      </tr>
-    
-    
-   <tr>
-        <td><%= f.label :reset_point %></td>
-        <td><%= f.select :reset_point, options_for_select([ ["Never reset points, let points accumulate forever","1"], ["Monthly","2"], ["Quaterly","3"]]) %></td>
-      </tr>
-  
-    
-        <%= f.hidden_field :user_id, :value => current_user.id %>
-      
-  
-    <tr>
-        <td><%= f.label :intro %></td>
-        <td><%= f.text_area :intro , :rows =>3 ,:class=>"form-control" %></td>
-      </tr>
-    
+    <%= form_for(@prop) do |f| %>
+      <% if @prop.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@prop.errors.count, "error") %> prohibited this prop from being saved:</h2>
 
-     <tr>
-        <td><%= f.label :start_cycle %></td>
-        <td><%= f.date_select :start_cycle %></td>
-      </tr>
-    
-    
-
-     <tr>
-        <td><%= f.label :end_cycle %></td>
-        <td><%= f.date_select :end_cycle %></td>
-      </tr>
-      <% if params[:action] == "edit" %>
-      <tr>
-        <td>Past Cycles</td>
-        <td><% @past_cycles.each do |pc| %>
-          <%= pc.start_cycle.to_date %>&nbsp; &nbsp;to&nbsp; &nbsp;<%= pc.end_cycle.to_date %><br/>
+          <ul>
+          <% @prop.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
           <% end %>
-        </td>
-      </tr>
+          </ul>
+        </div>
       <% end %>
     
-    
-   <tr>
-        <td><%= f.label :name %></td>
-        <td><%= f.text_field :name , :class=>"form-control" %></td>
-      </tr>
-  
-    
-    
-   <tr>
-        <td><%= f.label :email %></td>
-        <td><%= f.text_field :email , :class=>"form-control" %></td>
-      </tr>
-  
-    
-    
-   <tr>
-        <td><%= f.label :subject %></td>
-        <td><%= f.text_field :subject , :class=>"form-control" %></td>
-      </tr>
-  
+      
+      <div class="container">
+        <h1>Settings - Props</h1>
+        <table class="table table-hover table-responsive table-condensed">
+          <tbody>
+            <tr>
+              <td>
+                <label class="form-label">Props options:</label>
+              </td>
+              <td>
+                <div class="checkbox">
+                  <label>
+                    <%= f.check_box :enable %>Enable Props</label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <%= f.check_box :assign_points %>Assign Points</label>
+                </div>A user must dole out at least<%= f.number_field :start_point , :class=>"form-control" %>point(s) but no more than<%= f.number_field :end_point , :class=>"form-control" %>points, in steps of<%= f.number_field :step_point , :class=>"form-control"%>point(s)</td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reset points periodically:</label>
+              </td>
+              <td>
+                <%= f.select :reset_point, options_for_select([ ["Never reset points, let points accumulate forever","1"], ["Monthly","2"], ["Quaterly","3"]]),{},{:class=>"form-control"} %><br>
+                  <%= f.hidden_field :user_id, :value => current_user.id %>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Current cycle:</td>
+                      <td>
+                        <%= f.text_field :start_cycle, :class=>"form-control" %>
+                      </td>
+                      <td>to</td>
+                      <td>
+                        <%= f.text_field :end_cycle , :class=>"form-control"%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Past cycles:</td>
+                      <td colspan="3">
+                        <% if params[:action] == "edit" %>
+                          
+                         
+                          <% @past_cycles.each do |pc| %>
+                                 <%= pc.start_cycle.to_date %>&nbsp; &nbsp;to&nbsp; &nbsp;<%= pc.end_cycle.to_date %><br/>
+                            <% end %>
+                                               
+                         <% end %>
 
-     <tr>
-        <td><%= f.label :body %></td>
-        <td><%= f.text_area :body , :rows =>3 ,:class=>"form-control" %></td>
-      </tr>
-    
-   
-     <tr>
-        <td><%= f.label :subject2 %></td>
-        <td><%= f.text_field :subject2 , :class=>"form-control" %></td>
-      </tr>
-    
-    
-
-     <tr>
-        <td><%= f.label :body2 %></td>
-        <td><%= f.text_area :body2 , :rows =>3 ,:class=>"form-control" %></td>
-      </tr>
-    
-    
-   <tr>
-        <td><%= f.label :subject3 %></td>
-        <td><%= f.text_field :subject3 , :class=>"form-control" %></td>
-      </tr>
-  
-    
-    
-
-     <tr>
-        <td><%= f.label :body3 %></td>
-        <td><%= f.text_area :body3 , :rows =>3, :class=>"form-control" %></td>
-      </tr>
-    
-    
-   
-  
-    
-    
- <tr>
+                       </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Intro text displayed to voter:</label>
+              </td>
+              <td>
+                <%= f.cktext_area :intro , :rows =>3 ,:class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email sent to voters - From name:</label>
+              </td>
+              <td>
+               <%= f.text_field :name , :class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email sent to voters - From email:</label>
+              </td>
+              <td>
+                <%= f.text_field :email , :class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #1 sent to voters - Subject:</label>
+              </td>
+              <td>
+                <%= f.text_field :subject , :class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #1 sent to voters - Body:</label>
+              </td>
+              <td>
+                <%= f.cktext_area :body , :rows =>3 ,:class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #2 sent to voters - Subject:</label>
+              </td>
+              <td>
+               <%= f.text_field :subject2 , :class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #2 sent to voters - Body:</label>
+              </td>
+              <td>
+                <%= f.cktext_area :body2 , :rows =>3 ,:class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #3 sent to voters - Subject:</label>
+              </td>
+              <td>
+                <%= f.text_field :subject3 , :class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #3 sent to voters - Body:</label>
+              </td>
+              <td>
+                <%= f.cktext_area :body3 , :rows =>3, :class=>"form-control" %>
+              </td>
+            </tr>
+              <tr>
               <td>
                 <label class="form-label"></label>
               </td>
@@ -147,6 +155,12 @@
                  <%= f.submit "Save", :class => "btn btn-primary"%>
               </td>
             </tr>
-<% end %>
- </tbody>
+
+          </tbody>
         </table>
+        <% end %>
+      </div>
+     
+      
+   
+  </div>        

@@ -1,3 +1,8 @@
+<% content_for :styles do %>
+ <%= stylesheet_link_tag "application"%>
+ 
+ 
+<% end %>
 
   <div id="info">
     
@@ -33,18 +38,18 @@
                 <label class="form-label">Award frequency:</label>
               </td>
               <td>
-                 <%= f.select :award_frequency_type, options_for_select([["Select", "Select"],"Monthly", "Weekly","Quaterly"]), {}, { :class => 'form-control' } %><br>
+                 <%= f.select :award_frequency_type, options_for_select([["Select", "Select"],"Weekly", "Monthly","Quaterly"]), {}, { :class => 'form-control' } %><br>
                 <table class="table">
                   <tbody>
                     <tr>
                       <td>Current cycle:</td>
                       <td>
                         
-                        <%= f.date_select :start_cycle,:class=>"form-control" %>
+                        <%= f.text_field :start_cycle,:class=>"form-control" %>
                       </td>
                       <td>to</td>
                       <td>
-                       <%= f.date_select :end_cycle,:class=>"form-control" %>
+                       <%= f.text_field :end_cycle,:class=>"form-control" %>
                       <%= f.hidden_field :user_id , :value => current_user.id %>
                       </td>
                     </tr>

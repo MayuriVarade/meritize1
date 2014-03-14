@@ -145,7 +145,6 @@ ActiveRecord::Schema.define(:version => 20140313105839) do
     t.datetime "updated_at",                     :null => false
     t.string   "paypal_recurring_profile_token"
     t.string   "token"
-    t.string   "price"
     t.date     "date"
     t.string   "total_amount"
   end
