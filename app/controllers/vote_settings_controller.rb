@@ -7,7 +7,7 @@ class VoteSettingsController < ApplicationController
 
   def index
     
-    @vote_settings = VoteSetting.find_all_by_user_id(current_user.id)
+    @vote_settings = VoteSetting.find_all_by_user_id(current_user.id).last
 
     respond_to do |format|
       format.html # index.html.erb
