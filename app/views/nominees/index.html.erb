@@ -24,21 +24,9 @@
           
         </div>
 
-
-
-
-
-
   <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
 
-  <%= stylesheet_link_tag "dashboard.css" %>
-
-
-   <script type="text/javascript"> 
-      jQuery(document).ready( function() {
-        jQuery('#deletesuccess').delay(10000).fadeOut();
-      });
-    </script>
+ 
 
   <script>
   var data = <%= raw @searchuser %>;
@@ -72,12 +60,11 @@
                   <div class="controls">
 
                   <%= link_to "Add new Nominee" , new_nominee_path(:type =>"adminuser"), :class_name => nil,:class=> "button button-small"%>
+                  <%= text_field_tag :search, params[:search], :class=>"form-control" %>    <%= submit_tag "Search", :class_name => nil,:class=> "button button-small"%>
                   
-                    <%= text_field_tag :search, params[:search], :class=>"form-control" %>    <%= submit_tag "Search", :class_name => nil,:class=> "button button-small"%>
                      </div>
                    </form>
         
-              
             </ul>
        
          </div>
@@ -106,6 +93,7 @@
          
           <td><%= nominee.fullname %></td>
           <td><%= nominee.email %></td></br>
+
 
           <!-- <td><%= link_to 'Show', nominee %></td>
           <td><%= link_to 'Edit', edit_nominee_path(nominee) %></td> -->

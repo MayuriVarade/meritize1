@@ -6,6 +6,7 @@ class VoteSettingsController < ApplicationController
   before_filter :correct_user, :only => [:edit, :update,:show]
 
   def index
+    
     @vote_settings = VoteSetting.find_all_by_user_id(current_user.id)
 
     respond_to do |format|
