@@ -5,10 +5,12 @@ class NomineesController < ApplicationController
 
 
   def index
+
       @nominees = User.find_all_by_admin_user_id(current_user.id)
        respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @nominees }
+
       
       @searchuser ||= [] 
         @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
@@ -18,6 +20,14 @@ class NomineesController < ApplicationController
        end
        @searchuser
     end
+  end
+
+
+  def toggled_status
+        @nominees = User.find(params[:id])
+        @nominees.status = !@nominees.status?
+        @nominees.save!
+        redirect_to nominees_path
   end
 
   # GET /nominees/1
@@ -63,6 +73,8 @@ class NomineesController < ApplicationController
     end
   end
 
+
+
   # PUT /nominees/1
   # PUT /nominees/1.json
   def update
@@ -78,6 +90,8 @@ class NomineesController < ApplicationController
       end
     end
   end
+
+  
 
   # DELETE /nominees/1
   # DELETE /nominees/1.json

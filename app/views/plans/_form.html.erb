@@ -1,4 +1,4 @@
-forusers
+
 <div id="masthead">
   
   <div class="container">
@@ -21,83 +21,74 @@ forusers
 
     <div class="container">   
     
-       <div class="row">
+      
+    <table class="table table-responsive">
+      <tbody >
+       <%= form_for (@plan) do |f|  %>   
+       <tr>
+       <td  width="20%">                     
+        <label  class="form-label">Plan name</label>
+       </td>
+       <td>
+       <%= f.text_field :name ,:class=>"form-control" %> 
+       </td>
+       </tr>  
+                           
+      
+        <tr>
+        <td>   
+        <label class="form-label">Price</label>
+        </td>
+        <td>
+        <%= f.text_field :price,:class=>"form-control" %>
+        </td>
+        </tr>
+       
+                  
+        
+        <tr>
+        <td>                       
+        <label for="email" class="control-label"> All Users </label>
+        </td>
+        <td>
+        <%= f.cktext_area :forusers,rows: 10,:class=>"form-control" %>
+        </td>
+        </tr>
+       
+        
+        <tr>
+        <td>                       
+        <label for="email" class="control-label">Admin Users</label>
+        </td>
+        <td>
+        <%= f.cktext_area :foradmins,rows: 10,:class=>"form-control" %>
+        </td>
+        </tr>
+      
+
+        
+        <tr>
+        <td>                       
+        <label for="email" class="control-label">Pricing</label>
+        </td>
+        <td>
+        <%= f.cktext_area :pricing,rows: 10,:class=>"form-control" %>
+        </td>
+        </tr>
     
-           <div class="span12">
+
+       
+        <tr>
+        <td>
+        <label class="form-actions"></label>
+        </td>
+        <td>
+        <%= f.submit 'Update',:class=> "button button-primary"%>
+        </td>
+        </tr>
     
-                   <%= form_for (@plan) do |f|  %>   
-                <fieldset>
-                     <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">                     
-                           <label for="firstname" class="control-label">Plan name</label>
-                           <div class="controls">
-                           <%= f.text_field :name ,:class=>"form-control" %>   
-                         </div> <!-- /controls -->       
-                      </div> <!-- /control-group -->
-                    </div>
-                  </div>
-                  
-                    <div class="row">
-                       <div class="col-md-6">
-                         <div class="form-group">                    
-                           <label for="lastname" class="control-label">Price</label>
-                          <div class="controls">
-                          <%= f.text_field :price,:class=>"form-control" %>
-                          <span id="passstrength" class="help-block">
-                          </div> <!-- /controls -->       
-                        </div> <!-- /control-group -->
-                       </div>
-                     </div>
-                  
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">                      
-                          <label for="email" class="control-label"> All Users </label>
-                          <div class="controls">
-                           <%= f.cktext_area :forusers,rows: 10,:class=>"form-control" %>
-                        </div> <!-- /controls -->       
-                      </div> <!-- /control-group -->
-                     </div>
-                  </div>
-                  
-
-                
-                      <div class="row">
-                      <div class="col-md-6">
-                      <div class="form-group">                    
-                    <label for="email" class="control-label">Admin Users</label>
-
-                    <div class="controls">
-                      <%= f.cktext_area :foradmins,rows: 10,:class=>"form-control" %>
-                     
-                        </div>
-                       </div>
-                    </div> <!-- /controls -->       
-                  </div>
-                  
-
-                  
-                  
-                    <div class="row">
-                      <div class="col-md-6">
-                      <div class="form-group">                     
-                    <label for="email" class="control-label">Pricing</label>
-
-                    <div class="controls">
-                      <%= f.cktext_area :pricing,rows: 10,:class=>"form-control" %>
-                      
-                    </div> <!-- /controls -->       
-                  </div>
-                  </div>   
-                  </div>
-                  <div class="form-actions">
-                     <%= f.submit 'Update',:class=> "button button-primary"%>
-                    
-                  </div> <!-- /form-actions -->
-               </fieldset>
-              <% end %>     
-              </div>
-            </div> <!-- /.row -->
+        <% end %>     
+        </tbody>
+        </table>
         </div> <!-- /.container -->
-</div> <!-- /#content -->
+      </div> <!-- /#content -->

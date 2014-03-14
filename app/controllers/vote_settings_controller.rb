@@ -48,13 +48,17 @@ class VoteSettingsController < ApplicationController
   #method for creating vote_setting and new trigger cycles and pastcycles. 
   def create
     @vote_setting = VoteSetting.new(params[:vote_setting])
-    sc =  @vote_setting.start_cycle.to_date
-    ec =  @vote_setting.end_cycle.to_date
+
+    
+    sc =   params[:vote_setting][:start_cycle].to_s.to_date
+    ec =   params[:vote_setting][:end_cycle].to_s.to_date
+
     #method for days validations when creating vote_setting and new trigger cycles and pastcycles. 
+
     if sc > ec 
       redirect_to :back ,:notice => "Start cycle cannot be greater."
     else
-      diff = ec - sc + 1
+      diff = (ec - sc + 1).round
         if diff < 28 || diff > 31
           redirect_to :back, :notice => "Please select proper date."
         else
@@ -68,6 +72,7 @@ class VoteSettingsController < ApplicationController
             end
           end
          end 
+         
        end  
   end
 
@@ -76,14 +81,11 @@ class VoteSettingsController < ApplicationController
   #method for updating vote_setting and new trigger cycles and pastcycles. 
   def update
     @vote_setting = VoteSetting.find(params[:id])
-      vote_setting = params[:vote_setting]
-    sc = %w(1 2 3).map { |e| vote_setting["start_cycle(#{e}i)"].to_i }
-    ec = %w(1 2 3).map { |e| vote_setting["end_cycle(#{e}i)"].to_i }
-    sc = sc.join("-").to_date
-    ec = ec.join("-").to_date
+     sc =  params[:vote_setting][:start_cycle].to_s.to_date
+     ec =  params[:vote_setting][:end_cycle].to_s.to_date
 
-    osc = @vote_setting.start_cycle
-    oec = @vote_setting.end_cycle
+    osc = params[:vote_setting][:start_cycle].to_s.to_date
+    oec = params[:vote_setting][:end_cycle].to_s.to_date
     if sc > ec 
       redirect_to :back ,:notice => "Start cycle cannot be greater."
     else

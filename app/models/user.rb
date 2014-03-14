@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
    has_and_belongs_to_many :roles
    has_one :plan
 
+
+   has_many :settings 
+   belongs_to :nominee 
+
+
    has_one :settings  
    has_one :prop
    has_one :vote_setting

@@ -1,4 +1,13 @@
+ <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
 
+  <%= stylesheet_link_tag "dashboard.css" %>
+ 
+
+   <script type="text/javascript"> 
+      jQuery(document).ready( function() {
+        jQuery('#deletesuccess').delay(10000).fadeOut();
+      });
+    </script>
 
   <script>
   var data = <%= raw @searchuser %>;
@@ -20,12 +29,21 @@
       
       <div class="container">
 
+     
+
       <div class="jumbotron">
         <p>Use this page to nominate who can win the award. You don't have to have nominees. If you don't have any nominees, your voters can vote for any voter. If you do have nominees, your voters will have to vote for one of the nominees.</p>
         <p><a class="btn btn-primary btn-lg">Learn more</a></p>
       </div>
 
       
+
+
+
+
+
+      
+
     <div class="navbar navbar-default">
         <div class="container">
           <div class="navbar-header">
@@ -41,7 +59,6 @@
                   <div class="form-group">
 
                   <%= link_to "Add new Nominee" , new_nominee_path(:type =>"adminuser"), :class_name => nil,:class=> "button button-small"%>
-
                     
 
                      </div>
@@ -59,7 +76,6 @@
                      </div>
                    </form>
               </li>
-
             </ul>
        
          </div>
@@ -74,7 +90,7 @@
 <h3>Nominees</h3>
 <table class="table table-hover table-bordered table-responsive table-condensed">
 <thead>
-  <tr>        
+  <tr>        <!-- <th>Vote Cycle</th>      -->
 
 
               <th>User Name</th>
@@ -95,9 +111,6 @@
           <td align="center">
           
          <%= link_to format_boolean(nominee.status?), {:controller => 'nominees', :action => 'toggled_status', :id => nominee.id} %> 
-
-
-       <!--   <%= link_to 'Destroy', nominee, method: :delete, data: { confirm: 'Are you sure?' } %> -->
          </td>
 
         </tr>
@@ -108,6 +121,12 @@
 
     </div>  
   </div>
+
+
+
+
+
+
 
 
 

@@ -46,13 +46,17 @@ class PropsController < ApplicationController
   # POST /props
   # POST /props.json
   def create
+
     @prop = Prop.new(params[:prop])
-    sc =  @prop.start_cycle.to_date
-    ec =  @prop.end_cycle.to_date
+     sc =   params[:prop][:start_cycle].to_s.to_date
+     ec =   params[:prop][:end_cycle].to_s.to_date
+
+    
+    if sc.present? && ec.present?
     if sc > ec 
       redirect_to :back ,:notice => "Start cycle cannot be greater."
     else
-      diff = ec - sc + 1
+       diff = (ec - sc + 1).round
         if diff < 28 || diff > 31
           redirect_to :back, :notice => "Please select proper date."
         else
@@ -66,21 +70,25 @@ class PropsController < ApplicationController
             end
           end
         end
+      end
+    else
+      redirect_to :back, :notice=> "Please fill the all record"
     end
+
+
   end
 
   # PUT /props/1
   # PUT /props/1.json
   def update
     @prop = Prop.find(params[:id])
-    prop = params[:prop]
-    sc = %w(1 2 3).map { |e| prop["start_cycle(#{e}i)"].to_i }
-    ec = %w(1 2 3).map { |e| prop["end_cycle(#{e}i)"].to_i }
-    sc = sc.join("-").to_date
-    ec = ec.join("-").to_date
-
-    osc = @prop.start_cycle
-    oec = @prop.end_cycle
+   
+    sc =  params[:prop][:start_cycle].to_s.to_date
+    ec =  params[:prop][:end_cycle].to_s.to_date
+    osc = params[:prop][:start_cycle].to_s.to_date
+    oec = params[:prop][:end_cycle].to_s.to_date
+    
+    if sc.present? && ec.present?
     if sc > ec 
       redirect_to :back ,:notice => "Start cycle cannot be greater."
     else
@@ -100,6 +108,9 @@ class PropsController < ApplicationController
           end
         end
       end
+      else
+      redirect_to :back, :notice=> "Please fill the all record"
+    end
   end
 
   # DELETE /props/1

@@ -1,7 +1,11 @@
 Meritize::Application.routes.draw do
 
-  resources :nominees
 
+
+  resources :nominees
+ match '/nominees/:id/status', :to => "nominees#toggled_status"
+
+mount Ckeditor::Engine => '/ckeditor'
 
 
   resources :props
@@ -13,10 +17,10 @@ Meritize::Application.routes.draw do
 
   get "props/edit"
 
+
   resources :vote_settings
   
 
-  mount Ckeditor::Engine => '/ckeditor'
 
   root :to => 'homes#index'
   resources :trial_days

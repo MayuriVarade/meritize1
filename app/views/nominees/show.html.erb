@@ -1,6 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+
+  <b>Start Cycle:</b>
+  <%= @nominee.start_cycle %> 
+  <b>End Cycle:</b> 
+  <%= @nominee.end_cycle %> 
+</p>
+
+
+<p>
+
   <b>User Name:</b>
   <%= @nominee.fullname %>  
 </p>
@@ -12,4 +22,5 @@
 
 
 <%= link_to 'Edit', edit_nominee_path(@nominee) %> |
-<%= link_to 'Back', nominees_path %>
+
+<%= link_to 'Add', nominees_path %>
