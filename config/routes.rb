@@ -3,7 +3,9 @@ Meritize::Application.routes.draw do
 
 
   resources :nominees
- match '/nominees/:id/status', :to => "nominees#toggled_status"
+  match '/nominees/:id/status', :to => "nominees#toggled_status"
+
+  # match "/nominees/check_email", to: 'nominees#check_email'
 
 mount Ckeditor::Engine => '/ckeditor'
 

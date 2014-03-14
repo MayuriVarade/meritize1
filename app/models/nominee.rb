@@ -4,7 +4,8 @@ class Nominee < ActiveRecord::Base
 
   has_many :users
   accepts_nested_attributes_for :users
-  belongs_to :vote_setting
-
+  belongs_to :vote_setting  
   
+
+   validates :email, :presence => true, :uniqueness => true
 end
