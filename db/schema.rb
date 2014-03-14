@@ -29,16 +29,6 @@ ActiveRecord::Schema.define(:version => 20140312071145) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "award_frequencies", :force => true do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer  "vote_setting_id"
-    t.integer  "user_id"
-    t.string   "frequency_type"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
   create_table "core_values", :force => true do |t|
     t.string   "title"
     t.text     "description"

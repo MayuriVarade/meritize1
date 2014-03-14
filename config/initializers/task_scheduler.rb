@@ -21,12 +21,11 @@ scheduler.in '3s' do
         end 
     else
     	if vc.end_cycle.to_date >= Date.today
-            VoteCycle.create(:start_cycle => vc.start_cycle,:end_cycle =>vc.end_cycle,:user_id =>vc.user_id,:vote_setting_id => vc.id)   
+          VoteCycle.create(:start_cycle => vc.start_cycle,:end_cycle =>vc.end_cycle,:user_id =>vc.user_id,:vote_setting_id => vc.id)   
         	new_startcycle = vc.start_cycle.to_date + 3.month
         	new_endcycle   = vc.end_cycle.to_date + 3.month
-            @update_cycle  = vc.update_attributes(:start_cycle => new_startcycle,:end_cycle =>new_endcycle)
+          @update_cycle  = vc.update_attributes(:start_cycle => new_startcycle,:end_cycle =>new_endcycle)
         end 
-
-    end
+      end
    end 
 end
