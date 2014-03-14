@@ -1,0 +1,12 @@
+<%= form_for(@prop_display) do |f| %>
+<br/>
+Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
+<%= f.select(:points,a  ) rescue "" %>
+<br/><br/>
+Receiver : <%= f.text_field :receiver_id %><br/><br/>
+Sender : <%= f.text_field :sender_id, :value => current_user.id %><br/><br/>
+
+<%= f.hidden_field :type_cycle ,:value => reset_type %>
+
+<%= f.submit %>
+<% end %>

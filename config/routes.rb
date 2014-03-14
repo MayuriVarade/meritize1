@@ -2,6 +2,8 @@ Meritize::Application.routes.draw do
 
 
 
+ 
+
   resources :nominees
  match '/nominees/:id/status', :to => "nominees#toggled_status"
 
@@ -10,6 +12,7 @@ mount Ckeditor::Engine => '/ckeditor'
 
   resources :props
 
+  resources :prop_displays
 
   get "props/index"
 
