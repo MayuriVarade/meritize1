@@ -53,6 +53,7 @@ class VoteSettingsController < ApplicationController
     ec =   params[:vote_setting][:end_cycle].to_s.to_date
 
     #method for days validations when creating vote_setting and new trigger cycles and pastcycles. 
+    if sc.present? && ec.present?
     if sc > ec 
       redirect_to :back ,:notice => "Start cycle cannot be greater."
     else
@@ -70,7 +71,10 @@ class VoteSettingsController < ApplicationController
             end
           end
          end 
-       end  
+       end 
+      else
+      redirect_to :back, :notice=> "Please fill the all record"
+    end 
   end
 
   # PUT /vote_settings/1

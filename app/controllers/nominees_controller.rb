@@ -6,7 +6,8 @@ class NomineesController < ApplicationController
 
   def index
       
-      @nominees = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+     @nominees = Nominee.all
+     @vote_settings = VoteSetting.all
       respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @nominees }
@@ -79,6 +80,7 @@ class NomineesController < ApplicationController
 
   # PUT /nominees/1
   # PUT /nominees/1.json
+   
   def update
     @nominee = Nominee.find(params[:id])
 
@@ -107,6 +109,15 @@ class NomineesController < ApplicationController
     end
   end
 
+
+def check_email
+    @nominee = Nominee.find_by_email(params[:nominee][:email])
+    respond_to do |format|
+    
+    format.json { render :json => !@nominee }
+
+  end
+end
 
 
 def custom_layout

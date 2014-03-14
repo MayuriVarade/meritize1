@@ -264,4 +264,35 @@
 
             },
 		});
+
+
+
+
+
+
+
+
+
+$("#nominee").validate({
+        errorElement:'span',
+        rules: {
+            "nominee[email]":{required : true,email: true, remote:'nominees/check_email'}
+
+
+                                                             
+        },
+
+        messages: {
+            "nominee[email]":{
+                         required:  "Please enter email",   
+
+                        
+                         }
+        
+        
+
+
+
+            },
+        });
 });
