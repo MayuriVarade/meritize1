@@ -42,8 +42,8 @@
           <div class="controls">
             <dev class="form-control">
             <% @vote_settings.each do |votesetting| %>
-            <%= votesetting.start_cycle %>
-               TO <%= votesetting.end_cycle %>
+            <%= votesetting.start_cycle.strftime("%Y-%m-%d") %>
+               TO <%= votesetting.end_cycle.strftime("%Y-%m-%d") %>
               <% end %>              
             </select>
 
@@ -127,8 +127,8 @@
          <%= link_to format_boolean(nominee.status?), {:controller => 'nominees', :action => 'toggled_status', :id => nominee.id} %> 
  -->
 
-        <%= link_to "Add" , new_nominee_path(:type =>"adminuser"), :class_name => nil,:class=>  "btn btn-primary" %>
-        <%= link_to 'Destroy', nominee, method: :delete, data: { confirm: 'Are you sure?' },:class=>  "btn btn-primary"  %> 
+       
+        <%= link_to 'Remove From Nominee', nominee, method: :delete, data: { confirm: 'Are you sure?' },:class=>  "btn btn-primary"  %> 
          </td>
 
         </tr>

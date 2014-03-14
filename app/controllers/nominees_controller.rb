@@ -65,14 +65,12 @@ class NomineesController < ApplicationController
   def create
     @nominee = Nominee.new(params[:nominee])
 
-    respond_to do |format|
+    
       if @nominee.save
-        format.html { redirect_to @nominee, notice: 'Nominee was successfully created.' }
-        format.json { render json: @nominee, status: :created, location: @nominee }
+        redirect_to nominees_path
       else
-        format.html { render action: "new" }
-        format.json { render json: @nominee.errors, status: :unprocessable_entity }
-      end
+        render :new
+      
     end
   end
 
@@ -110,14 +108,14 @@ class NomineesController < ApplicationController
   end
 
 
-def check_email
-    @nominee = Nominee.find_by_email(params[:nominee][:email])
-    respond_to do |format|
+# def check_email
+#     @nominee = Nominee.find_by_email(params[:nominee][:email])
+#     respond_to do |format|
     
-    format.json { render :json => !@nominee }
+#     format.json { render :json => !@nominee }
 
-  end
-end
+#   end
+# end
 
 
 def custom_layout

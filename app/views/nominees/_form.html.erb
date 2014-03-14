@@ -1,4 +1,4 @@
-
+<!-- 
 <%= javascript_include_tag "jquery-1.5.2.min","validation" %>
 <%= form_for @nominee ,:html => {:id =>"nominee"} do |f| %>
   <% if @nominee.errors.any? %>
@@ -21,11 +21,6 @@
       <%= f.collection_select :end_cycle, VoteSetting.find_all_by_user_id(current_user.id) , :end_cycle,:end_cycle %></br>   
   </div> 
 
- <!--  <div class="field">
-      <br><%= f.label "vote_setting_id" %><br />
-      <%= f.collection_select :vote_setting_id, VoteSetting.all,:start_cycle,:end_cycle %></br>    
-  </div> -->
-
 
 
   <div class="field">
@@ -46,3 +41,99 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+
+ -->
+
+
+<%= stylesheet_link_tag "application"%>
+
+  <div id="info">
+ 
+
+        <%= form_for(@nominee) do |f| %> 
+      <div class="row"></div>
+      <h2>Add Nominee</h2>
+      <% if @nominee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@nominee.errors.count, "error") %> prohibited this nominee from being saved:</h2>
+
+      <ul>
+      <% @nominee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+      <div class="container">
+       <table class="table table-hover table-responsive table-condensed">
+       <tbody>     
+       
+
+
+            
+    
+           
+            <tr>
+              <td>  
+                <label class="control-label">Start_Cycle</label>
+              </td>
+              <td>
+         
+               <%= select("nominee", "start_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.start_cycle.strftime("%Y-%m-%d"), p.start_cycle ] }, {}, :class=>"form-control") %>
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>  
+               <label class="control-label">End_Cycle</label>
+              </td>
+              <td>
+            
+              <%= select("nominee", "end_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.end_cycle.strftime("%Y-%m-%d"), p.end_cycle ] }, {}, :class=>"form-control") %>
+              </td>
+            </tr>
+
+             
+
+
+
+            <tr>
+              <td>
+                <label class="control-label">Name</label>
+                </td>
+                <td>
+                <%= f.collection_select :fullname, User.find_all_by_admin_user_id(current_user.id), :fullname,:fullname,{},{:class=>"form-control"} %></br>
+                </td>
+            </tr>
+
+           
+
+
+            <tr>
+              <td>
+               <label class="control-label">Email</label>
+               </td>
+               <td>
+            
+               <%= f.collection_select :email, User.find_all_by_admin_user_id(current_user.id), :email,:email,{},{:class=>"form-control"} %></br>
+               </td>
+            </tr>
+
+            
+          
+
+     <tr>
+      <td>
+        <%= f.submit "Add", :class => "btn btn-primary"%>
+      </td>
+     </tr>      
+    
+      <% end %>
+       </tbody>
+    </table>
+   </div>   
+</div>
