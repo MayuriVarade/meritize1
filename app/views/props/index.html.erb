@@ -1,0 +1,57 @@
+<h1>Listing props</h1>
+
+<table>
+  <tr>
+    <th>Enable</th>
+    <th>Assign points</th>
+    <th>Start point</th>
+    <th>End point</th>
+    <th>Step point</th>
+    <th>Reset point</th>
+    <th>User</th>
+    <th>Start cycle</th>
+    <th>End cycle</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Subject</th>
+    <th>Body</th>
+    <th>Subject2</th>
+    <th>Body2</th>
+    <th>Subject3</th>
+    <th>Body3</th>
+    <th>Intro</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @props.each do |prop| %>
+  <tr>
+    <td><%= prop.enable %></td>
+    <td><%= prop.assign_points %></td>
+    <td><%= prop.start_point %></td>
+    <td><%= prop.end_point %></td>
+    <td><%= prop.step_point %></td>
+    <td><%= prop.reset_point %></td>
+    <td><%= prop.user_id %></td>
+    <td><%= prop.start_cycle %></td>
+    <td><%= prop.end_cycle %></td>
+    <td><%= prop.name %></td>
+    <td><%= prop.email %></td>
+    <td><%= prop.subject %></td>
+    <td><%= prop.body %></td>
+    <td><%= prop.subject2 %></td>
+    <td><%= prop.body2 %></td>
+    <td><%= prop.subject3 %></td>
+    <td><%= prop.body3 %></td>
+    <td><%= prop.intro %></td>
+    <td><%= link_to 'Show', prop %></td>
+    <td><%= link_to 'Edit', edit_prop_path(prop) %></td>
+    <td><%= link_to 'Destroy', prop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Prop', new_prop_path %>

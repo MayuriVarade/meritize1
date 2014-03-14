@@ -7,9 +7,17 @@ class User < ActiveRecord::Base
    validates_attachment_content_type :photo, :content_type => ["image/jpg", "image/jpeg", "image/png"]
    has_and_belongs_to_many :roles
    has_one :plan
-   has_one :settings  
 
-  
+
+   has_many :settings 
+   belongs_to :nominee 
+
+
+   has_one :settings  
+   has_one :prop
+   has_one :vote_setting
+   has_one :setting
+
   #model based validation
    # validates :firstname, :presence => true, 
    #                :length => { :maximum => 50 }

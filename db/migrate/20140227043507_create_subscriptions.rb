@@ -4,7 +4,6 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.string :email
       t.integer :plan_id
       t.integer :user_id
-      t.string :price
       t.string :paypal_payment_token
       t.string :paypal_customer_token
 

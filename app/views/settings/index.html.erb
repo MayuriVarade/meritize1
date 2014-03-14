@@ -14,9 +14,8 @@
 
   <tr>
     <td><%= @settings.company_name rescue nil%></td>
-    <td><%= image_tag @settings.photo.url(:small) %></td>
     <td><%= @settings.website_address rescue nil%></td>
-    <td><%= image_tag @settings.photo.url(:small) %></td>
+    <td><%= image_tag @settings.photo.url(:small) rescue nil %></td>
     
     
     <% unless @settings.nil?%>

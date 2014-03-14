@@ -1,13 +1,35 @@
 Meritize::Application.routes.draw do
+
+
+
+  resources :nominees
+ match '/nominees/:id/status', :to => "nominees#toggled_status"
+
+mount Ckeditor::Engine => '/ckeditor'
+
+
+  resources :props
+
+
+  get "props/index"
+
+  get "props/new"
+
+  get "props/edit"
+
+
   resources :vote_settings
   
 
-  mount Ckeditor::Engine => '/ckeditor'
+
   root :to => 'homes#index'
   resources :trial_days
   resources :settings  
-  resources :subscriptions
-  get "paypal/checkout", to: 'subscriptions#paypal_checkout'
+  resources :subscriptions  
+    
+    get "paypal/checkout", to: 'subscriptions#paypal_checkout'
+    match"/success", :to=> "subscriptions#success", :as => 'success'
+
   resources :plans
   get "password_resets/new"
   match '/change_password', :controller => 'users', :action => 'change_password'
@@ -18,6 +40,7 @@ Meritize::Application.routes.draw do
   match '/users/:id/status', :to => "users#toggled_status"
   match '/history', :to => "subscriptions#history"
   match '/users/validations/check_email', :to=>"users#check_email"
+ 
   resources :sessions, :only => [:new,:create,:destroy,:edit]
   root :to => 'sessions#new'
     match 'dashboard' => 'users#dashboard', :as => 'user_root'
@@ -28,8 +51,6 @@ Meritize::Application.routes.draw do
   resources :password_resets
   get "/plan" => "subscriptions#plan"
   
-
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

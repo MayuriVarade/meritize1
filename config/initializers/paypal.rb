@@ -3,7 +3,19 @@ PayPal::SDK.logger = Rails.logger
 
 PayPal::Recurring.configure do |config|
 	config.sandbox = true
-	config.username = "meritize_api1.gmail.com"
-	config.password = "1393481147"
-	config.signature = "An5ns1Kso7MWUdW4ErQKJJJ4qi4-AtabrMytIC4-k8z2nrASkzE9BNfQ"
+	config.username = "kipl456_api1.gmail.com"
+	config.password = "1394623811"
+	config.signature = "AFcWxV21C7fd0v3bYYYRCpSSRl31Ar1DAqAJG0GsdwyQmldV.XxRssk."
 end 
+
+
+
+
+
+
+
+
+
+
+
+

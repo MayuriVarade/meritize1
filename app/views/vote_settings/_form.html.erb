@@ -1,77 +1,181 @@
-<%= form_for(@vote_setting) do |f| %>
-  <% if @vote_setting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@vote_setting.errors.count, "error") %> prohibited this vote_setting from being saved:</h2>
-
-      <ul>
-      <% @vote_setting.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :award_program_name %><br />
-    <%= f.text_field :award_program_name %>
-  </div>
-  <div class="field">
-    <%= f.label :award_frequency_type %><br />
-    <%= f.select :award_frequency_type, [["Select", "Select"],["Monthly", "Monthly"], ["Weekly", "Weekly"],["Quaterly", "Quaterly"]]%>
-
-  </div>
-  <div class="field">
-    <%= f.label :start_cycle %><br />
-    <%= f.datetime_select :start_cycle %>
-  </div>
-  <div class="field">
-    <%= f.label :end_cycle %><br />
-    <%= f.datetime_select :end_cycle %>
-    <%= f.hidden_field :user_id , :value => current_user.id %>
-  </div><br />
-  <div class="field">
-  <% if params[:action] == "edit" %>
-      <% @past_vote_cycles.each do |past_vote_cycles| %>
-      Past Cycles :  <%= past_vote_cycles.start_cycle.to_date %>&nbsp; &nbsp; &nbsp; to &nbsp; &nbsp; &nbsp;  
-                     <%= past_vote_cycles.end_cycle.to_date %>  <br/>
-
-      <% end %>  
-  <% end %>
-  </div><br />
-
-  <div class="field">
-    <%= f.label "Reminder email sent to voters - From name:" %><br />
-    <%= f.text_field :email_sender_name %>
-  </div>
-  <div class="field">
-    <%= f.label "Reminder email sent to voters - From email:" %><br />
-     <%= f.text_field :email_sender_email %>
-  </div>
-  <div class="field">
-    <%= f.label "Reminder email #1 sent to voters - Subject:" %><br />
-     <%= f.text_field :email_sender_subject1 %>
-  </div>
-   <div class="field">
-    <%= f.label "Reminder email #1 sent to voters - Body:" %><br />
-     <%= f.text_area :email_sender_body1,:rows =>3,:columns =>4 %>
-  </div>
-   <div class="field">
-    <%= f.label "Reminder email #2 sent to voters - Subject:" %><br />
-     <%= f.text_field :email_sender_subject2 %>
-  </div>
-   <div class="field">
-    <%= f.label "Reminder email #2 sent to voters - Body:" %><br />
-     <%= f.text_area :email_sender_body2,:rows =>3,:columns =>4 %>
-  </div>
-    <div class="field">
-    <%= f.label "Reminder email #3 sent to voters - Subject:" %><br />
-     <%= f.text_field :email_sender_subject3 %>
-  </div>
-   <div class="field">
-    <%= f.label "Reminder email #3 sent to voters - Body:" %><br />
-     <%= f.text_area :email_sender_body3,:rows =>3,:columns =>4 %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<% content_for :styles do %>
+ <%= stylesheet_link_tag "application"%>
+ 
+ 
 <% end %>
+
+  <div id="info">
+    
+      
+      <div class="container">
+        <%= form_for(@vote_setting) do |f| %>
+        <% if @vote_setting.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@vote_setting.errors.count, "error") %> prohibited this vote_setting from being saved:</h2>
+
+            <ul>
+            <% @vote_setting.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <h1>Settings - Vote</h1>
+        <table class="table table-responsive">
+          <tbody>
+            <tr>
+              <td>
+                <label class="form-label">Awards program name:</label>
+              </td>
+              <td>
+                <%= f.text_field :award_program_name,:class=>"form-control" %>
+                
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Award frequency:</label>
+              </td>
+              <td>
+                 <%= f.select :award_frequency_type, options_for_select([["Select", "Select"],"Weekly", "Monthly","Quaterly"]), {}, { :class => 'form-control' } %><br>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Current cycle:</td>
+                      <td>
+                        
+                        <%= f.text_field :start_cycle,:class=>"form-control" %>
+                      </td>
+                      <td>to</td>
+                      <td>
+                       <%= f.text_field :end_cycle,:class=>"form-control" %>
+                      <%= f.hidden_field :user_id , :value => current_user.id %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Past cycles:</td>
+                      <td colspan="3">
+                      <% if params[:action] == "edit" %>
+                         <% @past_vote_cycles.each do |past_vote_cycles| %>
+                          <%= past_vote_cycles.start_cycle.to_date %>&nbsp; &nbsp; &nbsp; to &nbsp; &nbsp; &nbsp;  
+                           <%= past_vote_cycles.end_cycle.to_date %>  <br/>
+
+                         <% end %>  
+                      <% end %>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Awards program options:</label>
+              </td>
+              <td>
+                <div class="checkbox">
+                  <label>
+                   <%= f.check_box :is_autopick_winner, {:class => "myclass", :style => "mystyle"}, true, false %>Let system pick winner automatically 24 hours after cycle end date based on number of votes</label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                     <%= f.check_box :is_admin_reminder, {:class => "myclass", :style => "mystyle"}, true, false %>Remind Admins about a week before award selection is due</label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <%= f.check_box :is_allow_vote, {:class => "myclass", :style => "mystyle"}, true, false %>Disallow voters to vote for last time's winner</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Intro text displayed to voter:</label>
+              </td>
+              <td>
+                 <%= f.cktext_area :intro_text,:rows =>3,:columns =>4 %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email sent to voters - From name:</label>
+              </td>
+              <td>
+                <%= f.text_field :email_sender_name,:class=>"form-control" %>
+                
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email sent to voters - From email:</label>
+              </td>
+              <td>
+                 <%= f.text_field :email_sender_email,:class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #1 sent to voters - Subject:</label>
+              </td>
+              <td>
+                 <%= f.text_field :email_sender_subject1,:class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #1 sent to voters - Body:</label>
+              </td>
+              <td>
+                <%= f.cktext_area :email_sender_body1,:rows =>3,:class=>"form-control"  %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #2 sent to voters - Subject:</label>
+              </td>
+              <td>
+               <%= f.text_field :email_sender_subject2,:class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #2 sent to voters - Body:</label>
+              </td>
+              <td>
+                <%= f.cktext_area :email_sender_body2,:rows =>3,:class=>"form-control"%>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #3 sent to voters - Subject:</label>
+              </td>
+              <td>
+                <%= f.text_field :email_sender_subject3,:class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #3 sent to voters - Body:</label>
+              </td>
+              <td>
+                <%= f.cktext_area :email_sender_body3,:rows =>3,:class=>"form-control"%>
+              </td>
+            </tr>
+             <tr>
+              <td>
+                <label class="form-label"></label>
+              </td>
+              <td>
+                 <%= f.submit "Save", :class => "btn btn-primary"%>
+              </td>
+            </tr>
+
+
+          </tbody>
+        </table>
+      <% end %>
+      </div>
+     
+      
+   
+  </div>

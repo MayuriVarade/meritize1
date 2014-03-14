@@ -37,7 +37,10 @@
                     <li><a href="#"><i class="nav-icon-9"></i><span>Props</span></a></li>
 					<li><a href="#"><i class="nav-icon-10"></i><span>Vote</span></a></li>
 					<li><a href="#"><i class="nav-icon-11"></i><span>WoW</span></a></li>
-					<li><a href="#"><i class="nav-icon-12"></i><span>Nominees</span></a></li>
+					<li><%= link_to nominees_path do %>
+  						<i class="nav-icon-12"></i><span>Nominees</span></a>
+					<% end %>
+					</li>
 					<li><a href="#"><i class="nav-icon-13"></i><span>Results</span></a></li>
 					
         
@@ -61,9 +64,22 @@
 
 					    <li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-15"></i><span>Setting</span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">General</a></li>
-                            <li><a href="#">Props</a></li>
-                            <li><a href="#">Vote</a></li>
+                        	<% if current_user.setting %>
+                            <li><%= link_to "General" ,edit_setting_path(current_user.setting) %></li>
+                            <% else %>
+                            <li><%= link_to "General" ,new_setting_path %></li>
+                            <% end %>
+                        	<% if current_user.prop %>
+                            <li><%= link_to "Props" ,edit_prop_path(current_user.prop) %></li>
+                            <% else %>
+                            <li><%= link_to "Props" ,new_prop_path %></li>
+                            <% end %>
+                            <% if current_user.vote_setting %>
+                            <li><%= link_to "Votes" ,edit_vote_setting_path(current_user.vote_setting) %></li>
+                            <% else %>
+                            <li><%= link_to "Votes" ,new_vote_setting_path %></li>
+                            <% end %>
+                            
                         </ul>
                     </li>
 					

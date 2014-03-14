@@ -1,8 +1,12 @@
 class VoteSettingsController < ApplicationController
   # GET /vote_settings
   # GET /vote_settings.json
+  layout 'profile'
+  before_filter :authenticate, :only => [:edit, :update,:index,:show]
+  before_filter :correct_user, :only => [:edit, :update,:show]
+
   def index
-    @vote_settings = VoteSetting.all
+    @vote_settings = VoteSetting.find_all_by_user_id(current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -35,45 +39,75 @@ class VoteSettingsController < ApplicationController
   # GET /vote_settings/1/edit
   def edit
     @vote_setting = VoteSetting.find(params[:id])
-    @past_vote_cycles = VoteCycle.find_all_by_vote_setting_id(@vote_setting.id)
+    @past_vote_cycles = @vote_setting.vote_cycles
   end
 
   # POST /vote_settings
   # POST /vote_settings.json
+  #method for creating vote_setting and new trigger cycles and pastcycles. 
   def create
     @vote_setting = VoteSetting.new(params[:vote_setting])
+
     
-    respond_to do |format|
-      if @vote_setting.save
-        format.html { redirect_to @vote_setting, notice: 'Vote setting was successfully created.' }
-        format.json { render json: @vote_setting, status: :created, location: @vote_setting }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
-      end
-    end
+    sc =   params[:vote_setting][:start_cycle].to_s.to_date
+    ec =   params[:vote_setting][:end_cycle].to_s.to_date
+
+    #method for days validations when creating vote_setting and new trigger cycles and pastcycles. 
+    if sc > ec 
+      redirect_to :back ,:notice => "Start cycle cannot be greater."
+    else
+      diff = (ec - sc + 1).round
+        if diff < 28 || diff > 31
+          redirect_to :back, :notice => "Please select proper date."
+        else
+          respond_to do |format|
+            if @vote_setting.save
+              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote setting was successfully created.' }
+              format.json { render json: @vote_setting, status: :created, location: @vote_setting }
+            else
+              format.html { render action: "new" }
+              format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
+            end
+          end
+         end 
+       end  
   end
 
   # PUT /vote_settings/1
   # PUT /vote_settings/1.json
+  #method for updating vote_setting and new trigger cycles and pastcycles. 
   def update
     @vote_setting = VoteSetting.find(params[:id])
-     
-    respond_to do |format|
-      if @vote_setting.update_attributes(params[:vote_setting])
-        @vote_cycle = VoteCycle.create(:start_cycle => @vote_setting.start_cycle ,:end_cycle => @vote_setting.end_cycle ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
-        format.html { redirect_to @vote_setting, notice: 'Vote setting was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
-      end
-    end
+     sc =  params[:vote_setting][:start_cycle].to_s.to_date
+     ec =  params[:vote_setting][:end_cycle].to_s.to_date
+
+    osc = params[:vote_setting][:start_cycle].to_s.to_date
+    oec = params[:vote_setting][:end_cycle].to_s.to_date
+    if sc > ec 
+      redirect_to :back ,:notice => "Start cycle cannot be greater."
+    else
+       diff = ec - sc + 1
+        if diff < 28 || diff > 31
+          redirect_to :back, :notice => "Please select proper date."
+        else 
+            respond_to do |format|
+              if @vote_setting.update_attributes(params[:vote_setting])
+                @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
+                format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote setting was successfully updated.' }
+                format.json { head :no_content }
+              else
+                format.html { render action: "edit" }
+                format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
+              end
+            end
+          end  
+     end     
   end
 
 
   # DELETE /vote_settings/1
   # DELETE /vote_settings/1.json
+  #method for deleting votesetting.
   def destroy
     @vote_setting = VoteSetting.find(params[:id])
     @vote_setting.destroy
@@ -112,4 +146,17 @@ class VoteSettingsController < ApplicationController
           end
       end
   end
+
+   private
+     #method for deny access if users try to access the pages without login.
+    def authenticate
+      deny_access unless signed_in?
+    end
+     #method for deny access if users try to access user details.
+    def correct_user
+      @vote_setting = VoteSetting.find(params[:id])
+      unless @vote_setting.user_id == current_user.id
+        redirect_to user_root_path, :notice => "Access Denied"
+      end
+    end
 end
