@@ -54,11 +54,11 @@ class PropsController < ApplicationController
     
     if sc.present? && ec.present?
     if sc > ec 
-      redirect_to :back ,:notice => "Start cycle cannot be greater."
+      redirect_to :back ,:notice => "Start date cannot be greater than End date."
     else
        diff = (ec - sc + 1).round
         if diff < 28 || diff > 31
-          redirect_to :back, :notice => "Please select proper date."
+          redirect_to :back, :notice => "Please Select Correct date."
         else
           respond_to do |format|
             if @prop.save
@@ -72,7 +72,7 @@ class PropsController < ApplicationController
         end
       end
     else
-      redirect_to :back, :notice=> "Please fill the all record"
+      redirect_to :back, :notice=> "Take a time to fill all the below records.."
     end
 
 
@@ -90,11 +90,11 @@ class PropsController < ApplicationController
     
     if sc.present? && ec.present?
     if sc > ec 
-      redirect_to :back ,:notice => "Start cycle cannot be greater."
+      redirect_to :back ,:notice => "Start date cannot be greater than End date."
     else
        diff = ec - sc + 1
         if diff < 28 || diff > 31
-          redirect_to :back, :notice => "Please select proper date."
+          redirect_to :back, :notice => "Please select correct date."
         else
           respond_to do |format|
             if @prop.update_attributes(params[:prop])
@@ -109,7 +109,7 @@ class PropsController < ApplicationController
         end
       end
       else
-      redirect_to :back, :notice=> "Please fill the all record"
+      redirect_to :back, :notice=> "Take a time to fill all the below records.."
     end
   end
 
