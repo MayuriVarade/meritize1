@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  points: 1
+  sender_id: 1
+  receiver_id: 1
+  description: MyText
+  type: 
+
+two:
+  points: 1
+  sender_id: 1
+  receiver_id: 1
+  description: MyText
+  type: 
