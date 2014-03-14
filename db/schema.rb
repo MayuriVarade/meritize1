@@ -67,12 +67,9 @@ ActiveRecord::Schema.define(:version => 20140314062000) do
   create_table "plans", :force => true do |t|
     t.string   "name"
     t.string   "price"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "user_id"
-    t.string   "description1"
-    t.string   "description2"
-    t.string   "description3"
     t.text     "forusers"
     t.text     "foradmins"
     t.text     "pricing"
@@ -196,7 +193,6 @@ ActiveRecord::Schema.define(:version => 20140314062000) do
     t.string   "time_zone",              :default => "UTC"
     t.boolean  "status",                 :default => true
     t.string   "fullname"
-    t.string   "plan_name"
   end
 
   create_table "vote_cycles", :force => true do |t|
