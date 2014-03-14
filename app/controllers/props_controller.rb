@@ -46,9 +46,13 @@ class PropsController < ApplicationController
   # POST /props
   # POST /props.json
   def create
+
     @prop = Prop.new(params[:prop])
      sc =   params[:prop][:start_cycle].to_s.to_date
      ec =   params[:prop][:end_cycle].to_s.to_date
+
+    
+    if sc.present? && ec.present?
     if sc > ec 
       redirect_to :back ,:notice => "Start cycle cannot be greater."
     else
@@ -66,7 +70,12 @@ class PropsController < ApplicationController
             end
           end
         end
+      end
+    else
+      redirect_to :back, :notice=> "Please fill the all record"
     end
+
+
   end
 
   # PUT /props/1
@@ -79,6 +88,7 @@ class PropsController < ApplicationController
     osc = params[:prop][:start_cycle].to_s.to_date
     oec = params[:prop][:end_cycle].to_s.to_date
     
+    if sc.present? && ec.present?
     if sc > ec 
       redirect_to :back ,:notice => "Start cycle cannot be greater."
     else
@@ -98,6 +108,9 @@ class PropsController < ApplicationController
           end
         end
       end
+      else
+      redirect_to :back, :notice=> "Please fill the all record"
+    end
   end
 
   # DELETE /props/1

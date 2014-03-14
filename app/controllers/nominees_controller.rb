@@ -4,7 +4,7 @@ class NomineesController < ApplicationController
   # GET /nominees.json
 
 
-  def index
+   def index
       
      @nominees = Nominee.all
      @vote_settings = VoteSetting.all
@@ -12,7 +12,7 @@ class NomineesController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @nominees }
       
-      @searchuser ||= [] 
+      @searchuser ||= []
         @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
         @adminusers.each do |adminuser|
         fullname = adminuser.fullname
@@ -30,8 +30,6 @@ class NomineesController < ApplicationController
         @nominees.save!
         redirect_to nominees_path
   end
-
-  
 
   # GET /nominees/1
   # GET /nominees/1.json
