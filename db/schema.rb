@@ -139,7 +139,6 @@ ActiveRecord::Schema.define(:version => 20140313105839) do
     t.string   "email"
     t.integer  "plan_id"
     t.integer  "user_id"
-    t.string   "price"
     t.string   "paypal_payment_token"
     t.string   "paypal_customer_token"
     t.datetime "created_at",                     :null => false

@@ -53,9 +53,11 @@ jQuery(function (){
 
 
 jQuery(function (){
-        jQuery('#prop_end_cycle').datepicker();
+        jQuery('#prop_end_cycle').datepicker( 
+    { altField  : '#prop_end_cycle',  // selector of the hidden input field you want sent to the server
+      dateFormat: 'yy-mm-dd',
+      altFormat : 'yy-mm-dd' } );
 });
-
 
 //javascript functions for nested forms to
 
