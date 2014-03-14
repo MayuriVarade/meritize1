@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
    has_one :vote_setting
    has_one :setting
 
+   belongs_to :admin_user ,:class_name => 'User' 
+
+
   #model based validation
    # validates :firstname, :presence => true, 
    #                :length => { :maximum => 50 }
