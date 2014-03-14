@@ -1,65 +1,33 @@
 <!-- Subscription completed page -->
 <div id="masthead">
-	
 	<div class="container">
-		
 		<div class="masthead-pad">
-			
 			<div class="masthead-text">
-				
-				
-			</div> <!-- /.masthead-text -->
-			
+		 </div> <!-- /.masthead-text -->
 		</div>
-		
 	</div> <!-- /.container -->	
-	
 </div> <!-- /#masthead -->
 
-
-
-
 <div id="content">
-
-	<div class="container">
-      
-       <table class="table table-bordered table-striped table-highlight">
-          <thead>
-            <tr>
-             
-              <th>Email</th>
-              <th></th>
-              
-            </tr>
-          </thead>
-          <tbody>
-                  <tr>
-                  	
-                  <td> <%= @subscription.email %></td>
-                  <td>"Thank you for subscribing!"</td>
-              </tr>
-          
-        </table> <%= link_to 'Plans', plans_path, :class =>"btn btn-primary btn-large" %>
-
-
-      </div> <!-- /.container -->
-
-</div> <!-- /#content -->
-
+  <div class="container">
+      <table class="table table-bordered table-striped table-highlight">
+       <thead>
+       <tr>
+       <th>Email</th>
+       <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td> <%= @subscription.email %></td>
+        <td>"Thank you for subscribing!"</td>
+      </tr>
+       </table> <%= link_to 'Plans', plans_path, :class =>"btn btn-primary btn-large" %>
+    </div> <!-- /.container -->
+  </div> <!-- /#content -->
 </div> <!-- /#wrapper -->
 
 
-
-
-<script>
-
-$(function () {
-	
-	Theme.init ();
-	
-});
-
-</script>
 
 
 

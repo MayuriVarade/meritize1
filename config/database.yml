@@ -19,7 +19,6 @@ test:
       pool: 5
       username: postgres
       password: root
-
       
 production:
   adapter: postgresql
@@ -29,4 +28,16 @@ production:
   pool: 5
   username: postgres
   password: root
+    
+
+
+
+
+
+
+
+
+
+
+
 

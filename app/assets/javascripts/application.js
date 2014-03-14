@@ -13,9 +13,48 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require jquery.ui.datepicker
 //= require_tree .
 //= require ckeditor/init
 
+//javascript functions for datepicker
+
+
+jQuery(function (){
+        jQuery('#vote_setting_start_cycle').datepicker( 
+    { altField  : '#vote_setting_start_cycle',  // selector of the hidden input field you want sent to the server
+      dateFormat: 'yy-mm-dd',
+      altFormat : 'yy-mm-dd' } );
+  
+});     
+
+//javascript functions for datepicker
+
+
+jQuery(function (){
+        jQuery('#vote_setting_end_cycle').datepicker( 
+    { altField  : '#vote_setting_end_cycle',  // selector of the hidden input field you want sent to the server
+      dateFormat: 'yy-mm-dd',
+      altFormat : 'yy-mm-dd' } );
+});
+
+
+//javascript functions for datepicker
+
+
+jQuery(function (){
+        jQuery('#prop_start_cycle').datepicker( 
+    { altField  : '#prop_start_cycle',  // selector of the hidden input field you want sent to the server
+      dateFormat: 'yy-mm-dd',
+      altFormat : 'yy-mm-dd' } );
+});
+
+//javascript functions for datepicker
+
+
+jQuery(function (){
+        jQuery('#prop_end_cycle').datepicker();
+});
 
 
 //javascript functions for nested forms to
