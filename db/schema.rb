@@ -67,9 +67,12 @@ ActiveRecord::Schema.define(:version => 20140313105839) do
   create_table "plans", :force => true do |t|
     t.string   "name"
     t.string   "price"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "user_id"
+    t.string   "description1"
+    t.string   "description2"
+    t.string   "description3"
     t.text     "forusers"
     t.text     "foradmins"
     t.text     "pricing"
@@ -145,6 +148,7 @@ ActiveRecord::Schema.define(:version => 20140313105839) do
     t.datetime "updated_at",                     :null => false
     t.string   "paypal_recurring_profile_token"
     t.string   "token"
+    t.string   "price"
     t.date     "date"
     t.string   "total_amount"
   end
