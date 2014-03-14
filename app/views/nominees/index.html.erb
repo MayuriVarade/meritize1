@@ -25,6 +25,21 @@
         <p><a class="btn btn-primary btn-lg">Learn more</a></p>
       </div>
 
+
+      <div class="form-group">
+          <label class="control-label">For voting period</label>
+          <div class="controls">
+            <dev class="form-control">
+            <% @vote_settings.each do |votesetting| %>
+            <%= votesetting.start_cycle %>
+               TO <%= votesetting.end_cycle %>
+              <% end %>              
+            </select>
+
+          </div><br>
+          
+        </div>
+
       
     <div class="navbar navbar-default">
         <div class="container">
@@ -76,10 +91,10 @@
 <thead>
   <tr>        
 
-
+              
               <th>User Name</th>
               <th>User Email</th>
-              <th></th>    
+               <th colspan="2">Action</th>    
   </tr>
   </thead>
   <tbody>
@@ -87,17 +102,18 @@
         <% @nominees.each do |nominee| %>
         
         <tr>
-         
-
           <td><%= nominee.fullname %></td>
           <td><%= nominee.email %></td></br>
 
           <td align="center">
-          
+
+       <!--    
          <%= link_to format_boolean(nominee.status?), {:controller => 'nominees', :action => 'toggled_status', :id => nominee.id} %> 
+ -->
 
+        <%= link_to "Add" , new_nominee_path(:type =>"adminuser"), :class_name => nil,:class=>  "btn btn-primary" %>
+        <%= link_to 'Destroy', nominee, method: :delete, data: { confirm: 'Are you sure?' },:class=>  "btn btn-primary"  %> 
 
-       <!--   <%= link_to 'Destroy', nominee, method: :delete, data: { confirm: 'Are you sure?' } %> -->
          </td>
 
         </tr>
@@ -108,14 +124,4 @@
 
     </div>  
   </div>
-
-
-
-
-
-
-
-
-
-
 
