@@ -1,12 +1,93 @@
-<%= form_for(@prop_display) do |f| %>
-<br/>
-Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
+
+	
+
+	<div id="info">
+		
+      
+      <div class="container ">
+      <div class="jumbotron ">
+        <h1>Props for your peeps</h1> 
+        <p><%= @prop.intro.html_safe %><br></p>
+        <p></p>
+      </div>
+      <div class="row ">
+        <div class="col-md-4 ">
+          <div class="media ">
+            <a href="# " class="pull-left ">    <img src="assets/user2.png" width="64" height="64" class="media-object ">  </a> 
+            <div class="media-body ">
+              <h4 class="media-heading ">Leaderboard</h4> 
+              <p>Jen Smith is one cool employee. She has five props this month!</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 ">
+          <div class="panel panel-default ">
+            <div class="panel-heading ">
+            <%= form_for(@prop_display) do |f| %>
+              <b>Props for your peeps</b><br>
+              <%= f.text_field :receiver_id, :class => "form-control " %>
+              <br/>
+              <%= f.text_area :description, :class => "form-control ", :rows => 6 %>
+              <br/>
+	Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
 <%= f.select(:points,a  ) rescue "" %>
-<br/><br/>
-Receiver : <%= f.text_field :receiver_id %><br/><br/>
-Sender : <%= f.text_field :sender_id, :value => current_user.id %><br/><br/>
 
+<%= f.hidden_field :sender_id, :value => current_user.id %>
 <%= f.hidden_field :type_cycle ,:value => reset_type %>
+  <br/>  <br/>
+<%= f.submit :class => "button button-small"%>
 
-<%= f.submit %>
-<% end %>
+              <% end %>
+            </div>
+            <div align="right">
+              <select class="form-control">
+                <option>Show props about everyone</option>
+                <option>Show props about me only</option>
+              </select>
+            </div>
+            <div class="panel-body ">
+              <div class="media ">
+          
+                <% @prop_displays.each do |prop_display| %>
+                <div class="media-body ">
+                  <h4 class="media-heading text-left "><%= prop_display.sender.fullname %></h4> 
+                  <p><i>@<%= prop_display.receiver.fullname %> <%= prop_display.description %>.</i></p>
+                  <p class="text-right "><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp; Today at 10am&nbsp;</p>
+                </div>
+                
+                <% end %>
+                <hr>
+              </div>
+        
+           
+          <br></div>
+            <div class="panel-footer ">
+              <a class="btn btn-block btn-link btn-lg ">Click to see more&nbsp;<i class="fa fa-angle-double-down "></i></a><br></div>
+          </div>
+        </div>
+      </div>
+      <!-- Example row of columns -->
+     
+      
+    </div>
+     
+      
+   
+	</div>
+
+  <script>
+  var data = <%= raw @searchuser %>;
+
+  jQuery(function() {
+
+    jQuery( "#prop_display_receiver_id" ).autocomplete(
+    {
+       source:data
+    });
+      
+  });
+  </script>
+     <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
+
+
+
