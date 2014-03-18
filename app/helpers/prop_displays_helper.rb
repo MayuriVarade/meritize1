@@ -14,7 +14,7 @@ module PropDisplaysHelper
 		current_user.admin_user.prop.reset_point
 	end
 
-	def ankit(prop_display)
+	def custom_time(prop_display)
 	   d =  prop_display.created_at.to_date
 	   if d == Date.today
 	   	 "Today at #{prop_display.created_at.strftime('%r')}"
