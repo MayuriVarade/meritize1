@@ -54,6 +54,11 @@ scheduler.in '1d' do
           end
       else
         if pc.end_cycle.to_date <= Date.today
+            p = PropDisplay.where("type_cycle = ?", "3")
+            p.each do |p|
+              p.points = 0
+              p.save
+            end
             PropCycle.create(:start_cycle => pc.start_cycle,:end_cycle =>pc.end_cycle,:user_id =>pc.user_id,:prop_id => pc.id)   
             new_startcycle = pc.start_cycle.to_date + 3.month
             new_endcycle   = pc.end_cycle.to_date + 3.month
