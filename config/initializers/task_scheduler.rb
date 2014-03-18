@@ -52,7 +52,7 @@ scheduler.in '1d' do
             new_endcycle   = pc.end_cycle.to_date + 1.month
             @update_cycle = pc.update_attributes(:start_cycle => new_startcycle,:end_cycle =>new_endcycle)
           end
-      else
+      elsif pc.reset_point == "3"
         if pc.end_cycle.to_date <= Date.today
             p = PropDisplay.where("type_cycle = ?", "3")
             p.each do |p|
@@ -63,7 +63,15 @@ scheduler.in '1d' do
             new_startcycle = pc.start_cycle.to_date + 3.month
             new_endcycle   = pc.end_cycle.to_date + 3.month
             @update_cycle  = pc.update_attributes(:start_cycle => new_startcycle,:end_cycle =>new_endcycle)
-        end 
+        end
+        else
+          if pc.end_cycle.to_date <= Date.today
+            p = PropDisplay.where("type_cycle = ?", "1")
+            PropCycle.create(:start_cycle => pc.start_cycle,:end_cycle =>pc.end_cycle,:user_id =>pc.user_id,:prop_id => pc.id)   
+            new_startcycle = pc.start_cycle.to_date + 1.month
+            new_endcycle   = pc.end_cycle.to_date + 1.month
+            @update_cycle  = pc.update_attributes(:start_cycle => new_startcycle,:end_cycle =>new_endcycle)
+        end
       end
      end 
 
