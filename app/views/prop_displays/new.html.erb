@@ -40,11 +40,12 @@
               <% end %>
             </div>
             <div align="right">
-              <select class="form-control">
-                <option>Show props about everyone</option>
-                <option>Show props about me only</option>
-              </select>
-            </div>
+              <%= javascript_tag do %>
+  				function redirectToTrainer(trainerId){
+     				window.location = "<%= url_for(:controller => 'prop_displays', :action => 'new') %>?id=" + trainerId;
+  			} 
+			<% end %>
+             <%= select_tag "", options_for_select([["Show props about everyone",1], ["Show props about me only",2]],params[:id]),:class=>"form-control", :onchange=> "redirectToTrainer(this.value)" %>
             <div class="panel-body ">
               <div class="media ">
           
