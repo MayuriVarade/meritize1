@@ -13,4 +13,15 @@ module PropDisplaysHelper
 	def reset_type
 		current_user.admin_user.prop.reset_point
 	end
+
+	def ankit(prop_display)
+	   d =  prop_display.created_at.to_date
+	   if d == Date.today
+	   	 "Today at #{prop_display.created_at.strftime('%r')}"
+	   elsif (Date.today - d) == 1
+	   	 "Yesterday #{prop_display.created_at.strftime('%r')}"
+	   	else
+	   	 "#{time_ago_in_words(prop_display.created_at)} ago"
+	   end
+	end
 end
