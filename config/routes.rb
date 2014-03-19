@@ -24,7 +24,7 @@ mount Ckeditor::Engine => '/ckeditor'
 
 
   resources :vote_settings
-  
+  resources :votes
 
 
   root :to => 'homes#index'

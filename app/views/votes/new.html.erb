@@ -1,0 +1,84 @@
+
+<%= stylesheet_link_tag "dashboard.css" %>
+
+<div id="info">
+    
+      
+      <div class="container" style="margin-bottom:100px">
+    
+      <div id="deletesuccess" class="jumbotron">
+        <h1>Vote for the <%= @vote_setting.award_program_name %></h1> 
+        <p><%= @vote_setting.intro_text.html_safe %></p>
+        
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="media">
+            <a href="# " class="pull-left ">      </a> 
+            <div class="media-body">
+               <h4 class="media-heading">Past winners</h4>
+              <img src="/assets/user2.png" width="64" height="64" class="media-object">
+              <p>November 2013 - Jen Joes</p>
+            </div>
+            <p>&nbsp;</p>
+            <div class="media-body">
+               <h4 class="media-heading">My past votes</h4>
+              <img src="/assets/user2.png" width="64" height="64" class="media-object">
+              <p>November 2013 - Jeff Fries</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+        <%= form_for(@vote) do |f| %>  
+          <div class="panel panel-default">
+            <div class="panel-heading ">
+              <b>I vote for</b><br>
+              <%= f.text_field :voteable_id, :class => "form-control " %>
+            </div>
+            <div class="panel-body">
+              <div class="media">
+                <a href="# " class="pull-left "></a>
+                <div class="media-body">
+                  <h4 class="media-heading text-left ">Jane Johnson @jj</h4>
+                  <p>for the <i>Employee of the Month </i>award because</p>
+                  <%= f.text_area :description, :class => "form-control ", :rows => 6 %>
+                   <%= f.hidden_field :voter_id, :value => current_user.id %>
+                   <%= f.hidden_field :vote_setting_id, :value => @vote_setting.id  %>
+                </div>
+                <p>&nbsp;<br>
+                  Core values exhibited:</p>
+               
+                 <% @core_values.each do |a_value| %>
+
+                    <%= f.check_box(:core_values, { :multiple => true }, a_value.title,nil) %> <%= a_value.title %>
+                  <% end %><br/>
+               
+                <%= f.submit :class => "button button-small"%>
+              </div><br></div>
+          </div>
+           <% end %>
+        </div>
+      </div>
+      <!-- Example row of columns -->
+      <hr>
+      
+    </div>
+     
+      
+   
+  </div>
+
+
+  <script>
+  var data = <%= raw @searchuser %>;
+
+  jQuery(function() {
+
+    jQuery( "#vote_voteable_id" ).autocomplete(
+    {
+       source:data
+    });
+      
+  });
+  </script>
+     <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
