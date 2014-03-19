@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140314062000) do
+ActiveRecord::Schema.define(:version => 20140318064016) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -193,6 +193,8 @@ ActiveRecord::Schema.define(:version => 20140314062000) do
     t.string   "time_zone",              :default => "UTC"
     t.boolean  "status",                 :default => true
     t.string   "fullname"
+    t.string   "plan_name"
+    t.string   "department"
   end
 
   create_table "vote_cycles", :force => true do |t|
