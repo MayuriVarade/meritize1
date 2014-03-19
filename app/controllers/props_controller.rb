@@ -47,16 +47,19 @@ class PropsController < ApplicationController
   # POST /props.json
   def create
     @users =  User.where("admin_user_id = ? ",current_user.id)
-   
+ 
     @prop = Prop.new(params[:prop])
      sc =   params[:prop][:start_cycle].to_s.to_date
      ec =   params[:prop][:end_cycle].to_s.to_date
+
+    
+    if sc.present? && ec.present?
     if sc > ec 
-      redirect_to :back ,:notice => "Start cycle cannot be greater."
+      redirect_to :back ,:notice => "Start date cannot be greater than End date."
     else
        diff = (ec - sc + 1).round
         if diff < 28 || diff > 31
-          redirect_to :back, :notice => "Please select proper date."
+          redirect_to :back, :notice => "Please Select Correct date."
         else
           respond_to do |format|
             if @prop.save
@@ -71,7 +74,12 @@ class PropsController < ApplicationController
             end
           end
         end
+      end
+    else
+      redirect_to :back, :notice=> "Take a time to fill all the below records.."
     end
+
+
   end
 
   # PUT /props/1
@@ -84,12 +92,13 @@ class PropsController < ApplicationController
     osc = params[:prop][:start_cycle].to_s.to_date
     oec = params[:prop][:end_cycle].to_s.to_date
     
+    if sc.present? && ec.present?
     if sc > ec 
-      redirect_to :back ,:notice => "Start cycle cannot be greater."
+      redirect_to :back ,:notice => "Start date cannot be greater than End date."
     else
        diff = ec - sc + 1
         if diff < 28 || diff > 31
-          redirect_to :back, :notice => "Please select proper date."
+          redirect_to :back, :notice => "Please select correct date."
         else
           respond_to do |format|
             if @prop.update_attributes(params[:prop])
@@ -103,6 +112,9 @@ class PropsController < ApplicationController
           end
         end
       end
+      else
+      redirect_to :back, :notice=> "Take a time to fill all the below records.."
+    end
   end
 
   # DELETE /props/1

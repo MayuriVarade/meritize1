@@ -1,5 +1,12 @@
-<%= form_for(@nominee) do |f| %>
-  <% if @nominee.errors.any? %>
+<%= stylesheet_link_tag "application"%>
+
+  <div id="info">
+    <div class="container">
+      <%= form_for(@nominee) do |f| %> 
+        
+      <div class="row"></div>
+        
+      <% if @nominee.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@nominee.errors.count, "error") %> prohibited this nominee from being saved:</h2>
 
@@ -9,32 +16,72 @@
       <% end %>
       </ul>
     </div>
+    </div>
   <% end %>
 
-
-  <div class="field">
-      <br><%= f.label :Start_Cycle %>
-      <%= f.collection_select :start_cycle, VoteSetting.all , :start_cycle,:start_cycle %> 
-      <%= f.label :End_Cycle %>
-      <%= f.collection_select :end_cycle, VoteSetting.all , :end_cycle,:end_cycle %></br>   
-  </div>
-
-
-  <div class="field">
-      <br><%= f.label "Name" %><br />
-      <%= f.collection_select :fullname, User.where(:id => 2..5) , :fullname,:fullname %></br>    
-  </div>
-
-
-
-  <div class="field">
-      <br><%= f.label "Email" %><br />
-      <%= f.collection_select :email, User.where(:id => 2..5), :email,:email %></br>      
-  </div> 
+      <div class="container">
+      <h1>Add New Nominee</h1>
+       <table class="table table-hover table-responsive table-condensed">
+       
+       <tbody>     
+       
+            <tr>
+              <td>  
+                <label class="control-label">Start Cycle</label>
+              </td>
+              <td>
+         
+               <%= select("nominee", "start_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.start_cycle.strftime("%Y-%m-%d"), p.start_cycle ] }, {}, :class=>"form-control") %>
+              </td>
+            </tr>
 
 
+            <tr>
+              <td>  
+               <label class="control-label">End Cycle</label>
+              </td>
+              <td>
+            
+              <%= select("nominee", "end_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.end_cycle.strftime("%Y-%m-%d"), p.end_cycle ] }, {}, :class=>"form-control") %>
+              </td>
+            </tr>
 
-  </br><div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+             
+
+
+
+            <tr>
+              <td>
+                <label class="control-label">Name</label>
+                </td>
+                <td>
+                <%= f.collection_select :fullname, User.find_all_by_admin_user_id(current_user.id), :fullname,:fullname,{},{:class=>"form-control"} %></br>
+                </td>
+            </tr>
+
+            <tr>
+              <td>
+               <label class="control-label">Email</label>
+               </td>
+               <td>
+            
+               <%= f.collection_select :email, User.find_all_by_admin_user_id(current_user.id), :email,:email,{},{:class=>"form-control"} %></br>
+               </td>
+            </tr>
+
+            
+          
+
+     <tr>
+     <td></td>
+      <td>
+        <%= f.submit "Add New Nominee", :class => "button button-small"%>
+      </td>
+     </tr>      
+    
+      <% end %>
+       </tbody>
+    </table>
+   </div>  
+   
+</div>

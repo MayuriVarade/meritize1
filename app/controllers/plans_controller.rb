@@ -6,8 +6,7 @@ layout "profile"
   	
     @plans = Plan.all
      @plan_expiry = plan_expiry 
-
-      @subscription = Subscription.find_by_email(current_user.email) 
+     @subscription = Subscription.find_by_user_id(current_user)
       # raise current_user.id.inspect
       respond_to do |format|
       format.html # index.html.erb

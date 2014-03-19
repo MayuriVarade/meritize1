@@ -2,7 +2,9 @@ class UsersController < ApplicationController
    before_filter :authenticate, :only => [:edit, :update,:dashboard]
    before_filter :correct_user, :only => [:show]
    before_filter :correct_user_edit, :only => [:edit,:update]
+   before_filter :skip_password_attribute, only: :update
    layout :custom_layout
+   require 'will_paginate/array'
 
   def show
     @user = User.find(params[:id])
@@ -49,7 +51,7 @@ class UsersController < ApplicationController
 
    def adminuser_logs
        @searchuser ||= [] 
-       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
@@ -164,6 +166,12 @@ class UsersController < ApplicationController
  #          format.json { render :json => !@user }
  #     end
  #  end
+    def skip_password_attribute
+    if params[:password].blank? && params[:password_validation].blank?
+      params.except!(:password, :password_validation)
+    end
+  end
+
 
     def assign_password
       (0..6).map{ ('a'..'z').to_a[rand(26)] }.join

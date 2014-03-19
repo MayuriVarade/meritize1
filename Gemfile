@@ -17,6 +17,9 @@ gem 'paperclip'
 gem 'impressionist'
 gem 'prototype-rails'
 gem 'rufus-scheduler'
+gem "will_paginate"
+gem 'aws-s3'
+gem 'aws-sdk'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

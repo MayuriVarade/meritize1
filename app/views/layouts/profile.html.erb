@@ -1,87 +1,84 @@
 <!DOCTYPE html>
-<html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="">	
-	<title>Meritize</title>
-	<meta name="viewport" content="">
+ <html><head>
+ <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="">
+  <title>Meritize</title>
+ <meta name="viewport" content="">
 
 
-	<%= stylesheet_link_tag "bootstrap.min.css","theme.css","animate.css","flexslider.css","bootstrap2.css","style.css","brankic.css
-	" %>
-	<%= javascript_include_tag "application" %>
-	<%= csrf_meta_tag %>
-	<%= yield :scripts %>
-    <%= yield :styles %>
-</head>
-<body id="about-us">
-
-	
-	<header class="navbar navbar-inverse normal" role="banner">
-  		<div class="container">
-   		  <div class="navbar-header">
-		      	<!--<button data-target=".bs-navbar-collapse" data-toggle="collapse" type="button" class="navbar-toggle">
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-		      	</button>-->
-      			<a class="navbar-brand" href="/dashboard">Meritize</a>
-    		</div>
-    		
-			
-			<ul class="nav" id="primary-nav">
+ <%= stylesheet_link_tag "bootstrap.min.css","theme.css","animate.css","flexslider.css","bootstrap2.css","style.css","brankic.css" %>
+ <%= javascript_include_tag "application" %>
+ <%= csrf_meta_tag %>
+ <%= yield :scripts %>
+ <%= yield :styles %>
+ </head>
+ <body id="about-us">
+    <header class="navbar navbar-inverse normal" role="banner">
+      <div class="container">
+        <div class="navbar-header">
+            <!--<button data-target=".bs-navbar-collapse" data-toggle="collapse" type="button" class="navbar-toggle">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>-->
+            <a class="navbar-brand" href="/dashboard">Meritize</a>
+        </div>
+        
+      
+      <ul class="nav" id="primary-nav">
                 
            
-				
-				 <% if current_user.role? :admin %>
+        
+         <% if current_user.role? :admin %>
           <li><a href="#"><i class="nav-icon-9"></i><span>Props</span></a></li>
-					<li><a href="#"><i class="nav-icon-10"></i><span>Vote</span></a></li>
-					<li><a href="#"><i class="nav-icon-11"></i><span>WoW</span></a></li>
-					<li><%= link_to nominees_path do %>
-  						<i class="nav-icon-12"></i><span>Nominees</span></a>
-					     <% end %>
-					</li>
-					<li><a href="#"><i class="nav-icon-13"></i><span>Results</span></a></li>
-					<li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-14"></i><span>Users</span></a>
+          <li><a href="#"><i class="nav-icon-10"></i><span>Vote</span></a></li>
+          <li><a href="#"><i class="nav-icon-11"></i><span>WoW</span></a></li>
+          <li><%= link_to nominees_path do %>
+              <i class="nav-icon-12"></i><span>Nominees</span></a>
+               <% end %>
+          </li>
+          <li><a href="#"><i class="nav-icon-13"></i><span>Results</span></a></li>
+          <li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-14"></i><span>Users</span></a>
                         <ul class="dropdown-menu">
                             <li><%= link_to admin_user_path do %>
-  						         <i class="nav-icon-14"></i><span>Manage Users</span></a>
-					            <% end %>
-					            </li>
+                       <i class="nav-icon-14"></i><span>Manage Users</span></a>
+                      <% end %>
+                      </li>
                             <li><%= link_to adminuser_logs_path do %>
-  						<i class="nav-icon-14"></i><span>Users Activities</span></a>
-					<% end %>
-					</li>
+              <i class="nav-icon-14"></i><span>Users Activities</span></a>
+          <% end %>
+          </li>
 
                         </ul>
                     </li>
 
 
 
-					    <li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-15"></i><span>Setting</span></a>
+              <li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-15"></i><span>Setting</span></a>
                         <ul class="dropdown-menu">
-                        	<% if current_user.setting %>
+                          <% if current_user.setting %>
                             <li><%= link_to "General" ,edit_setting_path(current_user.setting) %></li>
                             <% else %>
                             <li><%= link_to "General" ,new_setting_path %></li>
                             <% end %>
-                        	<% if current_user.prop %>
+                          <% if current_user.prop %>
                             <li><%= link_to "Props" ,edit_prop_path(current_user.prop) %></li>
                             <% else %>
                             <li><%= link_to "Props" ,new_prop_path %></li>
                             <% end %>
                             <% if current_user.vote_setting %>
-                            <li><%= link_to "Votes" ,edit_vote_setting_path(current_user.vote_setting) %></li>
+                            <li><%= link_to "Vote" ,edit_vote_setting_path(current_user.vote_setting) %></li>
                             <% else %>
-                            <li><%= link_to "Votes" ,new_vote_setting_path %></li>
+                            <li><%= link_to "Vote" ,new_vote_setting_path %></li>
                             <% end %>
                             
                         </ul>
                     </li>
-					
-					
-					<li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-16"></i><span>Billing</span></a>
-					
+          
+          
+          <li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-16"></i><span>Billing</span></a>
+          
                         <ul class="dropdown-menu">
                             <li><%=link_to "Plan",plans_path%></li>
                            
@@ -90,69 +87,70 @@
                     </li>
 
             <% elsif current_user.role? :user %>
-					  <ul class="nav" id="primary-nav">
+            <ul class="nav" id="primary-nav">
             <li><a href="/prop_displays/new"><i class="nav-icon-9"></i><span>Props</span></a></li> 
            </ul>
-					 <% end %>
+           <% end %>
 
-					 <% if current_user.role? :productmanager %>
-					<li> 
-					 <%= link_to plans_path do %>
-  						<i class="nav-icon-14"></i><span>Manage Plans</span></a>
-					<% end %>
-					</li>
+           <% if current_user.role? :productmanager %>
+          <li> 
+           <%= link_to plans_path do %>
+              <i class="nav-icon-14"></i><span>Manage Plans</span></a>
+          <% end %>
+          </li>
 
-					<li> 
-						<% @trial_days = TrialDay.first %>
-					 <%= link_to edit_trial_day_path(@trial_days) do %>
-  						<i class="nav-icon-14"></i><span>Manage Trial days</span></a>
-					<% end %>
-					</li>
-						<% end %>
+          <li> 
+            <% @trial_days = TrialDay.first %>
+           <%= link_to edit_trial_day_path(@trial_days) do %>
+              <i class="nav-icon-14"></i><span>Manage Trial days</span></a>
+          <% end %>
+          </li>
+            <% end %>
                  
           </ul>
-				
-				
-				
-				<ul class="nav pull-right" id="secondary-nav">
+        
+        
+        
+        <ul class="nav pull-right" id="secondary-nav">
                          <li class="dropdown">
-                         <% if current_user.role? :productmanager %>	
-                    	<a data-toggle="dropdown" href="#"><i class="icon-cog icon-white">
-                    </i><span><%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
+                         <% if current_user.role? :productmanager %>  
+                      <a data-toggle="dropdown" href="#"><i class="icon-cog icon-white">
+                    </i><span>&nbsp;<%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
                     <% elsif current_user.role? :admin %>
                     <a data-toggle="dropdown" href="#"><i class="icon-cog icon-white">
-                    </i><span><%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
+                    </i><span>&nbsp;<%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
                     <% else %>
                     <a data-toggle="dropdown" href="#"><i class="icon-cog icon-white">
-                    </i><span><%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
+                    </i>&nbsp;<span><%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
                      <% end %>
                         <ul class="dropdown-menu">
                             <li><%= link_to 'Profile', current_user %></li>
-                            <li><%= link_to 'change password', change_password_path%></li>
+                            <li><%= link_to 'Change Password', change_password_path%></li>
                         </ul>
                     </li>
                      <li><%= link_to  signout_path, :method => :delete do  %>
-                    	<i class="icon-off icon-white"></i>Logout
-                    	<% end %>
+                      <i class="icon-off icon-white"></i>&nbsp;Logout
+                      <% end %>
                     </li>    
                 </ul>
    
          
-			
-  		</div>
-	</header>
+      
+      </div>
 
-  <section class="round">
-        <% flash.each do |key, value| %>
-      <div class="flash <%= key %>" style = "font-size:18px; text-align:center;"><%= value %></div>
-      <% end %>
-  </section>
+  </header>
+
+   <section class="round">
+         <% flash.each do |key, value| %>
+       <div class="flash <%= key %>" style = "font-size:18px; text-align:center;"><%= value %></div>
+       <% end %>
+   </section>
 
 
-	<%= yield %>
+   <%= yield %>
 
-<%= render "shared/profile_footer"%>
-	
+ <%= render "shared/profile_footer"%>
+   
 
-</body>
-</html>
+ </body>
+ </html>
