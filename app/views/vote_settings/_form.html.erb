@@ -7,7 +7,7 @@
   <div id="info">
     
       
-      <div class="container">
+      <div class="container" style="margin-bottom:100px">
         <%= form_for(@vote_setting) do |f| %>
         <% if @vote_setting.errors.any? %>
           <div id="error_explanation">
@@ -29,7 +29,7 @@
                 <label class="form-label">Awards program name:</label>
               </td>
               <td>
-                <%= f.text_field :award_program_name,:class=>"form-control" %>
+                <%= f.text_field :award_program_name,:placeholder=>"Employee of the month" ,:class=>"form-control" %>
                 
               </td>
             </tr>
@@ -93,7 +93,7 @@
                 <label class="form-label">Intro text displayed to voter:</label>
               </td>
               <td>
-                 <%= f.cktext_area :intro_text,:rows =>3,:columns =>4 %>
+                 <%= f.cktext_area :intro_text,:input_html => { :ckeditor => { :placeholder =>"Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?" } },:rows =>3,:columns =>4 %>
               </td>
             </tr>
             <tr>
@@ -101,7 +101,7 @@
                 <label class="form-label">Reminder email sent to voters - From name:</label>
               </td>
               <td>
-                <%= f.text_field :email_sender_name,:class=>"form-control" %>
+                <%= f.text_field :email_sender_name,:placeholder=>"HR",:class=>"form-control" %>
                 
               </td>
             </tr>
@@ -110,7 +110,7 @@
                 <label class="form-label">Reminder email sent to voters - From email:</label>
               </td>
               <td>
-                 <%= f.text_field :email_sender_email,:class=>"form-control" %>
+                 <%= f.text_field :email_sender_email,:placeholder=>"hr@mycompany.com",:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -118,7 +118,7 @@
                 <label class="form-label">Reminder email #1 sent to voters - Subject:</label>
               </td>
               <td>
-                 <%= f.text_field :email_sender_subject1,:class=>"form-control" %>
+                 <%= f.text_field :email_sender_subject1,:placeholder=>"It's time to vote",:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -134,7 +134,7 @@
                 <label class="form-label">Reminder email #2 sent to voters - Subject:</label>
               </td>
               <td>
-               <%= f.text_field :email_sender_subject2,:class=>"form-control" %>
+               <%= f.text_field :email_sender_subject2,:placeholder=>"We need you",:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -150,7 +150,7 @@
                 <label class="form-label">Reminder email #3 sent to voters - Subject:</label>
               </td>
               <td>
-                <%= f.text_field :email_sender_subject3,:class=>"form-control" %>
+                <%= f.text_field :email_sender_subject3,:placeholder=>"Remember when you voted?",:class=>"form-control" %>
               </td>
             </tr>
             <tr>

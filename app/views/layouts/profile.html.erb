@@ -71,9 +71,9 @@
                             <li><%= link_to "Props" ,new_prop_path %></li>
                             <% end %>
                             <% if current_user.vote_setting %>
-                            <li><%= link_to "Votes" ,edit_vote_setting_path(current_user.vote_setting) %></li>
+                            <li><%= link_to "Vote" ,edit_vote_setting_path(current_user.vote_setting) %></li>
                             <% else %>
-                            <li><%= link_to "Votes" ,new_vote_setting_path %></li>
+                            <li><%= link_to "Vote" ,new_vote_setting_path %></li>
                             <% end %>
                             
                         </ul>
@@ -118,21 +118,21 @@
                          <li class="dropdown">
                          <% if current_user.role? :productmanager %>	
                     	<a data-toggle="dropdown" href="#"><i class="icon-cog icon-white">
-                    </i><span><%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
+                    </i><span>&nbsp;<%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
                     <% elsif current_user.role? :admin %>
                     <a data-toggle="dropdown" href="#"><i class="icon-cog icon-white">
-                    </i><span><%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
+                    </i><span>&nbsp;<%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
                     <% else %>
                     <a data-toggle="dropdown" href="#"><i class="icon-cog icon-white">
-                    </i><span><%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
+                    </i>&nbsp;<span><%= current_user.firstname.capitalize %> <%= current_user.lastname.capitalize %></span></a>
                      <% end %>
                         <ul class="dropdown-menu">
                             <li><%= link_to 'Profile', current_user %></li>
-                            <li><%= link_to 'change password', change_password_path%></li>
+                            <li><%= link_to 'Change Password', change_password_path%></li>
                         </ul>
                     </li>
                      <li><%= link_to  signout_path, :method => :delete do  %>
-                    	<i class="icon-off icon-white"></i>Logout
+                    	<i class="icon-off icon-white"></i>&nbsp;Logout
                     	<% end %>
                     </li>    
                 </ul>

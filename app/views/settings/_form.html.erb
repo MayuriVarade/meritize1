@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="margin-bottom:100px">
         <%= form_for @setting ,:html => {:multipart => true} do |f| %>
         <% if @setting.errors.any? %>
           <div id="error_explanation">
@@ -30,8 +30,24 @@
                 <label class="form-label">Company logo:</label>
               </td>
               <td>
-                <%= f.file_field :photo %> 
+                <div class="row">                                    
+                  <div class="col-md-2">
+                     
+                       <%= image_tag @setting.photo.url(:small),:style=>"background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #DDDDDD; padding: 5px;" %> 
+                  </div>
+                  <% if params[:action] == "edit" %>
+                    <div class="col-md-8">
+                     <%= f.file_field :photo ,:style=>"margin-top:70px"%>
+                      
+                    </div>
+                  <% end %>
+
+
+
+                 </div>     
               </td>
+                                  
+             
             </tr>
             <tr>
               <td>
