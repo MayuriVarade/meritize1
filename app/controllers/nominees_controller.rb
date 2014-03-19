@@ -4,14 +4,15 @@ class NomineesController < ApplicationController
   # GET /nominees.json
 
 
-  def index
+   def index
       
-      @nominees = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+     @nominees = Nominee.all
+     @vote_settings = VoteSetting.all
       respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @nominees }
       
-      @searchuser ||= [] 
+      @searchuser ||= []
         @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
         @adminusers.each do |adminuser|
         fullname = adminuser.fullname
@@ -29,8 +30,6 @@ class NomineesController < ApplicationController
         @nominees.save!
         redirect_to nominees_path
   end
-
-  
 
   # GET /nominees/1
   # GET /nominees/1.json
@@ -64,14 +63,12 @@ class NomineesController < ApplicationController
   def create
     @nominee = Nominee.new(params[:nominee])
 
-    respond_to do |format|
+    
       if @nominee.save
-        format.html { redirect_to @nominee, notice: 'Nominee was successfully created.' }
-        format.json { render json: @nominee, status: :created, location: @nominee }
+        redirect_to nominees_path
       else
-        format.html { render action: "new" }
-        format.json { render json: @nominee.errors, status: :unprocessable_entity }
-      end
+        render :new
+      
     end
   end
 
@@ -79,6 +76,7 @@ class NomineesController < ApplicationController
 
   # PUT /nominees/1
   # PUT /nominees/1.json
+   
   def update
     @nominee = Nominee.find(params[:id])
 
@@ -107,6 +105,15 @@ class NomineesController < ApplicationController
     end
   end
 
+
+# def check_email
+#     @nominee = Nominee.find_by_email(params[:nominee][:email])
+#     respond_to do |format|
+    
+#     format.json { render :json => !@nominee }
+
+#   end
+# end
 
 
 def custom_layout

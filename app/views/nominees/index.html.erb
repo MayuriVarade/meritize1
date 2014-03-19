@@ -1,13 +1,4 @@
- <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
 
-  <%= stylesheet_link_tag "dashboard.css" %>
- 
-
-   <script type="text/javascript"> 
-      jQuery(document).ready( function() {
-        jQuery('#deletesuccess').delay(10000).fadeOut();
-      });
-    </script>
 
   <script>
   var data = <%= raw @searchuser %>;
@@ -29,20 +20,25 @@
       
       <div class="container" style="margin-bottom:100px">
 
-     
-
       <div class="jumbotron">
         <p>Use this page to nominate who can win the award. You don't have to have nominees. If you don't have any nominees, your voters can vote for any voter. If you do have nominees, your voters will have to vote for one of the nominees.</p>
         <p><a class="btn btn-primary btn-lg">Learn more</a></p>
       </div>
 
-      
 
+      <div class="form-group">
+          <label class="control-label">For voting period</label>
+          <div class="controls">
+            <dev class="form-control">
+            <% @vote_settings.each do |votesetting| %>
+            <%= votesetting.start_cycle.strftime("%Y-%m-%d") %>
+               TO <%= votesetting.end_cycle.strftime("%Y-%m-%d") %>
+              <% end %>              
+            </select>
 
-
-
-
-
+          </div><br>
+          
+        </div>
 
     <div class="navbar navbar-default">
         <div class="container">
@@ -59,6 +55,8 @@
                   <div class="form-group">
 
                   <%= link_to "Add new Nominee" , new_nominee_path(:type =>"adminuser"), :class_name => nil,:class=> "button button-small"%>
+
+
                     
 
                      </div>
@@ -76,6 +74,7 @@
                      </div>
                    </form>
               </li>
+
             </ul>
        
          </div>
@@ -92,10 +91,10 @@
 <thead>
   <tr>        
 
-
+              
               <th>User Name</th>
               <th>User Email</th>
-              <th></th>    
+               <th colspan="2">Action</th>    
   </tr>
   </thead>
   <tbody>
@@ -103,16 +102,15 @@
         <% @nominees.each do |nominee| %>
         
         <tr>
-         
-
           <td><%= nominee.fullname %></td>
           <td><%= nominee.email %></td></br>
 
           <td align="center">
-          
-         <%= link_to format_boolean(nominee.status?), {:controller => 'nominees', :action => 'toggled_status', :id => nominee.id} %> 
 
-       <!--   <%= link_to 'Destroy', nominee, method: :delete, data: { confirm: 'Are you sure?' } %> -->
+
+
+        <%= link_to 'Remove From Nominee', nominee, method: :delete, data: { confirm: 'Are you sure?' },:class=>  "btn btn-primary"  %> 
+
          </td>
 
         </tr>
@@ -123,20 +121,4 @@
 
     </div>  
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

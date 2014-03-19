@@ -74,8 +74,8 @@
      required: true,
     },
     "user[password_confirmation]":{
-                                        required:true,
-                                        equalTo: "#user_password"
+     required:true,
+     equalTo: "#user_password"
     },
     
     "user[email]" :{
@@ -264,4 +264,30 @@
 
             },
 		});
+
+
+
+// $("#nominee").validate({
+//         errorElement:'span',
+//         rules: {
+//             "nominee[email]":{required : true,email: true, remote:'nominees/check_email'}
+
+
+                                                             
+//         },
+
+//         messages: {
+//             "nominee[email]":{
+//                          required:  "Please enter email",   
+
+                        
+//                          }
+        
+        
+
+
+
+//             },
+//         });
+
 });
