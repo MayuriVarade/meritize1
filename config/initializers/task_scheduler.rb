@@ -76,3 +76,31 @@ scheduler.in '1d' do
      end 
 
 end
+
+ scheduler.in '2d' do
+      admin_user = User.where("username is null  and admin_user_id is null")
+      admin_user.each do |au|
+        users = User.where("admin_user_id = ?",au.id)
+        users.each do |user|
+          if PropDisplay.find_by_sender_id(user.id).nil?
+            prop = au.prop
+            puts user.inspect
+            PropMailer.prop_mail_reminder2(user,prop).deliver
+          end
+        end
+      end
+ end
+
+  scheduler.in '4d' do
+      admin_user = User.where("username is null  and admin_user_id is null")
+      admin_user.each do |au|
+        users = User.where("admin_user_id = ?",au.id)
+        users.each do |user|
+          if PropDisplay.find_by_sender_id(user.id).nil?
+            puts user.inspect
+            prop = au.prop
+            PropMailer.prop_mail_reminder3(user,prop).deliver
+          end
+        end
+      end
+ end
