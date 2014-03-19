@@ -19,13 +19,7 @@
 				    		
 				  		</div>
 
-						<!-- <div class="form-group">
-				    		<label for="email">Userame</label>
-				    		<%= f.text_field :username, :class=>"form-control"%>
-
-				    		
-				  		</div>
- -->				  		<div class="form-group">
+		  		        <div class="form-group">
 				    		<label for="name">First name</label>
 				    		<%= f.text_field :firstname, :class=>"form-control"%>
 				    		
@@ -34,23 +28,38 @@
 				    		<label for="name">Last name</label>
 				    		<%= f.text_field :lastname, :class=>"form-control"%>
 				    		<%= f.hidden_field :email,:value=> params[:user][:email] rescue nil %>
-
-				    		
-				  		</div>
+				    		</div>
+                          <%if params[:type] == "adminuser"  %>
 				  		
-				  		<div class="form-group">
-				    		<label for="password">Password</label>
-				    		<%= f.password_field :password, :class=>"form-control"%>
+				  			<div class="form-group">
+                            <!--  <label for="password">Password</label> -->
+                             <%= f.hidden_field :password,:value=> params[:user][:password] rescue nil %>
+                             <%= f.hidden_field :password_confirmation,:value=> params[:user][:password_confirmation] rescue nil %>
+                             <% if params[:type] == "adminuser" %>
+                              <%= hidden_field_tag("page_name", "admin") %>
+                              <% end %>
+                        </div>	
+				  	<%  else  %>
 
-				  		</div>
 
+                          <div class="form-group">
+                             <label for="password">Password</label>
+                             <%= f.password_field :password, :class=>"form-control"%>
+
+                        </div>
 				  		<div class="form-group">
-				    		<label for="password_confirmation">Password Confirmation</label>
+				  			 <label for="password">Password Confirmation</label>
 				    		<%= f.password_field :password_confirmation, :class=>"form-control"%>
                              <% if params[:type] == "adminuser" %>
                               <%= hidden_field_tag("page_name", "admin") %>
                               <% end %>
 				  		</div>
+                      
+				  		
+			      <% end%>
+                        
+
+
 
 				  		<div class="form-group">
 				  		<label for="message">Timezone</label>&nbsp;&nbsp;

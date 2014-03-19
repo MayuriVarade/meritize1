@@ -53,6 +53,7 @@ mount Ckeditor::Engine => '/ckeditor'
   resources :password_resets
   get "/plan" => "subscriptions#plan"
   
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

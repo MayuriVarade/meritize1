@@ -7,7 +7,8 @@ layout "profile"
     @plans = Plan.all
      @plan_expiry = plan_expiry 
 
-      @subscription = Subscription.find_by_email(current_user.email) 
+
+      @subscription = Subscription.find_by_user_id(current_user) &&  Subscription.find_by_plan_id(current_user.plan_id)
       # raise current_user.id.inspect
       respond_to do |format|
       format.html # index.html.erb
@@ -61,8 +62,8 @@ def show
   # PUT /plans/1
   # PUT /plans/1.json
   def update
-         @plan = Plan.find(params[:id])
-    
+    @plan = Plan.find(params[:id])
+   
     respond_to do |format|
       if @plan.update_attributes(params[:plan])
 
