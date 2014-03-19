@@ -46,7 +46,8 @@ class PropsController < ApplicationController
   # POST /props
   # POST /props.json
   def create
-
+    @users =  User.where("admin_user_id = ? ",current_user.id)
+ 
     @prop = Prop.new(params[:prop])
      sc =   params[:prop][:start_cycle].to_s.to_date
      ec =   params[:prop][:end_cycle].to_s.to_date
@@ -62,7 +63,10 @@ class PropsController < ApplicationController
         else
           respond_to do |format|
             if @prop.save
-              format.html { redirect_to edit_prop_path(@prop), notice: 'Prop was successfully created.' }
+               @users.each do |user|
+                PropMailer.prop_mail(user,@prop).deliver
+                 end
+              format.html { redirect_to edit_prop_path(@prop), notice: 'Settings for prop was successfully created.' }
               format.json { render json: @prop, status: :created, location: @prop }
             else
               format.html { render action: "new" }
@@ -99,7 +103,7 @@ class PropsController < ApplicationController
           respond_to do |format|
             if @prop.update_attributes(params[:prop])
               PropCycle.create(:start_cycle => osc, :end_cycle => oec, :user_id => current_user.id, :prop_id => @prop.id)
-              format.html { redirect_to :back, notice: 'Prop was successfully updated.' }
+              format.html { redirect_to :back, notice: 'Settings for prop was successfully updated.' }
               format.json { head :no_content }
             else
               format.html { render action: "edit" }
