@@ -1,12 +1,17 @@
 <% content_for :styles do %>
  <%= stylesheet_link_tag "application"%>
  
- 
 <% end %>
+
 
   <div id="info">
 
-    <%= form_for(@prop) do |f| %>
+
+
+   
+
+    <%= form_for (@prop) do |f| %>
+
       <% if @prop.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@prop.errors.count, "error") %> prohibited this prop from being saved:</h2>
@@ -29,10 +34,9 @@
                 <label class="form-label">Props options:</label>
               </td>
               <td>
-                <div class="checkbox">
-                  <label>
-                    <%= f.check_box :enable %>Enable Props</label>
-                </div>
+
+
+
                 <div class="checkbox">
                   <label>
                     <%= f.check_box :assign_points %>Assign Points</label>
@@ -80,7 +84,7 @@
                 <label class="form-label">Intro text displayed to voter:</label>
               </td>
               <td>
-                <%= f.cktext_area :intro , :rows =>3 ,:class=>"form-control" %>
+                <%= f.cktext_area :intro , :placeholder => "Search eg: default text", :rows =>3 ,:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -88,7 +92,7 @@
                 <label class="form-label">Reminder email sent to voters - From name:</label>
               </td>
               <td>
-               <%= f.text_field :name , :class=>"form-control" %>
+               <%= f.text_field :name , :placeholder => " default text ", :class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -96,7 +100,7 @@
                 <label class="form-label">Reminder email sent to voters - From email:</label>
               </td>
               <td>
-                <%= f.text_field :email , :class=>"form-control" %>
+                <%= f.text_field :email , :placeholder => " default text ", :class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -104,7 +108,7 @@
                 <label class="form-label">Reminder email #1 sent to voters - Subject:</label>
               </td>
               <td>
-                <%= f.text_field :subject , :class=>"form-control" %>
+                <%= f.text_field :subject , :placeholder => " default text ", :class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -112,7 +116,7 @@
                 <label class="form-label">Reminder email #1 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :body , :rows =>3 ,:class=>"form-control" %>
+                <%= f.cktext_area :body , :placeholder => " default text ", :rows =>3 ,:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -120,7 +124,7 @@
                 <label class="form-label">Reminder email #2 sent to voters - Subject:</label>
               </td>
               <td>
-               <%= f.text_field :subject2 , :class=>"form-control" %>
+               <%= f.text_field :subject2 , :placeholder => " default text ", :class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -128,7 +132,7 @@
                 <label class="form-label">Reminder email #2 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :body2 , :rows =>3 ,:class=>"form-control" %>
+                <%= f.cktext_area :body2 , :placeholder => " default text ", :rows =>3 ,:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -136,7 +140,7 @@
                 <label class="form-label">Reminder email #3 sent to voters - Subject:</label>
               </td>
               <td>
-                <%= f.text_field :subject3 , :class=>"form-control" %>
+                <%= f.text_field :subject3 , :placeholder => " default text ", :class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -144,7 +148,7 @@
                 <label class="form-label">Reminder email #3 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :body3 , :rows =>3, :class=>"form-control" %>
+                <%= f.cktext_area :body3 , :placeholder => " default text ", :rows =>3, :class=>"form-control" %>
               </td>
             </tr>
               <tr>
@@ -159,8 +163,5 @@
           </tbody>
         </table>
         <% end %>
-      </div>
-     
-      
-   
-  </div>        
+      </div>   
+  </div> 

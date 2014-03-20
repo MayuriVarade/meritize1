@@ -4,11 +4,12 @@
 <%= stylesheet_link_tag "application"%>
 
   <div id="info">
+  <div class="container">
  
 
         <%= form_for(@nominee) do |f| %> 
       <div class="row"></div>
-      <h2>Add Nominee</h2>
+      
       <% if @nominee.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@nominee.errors.count, "error") %> prohibited this nominee from being saved:</h2>
@@ -19,10 +20,12 @@
       <% end %>
       </ul>
     </div>
+    </div>
   <% end %>
 
 
       <div class="container">
+      <h1>Add Nominee</h1>
        <table class="table table-hover table-responsive table-condensed">
        <tbody>     
        
@@ -82,6 +85,7 @@
           
 
      <tr>
+     <td></td>
       <td>
         <%= f.submit "Add", :class => "btn btn-primary"%>
       </td>

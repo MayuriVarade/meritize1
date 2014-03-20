@@ -33,6 +33,10 @@ class UsersController < ApplicationController
         redirect_to admin_user_path
     end
 
+   def account_creation
+
+   end
+
    #method for searching a admin_user and showing list of admin_user
    def admin_user
        @plan_expiry = plan_expiry  
@@ -49,6 +53,7 @@ class UsersController < ApplicationController
 
    def adminuser_logs
        @searchuser ||= [] 
+        @users = User.all
        @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
@@ -65,19 +70,30 @@ class UsersController < ApplicationController
         @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
         
             UserVerification.welcome_email(@user,@random_password).deliver
+
             
          if params[:page_name] == "admin"
+        
+           
           
            redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}  
         
         else   
-          redirect_to signup_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
+
+          redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready. 
+        We have sent login instructions to your email address. 
+        Contact us at support@imeritize.com if you have any questions."}
+        
         end  
+   
+
       else
         @title = "Sign Up"
         render 'new'
       end
    end 
+
+
  
    def edit
     @title = "Edit user"
@@ -109,6 +125,7 @@ class UsersController < ApplicationController
       flash[:notice] = "User deleted successfully."
       redirect_to  admin_user_path
     end
+    
    #method for change the users password to new password.
    def change_password
 
@@ -186,7 +203,7 @@ class UsersController < ApplicationController
          when "add_adminuser"
           "profile"
          when "show"
-          "profile"
+          "profile"       
          else
           "application"
         end

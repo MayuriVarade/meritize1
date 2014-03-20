@@ -50,19 +50,22 @@ class PropsController < ApplicationController
     @prop = Prop.new(params[:prop])
      sc =   params[:prop][:start_cycle].to_s.to_date
      ec =   params[:prop][:end_cycle].to_s.to_date
-
+     sp = params[:prop][:start_point].to_s
+     ep = params[:prop][:end_point].to_s
     
     if sc.present? && ec.present?
     if sc > ec 
       redirect_to :back ,:notice => "Start cycle cannot be greater."
-    else
+    elsif
        diff = (ec - sc + 1).round
         if diff < 28 || diff > 31
           redirect_to :back, :notice => "Please select proper date."
-        else
+        elsif sp > ep
+        redirect_to :back ,:notice => "Start Point cannot be grater than End Point"
+      else
           respond_to do |format|
             if @prop.save
-              format.html { redirect_to edit_prop_path(@prop), notice: 'Prop was successfully created.' }
+              format.html { redirect_to edit_prop_path(@prop), notice: 'Settings for props were successfully created.' }
               format.json { render json: @prop, status: :created, location: @prop }
             else
               format.html { render action: "new" }
@@ -73,9 +76,7 @@ class PropsController < ApplicationController
       end
     else
       redirect_to :back, :notice=> "Please fill the all record"
-    end
-
-
+    end 
   end
 
   # PUT /props/1
@@ -99,7 +100,7 @@ class PropsController < ApplicationController
           respond_to do |format|
             if @prop.update_attributes(params[:prop])
               PropCycle.create(:start_cycle => osc, :end_cycle => oec, :user_id => current_user.id, :prop_id => @prop.id)
-              format.html { redirect_to :back, notice: 'Prop was successfully updated.' }
+              format.html { redirect_to :back, notice: 'Settings for props were successfully created.' }
               format.json { head :no_content }
             else
               format.html { render action: "edit" }

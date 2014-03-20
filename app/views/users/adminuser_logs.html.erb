@@ -60,13 +60,13 @@ jQuery(function() {
             <thead>
               <tr>
                 
-                 <th>Email</th>
+                <th>Email</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Signin Time</th>
                 <th>Signout Time</th>
                 <th>Ip Address</th> 
-                <th>Sign Count</th> 
+                <th>Sign In Count</th> 
                
               </tr>
             </thead>
@@ -79,7 +79,7 @@ jQuery(function() {
                 <td><%= adminusers.lastname rescue nil%></td>
                 <td><%= adminusers.sign_in_time.strftime("%e %b %Y %H:%m:%S%p") rescue nil%></td>
                 <td><%= adminusers.sign_out_time.strftime("%e %b %Y %H:%m:%S%p") rescue nil%></td>
-                 <td><%= adminusers.ip_address rescue nil%></td>
+                <td><%= adminusers.ip_address rescue nil%></td>
                 <td><%= adminusers.sign_in_count rescue nil%></td>
               </tr>
               
