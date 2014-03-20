@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-   before_filter :session_expiry
-   before_filter :update_activity_time
    before_filter :authenticate, :only => [:edit, :update,:dashboard]
    before_filter :correct_user, :only => [:show]
    before_filter :correct_user_edit, :only => [:edit,:update]

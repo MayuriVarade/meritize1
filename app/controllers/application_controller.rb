@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_timezone
- 
+  before_filter :session_expiry
+  before_filter :update_activity_time
   include SessionsHelper
   #Method for trial days 
   def plan_expiry
@@ -38,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def update_activity_time
-    session[:expires_at] = 1.minutes.from_now
+    session[:expires_at] = 60.minutes.from_now
   end
 
   private

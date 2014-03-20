@@ -39,19 +39,25 @@
               <div class="media">
                 <a href="# " class="pull-left "></a>
                 <div class="media-body">
-                  <h4 class="media-heading text-left ">Jane Johnson @jj</h4>
-                  <p>for the <i>Employee of the Month </i>award because</p>
+                  <h4 class="media-heading text-left "> <div class='printchatbox'></div></h4>
+                  <p>for the <i><%= @vote_setting.award_program_name.capitalize %> </i>award because</p>
                   <%= f.text_area :description, :class => "form-control ", :rows => 6 %>
                    <%= f.hidden_field :voter_id, :value => current_user.id %>
-                   <%= f.hidden_field :vote_setting_id, :value => @vote_setting.id  %>
+                   <%= f.hidden_field :cycle_start_date, :value => @vote_setting.start_cycle %>
+                   <%= f.hidden_field :cycle_end_date, :value => @vote_setting.end_cycle %>
+                   <%= f.hidden_field :vote_setting_id, :value => @vote_setting.id %>
                 </div>
                 <p>&nbsp;<br>
                   Core values exhibited:</p>
-               
+                  
                  <% @core_values.each do |a_value| %>
-
+                    <div class="checkbox">
+                   <label>
                     <%= f.check_box(:core_values, { :multiple => true }, a_value.title,nil) %> <%= a_value.title %>
-                  <% end %><br/>
+                  <br/>
+                  </label>
+                </div>
+                <% end %>
                
                 <%= f.submit :class => "button button-small"%>
               </div><br></div>
@@ -78,7 +84,21 @@
     {
        source:data
     });
+
+
       
   });
   </script>
+
+<script>
+ 
+$('.form-control').keyup(function(event) {
+  newText = event.target.value;
+  $('.printchatbox').text(newText);
+});
+  </script>
+
+
+
+
      <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
