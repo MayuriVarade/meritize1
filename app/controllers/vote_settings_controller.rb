@@ -7,7 +7,7 @@ class VoteSettingsController < ApplicationController
 
   def index
     
-    @vote_settings = VoteSetting.find_all_by_user_id(current_user.id)
+    @vote_settings = VoteSetting.find_all_by_user_id(current_user.id).last
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,15 +58,15 @@ class VoteSettingsController < ApplicationController
     if sc.present? && ec.present?
 
     if sc > ec 
-      redirect_to :back ,:notice => "Start cycle cannot be greater."
+      redirect_to :back ,:notice => "Start date cannot be greater than End date" 
     else
       diff = (ec - sc + 1).round
         if diff < 28 || diff > 31
-          redirect_to :back, :notice => "Please select proper date."
+          redirect_to :back, :notice => "Please select correct date."
         else
           respond_to do |format|
             if @vote_setting.save
-              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote setting was successfully created.' }
+              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully created.' }
               format.json { render json: @vote_setting, status: :created, location: @vote_setting }
             else
               format.html { render action: "new" }
@@ -76,7 +76,7 @@ class VoteSettingsController < ApplicationController
          end 
        end 
       else
-      redirect_to :back, :notice=> "Please fill the all record"
+      redirect_to :back, :notice=> "Take a time to fill all the below records.."
     end 
 
   end
@@ -92,16 +92,16 @@ class VoteSettingsController < ApplicationController
     osc = params[:vote_setting][:start_cycle].to_s.to_date
     oec = params[:vote_setting][:end_cycle].to_s.to_date
     if sc > ec 
-      redirect_to :back ,:notice => "Start cycle cannot be greater."
+      redirect_to :back ,:notice => "Start date cannot be greater."
     else
        diff = ec - sc + 1
         if diff < 28 || diff > 31
-          redirect_to :back, :notice => "Please select proper date."
+          redirect_to :back, :notice => "Please select correct date."
         else 
             respond_to do |format|
               if @vote_setting.update_attributes(params[:vote_setting])
                 @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
-                format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote setting was successfully updated.' }
+                format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
                 format.json { head :no_content }
               else
                 format.html { render action: "edit" }

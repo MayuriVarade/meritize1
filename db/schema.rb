@@ -11,7 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20140320093128) do
+
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -83,6 +85,16 @@ ActiveRecord::Schema.define(:version => 20140320093128) do
     t.datetime "end_cycle"
     t.integer  "user_id"
     t.integer  "prop_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "prop_displays", :force => true do |t|
+    t.integer  "points"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.text     "description"
+    t.string   "type_cycle"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -187,6 +199,7 @@ ActiveRecord::Schema.define(:version => 20140320093128) do
     t.boolean  "status",                 :default => true
     t.string   "fullname"
     t.string   "plan_name"
+    t.string   "department"
   end
 
   create_table "vote_cycles", :force => true do |t|

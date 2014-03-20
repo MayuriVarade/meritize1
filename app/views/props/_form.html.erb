@@ -25,7 +25,7 @@
       <% end %>
     
       
-      <div class="container">
+      <div class="container" style="margin-bottom:100px">
         <h1>Settings - Props</h1>
         <table class="table table-hover table-responsive table-condensed">
           <tbody>
@@ -47,7 +47,7 @@
                 <label class="form-label">Reset points periodically:</label>
               </td>
               <td>
-                <%= f.select :reset_point, options_for_select([ ["Never reset points, let points accumulate forever","1"], ["Monthly","2"], ["Quaterly","3"]]),{},{:class=>"form-control"} %><br>
+                <%= f.select :reset_point, options_for_select([ ["Never reset points, let points accumulate forever","1"], ["Monthly","2"], ["Quaterly","3"]],:selected => @prop.reset_point),{},{:class=>"form-control"} %><br>
                   <%= f.hidden_field :user_id, :value => current_user.id %>
                 <table class="table">
                   <tbody>

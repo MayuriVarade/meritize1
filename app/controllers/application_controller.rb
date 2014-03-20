@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_timezone
+  before_filter :session_expiry
+  before_filter :update_activity_time
   include SessionsHelper
   #Method for trial days 
   def plan_expiry
@@ -26,6 +28,28 @@ class ApplicationController < ActionController::Base
   def fullname
   "#{firstname} #{lastname}"
   end
+   # this method makes the session timeout,if the page remain idle for some amount of time. 
+  def session_expiry
+    get_session_time_left
+    unless @session_time_left > 0
+      flash.now[:error] = "Your session has timed out. Please log back in."
+      sign_out
+       
+    end
+  end
+
+  def update_activity_time
+    session[:expires_at] = 1.minutes.from_now
+  end
+
+  private
+
+  def get_session_time_left
+    expire_time = session[:expires_at] || Time.now
+    @session_time_left = (expire_time - Time.now).to_i
+  end
+
+
 
 
 
