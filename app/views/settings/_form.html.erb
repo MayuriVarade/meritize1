@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-<div class="container" style="margin-bottom:100px">
-=======
-
-<div id="info">
 <div class="container">
-       <h1>Settings - General</h1>
->>>>>>> 373fbf78a0ed36f438e20396b1f29de2e68d266a
         <%= form_for @setting ,:html => {:multipart => true} do |f| %>
-         
         <% if @setting.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
@@ -21,7 +13,7 @@
         <% end %>
        
 
-        
+        <h1>Settings - General</h1>
         <table class="table table-hover table-responsive table-condensed">
           <tbody>
             <tr>
@@ -29,7 +21,7 @@
                 <label class="form-label">Company name:</label>
               </td>
               <td>
-                 <%= f.text_field :company_name,:class=>"form-control"  %>
+                 <%= f.text_field :company_name,:class=>"form-control" %>
                  <%= f.hidden_field :user_id , :value => current_user.id %>
               </td>
             </tr>
@@ -38,31 +30,15 @@
                 <label class="form-label">Company logo:</label>
               </td>
               <td>
-                <div class="row">                                    
-                  <div class="col-md-2">
-                     
-                       <%= image_tag @setting.photo.url(:small),:style=>"background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #DDDDDD; padding: 5px;" %> 
-                  </div>
-                  <% if params[:action] == "edit" %>
-                    <div class="col-md-8">
-                     <%= f.file_field :photo ,:style=>"margin-top:70px"%>
-                      
-                    </div>
-                  <% end %>
-
-
-
-                 </div>     
+                <%= f.file_field :photo %>
               </td>
-                                  
-             
             </tr>
             <tr>
               <td>
                 <label class="form-label">Website address:</label>
               </td>
               <td>
-                 <%= f.text_field :website_address,:class=>"form-control"  %>
+                 <%= f.text_field :website_address,:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -70,7 +46,7 @@
                 <label class="form-label">Core values:</label>
               </td>
               <td>
-                <div class="row"> 
+                <div class="row">
 
                     <%= f.fields_for :core_values do |builder| %>
             
@@ -100,5 +76,4 @@
         </table>
         <% end %>
       </div>
-    </div>
-    </div>
+

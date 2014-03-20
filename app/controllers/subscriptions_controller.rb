@@ -27,6 +27,7 @@ end
 
 def show
   @subscription = Subscription.find_by_plan_id(params[:id])
+  
 end
 
 # PUT /subscriptions/1
@@ -59,8 +60,7 @@ end
   end
 
   def history
-
-      render :layout=>"profile"
+     render :layout=>"profile"
   end
 
 

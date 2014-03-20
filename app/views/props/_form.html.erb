@@ -1,3 +1,10 @@
+
+ <script type="text/javascript" ></script> <script type="text/javascript">
+//<![CDATA[
+bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+//]]>
+</script>
+
 <% content_for :styles do %>
  <%= stylesheet_link_tag "application"%>
  
@@ -84,7 +91,10 @@
                 <label class="form-label">Intro text displayed to voter:</label>
               </td>
               <td>
-                <%= f.cktext_area :intro , :placeholder => "Search eg: default text", :rows =>3 ,:class=>"form-control" %>
+
+                 <%= f.text_area :intro, :placeholder =>"Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?" ,cols: 145, rows: 15 %>
+              
+
               </td>
             </tr>
             <tr>
@@ -116,7 +126,9 @@
                 <label class="form-label">Reminder email #1 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :body , :placeholder => " default text ", :rows =>3 ,:class=>"form-control" %>
+
+                <%= f.text_area :body , cols: 100, rows: 15,:class=>"form-control" %>
+
               </td>
             </tr>
             <tr>
@@ -132,7 +144,9 @@
                 <label class="form-label">Reminder email #2 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :body2 , :placeholder => " default text ", :rows =>3 ,:class=>"form-control" %>
+
+                <%= f.text_area :body2 , cols: 100, rows: 15,:class=>"form-control" %>
+
               </td>
             </tr>
             <tr>
@@ -148,7 +162,9 @@
                 <label class="form-label">Reminder email #3 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :body3 , :placeholder => " default text ", :rows =>3, :class=>"form-control" %>
+
+                <%= f.text_area :body3 ,cols: 100, rows: 15, :class=>"form-control" %>
+
               </td>
             </tr>
               <tr>

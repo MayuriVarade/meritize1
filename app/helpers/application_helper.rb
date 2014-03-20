@@ -44,4 +44,11 @@ module ApplicationHelper
            link_to_function(name, ("add_fields(this, '#{association}', '#{escape_javascript(fields)}')"))
 
       end
+      
+      def plan_expiry
+      @trial_days = TrialDay.first
+      @plan_expiry = (current_user.created_at + @trial_days.days.days)
+      @current_date = (Time.zone.now)
+      @remaining_days = (@plan_expiry - @current_date).to_i / 1.day
+      end
 end

@@ -16,10 +16,10 @@ jQuery(function() {
  <div id="info">
      <div class="container">
     <section class="round">
-        <% flash.each do |key, value| %>
-      <div class="flash <%= key %>" style = "font-size:18px;"><%= value %></div>
-      <% end %>
-  </section>
+        <% flash.each do |key, value| %>
+      <div class="flash <%= key %>" style = "font-size:18px;"><%= value %></div>
+      <% end %>
+  </section>
 
 
 
@@ -65,8 +65,8 @@ jQuery(function() {
                 <th>Last Name</th>
                 <th>Signin Time</th>
                 <th>Signout Time</th>
-                <th>Ip Address</th> 
-                <th>Sign In Count</th> 
+                <th>Ip Address</th>
+                <th>Log ins to-date</th>
                
               </tr>
             </thead>
@@ -86,9 +86,11 @@ jQuery(function() {
             </tbody>
             <% end %>
           </table>
-        </div> 
+           <div align="right">
+           <ul class="pagination"> <li><%= will_paginate @adminusers  %></li></ul>
+          </div>
+        </div>
 
-        </div> 
+        </div>
   </div>
 
- 
