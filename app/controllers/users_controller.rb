@@ -77,18 +77,26 @@ def create
             UserVerification.welcome_email(@user,@random_password).deliver
 
             
-            if params[:page_name] == "admin"
-            redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
-            else
-            redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready.
-            We have sent login instructions to your email address.
-            Contact us at support@imeritize.com if you have any questions."}
-            end 
-       else
+         if params[:page_name] == "admin"
+        
+           
+          
+           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
+        
+        else
+
+          redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready.
+          We have sent login instructions to your email address.
+      Contact us at support@imeritize.com if you have any questions."}
+        
+        end
+   
+
+      else
         @title = "Sign Up"
         render 'new'
       end
-end 
+   end 
  
    def edit
     @title = "Edit user"
