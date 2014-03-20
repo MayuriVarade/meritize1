@@ -46,7 +46,8 @@ class PropsController < ApplicationController
   # POST /props
   # POST /props.json
   def create
-
+    @users =  User.where("admin_user_id = ? ",current_user.id)
+ 
     @prop = Prop.new(params[:prop])
      sc =   params[:prop][:start_cycle].to_s.to_date
      ec =   params[:prop][:end_cycle].to_s.to_date
@@ -54,15 +55,18 @@ class PropsController < ApplicationController
     
     if sc.present? && ec.present?
     if sc > ec 
-      redirect_to :back ,:notice => "Start cycle cannot be greater."
+      redirect_to :back ,:notice => "Start date cannot be greater than End date."
     else
        diff = (ec - sc + 1).round
         if diff < 28 || diff > 31
-          redirect_to :back, :notice => "Please select proper date."
+          redirect_to :back, :notice => "Please Select Correct date."
         else
           respond_to do |format|
             if @prop.save
-              format.html { redirect_to edit_prop_path(@prop), notice: 'Prop was successfully created.' }
+               @users.each do |user|
+                PropMailer.prop_mail(user,@prop).deliver
+                 end
+              format.html { redirect_to edit_prop_path(@prop), notice: 'Settings for prop was successfully created.' }
               format.json { render json: @prop, status: :created, location: @prop }
             else
               format.html { render action: "new" }
@@ -72,7 +76,7 @@ class PropsController < ApplicationController
         end
       end
     else
-      redirect_to :back, :notice=> "Please fill the all record"
+      redirect_to :back, :notice=> "Take a time to fill all the below records.."
     end
 
 
@@ -90,16 +94,16 @@ class PropsController < ApplicationController
     
     if sc.present? && ec.present?
     if sc > ec 
-      redirect_to :back ,:notice => "Start cycle cannot be greater."
+      redirect_to :back ,:notice => "Start date cannot be greater than End date."
     else
        diff = ec - sc + 1
         if diff < 28 || diff > 31
-          redirect_to :back, :notice => "Please select proper date."
+          redirect_to :back, :notice => "Please select correct date."
         else
           respond_to do |format|
             if @prop.update_attributes(params[:prop])
               PropCycle.create(:start_cycle => osc, :end_cycle => oec, :user_id => current_user.id, :prop_id => @prop.id)
-              format.html { redirect_to :back, notice: 'Prop was successfully updated.' }
+              format.html { redirect_to :back, notice: 'Settings for prop was successfully updated.' }
               format.json { head :no_content }
             else
               format.html { render action: "edit" }
@@ -109,7 +113,7 @@ class PropsController < ApplicationController
         end
       end
       else
-      redirect_to :back, :notice=> "Please fill the all record"
+      redirect_to :back, :notice=> "Take a time to fill all the below records.."
     end
   end
 

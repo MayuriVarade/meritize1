@@ -2,7 +2,9 @@ class UsersController < ApplicationController
    before_filter :authenticate, :only => [:edit, :update,:dashboard]
    before_filter :correct_user, :only => [:show]
    before_filter :correct_user_edit, :only => [:edit,:update]
+   before_filter :skip_password_attribute, only: :update
    layout :custom_layout
+   require 'will_paginate/array'
 
   def show
     @user = User.find(params[:id])
@@ -48,8 +50,10 @@ class UsersController < ApplicationController
    #method for searching a adminuser_logs and showing list of adminuser_logs
 
    def adminuser_logs
+
        @searchuser ||= []
-       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
+
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
@@ -85,23 +89,23 @@ class UsersController < ApplicationController
    #method for create updating existing users.
    def update
     @user = User.find(params[:id])
-         
-    if @user.update_attributes(params[:user])
-       @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
-      
-      
-      if params[:page_name] == "admin"
-          flash[:success] = "Profile updated successfully."
-          redirect_to admin_user_path
-      else
-        flash[:notice] = "Profile updated successfully."
-        redirect_to @user
-      end
-    else
-      @title = "Edit user"
-      render 'edit'
-    end
-   end
+      if params[:page_name] == "admin" 
+      params[:user].delete(:password) if params[:user][:password].blank?
+      params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
+      @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+      flash[:success] = "Profile updated successfully."
+      redirect_to admin_user_path
+      elsif
+      @user.update_attributes(params[:user])
+     @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+     flash[:notice] = "Profile updated successfully."
+     redirect_to @user
+     else
+     @title = "Edit user"
+     render 'edit'
+     end
+
+ end
     #method for deleting users.
     def destroy
       @user = User.find(params[:id])
@@ -158,12 +162,13 @@ class UsersController < ApplicationController
        end
     end
     
- # def check_email
- #    @user = User.find_by_email(params[:user][:email])
- #      respond_to do |format|
- #          format.json { render :json => !@user }
- #     end
- #  end
+
+    def skip_password_attribute
+    if params[:password].blank? && params[:password_validation].blank?
+      params.except!(:password, :password_validation)
+    end
+  end
+
 
     def assign_password
       (0..6).map{ ('a'..'z').to_a[rand(26)] }.join

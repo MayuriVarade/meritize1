@@ -1,4 +1,9 @@
 
+ <script type="text/javascript"></script> <script type="text/javascript">
+//<![CDATA[
+bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+//]]>
+</script>
 <div id="masthead">
   
   <div class="container">
@@ -51,7 +56,9 @@
         <label for="email" class="control-label"> All Users </label>
         </td>
         <td>
-        <%= f.cktext_area :forusers,rows: 10,:class=>"form-control" %>
+          <%= f.text_area :forusers, cols: 100, rows: 15,:class=>"form-control"%>
+         
+        
         </td>
         </tr>
        
@@ -61,7 +68,7 @@
         <label for="email" class="control-label">Admin Users</label>
         </td>
         <td>
-        <%= f.cktext_area :foradmins,rows: 10,:class=>"form-control" %>
+        <%= f.text_area :foradmins, cols: 100, rows: 15,:class=>"form-control" %>
         </td>
         </tr>
       
@@ -72,7 +79,7 @@
         <label for="email" class="control-label">Pricing</label>
         </td>
         <td>
-        <%= f.cktext_area :pricing,rows: 10,:class=>"form-control" %>
+        <%= f.text_area :pricing, cols: 100, rows: 15,:class=>"form-control" %>
         </td>
         </tr>
     

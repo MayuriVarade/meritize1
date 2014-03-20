@@ -1,3 +1,10 @@
+
+ <script type="text/javascript" ></script> <script type="text/javascript">
+//<![CDATA[
+bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+//]]>
+</script>
+
 <% content_for :styles do %>
  <%= stylesheet_link_tag "application"%>
  
@@ -20,7 +27,7 @@
       <% end %>
     
       
-      <div class="container">
+      <div class="container" style="margin-bottom:100px">
         <h1>Settings - Props</h1>
         <table class="table table-hover table-responsive table-condensed">
           <tbody>
@@ -43,7 +50,7 @@
                 <label class="form-label">Reset points periodically:</label>
               </td>
               <td>
-                <%= f.select :reset_point, options_for_select([ ["Never reset points, let points accumulate forever","1"], ["Monthly","2"], ["Quaterly","3"]]),{},{:class=>"form-control"} %><br>
+                <%= f.select :reset_point, options_for_select([ ["Never reset points, let points accumulate forever","1"], ["Monthly","2"], ["Quaterly","3"]],:selected => @prop.reset_point),{},{:class=>"form-control"} %><br>
                   <%= f.hidden_field :user_id, :value => current_user.id %>
                 <table class="table">
                   <tbody>
@@ -80,7 +87,8 @@
                 <label class="form-label">Intro text displayed to voter:</label>
               </td>
               <td>
-                <%= f.cktext_area :intro , :rows =>3 ,:class=>"form-control" %>
+                 <%= f.text_area :intro, :placeholder =>"Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?" ,cols: 145, rows: 15 %>
+              
               </td>
             </tr>
             <tr>
@@ -112,7 +120,7 @@
                 <label class="form-label">Reminder email #1 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :body , :rows =>3 ,:class=>"form-control" %>
+                <%= f.text_area :body , cols: 100, rows: 15,:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -128,7 +136,7 @@
                 <label class="form-label">Reminder email #2 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :body2 , :rows =>3 ,:class=>"form-control" %>
+                <%= f.text_area :body2 , cols: 100, rows: 15,:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -144,7 +152,7 @@
                 <label class="form-label">Reminder email #3 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :body3 , :rows =>3, :class=>"form-control" %>
+                <%= f.text_area :body3 ,cols: 100, rows: 15, :class=>"form-control" %>
               </td>
             </tr>
               <tr>

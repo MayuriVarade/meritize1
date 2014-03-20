@@ -8,15 +8,19 @@ gem 'rails', '3.2.14'
 #Comment mysql2 gem while pushing the updates to server  
 # gem 'mysql2'
 gem 'ckeditor'
-gem 'sqlite3'
-# Postgres gem used to create database on server
 #gem 'sqlite3'
+# Postgres gem used to create database on server
+gem 'sqlite3'
 gem 'execjs'
 gem 'therubyracer'
 gem 'paperclip'
 gem 'impressionist'
 gem 'prototype-rails'
 gem 'rufus-scheduler'
+
+gem "will_paginate"
+gem 'aws-s3'
+gem 'aws-sdk'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -35,7 +39,7 @@ gem  'jquery-ui-rails'
 gem 'paypal-recurring'
 gem 'paypal-sdk-adaptivepayments'
 # gem 'paypal-subscribe', :github => "dsci/paypal-subscribe"
-gem 'pg'
+# gem 'pg'
 gem 'paypal_adaptive'
 
 # To use ActiveModel has_secure_password

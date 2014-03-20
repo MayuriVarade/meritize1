@@ -1,23 +1,21 @@
-class PlansController < ApplicationController
+ class PlansController < ApplicationController
 layout "profile"
   # GET /plans
   # GET /plans.json
   def index
   	
     @plans = Plan.all
-     @plan_expiry = plan_expiry 
-
-
-      @subscription = Subscription.find_by_user_id(current_user) &&  Subscription.find_by_plan_id(current_user.plan_id)
+    @plan_expiry = plan_expiry 
+    @subscription = Subscription.find_by_user_id(current_user) 
       # raise current_user.id.inspect
-      respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @plans }
+    respond_to do |format|
+    format.html # index.html.erb
+    format.json { render json: @plans }
 
     end
   end
 
-def show
+ def show
     @plan = Plan.find(params[:id])
         
     respond_to do |format|

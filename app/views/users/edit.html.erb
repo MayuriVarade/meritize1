@@ -2,7 +2,7 @@
 
 	
 
-	<div class="container">
+	<div class="container" style="margin-bottom:100px">
 			<div class="row header">
 				<h2>Edit Profile</h2>
 				<div class="col-md-8 message">
@@ -11,42 +11,34 @@
 						<%= form_for @user, :html => {:multipart=> true,:id =>"new_user", :class=>"form-horizontal"} do |f|%>
 						<%= render 'shared/error_messages', :object=> f.object%>
 					      
-                        <div class="form-group">
+                            <div class="form-group">
 				    		<label for="name">Upload photo</label>
 				    		<%= f.file_field :photo%>
-
-
-				    		
-				  		</div>
+                            </div>
 
 		  		        <div class="form-group">
 				    		<label for="name">First name</label>
 				    		<%= f.text_field :firstname, :class=>"form-control"%>
-				    		
-				  		</div>
+				        </div>
+
 				  		<div class="form-group">
 				    		<label for="name">Last name</label>
 				    		<%= f.text_field :lastname, :class=>"form-control"%>
 				    		<%= f.hidden_field :email,:value=> params[:user][:email] rescue nil %>
-				    		</div>
+				    	</div>
                           <%if params[:type] == "adminuser"  %>
 				  		
-				  			<div class="form-group">
-                            <!--  <label for="password">Password</label> -->
-                             <%= f.hidden_field :password,:value=> params[:user][:password] rescue nil %>
-                             <%= f.hidden_field :password_confirmation,:value=> params[:user][:password_confirmation] rescue nil %>
+				  		<div class="form-group">
+                          
                              <% if params[:type] == "adminuser" %>
                               <%= hidden_field_tag("page_name", "admin") %>
                               <% end %>
                         </div>	
-				  	<%  else  %>
-
-
-                          <div class="form-group">
+				  	<% else  %>
+                       <div class="form-group">
                              <label for="password">Password</label>
                              <%= f.password_field :password, :class=>"form-control"%>
-
-                        </div>
+                       </div>
 				  		<div class="form-group">
 				  			 <label for="password">Password Confirmation</label>
 				    		<%= f.password_field :password_confirmation, :class=>"form-control"%>
@@ -54,9 +46,7 @@
                               <%= hidden_field_tag("page_name", "admin") %>
                               <% end %>
 				  		</div>
-                      
-				  		
-			      <% end%>
+                   <% end%>
                         
 
 
@@ -66,7 +56,7 @@
 				    		
 		               <%= f.time_zone_select :time_zone%>
                        </div>
-							<span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span>
+							<!-- <span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span> -->
 							
 							
 							          <label class="form-label">Email notifications</label>

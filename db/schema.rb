@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140313105839) do
+ActiveRecord::Schema.define(:version => 20140318064016) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -80,6 +80,16 @@ ActiveRecord::Schema.define(:version => 20140313105839) do
     t.datetime "end_cycle"
     t.integer  "user_id"
     t.integer  "prop_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "prop_displays", :force => true do |t|
+    t.integer  "points"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.text     "description"
+    t.string   "type_cycle"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -184,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20140313105839) do
     t.boolean  "status",                 :default => true
     t.string   "fullname"
     t.string   "plan_name"
+    t.string   "department"
   end
 
   create_table "vote_cycles", :force => true do |t|
@@ -215,6 +226,15 @@ ActiveRecord::Schema.define(:version => 20140313105839) do
     t.boolean  "is_autopick_winner"
     t.boolean  "is_admin_reminder"
     t.boolean  "is_allow_vote"
+  end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "voter_id"
+    t.integer  "voteable_id"
+    t.string   "core_values"
+    t.integer  "vote"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
 end

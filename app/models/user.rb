@@ -2,8 +2,13 @@ require 'digest'
 class User < ActiveRecord::Base
   attr_accessor :password
 
-   attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo,:time_zone,:fullname, :plan_name
-   has_attached_file :photo,:styles =>{:small => "150x150>"}
+   attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo,:time_zone,:fullname, :plan_name,:department
+   has_attached_file :photo,:styles =>{:small => "150x150>"},
+  :storage => :s3, :s3_credentials => "#{Rails.root}/config/s3.yml",
+  :path => "public/attachments/setting/:id/:style/:basename.:extension",
+  :convert_options => {
+                          :thumb => "-background '#F7F4F4' -compose Copy -gravity center -extent 230x200"
+                      }
    validates_attachment_content_type :photo, :content_type => ["image/jpg", "image/jpeg", "image/png"]
    has_and_belongs_to_many :roles
    has_one :plan
@@ -17,6 +22,9 @@ class User < ActiveRecord::Base
    has_one :prop
    has_one :vote_setting
    has_one :setting
+
+   belongs_to :admin_user ,:class_name => 'User' 
+
 
   #model based validation
    # validates :firstname, :presence => true, 
