@@ -45,6 +45,7 @@ mount Ckeditor::Engine => '/ckeditor'
   match '/users/:id/status', :to => "users#toggled_status"
   match '/history', :to => "subscriptions#history"
   match '/users/validations/check_email', :to=>"users#check_email"
+  match '/account_creation', :to =>'users#account_creation'
  
   resources :sessions, :only => [:new,:create,:destroy,:edit]
   root :to => 'sessions#new'
@@ -55,6 +56,7 @@ mount Ckeditor::Engine => '/ckeditor'
     match '/signout', :to =>'sessions#destroy'
   resources :password_resets
   get "/plan" => "subscriptions#plan"
+  
   
 
   # The priority is based upon order of creation:

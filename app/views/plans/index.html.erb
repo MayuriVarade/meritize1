@@ -1,21 +1,38 @@
 <%#= javascript_include_tag "jquery.js" %>
-  <div id="info">
+<% if (@plan_expiry <= 0) && (current_user.role?(:admin))%>
+ <div id="info">
+  <div class="container" style="margin-bottom:100px">
+  <% if current_user.role? :productmanager %>
+  <ul>
+  Welcome <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
+  <% elsif current_user.role? :admin %>
+  Your Trial Period is finished.Please select the plan to continue with Meritize
+  <% else %>
+  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
+  Email:<%= current_user.email %><br/>
+  <% end %>
+  </div>
 
-      <div class="container">
-          <% if current_user.role? :productmanager %>
-           <ul>
-               Welcome <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
-   
-             
-          <% elsif current_user.role? :admin %>
-          <%# raise @plan_expiry.inspect %>
-            Only <%= @plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
-         <% else %>
-           User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
-           Email:<%= current_user.email %><br/>
-        <% end %>
-    </div>
-  
+  <%elsif  @subscription.nil?%>
+
+  <div id="info">
+  <div class="container">
+  <% if current_user.role? :productmanager %>
+  <ul>
+  Welcome <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
+  <% elsif current_user.role? :admin %>
+  Only <%= @plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
+  <% else %>
+  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
+  Email:<%= current_user.email %><br/>
+  <% end %>
+  </div>
+
+  <%else%>
+
+  <div class="container">
+  </div>
+  <% end %>
 
   <div id="first-option">
     <div class="container">
@@ -58,7 +75,7 @@
   <th><h2 style="text-align:center; margin-top:10px"><%= plan.name %></h2></th>
   </tr>
   <tr>
-  <td style="height:190px"><%= plan.forusers.try(:html_safe) %></td>
+   <td style="height:190px"><%= plan.forusers.try(:html_safe) %></td>
   </tr>
   <tr>
   <td style="height:150px"><%= plan.foradmins.try(:html_safe) %></td>
@@ -67,9 +84,9 @@
   <td style="height:90px"><%= plan.pricing.try(:html_safe) %></td>
   </tr>
   <tr>
-  <td style="padding-top: 15px";>
+  <td style="padding-top: 20px">
   <% @subscription = plan.subscriptions.build %>
-  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"),paypal_checkout_path(plan_id: @subscription.plan_id) %></td>
+  <%= link_to image_tag("/assets/paypal.png"),paypal_checkout_path(plan_id: @subscription.plan_id) %></td>
   </tr>
   </table>
 
@@ -91,14 +108,14 @@
   <td style="height:90px"><%= plan.pricing.try(:html_safe) %></td>
   </tr>
   <tr>
-  <td style="padding-top: 15px";>                        
+  <td style="padding-top: 20px">                        
   <% subscription = plan.subscriptions.build %>
   <% if @subscription.plan_id == plan.id%>
   <a class="button button-small" href="#"> <span>Current Plan</span> </a>
 
   <% else %>
 
-  <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"),paypal_checkout_path(plan_id:subscription.plan_id) %> 
+  <%= link_to image_tag("/assets/paypal.png"),paypal_checkout_path(plan_id:subscription.plan_id) %> 
   <% end %>
 
   </td>

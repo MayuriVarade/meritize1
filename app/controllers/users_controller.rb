@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def new
     #@random generates random value which wiil be used for generating temparay password.
-    @random = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join 
+    @random = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
     @user = User.new
     @title="Sign up"
   end
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       @plans = Plan.all
       @trial_days = TrialDay.first
       @user = User.find_by_id(current_user)
-      @plan_expiry = plan_expiry  
+      @plan_expiry = plan_expiry
      
    end
    # this method allows admin to activate or deactivate users
@@ -35,10 +35,14 @@ class UsersController < ApplicationController
         redirect_to admin_user_path
     end
 
+   def account_creation
+
+   end
+
    #method for searching a admin_user and showing list of admin_user
    def admin_user
-       @plan_expiry = plan_expiry  
-        @searchuser ||= [] 
+       @plan_expiry = plan_expiry
+        @searchuser ||= []
         @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
         @adminusers.each do |adminuser|
         fullname = adminuser.fullname
@@ -50,31 +54,44 @@ class UsersController < ApplicationController
    #method for searching a adminuser_logs and showing list of adminuser_logs
 
    def adminuser_logs
-       @searchuser ||= [] 
+
+
+       @searchuser ||= []
+
        @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
+
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
        end
-       @searchuser 
+       @searchuser
    end
 
   #method for create new_user and sending them verification emails.
-   def create
+def create
       @user = User.new(params[:user])
       @random_password = params[:user][:password]
       if @user.save
         @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
         
             UserVerification.welcome_email(@user,@random_password).deliver
+
             
          if params[:page_name] == "admin"
-          
-           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}  
         
-        else   
-          redirect_to signup_path, :flash => {:notice => "Hello #{@user.firstname} Please check your email for temporary password."}
-        end  
+           
+          
+           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
+        
+        else
+
+          redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready.
+          We have sent login instructions to your email address.
+      Contact us at support@imeritize.com if you have any questions."}
+        
+        end
+   
+
       else
         @title = "Sign Up"
         render 'new'
@@ -87,30 +104,31 @@ class UsersController < ApplicationController
    #method for create updating existing users.
    def update
     @user = User.find(params[:id])
-         
-    if @user.update_attributes(params[:user])
-       @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
-      
-      
-      if params[:page_name] == "admin"
-          flash[:success] = "Profile updated successfully."
-          redirect_to admin_user_path
-      else
-        flash[:notice] = "Profile updated successfully."
-        redirect_to @user
-      end  
-    else
-      @title = "Edit user"
-      render 'edit'
-    end
-   end
+      if params[:page_name] == "admin" 
+      params[:user].delete(:password) if params[:user][:password].blank?
+      params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
+      @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+      flash[:success] = "Profile updated successfully."
+      redirect_to admin_user_path
+      elsif
+      @user.update_attributes(params[:user])
+     @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+     flash[:notice] = "Profile updated successfully."
+     redirect_to @user
+     else
+     @title = "Edit user"
+     render 'edit'
+     end
+
+ end
     #method for deleting users.
     def destroy
       @user = User.find(params[:id])
       @user.destroy
       flash[:notice] = "User deleted successfully."
-      redirect_to  admin_user_path
+      redirect_to admin_user_path
     end
+    
    #method for change the users password to new password.
    def change_password
 
@@ -157,15 +175,10 @@ class UsersController < ApplicationController
        else
          @user = User.find(params[:id])
         redirect_to(user_root_path,:notice => 'You cannot access this page') unless current_user == @user
-       end 
+       end
     end
     
- #    def check_email
- #    @user = User.find_by_email(params[:user][:email]) 
- #      respond_to do |format|
- #          format.json { render :json => !@user }
- #     end
- #  end
+
     def skip_password_attribute
     if params[:password].blank? && params[:password_validation].blank?
       params.except!(:password, :password_validation)
@@ -180,21 +193,21 @@ class UsersController < ApplicationController
       def custom_layout
         case action_name
          when "edit"
-          "profile" 
+          "profile"
          when "dashboard"
-          "profile" 
+          "profile"
          when "show"
-          "profile" 
+          "profile"
          when "change_password"
-          "profile"  
+          "profile"
           when "admin_user"
-          "profile" 
+          "profile"
           when "adminuser_logs"
           "profile"
          when "add_adminuser"
           "profile"
          when "show"
-          "profile"
+          "profile"       
          else
           "application"
         end

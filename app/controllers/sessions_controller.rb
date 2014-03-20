@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
-  
-
-    def new
+  def new
       if signed_in?
         redirect_to("/dashboard")
       else
@@ -38,7 +36,7 @@ class SessionsController < ApplicationController
 
             redirect_to change_password_path
          elsif (plan_expiry <= 0) && (current_user.role?(:admin))
-           redirect_to ("https://developer.paypal.com")
+           redirect_to plans_path
          elsif current_user.role?(:admin)
           redirect_to admin_user_path
          else

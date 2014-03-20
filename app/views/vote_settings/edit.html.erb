@@ -1,4 +1,10 @@
 
+<script type="text/javascript"></script> <script type="text/javascript">
+//<![CDATA[
+bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+//]]>
+</script>
+
 
 <% content_for :styles do %>
  <%= stylesheet_link_tag "application"%>
@@ -95,7 +101,7 @@
                 <label class="form-label">Intro text displayed to voter:</label>
               </td>
               <td>
-                 <%= f.cktext_area :intro_text,:placeholder=>"Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?",:rows =>3,:columns =>4 %>
+                 <%= f.text_area :intro_text,:rows=>17,:cols=>75,:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -128,7 +134,7 @@
                 <label class="form-label">Reminder email #1 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :email_sender_body1,:rows =>3,:class=>"form-control"  %>
+                <%= f.text_area :email_sender_body1,:rows=>15,:cols=>100,:class=>"form-control"  %>
               </td>
             </tr>
             <tr>
@@ -144,7 +150,7 @@
                 <label class="form-label">Reminder email #2 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :email_sender_body2,:rows =>3,:class=>"form-control"%>
+                <%= f.text_area :email_sender_body2,:rows=>15,:cols=>100,:class=>"form-control"%>
               </td>
             </tr>
             <tr>
@@ -160,7 +166,7 @@
                 <label class="form-label">Reminder email #3 sent to voters - Body:</label>
               </td>
               <td>
-                <%= f.cktext_area :email_sender_body3,:rows =>3,:class=>"form-control"%>
+                <%= f.text_area :email_sender_body3,:rows=>15,:cols=>100,:class=>"form-control"%>
               </td>
             </tr>
              <tr>
