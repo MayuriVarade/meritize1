@@ -452,6 +452,7 @@ a:focus, button:focus {
     padding-top: 20px;
     position: fixed;
     width: 100%;
+    z-index:100;
 }
   #footer .copyright {
     color: #B5C5CF;
