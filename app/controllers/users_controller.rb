@@ -93,10 +93,14 @@ if @user.save
 end
    #method for create updating existing users.
    def update
-     @user = User.find(params[:id])
+      @user = User.find(params[:id])
       params[:user].delete(:password) if params[:user][:password].blank?
       params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
+
       @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+      @user.update_column(:firstname,"#{params[:user][:firstname]}")
+      @user.update_column(:lastname,"#{params[:user][:lastname]}")
+      @user.update_column(:department,"#{params[:user][:department]}")
       if params[:page_name] == "admin" 
       flash[:success] = "Profile updated successfully."
       redirect_to admin_user_path
