@@ -7,8 +7,8 @@
       <div class="container" style="margin-bottom:100px">
     
       <div id="deletesuccess" class="jumbotron">
-        <h1>Vote for the <%= @vote_setting.award_program_name %></h1> 
-        <p><%= @vote_setting.intro_text.html_safe %></p>
+        <h1>Vote for the <%= @vote_setting.award_program_name rescue nil%></h1> 
+        <p><%= @vote_setting.intro_text.html_safe rescue nil%></p>
         
       </div>
       <div class="row">
