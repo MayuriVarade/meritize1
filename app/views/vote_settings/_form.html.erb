@@ -52,11 +52,11 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                       <td>Current cycle:</td>
                       <td>
                         
-                        <%= f.text_field :start_cycle,:class=>"form-control" %>
+                        <%= f.text_field :start_cycle,:class=>"form-control" ,:value=> "#{@vote_setting.start_cycle.strftime("%d %B %Y") if @vote_setting.start_cycle.present?}"%>
                       </td>
                       <td>to</td>
                       <td>
-                       <%= f.text_field :end_cycle,:class=>"form-control" %>
+                       <%= f.text_field :end_cycle,:class=>"form-control", :value=> "#{@vote_setting.end_cycle.strftime("%d %B %Y") if @vote_setting.end_cycle.present?}" %>
                       <%= f.hidden_field :user_id , :value => current_user.id %>
                       </td>
                     </tr>
@@ -65,8 +65,8 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                       <td colspan="3">
                       <% if params[:action] == "edit" %>
                          <% @past_vote_cycles.each do |past_vote_cycles| %>
-                          <%= past_vote_cycles.start_cycle.to_date %>&nbsp; &nbsp; &nbsp; to &nbsp; &nbsp; &nbsp;  
-                           <%= past_vote_cycles.end_cycle.to_date %>  <br/>
+                          <%= past_vote_cycles.start_cycle.to_date.strftime("%d %B %Y") %>&nbsp; &nbsp; &nbsp; to &nbsp; &nbsp; &nbsp;  
+                           <%= past_vote_cycles.end_cycle.to_date.strftime("%d %B %Y") %>  <br/>
 
                          <% end %>  
                       <% end %>
@@ -101,7 +101,9 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                 <%= f.text_area :intro_text,:rows=>17,:cols=>75,:class=>"form-control" %>
+
+                 <%= f.text_area :intro_text,cols: 145, rows: 15 %>
+
 
               </td>
             </tr>

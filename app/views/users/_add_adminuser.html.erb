@@ -1,21 +1,5 @@
    
     <%= javascript_include_tag "jquery-1.5.2.min","jquery.validate.min","validation" %>
-    <div id="masthead">
-      
-      <div class="container">
-        
-        <div class="masthead-pad">
-          
-          <div class="masthead-text">
-            <h2>Manage user</h2>
-            
-          </div> <!-- /.masthead-text -->
-          
-        </div>
-        
-      </div> <!-- /.container --> 
-      
-    </div> <!-- /#masthead -->
 
 
  
@@ -25,21 +9,22 @@
                       <div class="flash <%= key %>" style = "font-size:18px"><%= value %></div>
                       <% end %>
         </section>
-         <%= render 'shared/error_messages', :object => f.object %>
+        
       <div class="container">   
         
         <div class="row">
         
         <div class="span12">
-               
+               <h2>Manage user</h2>
            
              
                     <fieldset>
                     
 
 
-                       <div class="row">
-                      <div class="col-md-6">
+                       <div>
+                        <div class="col-md-6">
+                      <div>
                       <div class="form-group">                     
                         <label for="username" class="control-label">First name</label><span class="star">*</span>
                       <div class="controls">
@@ -51,9 +36,9 @@
 
 
                       </div>
-                       </div>
-                       <div class="row">
-                      <div class="col-md-6">
+                      
+                       <div>
+                      <div>
                       <div class="form-group">                     
                         <label for="username" class="control-label">Last name</label><span class="star">*</span>
 
@@ -66,8 +51,8 @@
 
                       </div>
                        </div>
-                      <div class="row">
-                      <div class="col-md-6">
+                      <div>
+                      <div>
                        <div class="form-group">                     
                         <label for="username" class="control-label">Email address</label><span class="star">*</span>
 
@@ -76,12 +61,22 @@
                           
                           
                             <%= f.text_field :email, :class=> "form-control",:style=>"height:auto" %>
+                            <% if @user.errors.any? %>
+                                <div id="error_explanation">
+
+                                <ul>
+                                <% @user.errors.full_messages.each do |msg| %>
+                                <li><%= msg %></li>
+                                <% end %>
+                                </ul>
+                                </div>
+                                <% end %>
                         </div> <!-- /controls -->       
                       </div>
                       </div>
                        </div>
-                     <div class="row">
-                      <div class="col-md-6">
+                     <div>
+                      <div>
                       <div class="form-group">                     
                         <label for="department" class="control-label">Department</label>
                         <div class="controls">
@@ -105,7 +100,7 @@
                        <div class="form-group">
                       <%= f.submit "Create user",:class=>"button button-primary" %>  
                         </div>
-                    
+                     </div>
 
                     </fieldset>
                  

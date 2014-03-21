@@ -84,7 +84,7 @@
   <td style="height:90px"><%= plan.pricing.try(:html_safe) %></td>
   </tr>
   <tr>
-  <td style="padding-top: 20px">
+  <td style="padding-bottom: 20px; padding-top: 20px;text-align:center">
   <% @subscription = plan.subscriptions.build %>
   <%= link_to image_tag("/assets/paypal.png"),paypal_checkout_path(plan_id: @subscription.plan_id) %></td>
   </tr>
@@ -108,14 +108,12 @@
   <td style="height:90px"><%= plan.pricing.try(:html_safe) %></td>
   </tr>
   <tr>
-  <td style="padding-top: 20px">                        
+  <td style="padding-bottom: 20px; padding-top: 20px;">                        
   <% subscription = plan.subscriptions.build %>
   <% if @subscription.plan_id == plan.id%>
   <a class="button button-small" href="#"> <span>Current Plan</span> </a>
-
   <% else %>
-
-  <%= link_to image_tag("/assets/paypal.png"),paypal_checkout_path(plan_id:subscription.plan_id) %> 
+  <%= link_to image_tag("/assets/paypal.png"),paypal_checkout_path(plan_id:subscription.plan_id) %> 
   <% end %>
 
   </td>

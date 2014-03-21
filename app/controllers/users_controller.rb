@@ -69,53 +69,41 @@ class UsersController < ApplicationController
 
   #method for create new_user and sending them verification emails.
 def create
-      @user = User.new(params[:user])
-      @random_password = params[:user][:password]
-      if @user.save
-        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+  @user = User.new(params[:user])
+  @random_password = params[:user][:password]
+if @user.save
+  @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
         
-            UserVerification.welcome_email(@user,@random_password).deliver
-
-            
-         if params[:page_name] == "admin"
-        
-           
-          
-           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
-        
-        else
-
-          redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready.
-          We have sent login instructions to your email address.
-      Contact us at support@imeritize.com if you have any questions."}
-        
-        end
-   
-
-      else
-        @title = "Sign Up"
-        render 'new'
-      end
+  UserVerification.welcome_email(@user,@random_password).deliver
+  if params[:page_name] == "admin"
+  redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
+  else
+  redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready.
+  We have sent login instructions to your email address.
+  Contact us at support@imeritize.com if you have any questions."}
+  end
+  else
+  @title = "Sign Up"
+  render 'new'
+  end
    end 
  
    def edit
     @title = "Edit user"
-   end
+end
    #method for create updating existing users.
    def update
-    @user = User.find(params[:id])
-      if params[:page_name] == "admin" 
+     @user = User.find(params[:id])
       params[:user].delete(:password) if params[:user][:password].blank?
       params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
       @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+      if params[:page_name] == "admin" 
       flash[:success] = "Profile updated successfully."
       redirect_to admin_user_path
       elsif
-      @user.update_attributes(params[:user])
-     @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
-     flash[:notice] = "Profile updated successfully."
-     redirect_to @user
-     else
+      flash[:notice] = "Profile updated successfully."
+      redirect_to @user
+      else
      @title = "Edit user"
      render 'edit'
      end

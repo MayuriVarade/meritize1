@@ -1238,7 +1238,7 @@ table {
 }
 th {
     background: -moz-linear-gradient(center top , #2A4F60 0%, #223741 100%) repeat scroll 0 0 transparent;
-    color: #FFFFFF;
+    color: #4b9ac1;
     text-align: left;
 }
 .table {
@@ -3140,7 +3140,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     font-size: 18px;
     
     line-height: 20px;
-    padding: 26px 15px !important;
+    padding: 18px 15px !important;
 }
 .navbar-brand:hover, .navbar-brand:focus {
     text-decoration: none;
