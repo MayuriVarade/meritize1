@@ -9,7 +9,9 @@
       <div id="deletesuccess" class="jumbotron">
         <h1>Vote for the <%= @vote_setting.award_program_name rescue nil%></h1> 
         <p><%= @vote_setting.intro_text.html_safe rescue nil%></p>
-        
+        <p><% if @votes.present? && @votes.vote_setting_id.present? && @vote_setting_enddate == @votes_last.cycle_end_date.to_date %>
+                  You have already given a vote for this award program,you may change the vote by voting again. 
+                  <% end %></p>
       </div>
       <div class="row">
         <div class="col-md-4">
@@ -31,14 +33,16 @@
         <div class="col-md-8">
         <%= form_for(@vote) do |f| %>  
           <div class="panel panel-default">
+
             <div class="panel-heading ">
               <b>I vote for</b><br>
-              <%= f.text_field :voteable_id, :class => "form-control " %>
+              <%= f.text_field :voteable_id, :class => "form-control1" %>
             </div>
             <div class="panel-body">
               <div class="media">
                 <a href="# " class="pull-left "></a>
                 <div class="media-body">
+                 
                   <h4 class="media-heading text-left "> <div class='printchatbox'></div></h4>
                   <p>for the <i><%= @vote_setting.award_program_name.capitalize %> </i>award because</p>
                   <%= f.text_area :description, :class => "form-control ", :rows => 6 %>
@@ -92,10 +96,19 @@
 
 <script>
  
-$('.form-control').keyup(function(event) {
+$('.form-control1').keyup(function(event) {
   newText = event.target.value;
   $('.printchatbox').text(newText);
 });
+$('.form-control1').blur(function(event) {
+  //alert("Amol");
+  newText = event.target.value;
+  $('.printchatbox').text(newText);
+});
+
+
+
+
   </script>
 
 

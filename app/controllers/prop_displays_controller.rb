@@ -1,4 +1,5 @@
 class PropDisplaysController < ApplicationController
+   before_filter :authenticate, :only => [:edit, :update,:index,:show]
  layout 'profile'
 
   def index
@@ -31,5 +32,10 @@ class PropDisplaysController < ApplicationController
   		redirect_to :back
   	end  	
   end
+  private
+     #method for deny access if users try to access the pages without login.
+    def authenticate
+      deny_access unless signed_in?
+    end
 
 end
