@@ -7,7 +7,7 @@
       <div class="container ">
       <div class="jumbotron ">
         <h1>Props for your peeps</h1> 
-        <p><%= @prop.intro.html_safe %><br></p>
+        <p><%= @prop.intro.html_safe rescue nil %><br></p>
         <p></p>
       </div>
       <div class="row ">

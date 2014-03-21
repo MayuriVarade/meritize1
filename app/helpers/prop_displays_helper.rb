@@ -11,7 +11,7 @@ module PropDisplaysHelper
 	end
 
 	def reset_type
-		current_user.admin_user.prop.reset_point
+		current_user.admin_user.prop.reset_point rescue nil
 	end
 
 	def custom_time(prop_display)

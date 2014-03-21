@@ -23,7 +23,7 @@ Meritize::Application.routes.draw do
 
 
   resources :vote_settings
-  
+  resources :votes
 
 
   root :to => 'homes#index'

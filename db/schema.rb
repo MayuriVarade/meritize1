@@ -234,10 +234,13 @@ ActiveRecord::Schema.define(:version => 20140320093128) do
   create_table "votes", :force => true do |t|
     t.integer  "voter_id"
     t.integer  "voteable_id"
+    t.text     "description"
     t.string   "core_values"
-    t.integer  "vote"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "cycle_end_date"
+    t.datetime "cycle_start_date"
+    t.integer  "vote_setting_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
 end
