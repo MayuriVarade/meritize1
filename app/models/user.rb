@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
    #                :length => { :maximum => 50 }
    email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-    validates :email,:uniqueness => { :case_sensitive => false }
+    validates :email,:uniqueness => { :case_sensitive => false },:presence => { :message => " cannot be blank" }
 
     validates :password,  :confirmation => true,:on => :create
 

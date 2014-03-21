@@ -61,11 +61,11 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                     <tr>
                       <td>Current cycle:</td>
                       <td>
-                        <%= f.text_field :start_cycle, :class=>"form-control" %>
+                        <%= f.text_field :start_cycle, :class=>"form-control", :value=> "#{@prop.start_cycle.strftime("%d %B %Y") if @prop.start_cycle.present?}" %>
                       </td>
                       <td>to</td>
                       <td>
-                        <%= f.text_field :end_cycle , :class=>"form-control"%>
+                        <%= f.text_field :end_cycle , :class=>"form-control",:value=> "#{@prop.end_cycle.strftime("%d %B %Y") if @prop.end_cycle.present?}"%>
                       </td>
                     </tr>
                     <tr>
@@ -75,7 +75,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                           
                          
                           <% @past_cycles.each do |pc| %>
-                                 <%= pc.start_cycle.to_date %>&nbsp; &nbsp;to&nbsp; &nbsp;<%= pc.end_cycle.to_date %><br/>
+                                 <%= pc.start_cycle.to_date.strftime("%d %B %Y") %>&nbsp; &nbsp;to&nbsp; &nbsp;<%= pc.end_cycle.to_date.strftime("%d %B %Y") %><br/>
                             <% end %>
                                                
                          <% end %>

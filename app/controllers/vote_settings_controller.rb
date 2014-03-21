@@ -52,6 +52,7 @@ class VoteSettingsController < ApplicationController
     
     sc =   params[:vote_setting][:start_cycle].to_s.to_date
     ec =   params[:vote_setting][:end_cycle].to_s.to_date
+    
 
     #method for days validations when creating vote_setting and new trigger cycles and pastcycles. 
 
