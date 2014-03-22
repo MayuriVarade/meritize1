@@ -10,7 +10,7 @@
         <h1>Vote for the <%= @vote_setting.award_program_name rescue nil%></h1> 
         <p><%= @vote_setting.intro_text.html_safe rescue nil%></p>
         <p><% if @votes.present? && @votes.vote_setting_id.present? && @vote_setting_enddate == @votes_last.cycle_end_date.to_date %>
-                  You have already given a vote for this award program,you may change the vote by voting again. 
+                  You have given a vote for this award program,you may change the vote by voting again. 
                   <% end %></p>
       </div>
       <div class="row">
@@ -26,7 +26,7 @@
             <div class="media-body">
                <h4 class="media-heading">My past votes</h4>
               <img src="/assets/user2.png" width="64" height="64" class="media-object">
-              <p>November 2013 - Jeff Fries</p>
+              <p><%= @votes_last.cycle_end_date.strftime(" %B %Y") rescue nil %> - <%= @votes_last.voteable.fullname rescue nil %></p>
             </div>
           </div>
         </div>
@@ -79,37 +79,37 @@
   </div>
 
 
-  <script>
-  var data = <%= raw @searchuser %>;
+    <script>
+    var data = <%= raw @searchuser %>;
 
-  jQuery(function() {
+    jQuery(function() {
 
-    jQuery( "#vote_voteable_id" ).autocomplete(
-    {
-       source:data
+      jQuery( "#vote_voteable_id" ).autocomplete(
+      {
+         source:data
+      });
+
+
+        
+    });
+    </script>
+
+    <script>
+     
+    $('.form-control1').keyup(function(event) {
+      newText = event.target.value;
+      $('.printchatbox').text(newText);
+    });
+    $('.form-control1').blur(function(event) {
+      //alert("Amol");
+      newText = event.target.value;
+      $('.printchatbox').text(newText);
     });
 
 
-      
-  });
-  </script>
-
-<script>
- 
-$('.form-control1').keyup(function(event) {
-  newText = event.target.value;
-  $('.printchatbox').text(newText);
-});
-$('.form-control1').blur(function(event) {
-  //alert("Amol");
-  newText = event.target.value;
-  $('.printchatbox').text(newText);
-});
 
 
-
-
-  </script>
+      </script>
 
 
 

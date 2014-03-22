@@ -29,13 +29,13 @@
               <br/>
               <%= f.text_area :description, :class => "form-control ", :rows => 6 %>
               <br/>
-	Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
-<%= f.select(:points,a  ) rescue "" %>
+              	Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
+              <%= f.select(:points,a  ) rescue "" %>
 
-<%= f.hidden_field :sender_id, :value => current_user.id %>
-<%= f.hidden_field :type_cycle ,:value => reset_type %>
-  <br/>  <br/>
-<%= f.submit :class => "button button-small"%>
+              <%= f.hidden_field :sender_id, :value => current_user.id %>
+              <%= f.hidden_field :type_cycle ,:value => reset_type %>
+                <br/>  <br/>
+              <%= f.submit :class => "button button-small"%>
 
               <% end %>
             </div>
