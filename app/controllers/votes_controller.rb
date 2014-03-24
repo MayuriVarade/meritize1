@@ -7,7 +7,7 @@ class VotesController < ApplicationController
 
     def new
       @votes = Vote.find_by_voter_id(current_user)
-      @vote_setting_enddate = current_user.admin_user.vote_setting.end_cycle.to_date
+      @vote_setting_enddate = current_user.admin_user.vote_setting.end_cycle.to_date rescue nil
       @votes_last = Vote.find_all_by_voter_id(current_user).last
 
       @vote_setting = current_user.admin_user.vote_setting

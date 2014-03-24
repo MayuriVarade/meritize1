@@ -1,5 +1,5 @@
 class PropsController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
   before_filter :correct_user, :only => [:edit, :update,:show]
 
   layout 'profile'

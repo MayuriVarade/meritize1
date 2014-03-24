@@ -2,7 +2,7 @@ class VoteSettingsController < ApplicationController
   # GET /vote_settings
   # GET /vote_settings.json
   layout 'profile'
-  before_filter :authenticate, :only => [:edit, :update,:index,:show]
+  before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
   before_filter :correct_user, :only => [:edit, :update,:show]
 
   def index
