@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140320093128) do
+ActiveRecord::Schema.define(:version => 20140324094414) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -116,8 +116,11 @@ ActiveRecord::Schema.define(:version => 20140320093128) do
     t.string   "subject3"
     t.text     "body3"
     t.text     "intro"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "reminder1_days"
+    t.integer  "reminder2_days"
+    t.integer  "reminder3_days"
   end
 
   create_table "roles", :force => true do |t|
@@ -229,6 +232,9 @@ ActiveRecord::Schema.define(:version => 20140320093128) do
     t.boolean  "is_autopick_winner"
     t.boolean  "is_admin_reminder"
     t.boolean  "is_allow_vote"
+    t.integer  "reminder1_days"
+    t.integer  "reminder2_days"
+    t.integer  "reminder3_days"
   end
 
   create_table "votes", :force => true do |t|

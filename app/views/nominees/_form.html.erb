@@ -52,36 +52,24 @@
               <td>
             
               <%= select("nominee", "end_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.end_cycle.strftime("%Y-%m-%d"), p.end_cycle ] }, {}, :class=>"form-control") %>
+              <%= f.hidden_field :current_user_id ,:value => current_user.id %>
+              <%= f.hidden_field :status ,:value => true %>
               </td>
             </tr>
 
              
-
-
-
+                      
             <tr>
               <td>
-                <label class="control-label">Name</label>
-                </td>
-                <td>
-                <%= f.collection_select :fullname, User.find_all_by_admin_user_id(current_user.id), :fullname,:fullname,{},{:class=>"form-control"} %></br>
-                </td>
-            </tr>
-
-           
-
-
-            <tr>
-              <td>
-               <label class="control-label">Email</label>
+               <label class="control-label">I Nominate</label>
                </td>
                <td>
             
-               <%= f.collection_select :email, User.find_all_by_admin_user_id(current_user.id), :email,:email,{},{:class=>"form-control"} %></br>
+               <%= f.text_field :user_id, :class => "form-control1" %></br>
                </td>
             </tr>
 
-            <%= f.hidden_field :firstname,:value=> params[:user][:firstname] rescue nil %>
+            
           
 
      <tr>
@@ -96,3 +84,21 @@
     </table>
    </div>   
 </div>
+
+
+<script>
+    var data = <%= raw @searchuser %>;
+
+    jQuery(function() {
+
+      jQuery( "#nominee_user_id" ).autocomplete(
+      {
+         source:data
+      });
+
+
+        
+    });
+    </script>
+
+       <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>  

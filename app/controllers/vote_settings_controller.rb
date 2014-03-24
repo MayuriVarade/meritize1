@@ -66,9 +66,7 @@ class VoteSettingsController < ApplicationController
         else
           respond_to do |format|
             if @vote_setting.save
-                @users.each do |user|
-                VoteMailer.vote_mail(user,@vote_setting).deliver
-                 end
+                              
               format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Settings for vote was successfully created.' }
               format.json { render json: @vote_setting, status: :created, location: @vote_setting }
             else
