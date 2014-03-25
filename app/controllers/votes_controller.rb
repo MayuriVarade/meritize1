@@ -6,14 +6,13 @@ class VotesController < ApplicationController
     end
     # method for submitting votes.
     def new
-      @votes = Vote.find_by_voter_id(current_user)
-   
-        @vote_setting_enddate = current_user.admin_user.vote_setting.end_cycle.to_date rescue 
-        @votes_last = Vote.find_all_by_voter_id(current_user)
+        @votes = Vote.find_by_voter_id(current_user)
+        @vote_setting_enddate = current_user.admin_user.vote_setting.end_cycle.to_date  
+        @votes_last = Vote.find_all_by_voter_id(current_user).last
         @vote_setting = current_user.admin_user.vote_setting 
-        raise @votes_last.inspect
+        
         @vote = Vote.new
-      # if @vote_setting.present? && @votes_last.present?  
+      
         @setting = current_user.admin_user.setting 
         @core_values = @setting.core_values 
         @nominees = Nominee.where("start_cycle ='#{@vote_setting.start_cycle}' AND end_cycle ='#{@vote_setting.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
@@ -38,7 +37,7 @@ class VotesController < ApplicationController
               @searchuser
 
           end
-      # end  
+        
     end
     # method for submitting votes and overidding previous votes. 
     def create
