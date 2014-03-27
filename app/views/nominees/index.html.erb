@@ -30,10 +30,10 @@
           <label class="control-label">For voting period</label>
           <div class="controls">
             <dev class="form-control">
-            <% @vote_settings.each do |votesetting| %>
-            <%= votesetting.start_cycle.strftime("%d %B %Y") %>&nbsp;
-               TO&nbsp; <%= votesetting.end_cycle.strftime("%d %B %Y") %>
-              <% end %>              
+            
+            <%= @vote_settings.start_cycle.strftime("%d %B %Y") %>&nbsp;
+               TO&nbsp; <%= @vote_settings.end_cycle.strftime("%d %B %Y") %>
+                          
             </select>
 
           </div><br>
