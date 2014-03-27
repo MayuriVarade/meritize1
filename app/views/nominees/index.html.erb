@@ -31,8 +31,8 @@
           <div class="controls">
             <dev class="form-control">
             <% @vote_settings.each do |votesetting| %>
-            <%= votesetting.start_cycle.strftime("%Y-%m-%d") %>
-               TO <%= votesetting.end_cycle.strftime("%Y-%m-%d") %>
+            <%= votesetting.start_cycle.strftime("%d %B %Y") %>&nbsp;
+               TO&nbsp; <%= votesetting.end_cycle.strftime("%d %B %Y") %>
               <% end %>              
             </select>
 
@@ -63,16 +63,7 @@
                    </form>
         
               <li class="pull-right">
-            <form class="navbar-form navbar-left">
-                  <div class="form-group">
-
-                    <%= form_tag admin_user_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"}  do %>
-
-                    <%= text_field_tag :search, params[:search], :class=>"form-control" %>    <%= submit_tag "Search", :class_name => nil,:class=> "button button-small"%>
-
-                     <% end %>
-                     </div>
-                   </form>
+            
               </li>
 
             </ul>

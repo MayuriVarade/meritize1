@@ -266,6 +266,33 @@
 		});
 
 
+
+    jQuery("#new_nominee").validate({
+     errorElement:'span',
+     rules: {
+
+     "nominee[user_id]" :{
+            required: true
+             
+            }
+        },
+
+       messages: {
+
+
+     "nominee[user_id]" :{
+                required: "Please Enter your nominee.",
+                
+
+             }
+
+       }
+
+
+
+        });
+
+
   
     
 });

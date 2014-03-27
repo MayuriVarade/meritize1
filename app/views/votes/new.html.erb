@@ -44,16 +44,16 @@
                 <div class="media-body">
                  
                   <h4 class="media-heading text-left "> <div class='printchatbox'></div></h4>
-                  <p>for the <i><%= @vote_setting.award_program_name.capitalize %> </i>award because</p>
+                  <p>for the <i><%= @vote_setting.award_program_name.capitalize rescue nil %> </i>award because</p>
                   <%= f.text_area :description, :class => "form-control ", :rows => 6 %>
                    <%= f.hidden_field :voter_id, :value => current_user.id %>
-                   <%= f.hidden_field :cycle_start_date, :value => @vote_setting.start_cycle %>
-                   <%= f.hidden_field :cycle_end_date, :value => @vote_setting.end_cycle %>
-                   <%= f.hidden_field :vote_setting_id, :value => @vote_setting.id %>
+                   <%= f.hidden_field :cycle_start_date, :value => @vote_setting.start_cycle rescue nil%>
+                   <%= f.hidden_field :cycle_end_date, :value => @vote_setting.end_cycle rescue nil%>
+                   <%= f.hidden_field :vote_setting_id, :value => @vote_setting.id rescue nil%>
                 </div>
                 <p>&nbsp;<br>
                   Core values exhibited:</p>
-                  
+                <% unless @core_values.nil? %> 
                  <% @core_values.each do |a_value| %>
                     <div class="checkbox">
                    <label>
@@ -62,8 +62,8 @@
                   </label>
                 </div>
                 <% end %>
-               
-                <%= f.submit :class => "button button-small"%>
+               <% end %>
+                <%= f.submit "Submit Your Vote", :class => "button button-small"%>
               </div><br></div>
           </div>
            <% end %>
@@ -112,6 +112,7 @@
       </script>
 
 
-
+     
 
      <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
+     

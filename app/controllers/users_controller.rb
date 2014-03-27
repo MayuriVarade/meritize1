@@ -97,10 +97,14 @@ class UsersController < ApplicationController
         params[:user].delete(:password) if params[:user][:password].blank?
         params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
 
-        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
-        @user.update_column(:firstname,"#{params[:user][:firstname]}")
-        @user.update_column(:lastname,"#{params[:user][:lastname]}")
-        @user.update_column(:department,"#{params[:user][:department]}")
+        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ") rescue nil
+        @user.update_column(:firstname,"#{params[:user][:firstname]}") rescue nil
+        @user.update_column(:lastname,"#{params[:user][:lastname]}") rescue nil
+        @user.update_column(:department,"#{params[:user][:department]}") rescue nil
+        @user.update_column(:is_prop,"#{params[:user][:is_prop]}") rescue nil
+        @user.update_column(:is_prop_reminder,"#{params[:user][:is_prop_reminder]}") rescue nil
+        @user.update_column(:is_vote_reminder,"#{params[:user][:is_vote_reminder]}") rescue nil
+
         if params[:page_name] == "admin" 
         flash[:success] = "Profile updated successfully."
         redirect_to admin_user_path

@@ -142,6 +142,16 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 
               </td>
             </tr>
+             <tr>
+              <td>
+                <label class="form-label">Reminder email #1 sent to voters - Days:</label>
+              </td>
+              <td>
+
+                <%= f.text_field :reminder1_days,:class=>"form-control" %>
+
+              </td>
+            </tr>
             <tr>
               <td>
                 <label class="form-label">Reminder email #2 sent to voters - Subject:</label>
@@ -157,6 +167,16 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               <td>
 
                 <%= f.text_area :email_sender_body2, cols: 100, rows: 15,:class=>"form-control"%>
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #2 sent to voters - Days:</label>
+              </td>
+              <td>
+
+                 <%= f.text_field :reminder2_days,:class =>"form-control" %>
 
               </td>
             </tr>
@@ -180,6 +200,16 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
             </tr>
              <tr>
               <td>
+                <label class="form-label">Reminder email #3 sent to voters - Days:</label>
+              </td>
+              <td>
+
+                <%= f.text_field :reminder3_days,:class =>"form-control" %>
+
+              </td>
+            </tr>
+             <tr>
+              <td>
                 <label class="form-label"></label>
               </td>
               <td>
@@ -196,3 +226,4 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
       
    
   </div>
+
