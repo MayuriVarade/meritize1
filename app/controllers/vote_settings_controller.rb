@@ -47,14 +47,16 @@ class VoteSettingsController < ApplicationController
   # POST /vote_settings.json
   #method for creating vote_setting and new trigger cycles and pastcycles. 
   def create
+    @users =  User.where("admin_user_id = ? ",current_user.id)
     @vote_setting = VoteSetting.new(params[:vote_setting])
-
-    
     sc =   params[:vote_setting][:start_cycle].to_s.to_date
     ec =   params[:vote_setting][:end_cycle].to_s.to_date
+     reminder1_days = params[:vote_setting][:reminder1_days].to_i
+     reminder2_days = params[:vote_setting][:reminder2_days].to_i 
+     reminder3_days = params[:vote_setting][:reminder3_days].to_i
 
     #method for days validations when creating vote_setting and new trigger cycles and pastcycles. 
-
+  if params[:vote_setting][:award_frequency_type] == "Monthly"
     if sc.present? && ec.present?
 
     if sc > ec 
@@ -63,10 +65,13 @@ class VoteSettingsController < ApplicationController
       diff = (ec - sc + 1).round
         if diff < 28 || diff > 31
           redirect_to :back, :notice => "Please select correct date."
+        elsif (reminder1_days > 31) || (reminder2_days > 31) || (reminder3_days > 31)
+          redirect_to :back, :notice => "Please select reminder days less than 7 days."      
         else
           respond_to do |format|
             if @vote_setting.save
-              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully created.' }
+                              
+              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Settings for vote was successfully created.' }
               format.json { render json: @vote_setting, status: :created, location: @vote_setting }
             else
               format.html { render action: "new" }
@@ -78,7 +83,60 @@ class VoteSettingsController < ApplicationController
       else
       redirect_to :back, :notice=> "Take a time to fill all the below records.."
     end 
+  elsif params[:vote_setting][:award_frequency_type] == "Weekly"
 
+    if sc.present? && ec.present?
+
+    if sc > ec 
+      redirect_to :back ,:notice => "Start date cannot be greater than End date" 
+    else
+      diff = (ec - sc + 1).round
+        if diff < 7 || diff > 7
+          redirect_to :back, :notice => "Please select correct date for weekly."
+        elsif (reminder1_days > 7) || (reminder2_days > 7) || (reminder3_days > 7)
+          redirect_to :back, :notice => "Please select reminder days less than 7 days."  
+        else
+          respond_to do |format|
+            if @vote_setting.save
+                              
+              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Settings for vote was successfully created.' }
+              format.json { render json: @vote_setting, status: :created, location: @vote_setting }
+            else
+              format.html { render action: "new" }
+              format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
+            end
+          end
+         end 
+       end 
+      else
+      redirect_to :back, :notice=> "Take a time to fill all the below records.."
+    end 
+   elsif params[:vote_setting][:award_frequency_type] == "Quaterly"  
+      if sc > ec 
+        redirect_to :back ,:notice => "Start date cannot be greater than End date" 
+      
+        diff = (ec - sc + 1).round
+          if diff < 89 || diff > 90
+            redirect_to :back, :notice => "Please select correct date for Quaterly."
+          elsif (reminder1_days > 90) || (reminder2_days > 90) || (reminder3_days > 90)
+          redirect_to :back, :notice => "Please select reminder days less than 90 days."    
+          else
+            respond_to do |format|
+              if @vote_setting.save
+                                
+                format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Settings for vote was successfully created.' }
+                format.json { render json: @vote_setting, status: :created, location: @vote_setting }
+              else
+                format.html { render action: "new" }
+                format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
+              end
+            end
+           end 
+      else
+      redirect_to :back, :notice=> "Take a time to fill all the below records.."    
+      end 
+     
+   end
   end
 
   # PUT /vote_settings/1
@@ -91,25 +149,79 @@ class VoteSettingsController < ApplicationController
 
     osc = params[:vote_setting][:start_cycle].to_s.to_date
     oec = params[:vote_setting][:end_cycle].to_s.to_date
-    if sc > ec 
-      redirect_to :back ,:notice => "Start date cannot be greater."
-    else
-       diff = ec - sc + 1
-        if diff < 28 || diff > 31
-          redirect_to :back, :notice => "Please select correct date."
-        else 
-            respond_to do |format|
-              if @vote_setting.update_attributes(params[:vote_setting])
-                @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
-                format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
-                format.json { head :no_content }
-              else
-                format.html { render action: "edit" }
-                format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
+     reminder1_days = params[:vote_setting][:reminder1_days].to_i
+     reminder2_days = params[:vote_setting][:reminder2_days].to_i 
+     reminder3_days = params[:vote_setting][:reminder3_days].to_i
+
+    if params[:vote_setting][:award_frequency_type] == "Monthly"  
+        if sc > ec 
+          redirect_to :back ,:notice => "Start date cannot be greater."
+
+        else
+           diff = ec - sc + 1
+            if diff < 28 || diff > 31
+              redirect_to :back, :notice => "Please select correct date."
+            elsif (reminder1_days > 31) || (reminder2_days > 31) || (reminder3_days > 31)
+                    redirect_to :back, :notice => "Please select reminder days less than 31 days."    
+            else 
+                respond_to do |format|
+                  if @vote_setting.update_attributes(params[:vote_setting])
+                    @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
+                    format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
+                    format.json { head :no_content }
+                  else
+                    format.html { render action: "edit" }
+                    format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
+                  end
+                end
+              end  
+         end 
+    elsif params[:vote_setting][:award_frequency_type] == "Weekly"
+         if sc > ec 
+          redirect_to :back ,:notice => "Start date cannot be greater."
+         elsif (reminder1_days > 7) || (reminder2_days > 7) || (reminder3_days > 7)
+          redirect_to :back, :notice => "Please select reminder days less than 7 days."   
+        else
+           diff = ec - sc + 1
+            if diff < 7 || diff > 7
+              redirect_to :back, :notice => "Please select correct date range for weekly."
+            else 
+                respond_to do |format|
+                  if @vote_setting.update_attributes(params[:vote_setting])
+                    @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
+                    format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
+                    format.json { head :no_content }
+                  else
+                    format.html { render action: "edit" }
+                    format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
+                  end
+                end
+              end  
+         end
+    elsif params[:vote_setting][:award_frequency_type] == "Quaterly"
+        if sc > ec 
+        redirect_to :back ,:notice => "Start date cannot be greater."
+        elsif (reminder1_days > 90) || (reminder2_days > 90) || (reminder3_days > 90)
+          redirect_to :back, :notice => "Please select reminder days less than 7 days."    
+        else
+         diff = ec - sc + 1
+          if diff < 89 || diff > 90
+            redirect_to :back, :notice => "Please select correct date range for weekly."
+          else 
+              respond_to do |format|
+                if @vote_setting.update_attributes(params[:vote_setting])
+                  @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
+                  format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
+                  format.json { head :no_content }
+                else
+                  format.html { render action: "edit" }
+                  format.json { render json: @vote_setting.errors, status: :unprocessable_entity }
+                end
               end
-            end
-          end  
-     end     
+            end  
+       end
+
+    end
   end
 
 

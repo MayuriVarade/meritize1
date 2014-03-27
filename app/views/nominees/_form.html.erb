@@ -10,18 +10,7 @@
         <%= form_for(@nominee) do |f| %> 
       <div class="row"></div>
       
-      <% if @nominee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@nominee.errors.count, "error") %> prohibited this nominee from being saved:</h2>
-
-      <ul>
-      <% @nominee.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-    </div>
-  <% end %>
+      
 
 
       <div class="container">
@@ -36,60 +25,63 @@
            
             <tr>
               <td>  
-                <label class="control-label">Start_Cycle</label>
+                <label class="control-label">Start Cycle</label>
               </td>
               <td>
          
-               <%= select("nominee", "start_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.start_cycle.strftime("%Y-%m-%d"), p.start_cycle ] }, {}, :class=>"form-control") %>
+               <%= select("nominee", "start_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.start_cycle.strftime("%d %B %Y"), p.start_cycle ] }, {}, :class=>"form-control") %>
               </td>
             </tr>
 
 
             <tr>
               <td>  
-               <label class="control-label">End_Cycle</label>
+               <label class="control-label">End Cycle</label>
               </td>
               <td>
             
-              <%= select("nominee", "end_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.end_cycle.strftime("%Y-%m-%d"), p.end_cycle ] }, {}, :class=>"form-control") %>
+
+              <%= select("nominee", "end_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.end_cycle.strftime("%d %B %Y"), p.end_cycle ] }, {}, :class=>"form-control") %>
+
+              <%= f.hidden_field :current_user_id ,:value => current_user.id %>
+              
+              <%= f.hidden_field :status ,:value => true %>
               </td>
             </tr>
 
              
-
-
-
+                      
             <tr>
               <td>
-                <label class="control-label">Name</label>
-                </td>
-                <td>
-                <%= f.collection_select :fullname, User.find_all_by_admin_user_id(current_user.id), :fullname,:fullname,{},{:class=>"form-control"} %></br>
-                </td>
-            </tr>
-
-           
-
-
-            <tr>
-              <td>
-               <label class="control-label">Email</label>
+               <label class="control-label">I Nominate</label>
                </td>
                <td>
             
-               <%= f.collection_select :email, User.find_all_by_admin_user_id(current_user.id), :email,:email,{},{:class=>"form-control"} %></br>
+               <%= f.text_field :user_id, :class => "form-control1" %></br>
+
+           
                </td>
             </tr>
+                  <% if @nominee.errors.any? %>
+                      <div id="error_explanation">
+
+                          <ul>
+                            <% @nominee.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                            <% end %>
+                          </ul>
+                      </div>
+                  <% end %>
+
+               </td>
+            </tr>
+
 
              <div class = "field">
             <%= f.hidden_field :admin_user_id , :value => current_user.id %>
             <%= f.hidden_field :firstname, :value => @users %>
             <%= f.hidden_field :lastname, :value => @users  %>
              </div>
-
-
-            
-          
 
      <tr>
      <td></td>
@@ -103,3 +95,23 @@
     </table>
    </div>   
 </div>
+
+
+<script>
+    var data = <%= raw @searchuser %>;
+
+    jQuery(function() {
+
+      jQuery( "#nominee_user_id" ).autocomplete(
+      {
+         source:data
+      });
+
+
+        
+    });
+    </script>
+
+
+       <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>  
+       

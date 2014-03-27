@@ -3,10 +3,11 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
 
-   attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo,:time_zone,:fullname, :plan_name,:department
+   attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo,:time_zone,:fullname, 
+                   :plan_name,:department,:is_prop,:is_prop_reminder,:is_vote_reminder
    has_attached_file :photo,:styles =>{:small => "150x150>"},
   :storage => :s3, :s3_credentials => "#{Rails.root}/config/s3.yml",
-  :path => "public/attachments/setting/:id/:style/:basename.:extension",
+  :path => "public/attachments/user/:id/:style/:basename.:extension",
   :convert_options => {
                           :thumb => "-background '#F7F4F4' -compose Copy -gravity center -extent 230x200"
                       }
@@ -33,7 +34,7 @@ class User < ActiveRecord::Base
    #                :length => { :maximum => 50 }
    email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-    validates :email,:uniqueness => { :case_sensitive => false }
+    validates :email,:uniqueness => { :case_sensitive => false },:presence => { :message => " cannot be blank" }
 
     validates :password,  :confirmation => true,:on => :create
 

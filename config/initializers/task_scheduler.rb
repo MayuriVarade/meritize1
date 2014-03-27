@@ -77,33 +77,16 @@ scheduler.in '1d' do
      end 
 
 end
+#method for sending vote reminder1 for props.
 
- scheduler.in '2d' do
-      admin_user = User.where("username is null  and admin_user_id is null")
-      admin_user.each do |au|
-        users = User.where("admin_user_id = ?",au.id)
-        users.each do |user|
-          if PropDisplay.find_by_sender_id(user.id).nil?
-            prop = au.prop
-            puts user.inspect
-            PropMailer.prop_mail_reminder2(user,prop).deliver
-          end
-        end
-      end
- end
+ scheduler.in '1d' do
 
-  scheduler.in '4d' do
-      admin_user = User.where("username is null  and admin_user_id is null")
-      admin_user.each do |au|
-        users = User.where("admin_user_id = ?",au.id)
-        users.each do |user|
-          if PropDisplay.find_by_sender_id(user.id).nil?
-            puts user.inspect
-            prop = au.prop
-            PropMailer.prop_mail_reminder3(user,prop).deliver
-          end
-        end
-      end
+     #method for sending vote reminder1 for props
+     PropDisplaysController.reminder_email1  
+     #method for sending vote reminder2 for props
+     PropDisplaysController.reminder_email2
+     #method for sending vote reminder3 for props
+     PropDisplaysController.reminder_email3
  end
 
 
@@ -122,4 +105,13 @@ end
 
 
 
+  #method for sending vote reminder1 for votes.
+    scheduler.in '1d' do
+      #method for sending vote reminder1 for votes
+      VotesController.reminder_email1
+      #method for sending vote reminder2 for votes
+      VotesController.reminder_email2
+      #method for sending vote reminder3 for votes
+      VotesController.reminder_email3
+    end
 

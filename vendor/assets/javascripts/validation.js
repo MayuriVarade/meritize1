@@ -70,14 +70,7 @@
 
     },
 
-    "user[password]":{
-     required: true,
-    },
-    "user[password_confirmation]":{
-     required:true,
-     equalTo: "#user_password"
-    },
-    
+   
     "user[email]" :{
     required: true,
     email: true
@@ -102,15 +95,7 @@
     required: "Please enter your Last name"
 
     },
-    "user[password]":{
-     required:  "Please enter temporary password",
-                                        
-     },
-        
-      "user[password_confirmation]":{
-         required:"Please enter confirmation password",
-         equalTo: "Password does not match"
-     },
+ 
 
     "user[email]" :{
     required: "Please enter your Email Address",
@@ -264,6 +249,33 @@
 
             },
 		});
+
+
+
+    jQuery("#new_nominee").validate({
+     errorElement:'span',
+     rules: {
+
+     "nominee[user_id]" :{
+            required: true
+             
+            }
+        },
+
+       messages: {
+
+
+     "nominee[user_id]" :{
+                required: "Please Enter your nominee.",
+                
+
+             }
+
+       }
+
+
+
+        });
 
 
   

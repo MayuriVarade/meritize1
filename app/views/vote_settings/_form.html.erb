@@ -14,7 +14,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
   <div id="info">
     
       
-      <div class="container">
+      <div class="container" style="margin-bottom:100px">
         <%= form_for(@vote_setting) do |f| %>
         <% if @vote_setting.errors.any? %>
           <div id="error_explanation">
@@ -52,11 +52,11 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                       <td>Current cycle:</td>
                       <td>
                         
-                        <%= f.text_field :start_cycle,:class=>"form-control" %>
+                        <%= f.text_field :start_cycle,:class=>"form-control" ,:value=> "#{@vote_setting.start_cycle.strftime("%d %B %Y") if @vote_setting.start_cycle.present?}"%>
                       </td>
                       <td>to</td>
                       <td>
-                       <%= f.text_field :end_cycle,:class=>"form-control" %>
+                       <%= f.text_field :end_cycle,:class=>"form-control", :value=> "#{@vote_setting.end_cycle.strftime("%d %B %Y") if @vote_setting.end_cycle.present?}" %>
                       <%= f.hidden_field :user_id , :value => current_user.id %>
                       </td>
                     </tr>
@@ -65,8 +65,8 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                       <td colspan="3">
                       <% if params[:action] == "edit" %>
                          <% @past_vote_cycles.each do |past_vote_cycles| %>
-                          <%= past_vote_cycles.start_cycle.to_date %>&nbsp; &nbsp; &nbsp; to &nbsp; &nbsp; &nbsp;  
-                           <%= past_vote_cycles.end_cycle.to_date %>  <br/>
+                          <%= past_vote_cycles.start_cycle.to_date.strftime("%d %B %Y") %>&nbsp; &nbsp; &nbsp; to &nbsp; &nbsp; &nbsp;  
+                           <%= past_vote_cycles.end_cycle.to_date.strftime("%d %B %Y") %>  <br/>
 
                          <% end %>  
                       <% end %>
@@ -101,7 +101,9 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                 <%= f.text_area :intro_text,:input_html => { :ckeditor => { :placeholder =>"Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?" } },cols: 145, rows: 15 %>
+
+                 <%= f.text_area :intro_text,cols: 100, rows: 17%>
+
 
               </td>
             </tr>
@@ -140,6 +142,18 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 
               </td>
             </tr>
+             <tr>
+              <td>
+                <label class="form-label">Reminder email #1 sent to voters - Days:</label>
+              </td>
+              <td>
+
+
+                <%= f.text_field :reminder1_days,:class=>"form-control" %>
+
+
+              </td>
+            </tr>
             <tr>
               <td>
                 <label class="form-label">Reminder email #2 sent to voters - Subject:</label>
@@ -155,6 +169,18 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               <td>
 
                 <%= f.text_area :email_sender_body2, cols: 100, rows: 15,:class=>"form-control"%>
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #2 sent to voters - Days:</label>
+              </td>
+              <td>
+
+
+                 <%= f.text_field :reminder2_days,:class =>"form-control" %>
+
 
               </td>
             </tr>
@@ -178,6 +204,18 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
             </tr>
              <tr>
               <td>
+                <label class="form-label">Reminder email #3 sent to voters - Days:</label>
+              </td>
+              <td>
+
+
+                <%= f.text_field :reminder3_days,:class =>"form-control" %>
+
+
+              </td>
+            </tr>
+             <tr>
+              <td>
                 <label class="form-label"></label>
               </td>
               <td>
@@ -194,3 +232,4 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
       
    
   </div>
+

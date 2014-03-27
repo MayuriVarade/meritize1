@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20140325122917) do
+=======
+ActiveRecord::Schema.define(:version => 20140327063516) do
+>>>>>>> 703bdf22e09e9360c6809a6614e5dcddb680727f
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -108,8 +112,9 @@ ActiveRecord::Schema.define(:version => 20140325122917) do
     t.integer  "receiver_id"
     t.text     "description"
     t.string   "type_cycle"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "admin_user_id"
   end
 
   create_table "props", :force => true do |t|
@@ -131,8 +136,11 @@ ActiveRecord::Schema.define(:version => 20140325122917) do
     t.string   "subject3"
     t.text     "body3"
     t.text     "intro"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "reminder1_days"
+    t.integer  "reminder2_days"
+    t.integer  "reminder3_days"
   end
 
   create_table "roles", :force => true do |t|
@@ -215,6 +223,10 @@ ActiveRecord::Schema.define(:version => 20140325122917) do
     t.boolean  "status",                 :default => true
     t.string   "fullname"
     t.string   "department"
+    t.boolean  "is_prop"
+    t.boolean  "is_prop_reminder"
+    t.boolean  "is_vote_reminder"
+    t.string   "plan_name"
   end
 
   create_table "vote_cycles", :force => true do |t|
@@ -246,15 +258,21 @@ ActiveRecord::Schema.define(:version => 20140325122917) do
     t.boolean  "is_autopick_winner"
     t.boolean  "is_admin_reminder"
     t.boolean  "is_allow_vote"
+    t.integer  "reminder1_days"
+    t.integer  "reminder2_days"
+    t.integer  "reminder3_days"
   end
 
   create_table "votes", :force => true do |t|
     t.integer  "voter_id"
     t.integer  "voteable_id"
+    t.text     "description"
     t.string   "core_values"
-    t.integer  "vote"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "cycle_end_date"
+    t.datetime "cycle_start_date"
+    t.integer  "vote_setting_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
 end

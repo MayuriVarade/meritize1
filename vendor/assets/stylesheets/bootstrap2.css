@@ -1237,7 +1237,14 @@ table {
     max-width: 100%;
 }
 th {
-    background: -moz-linear-gradient(center top , #2A4F60 0%, #223741 100%) repeat scroll 0 0 transparent;
+    background: #2a4f60; /* Old browsers */
+background: -moz-linear-gradient(top, #2a4f60 0%, #233c51 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2a4f60), color-stop(100%,#233c51)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #2a4f60 0%,#233c51 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #2a4f60 0%,#233c51 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #2a4f60 0%,#233c51 100%); /* IE10+ */
+background: linear-gradient(to bottom, #2a4f60 0%,#233c51 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4f60', endColorstr='#233c51',GradientType=0 ); /* IE6-9 */
     color: #FFFFFF;
     text-align: left;
 }
@@ -3140,7 +3147,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     font-size: 18px;
     
     line-height: 20px;
-    padding: 26px 15px !important;
+    padding: 18px 15px !important;
 }
 .navbar-brand:hover, .navbar-brand:focus {
     text-decoration: none;
@@ -4889,4 +4896,27 @@ th.visible-print, td.visible-print {
 .hidden-print {
     display: none !important;
 }
+}
+
+
+
+.form-control1 {
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555555;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+}
+.form-control1:focus {
+    border-color: #66AFE9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;
 }

@@ -9,7 +9,6 @@ Meritize::Application.routes.draw do
 
   # match "/nominees/check_email", to: 'nominees#check_email'
 
-mount Ckeditor::Engine => '/ckeditor'
 
 
   resources :props
@@ -24,7 +23,7 @@ mount Ckeditor::Engine => '/ckeditor'
 
 
   resources :vote_settings
-  
+  resources :votes
 
 
   root :to => 'homes#index'

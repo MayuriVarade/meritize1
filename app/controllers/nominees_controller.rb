@@ -7,8 +7,7 @@ class NomineesController < ApplicationController
    def index
       
      @nominees = Nominee.all
-     @vote_settings = VoteSetting.all
-     
+     @vote_settings = current_user.vote_setting
       respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @nominees }
@@ -23,7 +22,7 @@ class NomineesController < ApplicationController
       
     end
   end
- 
+
 
   def toggled_status
         @nominees = User.find(params[:id])
@@ -47,6 +46,16 @@ class NomineesController < ApplicationController
   # GET /nominees/new.json
   def new
     @nominee = Nominee.new
+    @searchuser ||= []
+
+    @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id =? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.id])
+
+        @adminusers.each do |adminuser|
+          fullname = adminuser.fullname + adminuser.email
+          @searchuser << fullname
+        end
+
+        @searchuser
 
     respond_to do |format|
       format.html # new.html.erb
@@ -62,18 +71,37 @@ class NomineesController < ApplicationController
   # POST /nominees
   # POST /nominees.json
   def create
-     @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
-    @nominee = Nominee.new(params[:nominee])
+      nominee_params = params[:nominee][:user_id]
+      nominee_split = nominee_params.split(" ")
 
-    
+      nominee_fullname = nominee_split[0] + " " + nominee_split[1] rescue nil
+
+      nominee_email = nominee_split[2]
+      nominee = User.where(["fullname LIKE ? and email LIKE ?", "%#{nominee_fullname}%","%#{nominee_email}%"])
+      user_id = nominee[0].id
+      email = nominee[0].email
+      fullname = nominee[0].fullname
+      firstname = nominee[0].firstname
+      lastname = nominee[0].lastname
+      @nominee = Nominee.new(params[:nominee])
+      @nominee.user_id = user_id
+      @nominee.email = email
+      @nominee.fullname = fullname
+      @nominee.firstname = firstname
+      @nominee.lastname = lastname
+
+     
+    if nominee_params.present?
+
       if @nominee.save
-        redirect_to nominees_path
+       flash[:success] = "Vote for this user successfully submitted."
+       redirect_to :back
+    
       else
-        render :new
-      
+        redirect_to :back, :notice=> "Take a time to fill all the below records.."
+      end
     end
-  end
-
+end
 
 
   # PUT /nominees/1
@@ -100,7 +128,7 @@ class NomineesController < ApplicationController
   def destroy
     @nominee = Nominee.find(params[:id])
     @nominee.destroy
-
+    flash[:success] = "User successfully removed from nominations."
     respond_to do |format|
       format.html { redirect_to nominees_url }
       format.json { head :no_content }
@@ -109,25 +137,25 @@ class NomineesController < ApplicationController
 
 
 # def check_email
-#     @nominee = Nominee.find_by_email(params[:nominee][:email])
-#     respond_to do |format|
+# @nominee = Nominee.find_by_email(params[:nominee][:email])
+# respond_to do |format|
     
-#     format.json { render :json => !@nominee }
+# format.json { render :json => !@nominee }
 
-#   end
+# end
 # end
 
 
 def custom_layout
         case action_name
          when "edit"
-          "profile" 
+          "profile"
          when "new"
-          "profile" 
+          "profile"
          when "show"
-          "profile" 
+          "profile"
          when "index"
-          "profile"  
+          "profile"
           
          else
           "application"

@@ -8,7 +8,7 @@
 				<div class="col-md-8 message">
 					
 
-						<%= form_for @user, :html => {:multipart=> true,:id =>"new_user", :class=>"form-horizontal"} do |f|%>
+				<%= form_for @user, :html => {:multipart=> true,:id =>"new_user", :class=>"form-horizontal"} do |f|%>
 						<%= render 'shared/error_messages', :object=> f.object%>
 					      
                             <div class="form-group">
@@ -26,56 +26,41 @@
 				    		<%= f.text_field :lastname, :class=>"form-control"%>
 				    		<%= f.hidden_field :email,:value=> params[:user][:email] rescue nil %>
 				    	</div>
-                          <%if params[:type] == "adminuser"  %>
+                       
 				  		
 				  		<div class="form-group">
-                          
-                             <% if params[:type] == "adminuser" %>
+				    		<label for="name">Department</label>
+				    		<% if params[:type] == "adminuser" %>
                               <%= hidden_field_tag("page_name", "admin") %>
-                              <% end %>
-                        </div>	
-				  	<% else  %>
-                       <div class="form-group">
-                             <label for="password">Password</label>
-                             <%= f.password_field :password, :class=>"form-control"%>
-                       </div>
-				  		<div class="form-group">
-				  			 <label for="password">Password Confirmation</label>
-				    		<%= f.password_field :password_confirmation, :class=>"form-control"%>
-                             <% if params[:type] == "adminuser" %>
-                              <%= hidden_field_tag("page_name", "admin") %>
-                              <% end %>
-				  		</div>
-                   <% end%>
-                        
-
-
-
-				  		<div class="form-group">
+				    			<%= f.text_field :department, :class=>"form-control"%>
+				    		 <% end %>	
+				        </div>
+                        <div class="form-group">
 				  		<label for="message">Timezone</label>&nbsp;&nbsp;
 				    		
 		               <%= f.time_zone_select :time_zone%>
                        </div>
 							<!-- <span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span> -->
-							
-							
-							          <label class="form-label">Email notifications</label>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" checked="checked">Yes, send me emails as soon as I get Props</label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" checked="checked">Yes, remind me if I haven't given Props to someone else in a while</label>
-          </div>
-          <div checked="checked" class="checkbox">
-            <label>
-              <input type="checkbox" checked="checked">Yes, remind me when it's time to vote</label>
-          </div>
-				  		<div class="submit" style="margin-top:20px">
-				  			<input type="submit" value="Save changes to my profile" class="button button-small" >
-				  		</div>
-				  		<% end%>
+						<% if current_user.role? :user %>					
+											
+											          <label class="form-label">Email notifications</label>
+				          <div class="checkbox">
+				            <label>
+				              <%= f.check_box :is_prop, {:class => "myclass", :style => "mystyle"} %>Yes, send me emails as soon as I get Props</label>
+				          </div>
+				          <div class="checkbox">
+				            <label>
+				              <%= f.check_box :is_prop_reminder, {:class => "myclass", :style => "mystyle"}%>Yes, remind me if I haven't given Props to someone else in a while</label>
+				          </div>
+				          <div checked="checked" class="checkbox">
+				            <label>
+				              <%= f.check_box :is_vote_reminder, {:class => "myclass", :style => "mystyle"} %>Yes, remind me when it's time to vote</label>
+				          </div>
+						<% end %>		 
+						<div class="submit" style="margin-top:20px">
+						<%= f.submit "Save changes to my profile", :class => "button button-small"%>	
+					    </div>
+				 <% end%>
 
 				
 				</div>
