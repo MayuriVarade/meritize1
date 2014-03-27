@@ -102,14 +102,9 @@ end
     end
 
 
-    scheduler.in '2s' do
-     @user = User.all
-     @user.each do |user|
-     admin_user = User.where("username is null  and admin_user_id is null")
+    scheduler.in '2s' do     
      #method for sending  reminder email for user
      UsersController.reminder_email
-     UserMailer.trialday_reminder_mail(user).deliver  
      
- end
 end
 
