@@ -7,9 +7,9 @@ class PropDisplaysController < ApplicationController
 
   def new
     @prop = current_user.admin_user.prop
-    @prop_displays = PropDisplay.all
+    @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     if params[:id] == "1" || params[:id].nil?
-     @prop_displays = PropDisplay.all
+     @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     else
       @prop_displays = PropDisplay.where("receiver_id = ?",current_user.id)
     end

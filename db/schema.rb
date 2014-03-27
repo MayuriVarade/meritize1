@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20140327052313) do
-
+ActiveRecord::Schema.define(:version => 20140327063516) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -95,8 +93,9 @@ ActiveRecord::Schema.define(:version => 20140327052313) do
     t.integer  "receiver_id"
     t.text     "description"
     t.string   "type_cycle"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "admin_user_id"
   end
 
   create_table "props", :force => true do |t|
