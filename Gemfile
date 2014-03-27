@@ -17,7 +17,7 @@ gem 'paperclip'
 gem 'impressionist'
 gem 'prototype-rails'
 gem 'rufus-scheduler'
-
+gem 'bundler'
 gem "will_paginate"
 gem 'aws-s3'
 gem 'aws-sdk'

@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
    has_one :prop
    has_one :vote_setting
    has_one :setting
-
+   belongs_to :trial_day
+ 
    belongs_to :admin_user ,:class_name => 'User' 
 
 
@@ -57,6 +58,14 @@ class User < ActiveRecord::Base
 	def has_password?(submitted_password)
 	  encrypted_password == encrypt(submitted_password)
 	end
+
+   #Method for trial days for admin
+	def self.admin_user_plan_expiry(user)     
+      @trial_days = TrialDay.first     
+      @admin_user_plan_expiry = (user.created_at + @trial_days.days.days)
+      @current_date = (Time.zone.now)
+      @remaining_days = (@admin_user_plan_expiry - @current_date).to_i / 1.day       
+    end
 
 	class << self
 	def authenticate(email, submitted_password)

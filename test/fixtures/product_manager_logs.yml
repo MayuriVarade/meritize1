@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  admin_user_id: 1
+  sign_in_time: 2014-03-24 12:43:38
+  sign_out_time: 2014-03-24 12:43:38
+  ip_address: MyString
+  fitstname: MyString
+  lastname: MyString
+  fullname: MyString
+  email: MyString
+  sign_in_count: MyString
+
+two:
+  user_id: 1
+  admin_user_id: 1
+  sign_in_time: 2014-03-24 12:43:38
+  sign_out_time: 2014-03-24 12:43:38
+  ip_address: MyString
+  fitstname: MyString
+  lastname: MyString
+  fullname: MyString
+  email: MyString
+  sign_in_count: MyString

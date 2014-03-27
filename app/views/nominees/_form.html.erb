@@ -81,6 +81,13 @@
                </td>
             </tr>
 
+             <div class = "field">
+            <%= f.hidden_field :admin_user_id , :value => current_user.id %>
+            <%= f.hidden_field :firstname, :value => @users %>
+            <%= f.hidden_field :lastname, :value => @users  %>
+             </div>
+
+
             
           
 

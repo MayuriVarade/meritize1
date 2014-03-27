@@ -8,6 +8,7 @@ class NomineesController < ApplicationController
       
      @nominees = Nominee.all
      @vote_settings = VoteSetting.all
+     
       respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @nominees }
@@ -22,7 +23,7 @@ class NomineesController < ApplicationController
       
     end
   end
-
+ 
 
   def toggled_status
         @nominees = User.find(params[:id])
@@ -61,6 +62,7 @@ class NomineesController < ApplicationController
   # POST /nominees
   # POST /nominees.json
   def create
+     @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
     @nominee = Nominee.new(params[:nominee])
 
     

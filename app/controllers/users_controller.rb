@@ -4,6 +4,8 @@ class UsersController < ApplicationController
    before_filter :correct_user_edit, :only => [:edit,:update]
    layout :custom_layout
 
+   
+
   def show
     @user = User.find(params[:id])
 
@@ -28,9 +30,9 @@ class UsersController < ApplicationController
    def toggled_status
         @users = User.find(params[:id])
         @users.status = !@users.status?
-        @users.update_column(:status,@users.status)
-        
-        redirect_to admin_user_path
+        @users.update_column(:status,@users.status)       
+        redirect_to admin_user_path          
+        UserMailer.user_status_mail(@users).deliver         
     end
 
    def account_creation
@@ -53,10 +55,18 @@ class UsersController < ApplicationController
 
    def adminuser_logs
        @searchuser ||= []
+       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+       @adminusers.each do |adminuser|
+        fullname = adminuser.fullname
+        @searchuser << fullname
+       end
+       @searchuser
+   end
 
-       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
 
-
+   def product_manager_logs
+       @searchuser ||= []
+       @adminusers = ProductManagerLog.find(:all, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
@@ -94,6 +104,19 @@ def create
         render 'new'
       end
    end 
+
+
+
+
+  def self.reminder_email           
+          admin_user = User.where("username is null  and admin_user_id is null")          
+          admin_user.each do |user|          
+          @user_expiry = User.admin_user_plan_expiry(user)
+          UserMailer.trialday_reminder_mail(user,@user_expiry).deliver
+    end         
+  end  
+
+
  
    def edit
     @title = "Edit user"
@@ -202,6 +225,8 @@ def create
           when "adminuser_logs"
           "profile"
          when "add_adminuser"
+          "profile"
+        when "product_manager_logs"
           "profile"
          when "show"
           "profile"       

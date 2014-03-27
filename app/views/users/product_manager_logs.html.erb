@@ -29,7 +29,7 @@ jQuery(function() {
             <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
               <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">User Activities</a>
+            <a class="navbar-brand" href="#">Product Manager Activities</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -39,7 +39,7 @@ jQuery(function() {
               <li class="pull-right">
             <form class="navbar-form navbar-left">
                   <div class="form-group">
-                    <%= form_tag adminuser_logs_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"} do %>
+                    <%= form_tag product_manager_logs_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"} do %>
                       <%= text_field_tag :search, params[:search], :class=>"form-control" %>
 
                      <%= submit_tag "Search", :class_name => nil,:class=> "button button-small" %>

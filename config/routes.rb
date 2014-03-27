@@ -41,6 +41,7 @@ mount Ckeditor::Engine => '/ckeditor'
   resources :users 
   match '/admin_user', :to =>'users#admin_user'
   match '/adminuser_logs', :to =>'users#adminuser_logs'
+  match '/product_manager_logs', :to =>'users#product_manager_logs'
   match '/users/:id/delete', :to => "users#destroy"
   match '/users/:id/status', :to => "users#toggled_status"
   match '/history', :to => "subscriptions#history"

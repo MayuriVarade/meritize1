@@ -104,13 +104,22 @@
            <% end %>
       
            <% if current_user.role? :productmanager %>
-         
+        
 
           <li>
             <% @trial_days = TrialDay.first %>
            <%= link_to edit_trial_day_path(@trial_days) do %>
               <i class="nav-icon-14"></i><span>Manage Trial days</span></a>
           <% end %>
+          </li>
+          <li><%= link_to history_path do %>
+            <i class="nav-icon-16"></i><span>Plan History</span></a>
+            <% end %>
+          </li>
+
+          <li><%= link_to product_manager_logs_path do %>
+            <i class="nav-icon-16"></i><span>Product Manager Activities</span></a>
+            <% end %>
           </li>
             <% end %>
         
