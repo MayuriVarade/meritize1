@@ -78,7 +78,9 @@ scheduler.in '1d' do
 
 end
 #method for sending vote reminder1 for props.
+
  scheduler.in '1d' do
+
      #method for sending vote reminder1 for props
      PropDisplaysController.reminder_email1  
      #method for sending vote reminder2 for props

@@ -140,6 +140,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 
               </td>
             </tr>
+          
             <tr>
               <td>
                 <label class="form-label">Reminder email #1 sent to voters - Days:</label>
@@ -168,13 +169,14 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 
               </td>
             </tr>
+            
             <tr>
               <td>
                 <label class="form-label">Reminder email #2 sent to voters - Days:</label>
               </td>
               <td>
 
-                <%= f.select :reminder2_days, [["Select", "Select"],["5", "5"],["10","10"],["20","20"]],{},:class=>"form-control" %>
+                <%= f.text_field :reminder2_days,:class =>"form-control" %>
 
               </td>
             </tr>
@@ -196,13 +198,14 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 
               </td>
             </tr>
+           
              <tr>
               <td>
                 <label class="form-label">Reminder email #3 sent to voters - Days:</label>
               </td>
               <td>
 
-                <%= f.select :reminder3_days, [["Select", "Select"],["5", "5"],["10","10"],["20","20"]],{},:class=>"form-control" %>
+               <%= f.text_field :reminder3_days,:class =>"form-control" %>
 
               </td>
             </tr>

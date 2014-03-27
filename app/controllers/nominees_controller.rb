@@ -47,12 +47,16 @@ class NomineesController < ApplicationController
   def new
     @nominee = Nominee.new
     @searchuser ||= [] 
+
     @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id =? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.id])
+
         @adminusers.each do |adminuser|
           fullname = adminuser.fullname + adminuser.email
           @searchuser << fullname
         end
-        @searchuser
+
+        @searchuser 
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @nominee }
@@ -69,7 +73,9 @@ class NomineesController < ApplicationController
   def create
       nominee_params = params[:nominee][:user_id]
       nominee_split = nominee_params.split(" ")
+
       nominee_fullname = nominee_split[0] + " " + nominee_split[1] rescue nil
+
       nominee_email = nominee_split[2]
       nominee = User.where(["fullname LIKE ? and email LIKE ?", "%#{nominee_fullname}%","%#{nominee_email}%"])
       user_id = nominee[0].id
@@ -83,6 +89,7 @@ class NomineesController < ApplicationController
       @nominee.fullname = fullname
       @nominee.firstname = firstname
       @nominee.lastname = lastname 
+
      
     if  nominee_params.present? 
 

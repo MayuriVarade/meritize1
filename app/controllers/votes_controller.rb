@@ -22,7 +22,7 @@ class VotesController < ApplicationController
         @nominees = Nominee.where("start_cycle ='#{@vote_setting.start_cycle}' AND end_cycle ='#{@vote_setting.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
         
           unless @nominees.nil?
-            	   @searchuser ||= [] 
+                 @searchuser ||= [] 
                   @nomineeusers = Nominee.where(["firstname || lastname || fullname LIKE ? and user_id != ? and current_user_id = ? and current_user_id is not null and start_cycle = ? and end_cycle = ?
                     ", "%#{params[:search]}%",current_user.id,current_user.admin_user_id,"#{@vote_setting.start_cycle.to_date}","#{@vote_setting.end_cycle.to_date}"])
                   @nomineeusers.each do |nomineeuser|
@@ -59,18 +59,18 @@ class VotesController < ApplicationController
        
     if (voteable_params.present?) && (params[:vote][:description].present?) && (params[:vote][:core_values].present?) && (voteable_email.present?) 
        unless @votes.present? && @votes.vote_setting_id.present? && @vote_setting == @votes_last.cycle_end_date.to_date
-      	@vote = Vote.new(params[:vote])
+        @vote = Vote.new(params[:vote])
         @vote.voteable_id = voteable_id
         
-        	if @vote.save
-        		flash[:success] = "Vote for this user successfully submitted."
-        		redirect_to :back
-        	end 
+          if @vote.save
+            flash[:success] = "Vote for this user successfully submitted."
+            redirect_to :back
+          end 
        else
          Vote.update(@votes_last.id, :voter_id => current_user.id, :core_values => params[:vote][:core_values], :voteable_id =>voteable_id,:description =>params[:vote][:description],:vote_setting_id =>params[:vote][:vote_setting_id],:cycle_end_date => params[:vote][:cycle_end_date],:cycle_start_date => params[:vote][:cycle_start_date])
          flash[:success] = "Vote for this user successfully changed."
          redirect_to :back
-      end	
+      end 
     else
      redirect_to :back, :notice=> "Take a time to fill all the below records.."    
    end

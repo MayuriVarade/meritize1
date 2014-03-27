@@ -1,5 +1,5 @@
 class PropDisplaysController < ApplicationController
-   before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
+    before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
  layout 'profile'
 
   def index
@@ -13,7 +13,7 @@ class PropDisplaysController < ApplicationController
     else
       @prop_displays = PropDisplay.where("receiver_id = ?",current_user.id)
     end
-  	@prop_display = PropDisplay.new
+    @prop_display = PropDisplay.new
      @searchuser ||= [] 
         @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id !=? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
         @adminusers.each do |adminuser|
@@ -35,16 +35,16 @@ class PropDisplaysController < ApplicationController
        receiver_id = User.where(["fullname LIKE ? and email LIKE ?", "%#{prop_display_fullname}%","%#{prop_display_email}%"])
        receiver_id = receiver_id[0].id
 
-  	@prop_display = PropDisplay.new(params[:prop_display])
+    @prop_display = PropDisplay.new(params[:prop_display])
     @prop_display.receiver_id = receiver_id
   if prop_display_params.present? && params[:prop_display][:receiver_id].present? && prop_display_email.present? 
-  	if @prop_display.save
+    if @prop_display.save
        if (@prop_display.receiver.is_prop) == true 
           PropMailer.prop_notification_email(@prop_display).deliver
        end 
         flash[:success] = "Prop for this user successfully submitted."
-  		  redirect_to :back
-  	end 
+        redirect_to :back
+    end 
   else
          redirect_to :back, :notice=> "Take a time to fill all the below records.."    
 end
