@@ -102,7 +102,7 @@ end
     end
 
 
-    scheduler.in '2s' do     
+    scheduler.in '1d' do     
      #method for sending  reminder email for user
      UsersController.reminder_email
      
