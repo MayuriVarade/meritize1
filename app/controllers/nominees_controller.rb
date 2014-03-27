@@ -7,7 +7,7 @@ class NomineesController < ApplicationController
    def index
       
      @nominees = Nominee.all
-     @vote_settings = VoteSetting.all
+     @vote_settings = current_user.vote_setting
       respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @nominees }
