@@ -116,7 +116,7 @@ class VoteSettingsController < ApplicationController
         redirect_to :back ,:notice => "Start date cannot be greater than End date" 
       
         diff = (ec - sc + 1).round
-          if diff < 89 || diff > 90
+          if diff < 89 || diff > 92
             redirect_to :back, :notice => "Please select correct date for Quaterly."
           elsif (reminder1_days > 90) || (reminder2_days > 90) || (reminder3_days > 90)
           redirect_to :back, :notice => "Please select reminder days less than 90 days."    
@@ -147,8 +147,9 @@ class VoteSettingsController < ApplicationController
      sc =  params[:vote_setting][:start_cycle].to_s.to_date
      ec =  params[:vote_setting][:end_cycle].to_s.to_date
 
-    osc = params[:vote_setting][:start_cycle].to_s.to_date
-    oec = params[:vote_setting][:end_cycle].to_s.to_date
+    osc = @vote_setting.start_cycle
+    oec = @vote_setting.end_cycle
+
      reminder1_days = params[:vote_setting][:reminder1_days].to_i
      reminder2_days = params[:vote_setting][:reminder2_days].to_i 
      reminder3_days = params[:vote_setting][:reminder3_days].to_i
@@ -205,7 +206,7 @@ class VoteSettingsController < ApplicationController
           redirect_to :back, :notice => "Please select reminder days less than 7 days."    
         else
          diff = ec - sc + 1
-          if diff < 89 || diff > 90
+          if diff < 89 || diff > 92
             redirect_to :back, :notice => "Please select correct date range for weekly."
           else 
               respond_to do |format|

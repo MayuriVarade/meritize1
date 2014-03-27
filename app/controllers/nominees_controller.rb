@@ -7,7 +7,7 @@ class NomineesController < ApplicationController
    def index
       
      @nominees = Nominee.all
-     @vote_settings = current_user.vote_setting
+     @vote_settings = current_user.vote_setting rescue nil
      
       respond_to do |format|
       format.html # index.html.erb
@@ -95,7 +95,7 @@ class NomineesController < ApplicationController
     if  nominee_params.present? 
 
       if @nominee.save
-       flash[:success] = "Vote for this user successfully submitted."
+       flash[:success] = "User has been successfully nominated."
        redirect_to :back
     
       else

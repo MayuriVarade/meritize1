@@ -31,8 +31,8 @@
           <div class="controls">
             <dev class="form-control">
             
-            <%= @vote_settings.start_cycle.strftime("%d %B %Y") %>&nbsp;
-               TO&nbsp; <%= @vote_settings.end_cycle.strftime("%d %B %Y") %>
+            <%= @vote_settings.start_cycle.strftime("%d %B %Y") rescue nil%>&nbsp;
+               TO&nbsp; <%= @vote_settings.end_cycle.strftime("%d %B %Y") rescue nil%>
                           
             </select>
 

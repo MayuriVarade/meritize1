@@ -92,7 +92,7 @@ class PropsController < ApplicationController
           redirect_to :back, :notice => "Please select reminder days less than 90 days." 
         elsif
            diff = (ec - sc + 1).round
-            if diff < 89 || diff > 90
+            if diff < 89 || diff > 92
               redirect_to :back, :notice => "Please select proper date."
             elsif sp > ep
             redirect_to :back ,:notice => "Start Point cannot be grater than End Point"
@@ -149,8 +149,8 @@ class PropsController < ApplicationController
    
     sc =  params[:prop][:start_cycle].to_s.to_date
     ec =  params[:prop][:end_cycle].to_s.to_date
-    osc = params[:prop][:start_cycle].to_s.to_date
-    oec = params[:prop][:end_cycle].to_s.to_date
+    osc = @prop.start_cycle
+    oec = @prop.end_cycle
      reminder1_days = params[:prop][:reminder1_days].to_i
      reminder2_days = params[:prop][:reminder2_days].to_i 
      reminder3_days = params[:prop][:reminder3_days].to_i
@@ -190,7 +190,7 @@ class PropsController < ApplicationController
            
           else
              diff = ec - sc + 1
-              if diff < 89 || diff > 90
+              if diff < 89 || diff > 92
                 redirect_to :back, :notice => "Please select proper date."
               elsif (reminder1_days > 90) || (reminder2_days > 90) || (reminder3_days > 90)
           redirect_to :back, :notice => "Please select reminder days less than 90 days."    
