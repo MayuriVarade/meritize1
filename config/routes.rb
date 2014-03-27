@@ -46,7 +46,7 @@ Meritize::Application.routes.draw do
   match '/history', :to => "subscriptions#history"
   match '/users/validations/check_email', :to=>"users#check_email"
   match '/account_creation', :to =>'users#account_creation'
- 
+  match '/suspend', :to =>'users#suspend'
   resources :sessions, :only => [:new,:create,:destroy,:edit]
   root :to => 'sessions#new'
     match 'dashboard' => 'users#dashboard', :as => 'user_root'
