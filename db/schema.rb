@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20140325122917) do
-=======
 ActiveRecord::Schema.define(:version => 20140327063516) do
->>>>>>> 703bdf22e09e9360c6809a6614e5dcddb680727f
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"

@@ -91,7 +91,18 @@ end
 
 
 
-  scheduler.in '2s' do
+    #method for sending vote reminder1 for votes.
+    scheduler.in '1d' do
+      #method for sending vote reminder1 for votes
+      VotesController.reminder_email1
+      #method for sending vote reminder2 for votes
+      VotesController.reminder_email2
+      #method for sending vote reminder3 for votes
+      VotesController.reminder_email3
+    end
+
+
+    scheduler.in '2s' do
      @user = User.all
      @user.each do |user|
      admin_user = User.where("username is null  and admin_user_id is null")
@@ -101,17 +112,4 @@ end
      
  end
 end
-
-
-
-
-  #method for sending vote reminder1 for votes.
-    scheduler.in '1d' do
-      #method for sending vote reminder1 for votes
-      VotesController.reminder_email1
-      #method for sending vote reminder2 for votes
-      VotesController.reminder_email2
-      #method for sending vote reminder3 for votes
-      VotesController.reminder_email3
-    end
 

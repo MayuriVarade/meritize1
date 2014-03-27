@@ -8,7 +8,7 @@ class VotesController < ApplicationController
     def new
         @votes = Vote.find_by_voter_id(current_user)
 
-        @vote_setting_enddate = current_user.admin_user.vote_setting.end_cycle.to_date  
+        # @vote_setting_enddate = current_user.admin_user.vote_setting.end_cycle.to_date  
         @votes_last = Vote.find_all_by_voter_id(current_user.id,:order => "id desc").first
         
         @vote_setting = current_user.admin_user.vote_setting 
@@ -19,7 +19,7 @@ class VotesController < ApplicationController
         unless current_user.admin_user.setting.nil? 
           @core_values = @setting.core_values 
         end
-        @nominees = Nominee.where("start_cycle ='#{@vote_setting.start_cycle}' AND end_cycle ='#{@vote_setting.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
+        # @nominees = Nominee.where("start_cycle ='#{@vote_setting.start_cycle}' AND end_cycle ='#{@vote_setting.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
         
           unless @nominees.nil?
                  @searchuser ||= [] 
