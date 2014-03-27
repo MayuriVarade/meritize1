@@ -31,9 +31,15 @@ class UsersController < ApplicationController
         @users = User.find(params[:id])
         @users.status = !@users.status?
         @users.update_column(:status,@users.status)       
-        redirect_to admin_user_path          
+        redirect_to :back         
         UserMailer.user_status_mail(@users).deliver         
     end
+   
+    def suspend
+       @user = User.where("username is null  and admin_user_id is null")
+
+    end
+
 
    def account_creation
 
@@ -229,7 +235,9 @@ def create
         when "product_manager_logs"
           "profile"
          when "show"
-          "profile"       
+          "profile"
+           when "suspend"
+          "profile"        
          else
           "application"
         end

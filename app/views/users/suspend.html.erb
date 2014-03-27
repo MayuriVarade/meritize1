@@ -1,0 +1,25 @@
+
+ <div class="container">
+   <table class="table table-hover table-bordered table-responsive table-condensed">
+   <tr>
+   <th>Sr.No</th>
+   <th>Full Name</th>
+   <th>Email</th>
+   <th></th>
+   <th colspan="3">Action</th>
+   </tr>
+   <% @user.each.with_index(1) do |user,index| %>
+   <tr>
+   <td><%= index  %></td>
+   <td><%= user.fullname %></td>
+   <td><%= user.email  %></td>
+   <td><a href="/users/<%= user.id %>/delete" onclick="if(confirm('Are you sure you want to delete this page?'))  return true;  else  return  false;"         class = "btn btn-primary" >Delete</a>
+   </td>
+   <td><%= link_to format_boolean(user.status?), {:controller => 'users', :action => 'toggled_status', :id => user.id} %></td>
+   </tr>
+   <% end %>
+   </table>
+   <hr>
+   </div>
+ 
+

@@ -13,10 +13,22 @@ class SessionsController < ApplicationController
       	@title = "Sign in"
       	render 'new'
       elsif user.status == false 
-        flash.now[:error] = "Your account has been deactivated by your company admin."
-        @title = "Sign in"
-        render 'new'
-      
+          flash.now[:error] = "Your account has been deactivated"
+          @title = "Sign in"
+          render 'new'
+         
+         elsif user.username == "productadmin"
+          sign_in user
+          redirect_to user_root_path
+
+         elsif (user.username.nil?) && (user.admin_user_id.nil?) 
+          sign_in user
+          redirect_to user_root_path 
+
+         elsif user.admin_user.status == false  
+          flash.now[:error] = "Your account has been deactivated"
+          @title = "Sign in"
+          render 'new'
       else
          sign_in user
          if params[:remember_me]
