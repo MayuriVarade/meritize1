@@ -21,7 +21,7 @@ class VotesController < ApplicationController
         end
         @nominees = Nominee.where("start_cycle ='#{@vote_setting.start_cycle}' AND end_cycle ='#{@vote_setting.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
         
-          unless @nominees.nil?
+          if @nominees.present?
                  @searchuser ||= [] 
                   @nomineeusers = Nominee.where(["firstname || lastname || fullname LIKE ? and user_id != ? and current_user_id = ? and current_user_id is not null and start_cycle = ? and end_cycle = ?
                     ", "%#{params[:search]}%",current_user.id,current_user.admin_user_id,"#{@vote_setting.start_cycle.to_date}","#{@vote_setting.end_cycle.to_date}"])
@@ -39,7 +39,7 @@ class VotesController < ApplicationController
                 @searchuser << fullname
               end
               @searchuser
-
+               
           end
        
     end
