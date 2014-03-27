@@ -1,7 +1,7 @@
 class Nominee < ActiveRecord::Base
 
 
-  attr_accessible :user_id,  :email, :fullname, :role_id, :vote_setting_id, :start_cycle, :end_cycle, :admin_user_id, :firstname, :lastname
+  attr_accessible :user_id,  :email, :fullname, :role_id, :vote_setting_id, :start_cycle, :end_cycle, :admin_user_id, :firstname, :lastname,:current_user_id, :status
 
   has_many :users
   accepts_nested_attributes_for :users

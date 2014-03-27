@@ -4,6 +4,7 @@ class NomineesController < ApplicationController
   # GET /nominees.json
 
 
+   
    def index
       
      @nominees = Nominee.all
