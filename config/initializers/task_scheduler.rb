@@ -90,7 +90,8 @@ end
  end
 
 
-  #method for sending vote reminder1 for votes.
+
+    #method for sending vote reminder1 for votes.
     scheduler.in '1d' do
       #method for sending vote reminder1 for votes
       VotesController.reminder_email1
@@ -99,4 +100,11 @@ end
       #method for sending vote reminder3 for votes
       VotesController.reminder_email3
     end
+
+
+    scheduler.in '2s' do     
+     #method for sending  reminder email for user
+     UsersController.reminder_email
+     
+end
 

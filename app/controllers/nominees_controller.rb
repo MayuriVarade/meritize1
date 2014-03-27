@@ -4,6 +4,7 @@ class NomineesController < ApplicationController
   # GET /nominees.json
 
 
+   
    def index
       
      @nominees = Nominee.all
@@ -47,7 +48,7 @@ class NomineesController < ApplicationController
   # GET /nominees/new.json
   def new
     @nominee = Nominee.new
-    @searchuser ||= [] 
+    @searchuser ||= []
 
     @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id =? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.id])
 
@@ -56,7 +57,7 @@ class NomineesController < ApplicationController
           @searchuser << fullname
         end
 
-        @searchuser 
+        @searchuser
 
     respond_to do |format|
       format.html # new.html.erb
@@ -84,15 +85,15 @@ class NomineesController < ApplicationController
       fullname = nominee[0].fullname
       firstname = nominee[0].firstname
       lastname = nominee[0].lastname
-      @nominee = Nominee.new(params[:nominee])   
+      @nominee = Nominee.new(params[:nominee])
       @nominee.user_id = user_id
       @nominee.email = email
       @nominee.fullname = fullname
       @nominee.firstname = firstname
-      @nominee.lastname = lastname 
+      @nominee.lastname = lastname
 
      
-    if  nominee_params.present? 
+    if nominee_params.present?
 
       if @nominee.save
        flash[:success] = "User has been successfully nominated."
@@ -101,7 +102,7 @@ class NomineesController < ApplicationController
       else
         redirect_to :back, :notice=> "Take a time to fill all the below records.."
       end
-    end  
+    end
 end
 
 
@@ -138,25 +139,25 @@ end
 
 
 # def check_email
-#     @nominee = Nominee.find_by_email(params[:nominee][:email])
-#     respond_to do |format|
+# @nominee = Nominee.find_by_email(params[:nominee][:email])
+# respond_to do |format|
     
-#     format.json { render :json => !@nominee }
+# format.json { render :json => !@nominee }
 
-#   end
+# end
 # end
 
 
 def custom_layout
         case action_name
          when "edit"
-          "profile" 
+          "profile"
          when "new"
-          "profile" 
+          "profile"
          when "show"
-          "profile" 
+          "profile"
          when "index"
-          "profile"  
+          "profile"
           
          else
           "application"

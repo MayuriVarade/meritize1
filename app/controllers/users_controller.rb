@@ -2,121 +2,145 @@ class UsersController < ApplicationController
    before_filter :authenticate, :only => [:edit, :update,:dashboard]
    before_filter :correct_user, :only => [:show]
    before_filter :correct_user_edit, :only => [:edit,:update]
-   before_filter :skip_password_attribute, only: :update
    layout :custom_layout
-   require 'will_paginate/array'
 
-    def show
-      @user = User.find(params[:id])
+   
 
-    end
+  def show
+    @user = User.find(params[:id])
 
-    def new
-      #@random generates random value which wiil be used for generating temparay password.
-      @random = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
-      @user = User.new
-      @title="Sign up"
-    end
+  end
 
-     def dashboard
-        # @users = User.all
-        @plans = Plan.all
-        @trial_days = TrialDay.first
-        @user = User.find_by_id(current_user)
-        @plan_expiry = plan_expiry
-       
-     end
+  def new
+    #@random generates random value which wiil be used for generating temparay password.
+    @random = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
+    @user = User.new
+    @title="Sign up"
+  end
+
+   def dashboard
+      # @users = User.all
+      @plans = Plan.all
+      @trial_days = TrialDay.first
+      @user = User.find_by_id(current_user)
+      @plan_expiry = plan_expiry
+     
+   end
    # this method allows admin to activate or deactivate users
-     def toggled_status
-          @users = User.find(params[:id])
-          @users.status = !@users.status?
-          @users.update_column(:status,@users.status)
-          
-          redirect_to admin_user_path
-      end
+   def toggled_status
+        @users = User.find(params[:id])
+        @users.status = !@users.status?
+        @users.update_column(:status,@users.status)       
+        redirect_to admin_user_path          
+        UserMailer.user_status_mail(@users).deliver         
+    end
 
-     def account_creation
+   def account_creation
 
-     end
+   end
 
    #method for searching a admin_user and showing list of admin_user
-     def admin_user
-         @plan_expiry = plan_expiry
-          @searchuser ||= []
-          @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
-          @adminusers.each do |adminuser|
-          fullname = adminuser.fullname
-          @searchuser << fullname
-         end
-         @searchuser
-     end
+   def admin_user
+       @plan_expiry = plan_expiry
+        @searchuser ||= []
+        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+        @adminusers.each do |adminuser|
+        fullname = adminuser.fullname
+        @searchuser << fullname
+       end
+       @searchuser
+   end
 
    #method for searching a adminuser_logs and showing list of adminuser_logs
 
-     def adminuser_logs
+   def adminuser_logs
+       @searchuser ||= []
+       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+       @adminusers.each do |adminuser|
+        fullname = adminuser.fullname
+        @searchuser << fullname
+       end
+       @searchuser
+   end
 
 
-         @searchuser ||= []
-
-         @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
-
-         @adminusers.each do |adminuser|
-          fullname = adminuser.fullname
-          @searchuser << fullname
-         end
-         @searchuser
-     end
+   def product_manager_logs
+       @searchuser ||= []
+       @adminusers = ProductManagerLog.find(:all, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+       @adminusers.each do |adminuser|
+        fullname = adminuser.fullname
+        @searchuser << fullname
+       end
+       @searchuser
+   end
 
   #method for create new_user and sending them verification emails.
-    def create
+def create
       @user = User.new(params[:user])
       @random_password = params[:user][:password]
-    if @user.save
-      @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+      if @user.save
+        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+        
+            UserVerification.welcome_email(@user,@random_password).deliver
+
             
-      UserVerification.welcome_email(@user,@random_password).deliver
-      if params[:page_name] == "admin"
-      redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
-      else
-      redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready.
-      We have sent login instructions to your email address.
-      Contact us at support@imeritize.com if you have any questions."}
-      end
-      else
-      @title = "Sign Up"
-      render 'new'
-      end
-       end 
-     
-       def edit
-        @title = "Edit user"
-    end
-   #method for create updating existing users.
-     def update
-        @user = User.find(params[:id])
-        params[:user].delete(:password) if params[:user][:password].blank?
-        params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
-
-        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ") rescue nil
-        @user.update_column(:firstname,"#{params[:user][:firstname]}") rescue nil
-        @user.update_column(:lastname,"#{params[:user][:lastname]}") rescue nil
-        @user.update_column(:department,"#{params[:user][:department]}") rescue nil
-        @user.update_column(:is_prop,"#{params[:user][:is_prop]}") rescue nil
-        @user.update_column(:is_prop_reminder,"#{params[:user][:is_prop_reminder]}") rescue nil
-        @user.update_column(:is_vote_reminder,"#{params[:user][:is_vote_reminder]}") rescue nil
-
-        if params[:page_name] == "admin" 
-        flash[:success] = "Profile updated successfully."
-        redirect_to admin_user_path
-        elsif
-        flash[:notice] = "Profile updated successfully."
-        redirect_to @user
+         if params[:page_name] == "admin"
+        
+           
+          
+           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
+        
         else
-       @title = "Edit user"
-       render 'edit'
-       end
 
-    end
+          redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready.
+          We have sent login instructions to your email address.
+      Contact us at support@imeritize.com if you have any questions."}
+        
+        end
+   
+
+      else
+        @title = "Sign Up"
+        render 'new'
+      end
+   end 
+
+
+
+
+  def self.reminder_email           
+          admin_user = User.where("username is null  and admin_user_id is null")          
+          admin_user.each do |user|          
+          @user_expiry = User.admin_user_plan_expiry(user)
+          UserMailer.trialday_reminder_mail(user,@user_expiry).deliver
+    end         
+  end  
+
+
+ 
+   def edit
+    @title = "Edit user"
+   end
+   #method for create updating existing users.
+   def update
+    @user = User.find(params[:id])
+      if params[:page_name] == "admin" 
+      params[:user].delete(:password) if params[:user][:password].blank?
+      params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
+      @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+      flash[:success] = "Profile updated successfully."
+      redirect_to admin_user_path
+      elsif
+      @user.update_attributes(params[:user])
+     @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+     flash[:notice] = "Profile updated successfully."
+     redirect_to @user
+     else
+     @title = "Edit user"
+     render 'edit'
+     end
+
+ end
     #method for deleting users.
     def destroy
       @user = User.find(params[:id])
@@ -173,7 +197,7 @@ class UsersController < ApplicationController
         redirect_to(user_root_path,:notice => 'You cannot access this page') unless current_user == @user
        end
     end
-    
+
 
     def skip_password_attribute
     if params[:password].blank? && params[:password_validation].blank?
@@ -201,6 +225,8 @@ class UsersController < ApplicationController
           when "adminuser_logs"
           "profile"
          when "add_adminuser"
+          "profile"
+        when "product_manager_logs"
           "profile"
          when "show"
           "profile"       

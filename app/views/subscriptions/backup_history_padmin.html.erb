@@ -1,0 +1,462 @@
+
+<div id="masthead">
+	
+	<div class="container">
+		
+		<div class="masthead-pad">
+			
+			<div class="masthead-text">
+				<h2>Payment History</h2>
+				
+			</div> <!-- /.masthead-text -->
+			
+		</div>
+		
+	</div> <!-- /.container -->	
+	
+</div> <!-- /#masthead -->
+
+
+
+
+<div id="content">
+
+	<div class="container">
+      
+       <table class="table table-bordered table-striped table-highlight">
+
+
+
+       <% if current_user.role? :admin %>
+          <thead>
+            <tr>
+              <th>Sr.No</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Payment Mode</th>
+            </tr>
+          </thead>
+          <tbody>
+          	<% number_of_months = 0..3 %>
+             <% number_of_months.each.with_index(1) do |month_offset, index| %>
+
+           </br> <% startdate = month_offset.months.ago.beginning_of_month %>
+            <% enddate = month_offset.month.ago.end_of_month %>
+            <tr>
+              <td>   <%= index %></td>
+              <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
+                 &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
+               </td>
+               <% @s = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
+
+              <td> <%= @s.sum(:price) rescue nil%></td>
+              <td>Paid using Visa credit card ending in 7654</td>
+            </tr>
+         
+            <% end %>
+          </tbody>
+
+
+
+          <% elsif current_user.role? :productmanager %>
+<!-- 
+          <thead>
+            <tr>
+              <th>Sr.No</th>
+              <th>Date</th>              
+              <th>Amount</th>
+              <th>Plan Name</th> 
+             
+            </tr>
+          </thead>
+          <tbody>
+            <% number_of_months = 0..1 %>
+             <% number_of_months.each.with_index(1) do |month_offset, index| %>
+
+           </br> <% startdate = month_offset.months.ago.beginning_of_month %>
+            <% enddate = month_offset.month.ago.end_of_month %>
+            <tr>
+              <td>   <%= index %></td>
+              <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
+                 &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
+               </td>
+               
+               <% @s = Subscription.group('user_id').where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
+
+              <td> <%= @s.sum(:price).to_a rescue nil%></td> 
+
+
+              <td><% @subscriptions.to_a.each do |subscription| %>
+              <%= subscription.name %>
+              <% end %>
+              </td>             
+            </tr>
+         
+            <% end %>
+          </tbody> -->
+
+
+
+         <thead>
+         <tr>   
+          <th>Date</th>
+          <th>UserID</th>
+          <th>User Name</th>
+          <th>PlanID</th>
+          <th>Plan Name</th>
+          <th>Amount</th>
+          
+        </tr>
+         </thead>
+          <tbody>
+          <% number_of_months = 0..1 %>
+             <% number_of_months.each.with_index(1) do |month_offset, index| %>
+
+           </br> <% startdate = month_offset.months.ago.beginning_of_month %>
+            <% enddate = month_offset.month.ago.end_of_month %>
+
+           
+
+
+        <% @subscriptions.to_a.each do |subscription| %>
+          <tr> 
+           <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
+                 &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
+            </td>
+            <td><%= subscription.user_id%></td>  
+            <td><%= subscription.fullname %></td>
+            <td><%= subscription.plan_id%></td>  
+            <td><%= subscription.name %></td>
+          
+               <% @s = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
+
+              <td> <%= @s.sum(:price) rescue nil%></td>
+            
+          <% end %>
+          </tbody>
+          <% end %>
+          <% end %>
+
+
+        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
+      </div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
+
+
+
+
+<script>
+
+$(function () {
+	
+	Theme.init ();
+	
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% elsif current_user.role? :productmanager %>
+
+
+
+
+         <thead>
+             <% number_of_months = 0..1 %>
+             <% number_of_months.each.with_index(1) do |month_offset, index| %>
+
+            
+              <% startdate = month_offset.months.ago.beginning_of_month %>
+              <% enddate = month_offset.month.ago.end_of_month %>
+
+               <tr> 
+               <th>Account Created Date </th> 
+               <th>Plan Update Date</th>  
+                <th>Date</th>
+                <th>Amount</th>
+                <th>UserID</th>
+                <th>User Name</th>
+                <th>PlanID</th>
+                <th>Plan Name</th>         
+               </tr>
+
+         </thead>
+        <tbody>           
+
+        <% @subscriptions.to_a.each do |subscription| %>
+          <tr> 
+
+             <td><%= subscription.created_at %></td>
+             <td><%= subscription.updated_at %></td>
+            <td>
+              <%= startdate.strftime("%e %b %Y") %> &nbsp TO
+              &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
+            </td>
+
+              <% @s = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' ") %>
+
+              <td> <%= @s.sum(:price) rescue nil%></td>       
+              
+              <td><%= subscription.user_id%></td>  
+              <td><%= subscription.fullname %></td>
+              <td><%= subscription.plan_id%></td>  
+              <td><%= subscription.name %></td>
+            
+               
+            
+           <% end %>
+          
+          </tbody>
+          <% end %>
+          <% end %>
+
+
+        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
+      </div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% elsif current_user.role? :productmanager %>
+
+         <thead>
+            
+
+               <tr> 
+               <th>Sr.No</th>
+               <th>User Name</th>
+               <th>UserID</th> 
+               <th>Plan Name</th>
+               <th>PlanID</th> 
+               <th>Account Created Date </th> 
+               <th>Plan Update Date</th> 
+               <th>Plan Price</th>
+               <th>Total Amount</th> 
+                              
+               </tr>
+
+         </thead>
+        <tbody>           
+            
+        <% @subscriptions.to_a.each.with_index(1) do |subscription,index| %>
+          <tr> 
+             <td><%= index %></td>
+             <td><%= subscription.fullname %></td>
+             <td><%= subscription.user_id %></td>
+             <td><%= subscription.name %></td> 
+             <td><%= subscription.plan_id %></td>
+             <td><%= subscription.created_at.strftime("%e %b %Y") %></td>
+             <td><%= subscription.updated_at.strftime("%e %b %Y") %></td>
+             <td><%= subscription.price %></td>             
+             <% userid = subscription.user_id %>            
+             <% @s = Subscription.select("price").where("user_id = '#{userid}' ") %>  
+             <td><%= @s.sum(:price) %></td>  
+              
+          </tr>
+                      
+           <% end %>
+
+          </tbody>
+          
+          <% end %>
+
+
+        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
+      </div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% elsif current_user.role? :productmanager %>
+
+         <thead>
+            
+
+               <tr> 
+               <th>Sr.No</th>
+               <th>User Name</th>
+               <th>UserID</th> 
+               <th>Plan Name</th>               
+               <th>Account Created Date </th> 
+               <th>Plan Update Date</th> 
+               <th>Plan Price</th>
+               <th>Total Amount</th> 
+                              
+               </tr>
+
+         </thead>
+        <tbody>           
+            
+        <% @subscriptions.to_a.each.with_index(1) do |subscription,index| %>
+          <tr> 
+             <td><%= index %></td>             
+             <td><%= subscription.fullname %></td>            
+             <td><%= subscription.user_id %></td>
+             <td><%= subscription.name %></td>             
+             <td><%= subscription.created_at.strftime("%e %b %Y") %></td>
+             <td><%= subscription.updated_at.strftime("%e %b %Y") %></td>
+             <td><%= subscription.price %></td>             
+             <% userid = subscription.user_id %>            
+             <% @s = Subscription.select("price").where("user_id = '#{userid}' ") %>  
+             <td><%= @s.sum(:price) %></td>  
+              
+          </tr>
+                      
+           <% end %>
+
+          </tbody>
+          
+          <% end %>
+
+
+        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
+      </div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% elsif current_user.role? :productmanager %>
+
+         <thead>
+            
+
+               <tr> 
+              
+               <th>User Name</th>
+               <th></th>
+               <th>UserID</th>
+               <th></th>              
+               <th>Total Amount</th> 
+               <th></th>
+                              
+               </tr>
+
+         </thead>
+        <tbody>    
+        
+              
+            
+       
+          <tr> 
+             <% fullname = Subscription.uniq.pluck(:fullname) %> 
+             <% fullname.each do |f| %>
+             <td><%= f %></td>
+             <% end %>
+             <% user_id = Subscription.uniq.pluck(:user_id) %>
+             <% user_id.each do |u| %>
+             <td><%= u %></td>
+             <% end %>
+             <% @subscriptions.to_a.each.with_index(1) do |subscription,index| %>      
+             <% userid = subscription.user_id %>            
+             <% @s = Subscription.select("price").where("user_id = '#{userid}' ") %>  
+             <td><%= @s.sum(:price) %></td>  
+             <% end %>
+              
+          </tr>
+                      
+           
+
+          </tbody>
+          
+          <% end %>
+
+
+        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
+      </div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->

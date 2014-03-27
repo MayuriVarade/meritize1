@@ -24,6 +24,10 @@
 	<div class="container">
       
        <table class="table table-bordered table-striped table-highlight">
+
+
+
+       <% if current_user.role? :admin %>
           <thead>
             <tr>
               <th>Sr.No</th>
@@ -33,8 +37,8 @@
             </tr>
           </thead>
           <tbody>
-          	<% number_of_months = 0..1 %>
-             <% number_of_months.each.with_index(1) do |month_offset, index| %>
+          	<% number_of_months = 0..3 %>
+            <% number_of_months.each.with_index(1) do |month_offset, index| %>
 
            </br> <% startdate = month_offset.months.ago.beginning_of_month %>
             <% enddate = month_offset.month.ago.end_of_month %>
@@ -51,6 +55,49 @@
          
             <% end %>
           </tbody>
+
+
+
+          <% elsif current_user.role? :productmanager %>
+
+         <thead>
+            
+
+               <tr> 
+               <th>Sr.No</th>
+               <th>User Name</th>
+               <th>UserID</th> 
+               <th>Plan Name</th>               
+              <!--  <th>Account Created Date </th> 
+               <th>Plan Update Date</th>  -->
+              <!--  <th>Plan Price</th> -->
+               <th>Total Amount</th> 
+                              
+               </tr>
+
+         </thead>
+        <tbody>           
+            
+        <% @subscriptions.to_a.each.with_index(1) do |subscription,index| %>
+          <tr> 
+             <td><%= index %></td>             
+             <td><%= subscription.fullname %></td>            
+             <td><%= subscription.user_id %></td>
+             <td><%= subscription.name %></td>             
+            <!--  <td><%= subscription.created_at.strftime("%e %b %Y") %></td>
+             <td><%= subscription.updated_at.strftime("%e %b %Y") %></td> -->
+            <!--  <td><%= subscription.price %></td>   -->           
+             <% userid = subscription.user_id %>            
+             <% @s = Subscription.select("price").where("user_id = '#{userid}' ") %>  
+             <td><%= @s.sum(:price) %></td>  
+              
+          </tr>
+                      
+           <% end %>
+          </tbody>
+          <% end %>
+
+
         </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
       </div> <!-- /.container -->
 

@@ -1,0 +1,15 @@
+
+<% if @user.status == false %>
+				 Hi <%= @user.firstname %>,
+				 Your username is <%= @user.email %>
+
+				  "Your Account Is Inactive By Admin"
+<% else %>
+				Hi <%= @user.firstname %>,
+				 Your username is <%= @user.email %>
+
+				  "Your Account Is Inactive By Admin"
+
+<% end %> 
+
+

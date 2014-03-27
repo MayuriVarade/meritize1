@@ -4,13 +4,17 @@ class ApplicationController < ActionController::Base
   before_filter :session_expiry
   before_filter :update_activity_time
   include SessionsHelper
-  #Method for trial days 
+  
+  #Method for trial days for current_user
   def plan_expiry
       @trial_days = TrialDay.first
       @plan_expiry = (current_user.created_at + @trial_days.days.days)
       @current_date = (Time.zone.now)
-      @remaining_days = (@plan_expiry - @current_date).to_i / 1.day
+      @remaining_days = (@plan_expiry - @current_date).to_i / 1.day      
   end
+
+ 
+
   #Method for counting days which is used for validation
   def days_validation
     @start_cycle =  @vote_setting.start_cycle.to_date 

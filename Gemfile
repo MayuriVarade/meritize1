@@ -11,7 +11,7 @@ gem 'rails', '3.2.14'
 
 # Postgres gem used to create database on server
 
-#gem 'sqlite3'
+gem 'sqlite3'
 
 gem 'execjs'
 gem 'therubyracer'
@@ -19,7 +19,7 @@ gem 'paperclip'
 gem 'impressionist'
 gem 'prototype-rails'
 gem 'rufus-scheduler'
-
+gem 'bundler'
 gem "will_paginate"
 gem 'aws-s3'
 gem 'aws-sdk'

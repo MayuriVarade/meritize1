@@ -25,6 +25,11 @@ module SessionsHelper
 		  	unless @adminuserLog.nil?
 	          @adminuserLog.update_column(:sign_out_time,Time.now)
 	        end  
+	    elsif current_user.role?(:admin)
+		  	@productmanagerLog = ProductManagerLog.find_all_by_user_id(current_user.id).last
+		  	unless @productmanagerLog.nil?
+	          @productmanagerLog.update_column(:sign_out_time,Time.now)
+	        end 
 		  end
 	 	  
 	  cookies.delete(:remember_token)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140327063516) do
+ActiveRecord::Schema.define(:version => 20140327092446) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -48,9 +48,10 @@ ActiveRecord::Schema.define(:version => 20140327063516) do
     t.datetime "start_cycle"
     t.datetime "end_cycle"
     t.boolean  "status"
-    t.integer  "current_user_id"
     t.string   "firstname"
     t.string   "lastname"
+    t.integer  "admin_user_id"
+    t.integer  "current_user_id"
   end
 
   create_table "payment_notifications", :force => true do |t|
@@ -76,6 +77,21 @@ ActiveRecord::Schema.define(:version => 20140327063516) do
     t.text     "forusers"
     t.text     "foradmins"
     t.text     "pricing"
+  end
+
+  create_table "product_manager_logs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "admin_user_id"
+    t.datetime "sign_in_time"
+    t.datetime "sign_out_time"
+    t.string   "ip_address"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "fullname"
+    t.string   "email"
+    t.string   "sign_in_count"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "prop_cycles", :force => true do |t|
@@ -165,12 +181,15 @@ ActiveRecord::Schema.define(:version => 20140327063516) do
     t.string   "price"
     t.date     "date"
     t.string   "total_amount"
+    t.string   "fullname"
+    t.string   "name"
   end
 
   create_table "trial_days", :force => true do |t|
     t.integer  "days"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
