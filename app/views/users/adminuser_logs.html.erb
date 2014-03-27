@@ -1,0 +1,96 @@
+<%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
+<script>
+var data = <%= raw @searchuser %>;
+
+
+jQuery(function() {
+
+  jQuery( "#search" ).autocomplete(
+  {
+     source:data
+  });
+    
+});
+</script>
+
+ <div id="info">
+     <div class="container" style="margin-bottom:100px">
+    <section class="round">
+        <% flash.each do |key, value| %>
+      <div class="flash <%= key %>" style = "font-size:18px;"><%= value %></div>
+      <% end %>
+  </section>
+
+
+
+  <div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+              <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">User Activities</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+           
+              
+        
+              <li class="pull-right">
+            <form class="navbar-form navbar-left">
+                  <div class="form-group">
+                    <%= form_tag adminuser_logs_path, :method => 'get',:html =>{:id =>"edit-profile",:class=> "form-horizontal"} do %>
+                      <%= text_field_tag :search, params[:search], :class=>"form-control" %>
+
+                     <%= submit_tag "Search", :class_name => nil,:class=> "button button-small" %>
+                     <% end %>
+                     </div>
+                   </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+     
+           
+
+
+        
+         <table class="table table-bordered table-striped table-highlight">
+            <thead>
+              <tr>
+                
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Signin Time</th>
+                <th>Signout Time</th>
+                <th>Ip Address</th>
+                <th>Log ins to-date</th>
+               
+              </tr>
+            </thead>
+            <% @adminusers.each do |adminusers| %>
+            <tbody>
+              <tr>
+                
+                <td><%= adminusers.email rescue nil %></td>
+                <td><%= adminusers.firstname rescue nil %></td>
+                <td><%= adminusers.lastname rescue nil%></td>
+                <td><%= adminusers.sign_in_time.strftime("%e %b %Y %H:%m:%S%p") rescue nil%></td>
+                <td><%= adminusers.sign_out_time.strftime("%e %b %Y %H:%m:%S%p") rescue nil%></td>
+                <td><%= adminusers.ip_address rescue nil%></td>
+                <td><%= adminusers.sign_in_count rescue nil%></td>
+              </tr>
+              
+            </tbody>
+            <% end %>
+          </table>
+           <div align="right">
+           <ul class="pagination"> <li><%= will_paginate @adminusers  %></li></ul>
+          </div>
+        </div>
+
+        </div>
+  </div>
+

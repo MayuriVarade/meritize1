@@ -1,0 +1,82 @@
+
+<div id="masthead">
+	
+	<div class="container">
+		
+		<div class="masthead-pad">
+			
+			<div class="masthead-text">
+				<h2>User Profile</h2>
+				
+			</div> <!-- /.masthead-text -->
+			
+		</div>
+		
+	</div> <!-- /.container -->	
+	
+</div> <!-- /#masthead -->
+
+
+
+
+<div id="content">
+
+	<div class="container" style="margin-bottom:100px">		
+		
+		<div class="row">
+		
+		<div class="span12">
+		
+			
+							
+							
+							
+							<br />
+							
+							<table class="table table-bordered table-striped table-highlight">
+							
+							<tr>
+								<td colspan="2">
+									<% if current_user.photo.blank? %>
+				 						
+				 						<%= image_tag avatar_url(@user) %><br/>
+									<% else %>
+					                	<strong>Profile Photo</strong> <br/>
+					                	<%= image_tag @user.photo.url(:small) %><br/>
+                					<% end %></td>
+							  </tr>
+							  
+								
+							  <tr>
+								<td>First Name</td>
+								<td><%= @user.firstname %></td>
+							  </tr>
+							  <tr>
+								<td>Last Name</td>
+								<td><%= @user.lastname %></td>
+							  </tr>
+							  <tr>
+								<td>Email Address</td>
+								<td><%= @user.email %></td>
+							  </tr>
+							</table>
+							
+							
+							<div class="form-actions">
+										
+							<%= link_to 'Edit Profile', edit_user_path(current_user.id),:class=>"button  button-primary" %>			
+										
+		  					</div>
+		</div>
+			
+			
+			
+		</div> <!-- /.row -->
+		
+		
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+</div> <!-- /#wrapper -->
+

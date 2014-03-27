@@ -1,0 +1,53 @@
+<div class="container" style="margin-top:60px">
+<div class="shadow">
+<div>
+	<div class="form-horizontal">
+		
+		
+<%= form_for(@subscription) do |f| %>
+  <% if @subscription.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+
+      <ul>
+      <% @subscription.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    
+                  <%= f.hidden_field :plan_id %>
+                  <%= f.hidden_field :paypal_customer_token %>
+                  <%= f.hidden_field :paypal_payment_token %>  
+                  <%= f.hidden_field :user_id %>
+                  <%= f.hidden_field :price %>
+  
+  
+		 
+                       <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group">
+				 <label class="control-label" for="form-field-2"><%= f.label :email %></label>
+             <div class="controls">
+								 <%= f.email_field :email, :autofocus => true,:id=>"form-field-2", :class => "form-control" %>
+						 </div>
+					 </div>
+						 </div>
+           </div>		
+								
+ <div class="form-group">
+    <%= f.submit "Subscribe",:class=>"button button-primary" %>   
+    
+  <span class="extra_buttons">
+
+  	<%= link_to 'Plans', plans_path ,:class=>"button button-primary" %>
+
+
+</span>
+</div>
+<% end %>
+</div>								
+</div>
+</div>
+</div>

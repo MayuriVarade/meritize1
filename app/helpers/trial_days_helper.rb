@@ -1,0 +1,2 @@
+module TrialDaysHelper
+end

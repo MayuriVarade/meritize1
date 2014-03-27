@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  award_program_name: MyString
+  award_frequency_type: MyString
+  start_cycle: 2014-03-12 11:46:42
+  end_cycle: 2014-03-12 11:46:42
+  intro_text: MyText
+
+two:
+  award_program_name: MyString
+  award_frequency_type: MyString
+  start_cycle: 2014-03-12 11:46:42
+  end_cycle: 2014-03-12 11:46:42
+  intro_text: MyText

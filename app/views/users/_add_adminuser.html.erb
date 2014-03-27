@@ -1,0 +1,118 @@
+   
+    <%= javascript_include_tag "jquery-1.5.2.min","jquery.validate.min","validation" %>
+
+
+ 
+    <div id="content">
+       <section class="round">
+                        <% flash.each do |key, value| %>
+                      <div class="flash <%= key %>" style = "font-size:18px"><%= value %></div>
+                      <% end %>
+        </section>
+        
+      <div class="container">   
+        
+        <div class="row">
+        
+        <div class="span12">
+               <h2>Manage user</h2>
+           
+             
+                    <fieldset>
+                    
+
+
+                       <div>
+                        <div class="col-md-6">
+                      <div>
+                      <div class="form-group">                     
+                        <label for="username" class="control-label">First name</label><span class="star">*</span>
+                      <div class="controls">
+                          
+                          <%= f.text_field :firstname,:class=> "form-control",:style=>"height:auto" %>
+                          
+                        </div> <!-- /controls -->       
+                      </div>
+
+
+                      </div>
+                      
+                       <div>
+                      <div>
+                      <div class="form-group">                     
+                        <label for="username" class="control-label">Last name</label><span class="star">*</span>
+
+                        <div class="controls">
+                          
+                          <%= f.text_field :lastname,:class=> "form-control",:style=>"height:auto" %>
+                            
+                        </div> <!-- /controls -->       
+                      </div>
+
+                      </div>
+                       </div>
+                      <div>
+                      <div>
+                       <div class="form-group">                     
+                        <label for="username" class="control-label">Email address</label><span class="star">*</span>
+
+
+                        <div class="controls">
+                          
+                          
+                            <%= f.text_field :email, :class=> "form-control",:style=>"height:auto" %>
+                            <% if @user.errors.any? %>
+                                <div id="error_explanation">
+
+                                <ul>
+                                <% @user.errors.full_messages.each do |msg| %>
+                                <li><%= msg %></li>
+                                <% end %>
+                                </ul>
+                                </div>
+                                <% end %>
+                        </div> <!-- /controls -->       
+                      </div>
+                      </div>
+                       </div>
+                     <div>
+                      <div>
+                      <div class="form-group">                     
+                        <label for="department" class="control-label">Department</label>
+                        <div class="controls">
+                          <%= f.text_field :department, :class=> "form-control",:style=>"height:auto" %>
+                          <%= f.hidden_field :companyname,:value => current_user.companyname %>
+                        </div> <!-- /controls -->       
+                      </div> 
+                      </div>
+                       </div>
+                       
+                  
+                       <%= hidden_field_tag "user[role_ids][]", 3 %>
+                       <%= f.hidden_field :admin_user_id ,:value => current_user.id %>
+                       <%= f.hidden_field :password ,:value => @random %>
+                       <%= f.hidden_field :password_confirmation ,:value => @random %>
+                        <% if params[:type] == "adminuser" %>
+                                <%= hidden_field_tag("page_name", "admin") %>
+                          <% end %>
+         
+
+                       <div class="form-group">
+                      <%= f.submit "Create user",:class=>"button button-primary" %>  
+                        </div>
+                     </div>
+
+                    </fieldset>
+                 
+
+
+      </div>
+        
+        
+        
+      </div> <!-- /.row -->
+      
+      
+    </div> <!-- /.container -->
+
+  </div> <!-- /#content -->

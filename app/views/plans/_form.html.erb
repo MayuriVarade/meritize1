@@ -1,0 +1,101 @@
+
+ <script type="text/javascript"></script> <script type="text/javascript">
+//<![CDATA[
+bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+//]]>
+</script>
+<div id="masthead">
+  
+  <div class="container">
+    
+    <div class="masthead-pad">
+      
+      <div class="masthead-text">
+        <h2>Manage Plans</h2>
+        
+      </div> <!-- /.masthead-text -->
+      
+    </div>
+    
+  </div> <!-- /.container --> 
+  
+</div> <!-- /#masthead -->
+
+
+<div id="content">
+
+    <div class="container" style="margin-bottom:100px">   
+    
+      
+    <table class="table table-responsive">
+      <tbody >
+       <%= form_for (@plan) do |f|  %>   
+       <tr>
+       <td  width="20%">                     
+        <label  class="form-label">Plan name</label>
+       </td>
+       <td>
+       <%= f.text_field :name ,:class=>"form-control" %> 
+       </td>
+       </tr>  
+                           
+      
+        <tr>
+        <td>   
+        <label class="form-label">Price</label>
+        </td>
+        <td>
+        <%= f.text_field :price,:class=>"form-control" %>
+        </td>
+        </tr>
+       
+                  
+        
+        <tr>
+        <td>                       
+        <label for="email" class="control-label"> All Users </label>
+        </td>
+        <td>
+          <%= f.text_area :forusers, cols: 100, rows: 15,:class=>"form-control"%>
+         
+        
+        </td>
+        </tr>
+       
+        
+        <tr>
+        <td>                       
+        <label for="email" class="control-label">Admin Users</label>
+        </td>
+        <td>
+        <%= f.text_area :foradmins, cols: 100, rows: 15,:class=>"form-control" %>
+        </td>
+        </tr>
+      
+
+        
+        <tr>
+        <td>                       
+        <label for="email" class="control-label">Pricing</label>
+        </td>
+        <td>
+        <%= f.text_area :pricing, cols: 100, rows: 15,:class=>"form-control" %>
+        </td>
+        </tr>
+    
+
+       
+        <tr>
+        <td>
+        <label class="form-actions"></label>
+        </td>
+        <td>
+        <%= f.submit 'Update',:class=> "button button-primary"%>
+        </td>
+        </tr>
+    
+        <% end %>     
+        </tbody>
+        </table>
+        </div> <!-- /.container -->
+      </div> <!-- /#content -->

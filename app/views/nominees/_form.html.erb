@@ -1,0 +1,104 @@
+
+
+
+<%= stylesheet_link_tag "application"%>
+
+  <div id="info">
+  <div class="container">
+ 
+
+        <%= form_for(@nominee) do |f| %> 
+      <div class="row"></div>
+      
+      
+
+
+      <div class="container">
+      <h1>Add Nominee</h1>
+       <table class="table table-hover table-responsive table-condensed">
+       <tbody>     
+       
+
+
+            
+    
+           
+            <tr>
+              <td>  
+                <label class="control-label">Start Cycle</label>
+              </td>
+              <td>
+         
+               <%= select("nominee", "start_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.start_cycle.strftime("%d %B %Y"), p.start_cycle ] }, {}, :class=>"form-control") %>
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>  
+               <label class="control-label">End Cycle</label>
+              </td>
+              <td>
+            
+              <%= select("nominee", "end_cycle", VoteSetting.find_all_by_user_id(current_user.id).collect {|p| [ p.end_cycle.strftime("%d %B %Y"), p.end_cycle ] }, {}, :class=>"form-control") %>
+              <%= f.hidden_field :current_user_id ,:value => current_user.id %>
+              <%= f.hidden_field :status ,:value => true %>
+              </td>
+            </tr>
+
+             
+                      
+            <tr>
+              <td>
+               <label class="control-label">I Nominate</label>
+               </td>
+               <td>
+            
+               <%= f.text_field :user_id, :class => "form-control1" %></br>
+           
+               </td>
+            </tr>
+                  <% if @nominee.errors.any? %>
+                      <div id="error_explanation">
+
+                          <ul>
+                            <% @nominee.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                            <% end %>
+                          </ul>
+                      </div>
+                  <% end %>
+            
+          
+
+     <tr>
+     <td></td>
+      <td>
+        <%= f.submit "Add", :class => "btn btn-primary"%>
+      </td>
+     </tr>      
+    
+      <% end %>
+       </tbody>
+    </table>
+   </div>   
+</div>
+
+
+<script>
+    var data = <%= raw @searchuser %>;
+
+    jQuery(function() {
+
+      jQuery( "#nominee_user_id" ).autocomplete(
+      {
+         source:data
+      });
+
+
+        
+    });
+    </script>
+
+       <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>  
+       

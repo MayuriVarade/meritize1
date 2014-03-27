@@ -1,0 +1,38 @@
+
+
+
+
+
+<%= javascript_include_tag "jquery-1.5.2.min","jquery.validate.min","validation" %>
+
+<body id="signup">
+<div class="row">
+      <div class="col-md-12">
+        <div class="wrapper clearfix">
+          <div class="formy">
+            <div class="row">
+              <div class="col-md-12">
+          
+
+           
+            <div class="form-group">
+           
+            <section class="round">
+                      <% flash.each do |key, value| %>
+                    <div class="flash <%= key %>" style = "font-size:18px; text-align:center;"><%= value %></div>
+                    <% end %>
+            </section>
+
+               
+              
+               <div class="submit">
+              <%= link_to "Login", signin_path,:class =>"button-clear" %> 
+              </div> 
+              
+
+
+            </div>
+
+
+</div>            
+  </div>

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Company name:</b>
+  <%= @setting.company_name %>
+</p>
+
+<p>
+  <b>Website address:</b>
+  <%= @setting.website_address %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @setting.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_setting_path(@setting) %> |
+<%= link_to 'Back', settings_path %>

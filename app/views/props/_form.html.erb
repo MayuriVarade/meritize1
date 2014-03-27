@@ -1,0 +1,210 @@
+
+ <script type="text/javascript" ></script> <script type="text/javascript">
+//<![CDATA[
+bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+//]]>
+</script>
+
+<% content_for :styles do %>
+ <%= stylesheet_link_tag "application"%>
+ 
+<% end %>
+
+
+  <div id="info">
+
+        
+      <div class="container" style="margin-bottom:100px">
+        
+      <%= form_for (@prop) do |f| %>
+
+        <% if @prop.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@prop.errors.count, "error") %> prohibited this prop from being saved:</h2>
+
+            <ul>
+            <% @prop.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <h1>Settings - Props</h1>
+        <table class="table table-hover table-responsive table-condensed">
+          <tbody>
+            <tr>
+              <td>
+                <label class="form-label">Props options:</label>
+              </td>
+              <td>
+
+
+
+                <div class="checkbox">
+                  <label>
+                    <%= f.check_box :assign_points %>Assign Points</label>
+                </div>A user must dole out at least<%= f.number_field :start_point , :class=>"form-control" %>point(s) but no more than<%= f.number_field :end_point , :class=>"form-control" %>points, in steps of<%= f.number_field :step_point , :class=>"form-control"%>point(s)</td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reset points periodically:</label>
+              </td>
+              <td>
+                <%= f.select :reset_point, options_for_select([ ["Never reset points, let points accumulate forever","1"], ["Monthly","2"], ["Quaterly","3"]],:selected => @prop.reset_point),{},{:class=>"form-control"} %><br>
+                  <%= f.hidden_field :user_id, :value => current_user.id %>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Current cycle:</td>
+                      <td>
+                        <%= f.text_field :start_cycle, :class=>"form-control", :value=> "#{@prop.start_cycle.strftime("%d %B %Y") if @prop.start_cycle.present?}" %>
+                      </td>
+                      <td>to</td>
+                      <td>
+                        <%= f.text_field :end_cycle , :class=>"form-control",:value=> "#{@prop.end_cycle.strftime("%d %B %Y") if @prop.end_cycle.present?}"%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Past cycles:</td>
+                      <td colspan="3">
+                        <% if params[:action] == "edit" %>
+                          
+                         
+                          <% @past_cycles.each do |pc| %>
+                                 <%= pc.start_cycle.to_date.strftime("%d %B %Y") %>&nbsp; &nbsp;to&nbsp; &nbsp;<%= pc.end_cycle.to_date.strftime("%d %B %Y") %><br/>
+                            <% end %>
+                                               
+                         <% end %>
+
+                       </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Intro text displayed to voter:</label>
+              </td>
+              <td>
+
+                 <%= f.text_area :intro, :placeholder =>"Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?" ,cols: 100, rows: 15 %>
+              
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email sent to voters - From name:</label>
+              </td>
+              <td>
+               <%= f.text_field :name , :placeholder => " default text ", :class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email sent to voters - From email:</label>
+              </td>
+              <td>
+                <%= f.text_field :email , :placeholder => " default text ", :class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #1 sent to voters - Subject:</label>
+              </td>
+              <td>
+                <%= f.text_field :subject , :placeholder => " default text ", :class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #1 sent to voters - Body:</label>
+              </td>
+              <td>
+
+                <%= f.text_area :body , cols: 100, rows: 15,:class=>"form-control" %>
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #1 sent to voters - Days:</label>
+              </td>
+              <td>
+
+                <%= f.text_field :reminder1_days,:class =>"form-control" %>
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #2 sent to voters - Subject:</label>
+              </td>
+              <td>
+               <%= f.text_field :subject2 , :placeholder => " default text ", :class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #2 sent to voters - Body:</label>
+              </td>
+              <td>
+
+                <%= f.text_area :body2 , cols: 100, rows: 15,:class=>"form-control" %>
+
+              </td>
+            </tr>
+              <tr>
+              <td>
+                <label class="form-label">Reminder email #2 sent to voters - Days:</label>
+              </td>
+              <td>
+
+                <%= f.text_field :reminder2_days,:class =>"form-control" %>
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #3 sent to voters - Subject:</label>
+              </td>
+              <td>
+                <%= f.text_field :subject3 , :placeholder => " default text ", :class=>"form-control" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="form-label">Reminder email #3 sent to voters - Body:</label>
+              </td>
+              <td>
+
+                <%= f.text_area :body3 ,cols: 100, rows: 15, :class=>"form-control" %>
+
+              </td>
+            </tr>
+              <tr>
+              <td>
+                <label class="form-label">Reminder email #3 sent to voters - Days:</label>
+              </td>
+              <td>
+
+                <%= f.text_field :reminder3_days,:class =>"form-control" %>
+
+              </td>
+            </tr>
+              <tr>
+              <td>
+                <label class="form-label"></label>
+              </td>
+              <td>
+                 <%= f.submit "Save", :class => "btn btn-primary"%>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+        <% end %>
+      </div>   
+  </div> 
