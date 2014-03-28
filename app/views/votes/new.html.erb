@@ -1,4 +1,4 @@
-
+ 
 <%= stylesheet_link_tag "dashboard.css" %>
 
 <div id="info">
@@ -10,7 +10,7 @@
         <h1>Vote for the <%= @vote_setting.award_program_name rescue nil%></h1> 
         <p><%= @vote_setting.intro_text.html_safe rescue nil%></p>
         <p><% if @votes.present? && @votes.vote_setting_id.present? && @vote_setting_enddate == @votes_last.cycle_end_date.to_date %>
-                  You have given a vote for this award program,you may change the vote by voting again. 
+                  You have previously voted for this award program. However, you may change the vote by voting again. 
                   <% end %></p>
       </div>
       <div class="row">
@@ -19,17 +19,25 @@
             <a href="# " class="pull-left ">      </a> 
             <div class="media-body">
                <h4 class="media-heading">Past winners</h4>
-              <img src="/assets/user2.png" width="64" height="64" class="media-object">
-              <p>November 2013 - Jen Joes</p>
+               <%#= image_tag @user.photo.url(:small) %>
+               <img src="/assets/user2.png" width="64" height="64" class="media-object">
+              <p>No winner</p>
             </div>
             <p>&nbsp;</p>
             <div class="media-body">
                <h4 class="media-heading">My past votes</h4>
+        <% if @votes_last.present? %>
+               <% unless @votes_last.voteable.photo.blank? %>
+               <%= image_tag @votes_last.voteable.photo.url(:small),:width=>"64",:height=> "64",:class => "media-object" %>
+               <% else %>
               <img src="/assets/user2.png" width="64" height="64" class="media-object">
+              <% end %>
               <p><%= @votes_last.cycle_end_date.strftime(" %B %Y") rescue nil %> - <%= @votes_last.voteable.fullname rescue nil %></p>
+        <% end %>      
             </div>
           </div>
         </div>
+
         <div class="col-md-8">
         <%= form_for(@vote) do |f| %>  
           <div class="panel panel-default">
@@ -57,13 +65,15 @@
                  <% @core_values.each do |a_value| %>
                     <div class="checkbox">
                    <label>
-                    <%= f.check_box(:core_values, { :multiple => true }, a_value.title,nil) %> <%= a_value.title %>
+                    
+                    <%= f.check_box(:core_values, { :multiple => true }, a_value.title,nil) %> <%= link_to a_value.title, "javascript:void(0);", :rel =>'tooltip',:title => "#{a_value.description rescue nil}"%>
+                     
                   <br/>
                   </label>
                 </div>
                 <% end %>
                <% end %>
-                <%= f.submit "Submit Your Vote", :class => "button button-small"%>
+                <%= f.submit "Vote", :class => "button button-small"%>
               </div><br></div>
           </div>
            <% end %>
@@ -78,7 +88,7 @@
    
   </div>
 
-
+    
     <script>
     var data = <%= raw @searchuser %>;
 
@@ -92,6 +102,11 @@
 
         
     });
+
+    jQuery(document).ready(function(){
+  
+        jQuery("[rel='tooltip']").tooltip();
+    })
     </script>
 
     <script>

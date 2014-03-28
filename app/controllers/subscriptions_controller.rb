@@ -1,6 +1,6 @@
 class SubscriptionsController < ApplicationController
 
-   before_filter :authenticate, :only => [:edit, :update,:show,:new,:index]
+   before_filter :authenticate, :only => [:edit, :update,:show,:new,:index,:history]
 
  layout "profile"
 

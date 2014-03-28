@@ -48,32 +48,45 @@ class VotesController < ApplicationController
        @votes = Vote.find_by_voter_id(current_user)
        @vote_setting = current_user.admin_user.vote_setting.end_cycle.to_date
        @votes_last = Vote.find_all_by_voter_id(current_user).last 
-
+       @vote_setting1 = current_user.admin_user.vote_setting 
        voteable_params = params[:vote][:voteable_id]
        voteable_split = voteable_params.split(" ") rescue nil
        voteable_fullname = voteable_split[0] + " " + voteable_split[1] rescue nil
        voteable_email = voteable_split[2]
-       
+      
        voteable = User.where(["fullname LIKE ? and email LIKE ?", "%#{voteable_fullname}%","%#{voteable_email}%"])
        voteable_id = voteable[0].id
+        @nominees = Nominee.where("start_cycle ='#{@vote_setting1.start_cycle}' AND end_cycle ='#{@vote_setting1.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
+       if @nominees.present?
+         nomineeemail = Nominee.where('email = ?',voteable_email)
+      else
+        nomineeemail =  User.where(["id != ? and admin_user_id = ? and admin_user_id is not null and email = ?",current_user.id,current_user.admin_user_id,voteable_email])
+      end  
        
-    if (voteable_params.present?) && (params[:vote][:description].present?) && (params[:vote][:core_values].present?) && (voteable_email.present?) 
-       unless @votes.present? && @votes.vote_setting_id.present? && @vote_setting == @votes_last.cycle_end_date.to_date
-        @vote = Vote.new(params[:vote])
-        @vote.voteable_id = voteable_id
-        
-          if @vote.save
-            flash[:success] = "Vote for this user successfully submitted."
+    if (voteable_params.present?) && (params[:vote][:description].present?) && (params[:vote][:core_values].present?)  
+        if nomineeemail.present?
+          unless @votes.present? && @votes.vote_setting_id.present? && @vote_setting == @votes_last.cycle_end_date.to_date
+            @vote = Vote.new(params[:vote])
+            @vote.voteable_id = voteable_id
+            
+            if @vote.save
+              flash[:success] = "Vote for this user successfully submitted."
+              redirect_to :back
+            end 
+          else
+            Vote.update(@votes_last.id, :voter_id => current_user.id, :core_values => params[:vote][:core_values], :voteable_id =>voteable_id,:description =>params[:vote][:description],:vote_setting_id =>params[:vote][:vote_setting_id],:cycle_end_date => params[:vote][:cycle_end_date],:cycle_start_date => params[:vote][:cycle_start_date])
+            flash[:success] = "Vote for this user successfully changed."
             redirect_to :back
-          end 
-       else
-         Vote.update(@votes_last.id, :voter_id => current_user.id, :core_values => params[:vote][:core_values], :voteable_id =>voteable_id,:description =>params[:vote][:description],:vote_setting_id =>params[:vote][:vote_setting_id],:cycle_end_date => params[:vote][:cycle_end_date],:cycle_start_date => params[:vote][:cycle_start_date])
-         flash[:success] = "Vote for this user successfully changed."
-         redirect_to :back
-      end 
+          end
+
+        else
+          flash[:notice] = "Sorry, we cannot find that person. It's also possible that he/she has not been nominated."
+          redirect_to :back 
+        end
     else
-     redirect_to :back, :notice=> "Take a time to fill all the below records.."    
-   end
+     
+      flash[:notice] = "Take a time to fill all the below records."
+    end
   end
 
     # scheduler method for triggering reminder_email1. 

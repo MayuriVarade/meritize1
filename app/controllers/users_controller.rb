@@ -130,23 +130,28 @@ def create
    #method for create updating existing users.
    def update
     @user = User.find(params[:id])
-      if params[:page_name] == "admin" 
-      params[:user].delete(:password) if params[:user][:password].blank?
-      params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
-      @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+    params[:user].delete(:password) if params[:user][:password].blank?
+    params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
+    @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+    @user.update_column(:firstname,"#{params[:user][:firstname]}")
+    @user.update_column(:lastname,"#{params[:user][:lastname]}")
+    @user.update_column(:department,"#{params[:user][:department]}")
+    @user.update_attribute(:photo,params[:user][:photo])
+    @user.update_attribute(:is_prop,params[:user][:is_prop])
+    @user.update_attribute(:is_vote_reminder,params[:user][:is_vote_reminder])
+    @user.update_attribute(:is_prop_reminder,params[:user][:is_prop_reminder])
+    
+    if params[:page_name] == "admin"
       flash[:success] = "Profile updated successfully."
       redirect_to admin_user_path
-      elsif
-      @user.update_attributes(params[:user])
-     @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
-     flash[:notice] = "Profile updated successfully."
-     redirect_to @user
-     else
-     @title = "Edit user"
-     render 'edit'
-     end
-
- end
+    elsif
+    flash[:notice] = "Profile updated successfully."
+      redirect_to @user
+    else
+      @title = "Edit user"
+      render 'edit'
+    end
+  end
     #method for deleting users.
     def destroy
       @user = User.find(params[:id])

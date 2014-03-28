@@ -7,7 +7,7 @@ class NomineesController < ApplicationController
    
    def index
       
-     @nominees = Nominee.all
+     @nominees = Nominee.find_all_by_current_user_id(current_user.id)
      @vote_settings = current_user.vote_setting rescue nil
      
       respond_to do |format|
