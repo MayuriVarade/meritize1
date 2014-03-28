@@ -38,7 +38,7 @@ class VotesController < ApplicationController
                 fullname = adminuser.fullname + adminuser.email
                 @searchuser << fullname
               end
-              @searchuser
+              
                
           end
        
