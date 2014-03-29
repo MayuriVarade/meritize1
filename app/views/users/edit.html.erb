@@ -42,7 +42,7 @@
                        </div>
 							<!-- <span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span> -->
 										
-											
+					<% if params[:type] == "adminuser" %>						
 											          <label class="form-label">Email notifications</label>
 				          <div class="checkbox">
 				            <label>
@@ -56,7 +56,7 @@
 				            <label>
 				              <%= f.check_box :is_vote_reminder, {:class => "myclass", :style => "mystyle"} %>Yes, remind me when it's time to vote</label>
 				          </div>
-							 
+					<% end %>		 
 						<div class="submit" style="margin-top:20px">
 						<%= f.submit "Save changes to my profile", :class => "button button-small"%>	
 					    </div>
