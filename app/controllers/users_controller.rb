@@ -136,10 +136,11 @@ def create
     @user.update_column(:firstname,"#{params[:user][:firstname]}")
     @user.update_column(:lastname,"#{params[:user][:lastname]}")
     @user.update_column(:department,"#{params[:user][:department]}")
+    @user.update_column(:time_zone,"#{params[:user][:time_zone]}")
     @user.update_attribute(:photo,params[:user][:photo])
-    @user.update_attribute(:is_prop,params[:user][:is_prop])
-    @user.update_attribute(:is_vote_reminder,params[:user][:is_vote_reminder])
-    @user.update_attribute(:is_prop_reminder,params[:user][:is_prop_reminder])
+    @user.update_column(:is_prop,params[:user][:is_prop])
+    @user.update_column(:is_vote_reminder,params[:user][:is_vote_reminder])
+    @user.update_column(:is_prop_reminder,params[:user][:is_prop_reminder])
     
     if params[:page_name] == "admin"
       flash[:success] = "Profile updated successfully."
