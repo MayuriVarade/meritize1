@@ -86,15 +86,10 @@ class VotesController < ApplicationController
           redirect_to :back 
         end
     else
-<<<<<<< HEAD
+
      redirect_to :back, :notice=> "Sorry, we cannot find that person. It's also possible that he/she has not been nominated."    
    end
-=======
-     
-      flash[:notice] = "Take a time to fill all the below records."
-      redirect_to :back 
-    end
->>>>>>> 9a0bfdbae35af8a758c567deea044e95fd157bf1
+
   end
 
     # scheduler method for triggering reminder_email1. 
