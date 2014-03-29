@@ -42,7 +42,7 @@
                        </div>
 							<!-- <span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span> -->
 										
-					<% if params[:type] == "adminuser" %>						
+					<% if params[:type] == "adminuser" || current_user.role? :user %>						
 											          <label class="form-label">Email notifications</label>
 				          <div class="checkbox">
 				            <label>
