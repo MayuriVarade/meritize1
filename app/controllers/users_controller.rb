@@ -116,9 +116,11 @@ def create
 
   def self.reminder_email           
           admin_user = User.where("username is null  and admin_user_id is null")          
-          admin_user.each do |user|          
+          admin_user.each do |user| 
+          unless  user.plan_type == "premium"      
           @user_expiry = User.admin_user_plan_expiry(user)
           UserMailer.trialday_reminder_mail(user,@user_expiry).deliver
+        end 
     end         
   end  
 

@@ -13,13 +13,13 @@
       <table class="table table-bordered table-striped table-highlight">
        <thead>
        <tr>
-       <th>Email</th>
+       <th>Plan Name</th>
        <th></th>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td> <%= @subscription.email %></td>
+        <td> <%= @subscription.name %></td>
         <td>Thank you for subscribing!</td>
       </tr>
        </table> <%= link_to 'Plans', plans_path, :class =>"btn btn-primary btn-large" %>

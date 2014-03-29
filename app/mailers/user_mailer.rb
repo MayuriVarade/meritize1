@@ -34,7 +34,7 @@ class UserMailer < ActionMailer::Base
 
   def user_status_mail(user)
     @user = user
-    @url = 'http://sandbox.paypal.com'
+    # @url = 'http://sandbox.paypal.com'
     mail(
           to: user.email,
           subject: 'Welcome to Meritize'

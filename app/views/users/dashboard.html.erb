@@ -17,7 +17,9 @@
              
           <% elsif current_user.role? :admin %>
             <div id="deletesuccess" class="jumbotron">
+            <% unless  current_user.plan_type == "premium" %>
                 Only <%= @plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
+                <% end %>
              </div>
          <% else %>
           <!--  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>

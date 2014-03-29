@@ -1,4 +1,9 @@
-
+<% if plan_expiry = 1 %> 
+Hi <%= @user.fullname %>
+and your username is <%= @user.email %>
+Your Trial Period is finished.Please select the plan to continue with Meritize.
+<% else %>
 Hi <%= @user.fullname %>
 and your username is <%= @user.email %>
 Only <%= @user_expiry %> days left for your trial plan to expire. You can upgrade at any time.
+<% end %>

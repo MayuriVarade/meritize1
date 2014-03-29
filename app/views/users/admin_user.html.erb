@@ -37,11 +37,14 @@
    
              
           <% elsif current_user.role? :admin %>
+            <% unless  current_user.plan_type == "premium" %> 
             Only <%= @plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
+            <% end %>
          <% else %>
            User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
            Email:<%= current_user.email %><br/>
         <% end %>
+        
     </div>
 
     <div class="navbar navbar-default">

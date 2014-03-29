@@ -13,7 +13,7 @@ class Subscription < ActiveRecord::Base
 
         subscription = Subscription.find_by_email(self.email) rescue nil
         if subscription.present?
-          update_with_paypal_payment(subscription)
+          (update_with_paypal_payment(subscription)) && (update_user(user))
         else
           save_with_paypal_payment
         end
@@ -32,6 +32,10 @@ class Subscription < ActiveRecord::Base
     response = paypal.make_recurring
     # raise self.user_id.inspect
     subscribe.update_attributes(:name => self.name,:fullname => self.fullname,:plan_id => self.plan_id,:price => self.price, :user_id => self.user_id, :email => self.email, :paypal_customer_token => self.paypal_customer_token, :paypal_recurring_profile_token => response.profile_id)
+  end
+
+  def update_user(user)
+  user.update_attributes(:plan_id => self.plan_id)
   end
 
 

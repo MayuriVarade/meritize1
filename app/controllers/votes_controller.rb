@@ -34,7 +34,7 @@ class VotesController < ApplicationController
           else
               @searchuser ||= [] 
               @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
-              @adminusers.each do |adminuser|
+              @adminusers.each do |adminuser|                
                 fullname = adminuser.fullname + adminuser.email
                 @searchuser << fullname
               end
@@ -72,7 +72,7 @@ class VotesController < ApplicationController
          redirect_to :back
       end 
     else
-     redirect_to :back, :notice=> "Take a time to fill all the below records.."    
+     redirect_to :back, :notice=> "Sorry, we cannot find that person. It's also possible that he/she has not been nominated."    
    end
   end
 

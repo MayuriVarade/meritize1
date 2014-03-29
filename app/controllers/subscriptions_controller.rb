@@ -20,8 +20,10 @@ def success
       @subscription.paypal_customer_token = params[:PayerID]
       @subscription.paypal_payment_token = params[:token]
       @subscription.email = @subscription.paypal.checkout_details.email
+
     end
      if @subscription.save_with_payment
+      @subscription.user.update_column(:plan_type,"premium") rescue nil
        UserMailer.welcome_email(@subscription).deliver
       redirect_to :action => 'show', :id => @subscription.plan_id
     else
@@ -69,6 +71,7 @@ end
   end
 
   def history
+   
      @subscriptions = Subscription.all
      render :layout=>"profile"
   end

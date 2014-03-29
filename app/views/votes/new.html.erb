@@ -10,7 +10,7 @@
         <h1>Vote for the <%= @vote_setting.award_program_name rescue nil%></h1> 
         <p><%= @vote_setting.intro_text.html_safe rescue nil%></p>
         <p><% if @votes.present? && @votes.vote_setting_id.present? && @vote_setting_enddate == @votes_last.cycle_end_date.to_date %>
-                  You have given a vote for this award program,you may change the vote by voting again. 
+                  You have previously voted for this award program. However, you may change the vote by voting again. 
                   <% end %></p>
       </div>
       <div class="row">
@@ -63,7 +63,7 @@
                 </div>
                 <% end %>
                <% end %>
-                <%= f.submit "Submit Your Vote", :class => "button button-small"%>
+                <%= f.submit "Vote", :class => "button button-small"%>
               </div><br></div>
           </div>
            <% end %>

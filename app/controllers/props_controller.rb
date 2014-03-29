@@ -69,7 +69,7 @@ class PropsController < ApplicationController
               redirect_to :back, :notice => "Please select proper date."
             elsif sp > ep
             redirect_to :back ,:notice => "Start Point cannot be grater than End Point"
-          else
+            else
               respond_to do |format|
                 if @prop.save
                   format.html { redirect_to edit_prop_path(@prop), notice: 'Settings for props were successfully created.' }
