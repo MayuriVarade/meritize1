@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
    has_one :plan
 
 
-   has_many :settings 
+   has_one :setting 
    belongs_to :nominee 
 
 

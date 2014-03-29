@@ -5,7 +5,7 @@
    <th>Sr.No</th>
    <th>Full Name</th>
    <th>Email</th>
-   
+   <th>Company Name</th>
    <th colspan="3">Action</th>
    </tr>
    <% @user.each.with_index(1) do |user,index| %>
@@ -13,7 +13,7 @@
    <td><%= index  %></td>
    <td><%= user.fullname %></td>
    <td><%= user.email  %></td>
-   
+   <td><%= user.setting.company_name rescue nil%></td>
    <td><%= link_to format_boolean(user.status?), {:controller => 'users', :action => 'toggled_status', :id => user.id} %></td>
    </tr>
    <% end %>
