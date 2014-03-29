@@ -17,7 +17,7 @@ class PropDisplaysController < ApplicationController
      @searchuser ||= [] 
         @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id !=? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
         @adminusers.each do |adminuser|
-        fullname = adminuser.fullname + adminuser.email
+        fullname = adminuser.fullname + "(" + adminuser.email + ")"
         @searchuser << fullname
        end
        @searchuser
@@ -30,8 +30,8 @@ class PropDisplaysController < ApplicationController
    prop_display_params = params[:prop_display][:receiver_id]
    prop_display_split = prop_display_params.split(" ") rescue nil
    prop_display_fullname = prop_display_split[0] + " " + prop_display_split[1] rescue nil
-   prop_display_email = prop_display_split[2]
-
+   prop_display_email1 = prop_display_split[2]
+   prop_display_email = prop_display_email1.gsub(/[()]/, "") rescue nil
        receiver_id = User.where(["fullname LIKE ? and email LIKE ?", "%#{prop_display_fullname}%","%#{prop_display_email}%"])
        receiver_id = receiver_id[0].id
 

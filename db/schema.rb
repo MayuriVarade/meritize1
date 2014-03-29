@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140327092446) do
+ActiveRecord::Schema.define(:version => 20140327063516) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -48,10 +48,10 @@ ActiveRecord::Schema.define(:version => 20140327092446) do
     t.datetime "start_cycle"
     t.datetime "end_cycle"
     t.boolean  "status"
+    t.integer  "current_user_id"
     t.string   "firstname"
     t.string   "lastname"
     t.integer  "admin_user_id"
-    t.integer  "current_user_id"
   end
 
   create_table "payment_notifications", :force => true do |t|

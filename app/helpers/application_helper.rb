@@ -45,6 +45,7 @@ module ApplicationHelper
 
       end
       
+      
       def plan_expiry
       @trial_days = TrialDay.first
       @plan_expiry = (current_user.created_at + @trial_days.days.days)

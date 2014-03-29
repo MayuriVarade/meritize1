@@ -16,15 +16,19 @@ class SessionsController < ApplicationController
           flash.now[:error] = "Your account has been deactivated"
           @title = "Sign in"
           render 'new'
-         
-         elsif user.username == "productadmin"
+     
+       elsif user.username == "productadmin"
           sign_in user
           redirect_to user_root_path
-
-         elsif (user.username.nil?) && (user.admin_user_id.nil?) 
+         # if user.admin_user.status.present?
+         elsif (user.sign_in_count == 1) && ((user.username.nil?) && (user.admin_user_id.nil?))
+          sign_in user
+          redirect_to change_password_path
+           
+         elsif (user.sign_in_count > 1) && ((user.username.nil?) && (user.admin_user_id.nil?)) 
           sign_in user
           redirect_to user_root_path 
-
+       
          elsif user.admin_user.status == false  
           flash.now[:error] = "Your account has been deactivated"
           @title = "Sign in"

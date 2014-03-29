@@ -252,11 +252,11 @@
 
 
 
-    jQuery("#new_nominee").validate({
+    jQuery("#new_vote").validate({
      errorElement:'span',
      rules: {
 
-     "nominee[user_id]" :{
+     "vote[description]" :{
             required: true
              
             }
@@ -265,8 +265,8 @@
        messages: {
 
 
-     "nominee[user_id]" :{
-                required: "Please Enter your nominee.",
+     "vote[description]" :{
+                required: "Please Enter description.",
                 
 
              }

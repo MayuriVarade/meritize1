@@ -7,7 +7,7 @@ class NomineesController < ApplicationController
    
    def index
       
-     @nominees = Nominee.all
+     @nominees = Nominee.find_all_by_current_user_id(current_user.id)
      @vote_settings = current_user.vote_setting rescue nil
      
       respond_to do |format|
@@ -53,7 +53,7 @@ class NomineesController < ApplicationController
     @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id =? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.id])
 
         @adminusers.each do |adminuser|
-          fullname = adminuser.fullname + adminuser.email
+          fullname = adminuser.fullname + "(" + adminuser.email + ")"
           @searchuser << fullname
         end
 
@@ -78,7 +78,8 @@ class NomineesController < ApplicationController
 
       nominee_fullname = nominee_split[0] + " " + nominee_split[1] rescue nil
 
-      nominee_email = nominee_split[2]
+      nominee_email1 = nominee_split[2]
+      nominee_email = nominee_email1.gsub(/[()]/, "") rescue nil
       nominee = User.where(["fullname LIKE ? and email LIKE ?", "%#{nominee_fullname}%","%#{nominee_email}%"])
       user_id = nominee[0].id
       email = nominee[0].email
