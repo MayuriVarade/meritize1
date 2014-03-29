@@ -58,11 +58,11 @@ class VotesController < ApplicationController
        voteable = User.where(["fullname LIKE ? and email LIKE ?", "%#{voteable_fullname}%","%#{voteable_email}%"])
        voteable_id = voteable[0].id
         @nominees = Nominee.where("start_cycle ='#{@vote_setting1.start_cycle}' AND end_cycle ='#{@vote_setting1.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
-       if @nominees.present?
-         nomineeemail = Nominee.where('email = ?',voteable_email)
-      else
-        nomineeemail =  User.where(["id != ? and admin_user_id = ? and admin_user_id is not null and email = ?",current_user.id,current_user.admin_user_id,voteable_email])
-      end  
+        if @nominees.present?
+           nomineeemail = Nominee.where('email = ?',voteable_email)
+        else
+          nomineeemail =  User.where(["id != ? and admin_user_id = ? and admin_user_id is not null and email = ?",current_user.id,current_user.admin_user_id,voteable_email])
+        end  
        
     if (voteable_params.present?) && (params[:vote][:description].present?) && (params[:vote][:core_values].present?)  
         if nomineeemail.present?
