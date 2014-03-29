@@ -90,7 +90,7 @@
                
               
                   
-                <% @user = User.where("username is null AND admin_user_id is null and created_at >='#{startdate}' AND created_at <='#{enddate}'  ") %>
+                <% @user = User.where("username is null AND admin_user_id is null and created_at >='#{startdate}' AND created_at <='#{enddate}'  ") rescue nil %>
 
                  <% @user.each_with_index do |adminuser,i| %>
                 <tr>
@@ -101,9 +101,9 @@
                   <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
                          &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
                   </td>
-                  <td><%= @subs_user.user_id %></td> 
-                  <td><%= @subs_user.fullname %></td>            
-                  <td><%= @subs_user.name %></td>
+                  <td><%= @subs_user.user_id rescue nil%></td> 
+                  <td><%= @subs_user.fullname rescue nil%></td>            
+                  <td><%= @subs_user.name rescue nil%></td>
                  
           
                 
@@ -113,7 +113,7 @@
                  
                  <% @s = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{adminuser.id}' ") %>
                    
-                  <td><%= (@admin)*(@s.sum(:price)) %></td>
+                  <td><%= (@admin)*(@s.SUM(:price)) %></td>
 
                 <% end %>        
                

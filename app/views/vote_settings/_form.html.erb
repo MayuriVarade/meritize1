@@ -36,7 +36,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Awards program name:</label>
               </td>
               <td>
-                <%= f.text_field :award_program_name,:class=>"form-control" %>
+                <%= f.text_field :award_program_name,:placeholder =>"Employee of the month" ,:class=>"form-control" %>
                 
               </td>
             </tr>
@@ -102,7 +102,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               <td>
 
 
-                 <%= f.text_area :intro_text,cols: 100, rows: 17%>
+                 <%= f.text_area :intro_text,:value => "Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?",cols: 100, rows: 17%>
 
 
               </td>
@@ -112,7 +112,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Reminder email sent to voters - From name:</label>
               </td>
               <td>
-                <%= f.text_field :email_sender_name, :placeholder => " default text ",:class=>"form-control" %>
+                <%= f.text_field :email_sender_name, :placeholder => "HR ",:class=>"form-control" %>
                 
               </td>
             </tr>
@@ -121,7 +121,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Reminder email sent to voters - From email:</label>
               </td>
               <td>
-                 <%= f.text_field :email_sender_email, :placeholder => " default text ",:class=>"form-control" %>
+                 <%= f.text_field :email_sender_email, :placeholder => " HR@mycompany.com ",:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -129,7 +129,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Reminder email #1 sent to voters - Subject:</label>
               </td>
               <td>
-                 <%= f.text_field :email_sender_subject1, :placeholder => " default text ",:class=>"form-control" %>
+                 <%= f.text_field :email_sender_subject1, :placeholder => "it's time to vote",:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -138,7 +138,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                <%= f.text_area :email_sender_body1, cols: 100, rows: 15,:class=>"form-control"  %>
+                <%= f.text_area :email_sender_body1,:value => "Hello dear colleague. Take a minute and vote for employee of the month. Click here and login with your email address: www.gotopshot.com", cols: 100, rows: 15,:class=>"form-control"  %>
 
               </td>
             </tr>
@@ -159,7 +159,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Reminder email #2 sent to voters - Subject:</label>
               </td>
               <td>
-               <%= f.text_field :email_sender_subject2, :placeholder => " default text ",:class=>"form-control" %>
+               <%= f.text_field :email_sender_subject2,:placeholder => "We need you",:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -168,7 +168,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                <%= f.text_area :email_sender_body2, cols: 100, rows: 15,:class=>"form-control"%>
+                <%= f.text_area :email_sender_body2,:value => "Yes, we really do! Or more like your colleagues do. They want to know who you think did the best this past month. Take a minute and vote for the employee of the month. Click here and login with your email address: www.gotopshot.com",cols: 100, rows: 15,:class=>"form-control"%>
 
               </td>
             </tr>
@@ -189,7 +189,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Reminder email #3 sent to voters - Subject:</label>
               </td>
               <td>
-                <%= f.text_field :email_sender_subject3, :placeholder => " default text ",:class=>"form-control" %>
+                <%= f.text_field :email_sender_subject3, :placeholder =>"Remember when you voted?",:class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -198,7 +198,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                <%= f.text_area :email_sender_body3, cols: 100, rows: 15,:class=>"form-control"%>
+                <%= f.text_area :email_sender_body3,:placeholder => "I don't either! Take a minute and vote for the employee of the month. Click here and login with your email address: www.gotopshot.com", cols: 100, rows: 15,:class=>"form-control"%>
 
               </td>
             </tr>
