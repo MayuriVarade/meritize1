@@ -8,7 +8,7 @@ class VotesController < ApplicationController
     def new
         @votes = Vote.find_by_voter_id(current_user)
 
-         @vote_setting_enddate = current_user.admin_user.vote_setting.end_cycle.to_date  
+        @vote_setting_enddate = current_user.admin_user.vote_setting.end_cycle.to_date rescue nil  
         @votes_last = Vote.find_all_by_voter_id(current_user.id,:order => "id desc").first
         
         @vote_setting = current_user.admin_user.vote_setting 
@@ -19,14 +19,14 @@ class VotesController < ApplicationController
         unless current_user.admin_user.setting.nil? 
           @core_values = @setting.core_values 
         end
-         @nominees = Nominee.where("start_cycle ='#{@vote_setting.start_cycle}' AND end_cycle ='#{@vote_setting.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
+         @nominees = Nominee.where("start_cycle ='#{@vote_setting.start_cycle}' AND end_cycle ='#{@vote_setting.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'") rescue nil
         
           if @nominees.present?
                  @searchuser ||= [] 
                   @nomineeusers = Nominee.where(["firstname || lastname || fullname LIKE ? and user_id != ? and current_user_id = ? and current_user_id is not null and start_cycle = ? and end_cycle = ?
                     ", "%#{params[:search]}%",current_user.id,current_user.admin_user_id,"#{@vote_setting.start_cycle.to_date}","#{@vote_setting.end_cycle.to_date}"])
                   @nomineeusers.each do |nomineeuser|
-                  fullname = nomineeuser.fullname + nomineeuser.email
+                  fullname = nomineeuser.fullname + "(" + nomineeuser.email + ")"
                   @searchuser << fullname
                  end
                  @searchuser
@@ -35,7 +35,7 @@ class VotesController < ApplicationController
               @searchuser ||= [] 
               @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
               @adminusers.each do |adminuser|
-                fullname = adminuser.fullname + adminuser.email
+                fullname = adminuser.fullname + "(" + adminuser.email + ")"
                 @searchuser << fullname
               end
               @searchuser
@@ -52,8 +52,9 @@ class VotesController < ApplicationController
        voteable_params = params[:vote][:voteable_id]
        voteable_split = voteable_params.split(" ") rescue nil
        voteable_fullname = voteable_split[0] + " " + voteable_split[1] rescue nil
-       voteable_email = voteable_split[2]
-      
+       voteable_email1 = voteable_split[2]
+       voteable_email = voteable_email1.gsub(/[()]/, "") rescue nil
+       
        voteable = User.where(["fullname LIKE ? and email LIKE ?", "%#{voteable_fullname}%","%#{voteable_email}%"])
        voteable_id = voteable[0].id
         @nominees = Nominee.where("start_cycle ='#{@vote_setting1.start_cycle}' AND end_cycle ='#{@vote_setting1.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
@@ -86,6 +87,7 @@ class VotesController < ApplicationController
     else
      
       flash[:notice] = "Take a time to fill all the below records."
+      redirect_to :back 
     end
   end
 
