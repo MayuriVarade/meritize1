@@ -30,7 +30,9 @@
           <thead>
             <tr>
               <th>Sr.No</th>
-              <th>Date</th>              
+              <th>Date</th> 
+              <th>User Name</th>         
+              <th>Plan Name</th>              
               <th>Amount</th>
               
             </tr>
@@ -47,6 +49,9 @@
               <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
                  &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
               </td>
+               <td><%= @subs_user.fullname rescue nil%></td>            
+                <td><%= @subs_user.name rescue nil%></td>
+                 
               
                <%  @user = User.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count > 1 ").length %>
                
@@ -79,7 +84,7 @@
          <tr> 
          <th>Sr.No</th>  
           <th>Date</th>
-          <th>UserID</th>
+         
           <th>User Name</th>         
           <th>Plan Name</th>          
           <th>Amount</th>
@@ -109,7 +114,7 @@
                   <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
                          &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
                   </td>
-                  <td><%= @subs_user.user_id rescue nil%></td> 
+                 
                   <td><%= @subs_user.fullname rescue nil%></td>            
                   <td><%= @subs_user.name rescue nil%></td>
                  
