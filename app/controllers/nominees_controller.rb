@@ -1,4 +1,5 @@
 class NomineesController < ApplicationController
+   before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
   layout :custom_layout
   # GET /nominees
   # GET /nominees.json
@@ -164,6 +165,10 @@ def custom_layout
           "application"
         end
     end
-    
+private
+     #method for deny access if users try to access the pages without login.
+    def authenticate
+      deny_access unless signed_in?
+    end    
 
 end

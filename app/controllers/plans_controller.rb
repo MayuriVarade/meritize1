@@ -1,5 +1,6 @@
  class PlansController < ApplicationController
-layout "profile"
+   before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
+   layout "profile"
   # GET /plans
   # GET /plans.json
   def index
