@@ -50,9 +50,15 @@
               
                <%  @user = User.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count > 1 ").length %>
                
-               <% @s = Subscription.select(:price).where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{current_user.id}'  ") %>
-                
-              <td><%= (@user)*(@s.sum(:price)).to_i %></td>
+               <% @s = Subscription.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{current_user.id}'  ") %>
+
+               <% @s.each do |s| %>
+
+               <% @total = Subscription.where("price = ?",s.price) %>
+                <% @price = @total[0].price %> 
+              
+              <td><%= (@user)*(@price).to_f %></td>
+              <% end %>
 
             </tr>
          
@@ -87,10 +93,7 @@
              <% startdate = month_offset.months.ago.beginning_of_month %>
              <% enddate = month_offset.month.ago.end_of_month %>
                  
-               
-              
-                  
-                <% @user = User.where("username is null AND admin_user_id is null and created_at >='#{startdate}' AND created_at <='#{enddate}'  ") %>
+              <% @user = User.where("username is null AND admin_user_id is null and created_at >='#{startdate}' AND created_at <='#{enddate}'  ") %>
 
                  <% @user.each_with_index do |adminuser,i| %>
                 <tr>
@@ -108,13 +111,18 @@
           
                 
                  
-                 <%  @admin = User.where("admin_user_id = ? AND sign_in_count > 1",adminuser.id).length %>           
+             <%  @admin = User.where("admin_user_id = ? AND sign_in_count > 1",adminuser.id).length %>           
                  
                  
-                 <% @s = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{adminuser.id}' ") %>
+             <% @s = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{adminuser.id}' ") %>
                    
-                  <td><%= (@admin)*(@s.sum(:price)) %></td>
+             <% @s.each do |s| %>
 
+             <% @total = Subscription.where("price = ?",s.price) %>
+             <% @price = @total[0].price %> 
+              
+                <td><%= (@admin)*(@price).to_f %></td>
+                   <% end %>
                 <% end %>        
                
               
