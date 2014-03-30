@@ -60,27 +60,28 @@ jQuery(function() {
             <thead>
               <tr>
                 
-                <th>Email</th>
+                
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Email</th>
                 <th>Signin Time</th>
                 <th>Signout Time</th>
-                <th>Ip Address</th>
-                <th>Log ins to-date</th>
+                <th>IP Address</th>
+                <th>Logins to-date</th>
                
               </tr>
             </thead>
             <% @adminusers.each do |adminusers| %>
             <tbody>
               <tr>
-                
-                <td><%= adminusers.email rescue nil %></td>
+                             
                 <td><%= adminusers.firstname rescue nil %></td>
                 <td><%= adminusers.lastname rescue nil%></td>
+                <td><%= adminusers.email rescue nil %></td>
                 <td><%= adminusers.sign_in_time.strftime("%e %b %Y %H:%m:%S%p") rescue nil%></td>
                 <td><%= adminusers.sign_out_time.strftime("%e %b %Y %H:%m:%S%p") rescue nil%></td>
                 <td><%= adminusers.ip_address rescue nil%></td>
-                <td><%= adminusers.sign_in_count rescue nil%></td>
+                <td style ="text-align:right;"><%= adminusers.sign_in_count rescue nil%></td>
               </tr>
               
             </tbody>
