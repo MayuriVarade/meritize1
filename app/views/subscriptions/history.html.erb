@@ -50,9 +50,17 @@
               
                <%  @user = User.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count > 1 ").length %>
                
-               <% @s = Subscription.select(:price).where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{current_user.id}'  ") %>
+               <% @s = Subscription.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{current_user.id}'  ") %>
+               <% @s.each do |s| %>
+
+                 <% @total = Subscription.where("price = ?",s.price) %>
+                  <% @price = @total[0].price %> 
                 
-              <td><%= (@user)*(@s.sum(:price)).to_i %></td>
+                <td><%= (@user)*(@price).to_f %></td>
+              <% end %>
+
+                
+             
 
             </tr>
          
