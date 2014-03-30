@@ -105,7 +105,7 @@
                   <% i = 0 %>
                   <% @subs_user = Subscription.where("user_id = ?",adminuser.id)[i] %>
                  
-                  <td><%= index %></td>
+                  <td><%= i + 1 %></td>
                   <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
                          &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
                   </td>
