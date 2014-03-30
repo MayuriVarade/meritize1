@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-   before_filter :authenticate, :only => [:edit, :update,:dashboard]
+   before_filter :authenticate, :only => [:edit, :update,:dashboard,:admin_user,:adminuser_logs]
    before_filter :correct_user, :only => [:show]
    before_filter :correct_user_edit, :only => [:edit,:update]
    layout :custom_layout
