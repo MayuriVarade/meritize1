@@ -121,7 +121,14 @@
                  
                  <% @s = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{adminuser.id}' ") %>
                    
-                  <td><%= (@admin)*(@s.SUM(:price)) %></td>
+                  <% @s.each do |s| %>
+
+                     <% @total = Subscription.where("price = ?",s.price) %>
+                     <% @price = @total[0].price %> 
+                
+                    <td><%= (@admin)*(@price).to_f %></td>
+                 <% end %
+
 
                 <% end %>        
                
