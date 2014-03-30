@@ -3,7 +3,7 @@ class UsersController < ApplicationController
    before_filter :correct_user, :only => [:show]
    before_filter :correct_user_edit, :only => [:edit,:update]
    layout :custom_layout
-
+   require 'will_paginate/array'
    
 
   def show
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     end
    
     def suspend
-       @user = User.where("username is null  and admin_user_id is null")
+       @user = User.where("username is null  and admin_user_id is null").paginate :page => params[:page],:per_page => 10
 
     end
 
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
    def admin_user
        @plan_expiry = plan_expiry
         @searchuser ||= []
-        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
         @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
 
    def adminuser_logs
        @searchuser ||= []
-       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+       @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
 
    def product_manager_logs
        @searchuser ||= []
-       @adminusers = ProductManagerLog.find(:all, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"])
+       @adminusers = ProductManagerLog.find(:all, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
         @searchuser << fullname
