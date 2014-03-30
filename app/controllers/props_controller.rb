@@ -68,7 +68,7 @@ class PropsController < ApplicationController
             if diff < 28 || diff > 31
               redirect_to :back, :notice => "Please select proper date."
             elsif sp > ep
-            redirect_to :back ,:notice => "Start Point cannot be grater than End Point"
+            redirect_to :back ,:notice => "A user must dole out at least has to be smaller than the number in but no more than"
             else
               respond_to do |format|
                 if @prop.save
@@ -95,7 +95,7 @@ class PropsController < ApplicationController
             if diff < 89 || diff > 92
               redirect_to :back, :notice => "Please select proper date."
             elsif sp > ep
-            redirect_to :back ,:notice => "Start Point cannot be grater than End Point"
+            redirect_to :back ,:notice => "A user must dole out at least has to be smaller than the number in but no more than"
           else
               respond_to do |format|
                 if @prop.save
