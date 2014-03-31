@@ -1,5 +1,6 @@
 class PropDisplaysController < ApplicationController
     before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
+    before_filter :check_plan
  layout 'profile'
 
   def index
