@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       	@title = "Sign in"
       	render 'new'
       elsif user.status == false 
-          flash.now[:error] = "Your account has been deactivated"
+          flash.now[:error] = "Your account has been deactivated. Please contact administrator."
           @title = "Sign in"
           render 'new'
      
@@ -39,11 +39,11 @@ class SessionsController < ApplicationController
             if count == 1
                 redirect_to change_password_path
             else
-              redirect_to user_root_path
+              redirect_to admin_user_path
             end
 
        elsif user.admin_user.status == false
-            flash.now[:error] = "Your account has been deactivated"
+            flash.now[:error] = "Your account has been deactivated. Please contact administrator."
             @title = "Sign in"
             render 'new'
       else
