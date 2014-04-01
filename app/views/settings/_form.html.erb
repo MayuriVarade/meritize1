@@ -38,8 +38,14 @@
                 
                 <% if params[:action] == "edit" %>
                   <%= image_tag @setting.photo.url(:small),:style=>"float:left;margin-right:10px" %>
-                  <% end %>
-               <%= f.file_field :photo %>
+                <% end %>
+
+               <div style="margin:40px 0 0 150px" id="file_tag"> 
+                 <%= f.file_field :photo %>
+                 <span id='val'><%= @setting.photo_file_name %></span>
+                 <span id='button2'>Select File</span>
+               </div>
+
               </td>
             </tr>
             <tr>
@@ -86,3 +92,64 @@
         <% end %>
       </div>
 
+  <style type='text/css'>
+   
+div#file_tag {
+    width: 400px;
+    height: 25px;
+    background-color: white;
+    box-shadow: 1px 2px 3px #ededed;
+    position:relative;
+    border: 1px solid #d8d8d8;
+}
+input[type='file'] {
+    width:400px;
+    height:25px;
+    opacity:0
+}
+#val {
+    width: 400px;
+    height:25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size:13px;
+    line-height: 25px;
+    text-indent: 10px;
+    pointer-events: none;
+}
+#button2 {
+    cursor: pointer;
+    display: block;
+    width: 90px;
+    background-color: purple;
+    height:25px;
+    color: white;
+    position: absolute;
+    right:0;
+    top: 0;
+    font-size: 11px;
+    line-height:25px;
+    text-align: center;
+    -webkit-transition: 500ms all;
+    -moz-transition: 500ms all;
+    transition: 500ms all;
+}
+
+#button2:hover {
+    background-color: blue;
+}
+  </style>
+
+  <script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+$('#button').click(function () {
+    $("input[type='file']").trigger('click');
+})
+
+$("input[type='file']").change(function () {
+    $('#val').text(this.value.replace(/C:\\fakepath\\/i, ''))
+})
+});//]]>  
+
+</script>

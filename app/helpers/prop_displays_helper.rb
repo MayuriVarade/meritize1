@@ -24,4 +24,5 @@ module PropDisplaysHelper
 	   	 "#{time_ago_in_words(prop_display.created_at)} ago"
 	   end
 	end
+	    
 end
