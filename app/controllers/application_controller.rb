@@ -76,22 +76,22 @@ class ApplicationController < ActionController::Base
 
 
 
-def check_plan
-    if current_user.role? :user
-      if current_plan.name == "Award"
-        redirect_to user_root_path if controller_name == "prop_displays"
-        #@access = ["vote"]
-      elsif current_plan.name == "Applaud"
-        redirect_to user_root_path if controller_name == "votes"
-        #@access =["props"]
-      else
-        #@access = ["vote","props"]
-        #  Do Notining
-      end
-    else
-    #  Do Notining
-    end
-  end
+# def check_plan
+#     if current_user.role? :user
+#       if current_plan.name == "Award"
+#         redirect_to user_root_path if controller_name == "prop_displays"
+#         #@access = ["vote"]
+#       elsif current_plan.name == "Applaud"
+#         redirect_to user_root_path if controller_name == "votes"
+#         #@access =["props"]
+#       else
+#         #@access = ["vote","props"]
+#         #  Do Notining
+#       end
+#     else
+#     #  Do Notining
+#     end
+#   end
 
 
 
