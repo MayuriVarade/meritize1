@@ -30,11 +30,12 @@
               <%= f.text_area :description, :class => "form-control ", :rows => 6 ,:placeholder => "Share with everyone what he or she did to deserve the props." %>
               <br/>
               <% if current_user.admin_user.prop.present? %>
-                  <% if current_user.admin_user.prop.assign_points == "true" %>
+                  <% if current_user.admin_user.prop.assign_points == true %>
                   	Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
-                  <% end %>  
-              <% end %>
+                  
               <%= f.select(:points,a  ) rescue "" %>
+              <% end %>  
+              <% end %>
               <%= f.hidden_field :admin_user_id, :value => current_user.admin_user.id %>
               <%= f.hidden_field :sender_id, :value => current_user.id %>
               <%= f.hidden_field :type_cycle ,:value => reset_type %>
