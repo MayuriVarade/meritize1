@@ -114,34 +114,36 @@ class PropsController < ApplicationController
           redirect_to :back, :notice=> "Please fill the all record"
         end 
   elsif params[:prop][:reset_point] == "1"
-        if sc.present? && ec.present?
-          if sc > ec 
-            redirect_to :back ,:notice => "Start cycle cannot be greater."
-           
-          else
-             diff = ec - sc + 1
-              if diff < 28 || diff > 31
-                redirect_to :back, :notice => "Please select proper date."
-                  
-                  
-              else
-                respond_to do |format|
-                  if @prop.update_attributes(params[:prop])
-                    PropCycle.create(:start_cycle => osc, :end_cycle => oec, :user_id => current_user.id, :prop_id => @prop.id)
-                    format.html { redirect_to :back, notice: 'Settings for props were successfully created.' }
-                    format.json { head :no_content }
-                  else
-                    format.html { render action: "edit" }
-                    format.json { render json: @prop.errors, status: :unprocessable_entity }
-                  end
+     if sc.present? && ec.present?
+        if sc > ec 
+          redirect_to :back ,:notice => "Start cycle cannot be greater."
+        elsif (reminder1_days > 31) || (reminder2_days > 31) || (reminder3_days > 31)
+              redirect_to :back, :notice => "Please select reminder days less than 7 days."      
+              
+        elsif
+           diff = (ec - sc + 1).round
+            if diff < 28 || diff > 31
+              redirect_to :back, :notice => "Please select proper date."
+            elsif sp > ep
+
+            redirect_to :back ,:notice => "'A user must dole out at least' has to be smaller than the number in 'but no more than'."
+
+            else
+              respond_to do |format|
+                if @prop.save
+                  format.html { redirect_to edit_prop_path(@prop), notice: 'Settings for props were successfully created.' }
+                  format.json { render json: @prop, status: :created, location: @prop }
+                else
+                  format.html { render action: "new" }
+                  format.json { render json: @prop.errors, status: :unprocessable_entity }
                 end
               end
             end
-          else
-          redirect_to :back, :notice=> "Please fill the all record"
-          end        
-  
-    end
+          end
+      else
+        redirect_to :back, :notice=> "Please fill the all record"
+      end 
+   end     
  end 
 
   # PUT /props/1

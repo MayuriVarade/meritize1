@@ -58,11 +58,11 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                     <tr>
                       <td>Current cycle:</td>
                       <td>
-                        <%= f.text_field :start_cycle, :class=>"form-control", :value=> "#{@prop.start_cycle.strftime("%d %B %Y") if @prop.start_cycle.present?}" %>
+                        <%= f.text_field :start_cycle, :class=>"form-control" %>
                       </td>
                       <td>to</td>
                       <td>
-                        <%= f.text_field :end_cycle , :class=>"form-control",:value=> "#{@prop.end_cycle.strftime("%d %B %Y") if @prop.end_cycle.present?}"%>
+                        <%= f.text_field :end_cycle , :class=>"form-control"%>
                       </td>
                     </tr>
                     <tr>
@@ -89,7 +89,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                 <%= f.text_area :intro, :placeholder =>"Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?" ,cols: 100, rows: 15 %>
+                 <%= f.text_area :intro,:value => "Ah, team work. It's so good to know someone has your back. Someone who can answer that tough question for you or pick up a sandwich for you while you power through lunch. Or simply hear you out while you vent. Send them some props. It will bring a smile to their face.",cols: 100, rows: 15 %>
               
 
               </td>
@@ -99,7 +99,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Reminder email sent to voters - From name:</label>
               </td>
               <td>
-               <%= f.text_field :name , :placeholder => " default text ", :class=>"form-control" %>
+               <%= f.text_field :name , :value => "HR", :class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -107,7 +107,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Reminder email sent to voters - From email:</label>
               </td>
               <td>
-                <%= f.text_field :email , :placeholder => " default text ", :class=>"form-control" %>
+                <%= f.text_field :email , :value => "HR@mycompany.com", :class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -115,7 +115,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Reminder email #1 sent to voters - Subject:</label>
               </td>
               <td>
-                <%= f.text_field :subject , :placeholder => " default text ", :class=>"form-control" %>
+                <%= f.text_field :subject , :value => "Props, praise, kudos and high-fives", :class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -124,7 +124,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                <%= f.text_area :body , cols: 100, rows: 15,:class=>"form-control" %>
+                <%= f.text_area :body , cols: 100, rows: 15,:value => "It feels great to get props. And it feels even better when you give them out. We'd appreciate it if you could spread them around. Click here and login with your email address: www.imeritize.com",:class=>"form-control" %>
 
               </td>
             </tr>
@@ -135,7 +135,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                <%= f.text_field :reminder1_days, :placeholder => " default text ",:class =>"form-control" %>
+                <%= f.text_field :reminder1_days, :value => "5",:class =>"form-control" %>
 
               </td>
             </tr>
@@ -144,7 +144,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Reminder email #2 sent to voters - Subject:</label>
               </td>
               <td>
-               <%= f.text_field :subject2 , :placeholder => " default text ", :class=>"form-control" %>
+               <%= f.text_field :subject2 , :value => "The sweet smell of props", :class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -153,7 +153,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                <%= f.text_area :body2 , cols: 100, rows: 15,:class=>"form-control" %>
+                <%= f.text_area :body2 , cols: 100,:value =>"Hey. Sorry to bug you again. But we noticed you haven't given props in a while. You know how the world works - what goes around comes around. So give some props today. Click here and login with your email address: www.imeritize.com", rows: 15,:class=>"form-control" %>
 
               </td>
             </tr>
@@ -166,7 +166,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               <td>
 
 
-                <%= f.text_field :reminder2_days, :placeholder => " default text ",:class =>"form-control" %>
+                <%= f.text_field :reminder2_days, :value => "10",:class =>"form-control" %>
 
 
               </td>
@@ -176,7 +176,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Reminder email #3 sent to voters - Subject:</label>
               </td>
               <td>
-                <%= f.text_field :subject3 , :placeholder => " default text ", :class=>"form-control" %>
+                <%= f.text_field :subject3 , :value => "No excuses", :class=>"form-control" %>
               </td>
             </tr>
             <tr>
@@ -185,7 +185,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                <%= f.text_area :body3 ,cols: 100, rows: 15, :class=>"form-control" %>
+                <%= f.text_area :body3 ,cols: 100, rows: 15,:value =>"Now hear ye, hear ye. We know you know that you like to be appreciated. It's not about the money. Well, it is. So let me rephrase. It's not all about the money. Think, my friend, think. Who are you thankful for? Click here and login with your email address: www.imeritize.com", :class =>"form-control" %>
 
               </td>
             </tr>
@@ -196,7 +196,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
               </td>
               <td>
 
-                <%= f.text_field :reminder3_days, :placeholder => " default text ",:class =>"form-control" %>
+                <%= f.text_field :reminder3_days, :value => "20",:class =>"form-control" %>
 
               </td>
             </tr>
