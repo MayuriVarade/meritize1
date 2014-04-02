@@ -32,22 +32,29 @@ class PropDisplaysController < ApplicationController
    prop_display_fullname = prop_display_split[0] + " " + prop_display_split[1] rescue nil
    prop_display_email1 = prop_display_split[2]
    prop_display_email = prop_display_email1.gsub(/[()]/, "") rescue nil
-       receiver_id = User.where(["fullname LIKE ? and email LIKE ?", "%#{prop_display_fullname}%","%#{prop_display_email}%"])
-       receiver_id = receiver_id[0].id
+       receiver_id = User.where(["fullname LIKE ? and email LIKE ?", "%#{prop_display_fullname}%","%#{prop_display_email}%"]) rescue nil
+       receiver_id = receiver_id[0].id rescue nil
 
     @prop_display = PropDisplay.new(params[:prop_display])
     @prop_display.receiver_id = receiver_id
-  if prop_display_params.present? && params[:prop_display][:receiver_id].present? && prop_display_email.present? 
-    if @prop_display.save
-       if (@prop_display.receiver.is_prop) == true 
-          PropMailer.prop_notification_email(@prop_display).deliver
-       end 
-        flash[:success] = "Prop for this user successfully submitted."
-        redirect_to :back
-    end 
-  else
-         redirect_to :back, :notice=> "Take a time to fill all the below records.."    
-end
+
+    if prop_display_params.present? && params[:prop_display][:receiver_id].present? && prop_display_email.present? && params[:prop_display][:description].present?
+        if receiver_id.present? 
+          if @prop_display.save
+             if (@prop_display.receiver.is_prop) == true 
+                PropMailer.prop_notification_email(@prop_display).deliver
+             end 
+              flash[:success] = "Prop for this user successfully submitted."
+              redirect_to :back
+          end 
+        else
+         flash[:notice] = "Sorry, we cannot find that person."
+            redirect_to :back 
+        end 
+    else
+           redirect_to :back, :notice=> "Take a time to fill all the below records.."    
+    end
+
   end
 
   # scheduler method for triggering reminder_email1. 
