@@ -27,8 +27,9 @@
             <div class="media-body">
                <h4 class="media-heading">My past votes</h4>
         <% if @votes_last.present? %>
-               <% unless @votes_last.voteable.photo.blank? %>
-               <%= image_tag @votes_last.voteable.photo.url(:small),:width=>"64",:height=> "64",:class => "media-object" %>
+        <% @photo = @votes_last.voteable.photo rescue nil %>
+               <% unless @photo.blank? %>
+               <%= image_tag @votes_last.voteable.photo.url(:small),:width=>"64",:height=> "64",:class => "media-object" rescue nil%>
                <% else %>
               <img src="/assets/user2.png" width="64" height="64" class="media-object">
               <% end %>
