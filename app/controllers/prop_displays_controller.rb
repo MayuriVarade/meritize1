@@ -1,6 +1,6 @@
 class PropDisplaysController < ApplicationController
     before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
- layout 'profile'
+   layout 'profile'
 
   def index
   end
@@ -20,9 +20,11 @@ class PropDisplaysController < ApplicationController
     @prop = current_user.admin_user.prop rescue nil
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     if params[:id] == "1" || params[:id].nil?
-     @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
+     # @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
+      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at ASC",:limit=>3) rescue nil
     else
-      @prop_displays = PropDisplay.where("receiver_id = ?",current_user.id)
+      # @prop_displays = PropDisplay.where("receiver_id = ?",current_user.id)
+       @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at ASC",:limit=>3)
     end
     @prop_display = PropDisplay.new
      @searchuser ||= [] 
@@ -67,6 +69,17 @@ class PropDisplaysController < ApplicationController
     end
 
   end
+
+
+def prop_click_more
+    @prop = current_user.admin_user.prop
+    @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
+    if params[:id] == "1" || params[:id].nil?
+      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at ASC") 
+    else
+      @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at ASC")
+    end
+end
 
   # scheduler method for triggering reminder_email1. 
     def self.reminder_email1

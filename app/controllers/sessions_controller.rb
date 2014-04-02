@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+    helper_method :current_plan
   def new
       if signed_in?
         redirect_to("/dashboard")
@@ -70,7 +71,14 @@ class SessionsController < ApplicationController
          elsif current_user.role?(:admin)
           redirect_to admin_user_path
          else
-          redirect_to user_root_path
+          if current_plan.name == "Award"
+              redirect_to new_vote_path
+          elsif current_plan.name == "Applaud"
+              redirect_to new_prop_display_path 
+          else
+            redirect_to new_prop_display_path 
+          end
+          # redirect_to user_root_path
          end 
       end
     end
