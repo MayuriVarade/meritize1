@@ -48,7 +48,7 @@ class VotesController < ApplicationController
     # method for submitting votes and overidding previous votes. 
     def create
        @votes = Vote.find_by_voter_id(current_user)
-       @vote_setting = current_user.admin_user.vote_setting.end_cycle.to_date
+       @vote_setting = current_user.admin_user.vote_setting.end_cycle.to_date rescue nil
        @votes_last = Vote.find_all_by_voter_id(current_user).last 
        @vote_setting1 = current_user.admin_user.vote_setting 
        voteable_params = params[:vote][:voteable_id]

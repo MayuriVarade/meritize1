@@ -37,7 +37,9 @@
               <td>
                 
                 <% if params[:action] == "edit" %>
-                  <%= image_tag @setting.photo.url(:small),:style=>"float:left;margin-right:10px" %>
+                <div style ="float:left;margin-right:10px;width:auto;">
+                  <%= image_tag @setting.photo.url(:small) %>
+               </div>
                 <% end %>
 
                <div style="margin:40px 0 0 150px" id="file_tag"> 
