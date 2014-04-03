@@ -67,10 +67,13 @@
         
            
           <br></div>
+       <% if @prop_displays_count.length > 3 %>
             <div class="panel-footer ">
              <!--  <a class="btn btn-block btn-link btn-lg ">Click to see more&nbsp;<i class="fa fa-angle-double-down "></i></a> -->
+
      <%= link_to "Click to see more", prop_click_more_prop_displays_path(:user_id =>current_user.id),:method => "get",:remote => true,:id=>"prop_click_more",:class=>"btn btn-block btn-link btn-lg",:onclick =>"$(this).attr(\"href\",$(this).attr(\"href\")+\"&id=\"+$(\"#prop_about\").val())" %>
         <br></div>
+      <% end %>  
           </div>
         </div>
       </div>
