@@ -50,7 +50,7 @@
      				window.location = "<%= url_for(:controller => 'prop_displays', :action => 'new') %>?id=" + trainerId;
   			} 
 			<% end %>
-             <%= select_tag "", options_for_select([["Show props about everyone",1], ["Show props about me only",2]],params[:id]),:class=>"form-control", :onchange=> "redirectToTrainer(this.value)" %>
+             <%= select_tag "prop_about", options_for_select([["Show props about everyone",1], ["Show props about me only",2]],params[:id]),:class=>"form-control", :onchange=> "redirectToTrainer(this.value)" %>
             <div class="panel-body ">
               <div class="media ">
           
@@ -68,7 +68,9 @@
            
           <br></div>
             <div class="panel-footer ">
-              <a class="btn btn-block btn-link btn-lg ">Click to see more&nbsp;<i class="fa fa-angle-double-down "></i></a><br></div>
+             <!--  <a class="btn btn-block btn-link btn-lg ">Click to see more&nbsp;<i class="fa fa-angle-double-down "></i></a> -->
+     <%= link_to "Click to see more", prop_click_more_prop_displays_path(:user_id =>current_user.id),:method => "get",:remote => true,:id=>"prop_click_more",:class=>"btn btn-block btn-link btn-lg",:onclick =>"$(this).attr(\"href\",$(this).attr(\"href\")+\"&id=\"+$(\"#prop_about\").val())" %>
+        <br></div>
           </div>
         </div>
       </div>

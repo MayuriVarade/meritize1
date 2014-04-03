@@ -13,7 +13,11 @@ Meritize::Application.routes.draw do
 
   resources :props
 
-  resources :prop_displays
+  resources :prop_displays do
+    collection do 
+      get :prop_click_more
+    end
+  end
 
   get "props/index"
 
