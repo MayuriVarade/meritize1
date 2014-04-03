@@ -1,9 +1,7 @@
 
 	<div id="info">
 
-		
-      
-      <div class="container " style="margin-bottom:100px">
+		<div class="container " style="margin-bottom:100px">
 
       <div class="jumbotron ">
         <h1>Props for your peeps</h1> 
@@ -39,11 +37,12 @@
               <%= f.hidden_field :admin_user_id, :value => current_user.admin_user.id %>
               <%= f.hidden_field :sender_id, :value => current_user.id %>
               <%= f.hidden_field :type_cycle ,:value => reset_type %>
-                <br/>  <br/>
               <%= f.submit  "Submit Props", :class => "button button-small"%>
 
               <% end %>
             </div>
+            </div>
+          <div class="panel panel-default ">
             <div align="right">
               <%= javascript_tag do %>
   				function redirectToTrainer(trainerId){
