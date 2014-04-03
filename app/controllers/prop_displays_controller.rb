@@ -6,16 +6,16 @@ class PropDisplaysController < ApplicationController
   end
 
   def new
-    #   values = Array.new
-    # @puser = User.find_all_by_admin_user_id(current_user.admin_user.id)
-    # @puser.each do |puser|
-    # points = PropDisplay.where("receiver_id = ?",puser.id).count
-    # values.push("points" => points, "receiver_id" => puser.id)
-    # end
-    # @result = values
-    # @test = @result.inspect 
+      values = Array.new
+    @puser = User.find_all_by_admin_user_id(current_user.admin_user.id)
+    @puser.each do |puser|
+    points = PropDisplay.where("receiver_id = ?",puser.id).count
+    values.push("points" => points, "receiver_id" => puser.id)
+    end
+    result = values
+    @test = result.select{ |k, v| v == result.max }
 
-    # raise @test.inspect
+    raise @test.inspect
 
     @prop = current_user.admin_user.prop rescue nil
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
