@@ -1,10 +1,6 @@
 
-	
-
 	<div id="info">
-		
-      
-      <div class="container ">
+		<div class="container ">
       <div class="jumbotron ">
         <h1>Props for your peeps</h1> 
         <p><%= @prop.intro.html_safe rescue nil %><br></p>
@@ -51,17 +47,16 @@
   			} 
 			<% end %>
              <%= select_tag "prop_about", options_for_select([["Show props about everyone",1], ["Show props about me only",2]],params[:id]),:class=>"form-control", :onchange=> "redirectToTrainer(this.value)" %>
+
             <div class="panel-body ">
               <div class="media ">
-          
-                <% @prop_displays.each do |prop_display| %>
+                 <% @prop_displays.each do |prop_display| %>
                 <div class="media-body ">
                   <h4 class="media-heading text-left "><%= prop_display.sender.fullname rescue nil%></h4> 
                   <p><i>@<%= prop_display.receiver.fullname rescue nil%> <%= prop_display.description rescue nil%>.</i></p>
                   <p class="text-right "><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;</p>
                 </div>
-                
-                <% end %>
+               <% end %>
                 <hr>
               </div>
         
