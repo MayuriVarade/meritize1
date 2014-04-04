@@ -1,5 +1,27 @@
+
+ <%= form_for :result do |f| %>
+  
+       
+  <tr>
+       
+     <td align="left" valign="top" class="noborder2">
+      <%= f.select(:cycle, VoteCycle.find(:all, :conditions=>"user_id = '#{current_user.id}'",:order => "created_at DESC").collect {|p| [ (p.start_cycle.strftime("%d %B %Y").to_s  + " to " +  p.end_cycle.strftime("%d %B %Y").to_s ).presence, p.vote_setting_id ] }, {:prompt => 'Select Cycle', :selected => "#{params[:result][:cycle] if request.post?}"}, {:class=>"tf1"}) %>
+
+    </td>
+   
+     <td align="left" valign="top" class="noborder2">
+        <%= f.submit "Search", :class=> "btn btn-primary",:style=>"background-color: #006DCC; float:right; margin-right:7px"%>
+       
+    </td>
+  
+  </table>
+  <% end %>
+  
+
+
 <h1>Results#index</h1>
 <p>Find me in app/views/results/index.html.erb</p>
+<% if @result.present? %>
 <% @result.each_with_index do |result,i| %>
   <%= i = i + 1 %></br>
   fullname: - <%= result.voteable.fullname %></br>
@@ -15,9 +37,7 @@
   
 <% end %>  
 
-
-
-
+<% end %>
 
 
 

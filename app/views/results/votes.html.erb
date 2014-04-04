@@ -1,0 +1,70 @@
+
+<div id="info">
+    <div class="container" style="margin-bottom:100px">
+      <div class="jumbotron">
+        <p>The best part of your job. See who is winning, who is voting and pick the winner.</p>
+      </div>
+     
+        <div class="form-group">
+          <label class="control-label">For voting period</label>
+          <%= form_for :result do |f| %>
+          <div class="controls">
+            <%= f.select(:cycle, VoteCycle.find(:all, :conditions=>"user_id = '#{current_user.id}'",:order => "created_at DESC").collect {|p| [ (p.start_cycle.strftime("%d %B %Y").to_s  + " to " +  p.end_cycle.strftime("%d %B %Y").to_s ).presence, p.id ] }, {:prompt => 'Select Cycle', :selected => "#{params[:result][:cycle] if request.post?}"}, {:class=>"form-control"}) %>
+             <%= f.submit "Search", :class=> "btn btn-primary",:style=>"background-color: #006DCC; float:right; margin-right:7px"%>
+          </div><br></div>
+           <% end %>
+      <h1>Leaderboard - by number of votes</h1>
+      
+        <table class="table table-hover table-bordered table-responsive table-condensed">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th>Votes</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+      <% if @result.present? %>
+              <% @result.each_with_index do |result,i| %>
+                
+            <tr>
+              <td><%= i = i + 1 %></td>
+              <td><%= result.voteable.fullname %></td>
+              <td><%= result.voteable.email %></td>
+              <td><%= result.voteable.department %></td>
+               <td><%= result.vote_count %></td>
+              <td align="center">
+                <a class="button button-small">Select as winner</a>
+              </td>
+            </tr>
+            <% @vote = Vote.find_all_by_voteable_id(result.voteable_id) %>
+          <tr>
+             
+              <td colspan="5"><font size="-2">
+              <% @vote.each do |vote| %>  
+              <%= vote.description %> - <%= vote.voter.fullname %>(<%= vote.voter.department %>)<br>
+               <% end %>
+            </font></td>
+            
+          </tr>
+           
+           <% end %>
+          </tbody>
+        </table>
+      <% end %> 
+      
+      
+      
+    </div>
+  
+  </div>
+
+
+
+
+
+
+
