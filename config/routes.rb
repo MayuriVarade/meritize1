@@ -32,7 +32,9 @@ Meritize::Application.routes.draw do
   resources :votes
   resources :results,:only => [:index] do
      match 'votes', :on=>:collection 
+
   end
+   match '/results/votes/:id/winner' => 'results#winner'
   root :to => 'homes#index'
   resources :trial_days
   resources :settings  

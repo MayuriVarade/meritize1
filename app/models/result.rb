@@ -1,3 +1,3 @@
 class Result < ActiveRecord::Base
-  # attr_accessible :title, :body
+   attr_accessible :start_cycle, :end_cycle, :voteable_id, :vote_count
 end

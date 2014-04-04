@@ -36,8 +36,18 @@
               <td><%= result.voteable.email %></td>
               <td><%= result.voteable.department %></td>
                <td><%= result.vote_count %></td>
+
               <td align="center">
-                <a class="button button-small">Select as winner</a>
+               <% if @current_result.present? %>
+                <% if @current_result.voteable_id == result.id %>
+                     Winner.
+                <% else %>
+                  -----
+                <% end %>     
+              <% else %>
+                
+                 <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:class => "button button-small"%>
+              <% end %>
               </td>
             </tr>
             <% @vote = Vote.find_all_by_voteable_id(result.voteable_id) %>
