@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140327063516) do
+ActiveRecord::Schema.define(:version => 20140403092027) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -140,6 +140,11 @@ ActiveRecord::Schema.define(:version => 20140327063516) do
     t.integer  "reminder3_days"
   end
 
+  create_table "results", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -224,6 +229,15 @@ ActiveRecord::Schema.define(:version => 20140327063516) do
     t.boolean  "is_prop_reminder"
     t.boolean  "is_vote_reminder"
     t.string   "plan_name"
+  end
+
+  create_table "vote_counts", :force => true do |t|
+    t.integer  "voteable_id"
+    t.datetime "start_cycle"
+    t.datetime "end_cycle"
+    t.integer  "vote_count"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "vote_cycles", :force => true do |t|

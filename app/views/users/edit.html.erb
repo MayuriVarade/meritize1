@@ -16,7 +16,7 @@
 				    		 <div id="file_tag"> 
 			                 <%= f.file_field :photo %>
 			                 <span id='val'><%= @user.photo_file_name %></span>
-			                 <span id='button2'>Select File</span>
+			                 <span id='button2'>Select File<%= f.file_field :photo,:id=>"button2"%></span>
 			               </div>
                             </div>
 

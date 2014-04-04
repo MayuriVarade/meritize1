@@ -2,7 +2,7 @@ class VotesController < ApplicationController
   before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
   # before_filter :check_plan
   layout 'profile'
-
+  include VotesHelper
     def index
     end
     # method for submitting votes.
@@ -59,6 +59,8 @@ class VotesController < ApplicationController
        
        voteable = User.where(["fullname LIKE ? and email LIKE ?", "%#{voteable_fullname}%","%#{voteable_email}%"])
        voteable_id = voteable[0].id rescue nil
+       @receiver = voteable[0].id
+
         @nominees = Nominee.where("start_cycle ='#{@vote_setting1.start_cycle}' AND end_cycle ='#{@vote_setting1.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
         if @nominees.present?
            nomineeemail = Nominee.where('email = ?',voteable_email)
@@ -71,13 +73,16 @@ class VotesController < ApplicationController
           unless @votes.present? && @votes.vote_setting_id.present? && @vote_setting == @votes_last.cycle_end_date.to_date
             @vote = Vote.new(params[:vote])
             @vote.voteable_id = voteable_id
-            
+               
             if @vote.save
+               vote_count
               flash[:success] = "Vote for this user successfully submitted."
               redirect_to :back
             end 
           else
+            update_vote_count
             Vote.update(@votes_last.id, :voter_id => current_user.id, :core_values => params[:vote][:core_values], :voteable_id =>voteable_id,:description =>params[:vote][:description],:vote_setting_id =>params[:vote][:vote_setting_id],:cycle_end_date => params[:vote][:cycle_end_date],:cycle_start_date => params[:vote][:cycle_start_date])
+            vote_count
             flash[:success] = "Vote for this user successfully changed."
             redirect_to :back
           end

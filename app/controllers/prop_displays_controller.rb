@@ -6,22 +6,11 @@ class PropDisplaysController < ApplicationController
   end
 
   def new
-    #   values = Array.new
-    # @puser = User.find_all_by_admin_user_id(current_user.admin_user.id)
-    # @puser.each do |puser|
-    # points = PropDisplay.where("receiver_id = ?",puser.id).count
-    # values.push("points" => points, "receiver_id" => puser.id)
-    # end
-    # @result = values
-    # @test = @result.inspect 
-
-    # raise @test.inspect
-
     @prop = current_user.admin_user.prop rescue nil
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     if params[:id] == "1" || params[:id].nil?
      # @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
-      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at ASC",:limit=>3) rescue nil
+      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at DESC",:limit=>3) rescue nil
       @prop_displays_count = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at ASC") 
     else
       # @prop_displays = PropDisplay.where("receiver_id = ?",current_user.id)
