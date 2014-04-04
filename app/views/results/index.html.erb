@@ -1,2 +1,26 @@
 <h1>Results#index</h1>
 <p>Find me in app/views/results/index.html.erb</p>
+<% @result.each_with_index do |result,i| %>
+  <%= i = i + 1 %></br>
+  fullname: - <%= result.voteable.fullname %></br>
+  Email--<%= result.voteable.email %></br>
+  Department--<%= result.voteable.department %></br>
+  Votes:---<%= result.vote_count %></br>
+  
+  <% @vote = Vote.find_all_by_voteable_id(result.voteable_id) %>
+  <% @vote.each do |vote| %>
+    
+     <%= vote.description %> --by ---<%= vote.voter.fullname %>(<%= vote.voter.department %>)</br>
+  <% end %>
+  
+<% end %>  
+
+
+
+
+
+
+
+
+
+
