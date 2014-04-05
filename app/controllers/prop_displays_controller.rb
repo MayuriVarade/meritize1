@@ -51,7 +51,7 @@ class PropDisplaysController < ApplicationController
              if (@prop_display.receiver.is_prop) == true 
                 PropMailer.prop_notification_email(@prop_display).deliver
              end 
-              flash[:success] = "Your props have been submitted. You rock for giving props!."
+              flash[:success] = "Your props have been submitted. You rock for giving props!"
               redirect_to :back
           end 
         else
