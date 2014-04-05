@@ -1,7 +1,7 @@
 class CreatePropCounts < ActiveRecord::Migration
   def change
     create_table :prop_counts do |t|
-      t.integer  :receiver
+      t.integer  :receiver_id
       t.datetime :start_cycle
       t.datetime :end_cycle
       t.integer  :prop_count

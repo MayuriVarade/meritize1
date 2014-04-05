@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
    has_one :setting 
    belongs_to :nominee 
-
+   has_many :prop_counts
    has_many :vote_counts
    has_one :settings  
    has_one :prop

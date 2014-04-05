@@ -1,7 +1,7 @@
 class PropDisplaysController < ApplicationController
     before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
    layout 'profile'
-
+   include PropDisplaysHelper
   def index
   end
 
@@ -31,6 +31,7 @@ class PropDisplaysController < ApplicationController
   def create
    # receiver = params[:prop_display][:receiver_id]
    # receiver_id = User.find_by_fullname(receiver).id
+   @prop = current_user.admin_user.prop rescue nil
    prop_display_params = params[:prop_display][:receiver_id]
    prop_display_split = prop_display_params.split(" ") rescue nil
    prop_display_fullname = prop_display_split[0] + " " + prop_display_split[1] rescue nil
@@ -38,13 +39,15 @@ class PropDisplaysController < ApplicationController
    prop_display_email = prop_display_email1.gsub(/[()]/, "") rescue nil
        receiver_id = User.where(["fullname LIKE ? and email LIKE ?", "%#{prop_display_fullname}%","%#{prop_display_email}%"]) rescue nil
        receiver_id = receiver_id[0].id rescue nil
+        @receiver_id = receiver_id 
 
     @prop_display = PropDisplay.new(params[:prop_display])
     @prop_display.receiver_id = receiver_id
-
+    
     if prop_display_params.present? && params[:prop_display][:receiver_id].present? && prop_display_email.present? && params[:prop_display][:description].present?
         if receiver_id.present? 
           if @prop_display.save
+              prop_count
              if (@prop_display.receiver.is_prop) == true 
                 PropMailer.prop_notification_email(@prop_display).deliver
              end 
@@ -66,9 +69,9 @@ def prop_click_more
     @prop = current_user.admin_user.prop
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     if params[:id] == "1" || params[:id].nil?
-      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at ASC") 
+      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at DESC") 
     else
-      @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at ASC")
+      @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC")
     end
 end
 

@@ -9,10 +9,12 @@
           <label class="control-label">For voting period</label>
           <%= form_for :result do |f| %>
           <div class="controls">
-            <%= f.select(:cycle, VoteCycle.find(:all, :conditions=>"user_id = '#{current_user.id}'",:order => "created_at DESC").collect {|p| [ (p.start_cycle.strftime("%d %B %Y").to_s  + " to " +  p.end_cycle.strftime("%d %B %Y").to_s ).presence, p.id ] }, {:prompt => 'Select Cycle', :selected => "#{params[:result][:cycle] if request.post?}"}, {:class=>"form-control"}) %>
+            <%= f.select(:cycle, VoteCycle.find(:all, :conditions=>"user_id = '#{current_user.id}'",:order => "created_at DESC").collect {|p| [ (p.start_cycle.strftime("%d %B %Y").to_s  + " to " +  p.end_cycle.strftime("%d %B %Y").to_s ).presence, p.id ] },{ :include_blank => "Current cycle #{@vote_setting1.start_cycle.to_date} to  #{@vote_setting1.end_cycle.to_date} ", :selected => "#{params[:result][:cycle] if request.post?}"}, {:class=>"form-control"}) %>
              <%= f.submit "Search", :class=> "btn btn-primary",:style=>"background-color: #006DCC; float:right; margin-right:7px"%>
-          </div><br></div>
-           <% end %>
+          </div><br>
+          <% end %>
+        </div>
+          
       <h1>Leaderboard - by number of votes</h1>
       
         <table class="table table-hover table-bordered table-responsive table-condensed">
@@ -38,7 +40,7 @@
                <td><%= result.vote_count %></td>
 
               <td align="center">
-               <% if @current_result.present? %>
+              <% if @current_result.present? %>
                 <% if @current_result.voteable_id == result.id %>
                      Winner.
                 <% else %>
@@ -62,9 +64,11 @@
           </tr>
            
            <% end %>
+      <% end %>    
           </tbody>
+
         </table>
-      <% end %> 
+     
       
       
       
