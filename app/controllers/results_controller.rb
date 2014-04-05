@@ -14,7 +14,7 @@ class ResultsController < ApplicationController
 
   def winner
   	@votecount = VoteCount.find_by_id(params[:id])
-    @winner = Result.create(:start_cycle => @votecount.start_cycle,:end_cycle =>@votecount.end_cycle,:voteable_id =>@votecount.id,:vote_count => @votecount.vote_count) rescue nil
+    @winner = Result.create(:start_cycle => @votecount.start_cycle,:end_cycle =>@votecount.end_cycle,:voteable_id =>@votecount.id,:vote_count => @votecount.vote_count,:user_id => current_user.id) rescue nil
     redirect_to votes_results_path
   end	
 

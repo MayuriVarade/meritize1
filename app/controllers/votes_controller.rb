@@ -13,7 +13,8 @@ class VotesController < ApplicationController
         @votes_last = Vote.find_all_by_voter_id(current_user.id,:order => "id desc").first
         
         @vote_setting = current_user.admin_user.vote_setting 
-        
+        @vote_cycle = VoteCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first
+        @winner = Result.where("start_cycle ='#{@vote_cycle .start_cycle}' AND end_cycle ='#{@vote_cycle.end_cycle }' AND user_id = '#{current_user.admin_user_id}'") rescue nil
         @vote = Vote.new
         
         @setting = current_user.admin_user.setting
