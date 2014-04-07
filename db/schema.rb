@@ -11,7 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20140403070552) do
+
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -94,6 +96,16 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "prop_counts", :force => true do |t|
+    t.integer  "receiver_id"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
+    t.integer  "prop_count"
+    t.integer  "points"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "prop_cycles", :force => true do |t|
     t.datetime "start_cycle"
     t.datetime "end_cycle"
@@ -109,9 +121,12 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
     t.integer  "receiver_id"
     t.text     "description"
     t.string   "type_cycle"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "admin_user_id"
+    t.date     "cycle_start_date"
+    t.date     "cycle_end_date"
+    t.integer  "prop_setting_id"
   end
 
   create_table "props", :force => true do |t|
@@ -122,8 +137,8 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
     t.integer  "step_point"
     t.string   "reset_point"
     t.integer  "user_id"
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.string   "name"
     t.string   "email"
     t.string   "subject"
@@ -138,6 +153,16 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
     t.integer  "reminder1_days"
     t.integer  "reminder2_days"
     t.integer  "reminder3_days"
+  end
+
+  create_table "results", :force => true do |t|
+    t.integer  "voteable_id"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
+    t.integer  "vote_count"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -246,9 +271,18 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
     t.string   "plan_name"
   end
 
+  create_table "vote_counts", :force => true do |t|
+    t.integer  "voteable_id"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
+    t.integer  "vote_count"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "vote_cycles", :force => true do |t|
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.integer  "user_id"
     t.integer  "vote_setting_id"
     t.datetime "created_at",      :null => false
@@ -258,8 +292,8 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
   create_table "vote_settings", :force => true do |t|
     t.string   "award_program_name"
     t.string   "award_frequency_type"
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.text     "intro_text"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
@@ -285,8 +319,8 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
     t.integer  "voteable_id"
     t.text     "description"
     t.string   "core_values"
-    t.datetime "cycle_end_date"
-    t.datetime "cycle_start_date"
+    t.date     "cycle_end_date"
+    t.date     "cycle_start_date"
     t.integer  "vote_setting_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false

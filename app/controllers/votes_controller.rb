@@ -1,8 +1,8 @@
 class VotesController < ApplicationController
   before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
-  before_filter :check_plan
+  # before_filter :check_plan
   layout 'profile'
-
+  include VotesHelper
     def index
     end
     # method for submitting votes.
@@ -13,7 +13,11 @@ class VotesController < ApplicationController
         @votes_last = Vote.find_all_by_voter_id(current_user.id,:order => "id desc").first
         
         @vote_setting = current_user.admin_user.vote_setting 
-        
+        @vote_cycle = VoteCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first
+
+        @winner = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_cycle.start_cycle,@vote_cycle.end_cycle,current_user.admin_user_id) rescue nil
+       
+
         @vote = Vote.new
         
         @setting = current_user.admin_user.setting
@@ -48,7 +52,7 @@ class VotesController < ApplicationController
     # method for submitting votes and overidding previous votes. 
     def create
        @votes = Vote.find_by_voter_id(current_user)
-       @vote_setting = current_user.admin_user.vote_setting.end_cycle.to_date
+       @vote_setting = current_user.admin_user.vote_setting.end_cycle.to_date rescue nil
        @votes_last = Vote.find_all_by_voter_id(current_user).last 
        @vote_setting1 = current_user.admin_user.vote_setting 
        voteable_params = params[:vote][:voteable_id]
@@ -58,7 +62,9 @@ class VotesController < ApplicationController
        voteable_email = voteable_email1.gsub(/[()]/, "") rescue nil
        
        voteable = User.where(["fullname LIKE ? and email LIKE ?", "%#{voteable_fullname}%","%#{voteable_email}%"])
-       voteable_id = voteable[0].id
+       voteable_id = voteable[0].id rescue nil
+       @receiver = voteable[0].id
+
         @nominees = Nominee.where("start_cycle ='#{@vote_setting1.start_cycle}' AND end_cycle ='#{@vote_setting1.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
         if @nominees.present?
            nomineeemail = Nominee.where('email = ?',voteable_email)
@@ -67,17 +73,20 @@ class VotesController < ApplicationController
         end  
        
     if (voteable_params.present?) && (params[:vote][:description].present?) && (params[:vote][:core_values].present?)  
-        if nomineeemail.present?
+        if nomineeemail.present? 
           unless @votes.present? && @votes.vote_setting_id.present? && @vote_setting == @votes_last.cycle_end_date.to_date
             @vote = Vote.new(params[:vote])
             @vote.voteable_id = voteable_id
-            
+               
             if @vote.save
+               vote_count
               flash[:success] = "Vote for this user successfully submitted."
               redirect_to :back
             end 
           else
+            update_vote_count
             Vote.update(@votes_last.id, :voter_id => current_user.id, :core_values => params[:vote][:core_values], :voteable_id =>voteable_id,:description =>params[:vote][:description],:vote_setting_id =>params[:vote][:vote_setting_id],:cycle_end_date => params[:vote][:cycle_end_date],:cycle_start_date => params[:vote][:cycle_start_date])
+            vote_count
             flash[:success] = "Vote for this user successfully changed."
             redirect_to :back
           end
@@ -88,7 +97,7 @@ class VotesController < ApplicationController
         end
     else
 
-     redirect_to :back, :notice=> "Sorry, we cannot find that person. It's also possible that he/she has not been nominated."    
+     redirect_to :back, :notice=> "Take a time to fill all the below records."    
    end
 
   end

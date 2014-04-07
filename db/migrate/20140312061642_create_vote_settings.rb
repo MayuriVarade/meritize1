@@ -3,8 +3,8 @@ class CreateVoteSettings < ActiveRecord::Migration
     create_table :vote_settings do |t|
       t.string :award_program_name
       t.string :award_frequency_type
-      t.datetime :start_cycle
-      t.datetime :end_cycle
+      t.date :start_cycle
+      t.date :end_cycle
       t.text :intro_text
 
       t.timestamps

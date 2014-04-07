@@ -4,6 +4,8 @@ Meritize::Application.routes.draw do
 
  
 
+  get "results/index"
+
   resources :nominees
   match '/nominees/:id/status', :to => "nominees#toggled_status"
 
@@ -13,7 +15,11 @@ Meritize::Application.routes.draw do
 
   resources :props
 
-  resources :prop_displays
+  resources :prop_displays do
+    collection do 
+      get :prop_click_more
+    end
+  end
 
   get "props/index"
 
@@ -24,8 +30,11 @@ Meritize::Application.routes.draw do
 
   resources :vote_settings
   resources :votes
-
-
+  resources :results,:only => [:index] do
+     match 'votes', :on=>:collection 
+     match 'props', :on=>:collection 
+  end
+   match '/results/votes/:id/winner' => 'results#winner'
   root :to => 'homes#index'
   resources :trial_days
   resources :settings  
