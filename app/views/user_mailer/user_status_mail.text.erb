@@ -1,15 +1,25 @@
 
 <% if @user.status == false %>
-				 Hi <%= @user.firstname %>,
-				 Your username is <%= @user.email %>
+				Hi <%= @user.firstname %>,
+				Your Meritize login has been disabled by your Meritize account administrator.
+				Please contact the administrator with any questions.
 
-				  "Your Account has been Deactivate. Please contact administrator."
+				Thank you,
+				Meritize support team
+
+
+				 
 <% else %>
 				Hi <%= @user.firstname %>,
-				 Your username is <%= @user.email %>
-
-				  "Your Account has been Activate By Admin."
-
+				 
+				Your Meritize login has been enabled by your Meritize account administrator.
+				Please contact the administrator with any questions. You may login with your email address:
+				Your username is <%= @user.email %>
+				  
+				 Thank you,
+				Meritize support team
 <% end %> 
+
+
 
 

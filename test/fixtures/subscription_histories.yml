@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  email: MyString
+  plan_id: 1
+  user_id: 1
+  paypal_payment_token: MyString
+  paypal_customer_token: MyString
+  paypal_recurring_profile_token: MyString
+  token: MyString
+  price: 1.5
+  fullname: MyString
+  name: MyString
+
+two:
+  email: MyString
+  plan_id: 1
+  user_id: 1
+  paypal_payment_token: MyString
+  paypal_customer_token: MyString
+  paypal_recurring_profile_token: MyString
+  token: MyString
+  price: 1.5
+  fullname: MyString
+  name: MyString
