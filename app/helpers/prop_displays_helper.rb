@@ -27,7 +27,7 @@ module PropDisplaysHelper
 
      def prop_count
        
-     @prop_count = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND receiver_id = '#{@receiver_id}'")
+     @prop_count = PropCount.where("start_cycle = '#{@prop.start_cycle}' AND end_cycle ='#{@prop.end_cycle}' AND receiver_id = '#{@receiver_id}'")
      @receiver = PropCount.find_by_start_cycle_and_end_cycle_and_receiver_id(@prop.start_cycle,@prop.end_cycle,@receiver_id)
      @count = PropDisplay.where("cycle_start_date = '#{@prop.start_cycle}' AND cycle_end_date ='#{@prop.end_cycle}' AND receiver_id = '#{@receiver_id}'").count
      @points_sum = PropDisplay.where("cycle_start_date = '#{@prop.start_cycle}' AND cycle_end_date ='#{@prop.end_cycle}' AND receiver_id = '#{@receiver_id}'").sum(:points)
