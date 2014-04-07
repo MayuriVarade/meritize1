@@ -37,7 +37,7 @@ class UserMailer < ActionMailer::Base
     # @url = 'http://sandbox.paypal.com'
     mail(
           to: user.email,
-          subject: 'Welcome to Meritize'
+          subject: 'Meritize login status'
         )
   end
 

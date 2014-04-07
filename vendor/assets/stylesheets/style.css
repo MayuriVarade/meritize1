@@ -376,6 +376,11 @@
     text-decoration: none;
 }
 
+
+.email
+{
+  color: #FF0000;  
+
 div#file_tag {
     width: 400px;
     height: 25px;
@@ -420,4 +425,5 @@ input[type='file'] {
 
 #button2:hover {
     background-color: blue;
+
 }

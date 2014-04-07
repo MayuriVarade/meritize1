@@ -63,7 +63,7 @@ class PropDisplaysController < ApplicationController
             redirect_to :back 
         end 
     else
-           redirect_to :back, :notice=> "Take a time to fill all the below records.."    
+           redirect_to :back, :notice=> "Looks like you haven't filled in all the information. Please try again."  
     end
 
   end

@@ -24,7 +24,7 @@
 
       <!-- CODE FOR PAYMENT HISTORY FOR ADMIN -->
 
-      
+
    <% if current_user.role? :admin %>  
 
 
@@ -39,15 +39,15 @@
             <% number_of_months = 0..1 %>
              <% number_of_months.each.with_index(1) do |month_offset, index| %>
 
-           </br> <% startdate = month_offset.months.ago.beginning_of_month - 1.month %>
-            <% enddate = month_offset.month.ago.end_of_month - 1.month %>
+           </br> <% startdate = month_offset.months.ago.beginning_of_month  %>
+            <% enddate = month_offset.month.ago.end_of_month  %>
             <tr>
               <td>   <%= index %></td>
               <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
                  &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
                </td>
 
-               <% @user = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count >= 1 ").length %>
+               <% @user = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count >= 1 ").select(:fullname).uniq.length %>
 
 
                <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{current_user.id}' ") %> 
@@ -103,8 +103,8 @@
             <% number_of_months = 0..1 %>
              <% number_of_months.each.with_index(1) do |month_offset, index| %>
 
-           </br> <% startdate = month_offset.months.ago.beginning_of_month - 1.month %>
-            <% enddate = month_offset.month.ago.end_of_month - 1.month %>
+           </br> <% startdate = month_offset.months.ago.beginning_of_month  %>
+            <% enddate = month_offset.month.ago.end_of_month  %>
 
             
                <% @user = User.where("username is null AND admin_user_id is null  ") rescue nil %>
@@ -122,7 +122,7 @@
                   <td><%= @subs_user.fullname rescue nil%></td>
                 
 
-               <% @admin = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = ? AND sign_in_count >= 1",adminuser.id).length %>
+               <% @admin = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = ? AND sign_in_count >= 1",adminuser.id).select(:fullname).uniq.length %>
                  
 
                <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{adminuser.id}' ") %> 
@@ -155,5 +155,3 @@ Theme.init ();
 });
 
 </script>
-
-

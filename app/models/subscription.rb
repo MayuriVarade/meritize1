@@ -65,10 +65,12 @@ class Subscription < ActiveRecord::Base
 
 
 
+
   def save_with_paypal_payment
     response = paypal.make_recurring
     self.paypal_recurring_profile_token = response.profile_id    
     save!
+
   end
 
   def payment_provided?
