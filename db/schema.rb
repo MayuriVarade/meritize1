@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
 
   create_table "prop_counts", :force => true do |t|
     t.integer  "receiver_id"
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.integer  "prop_count"
     t.integer  "points"
     t.datetime "created_at",  :null => false
@@ -122,8 +122,8 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.integer  "admin_user_id"
-    t.datetime "cycle_start_date"
-    t.datetime "cycle_end_date"
+    t.date     "cycle_start_date"
+    t.date     "cycle_end_date"
     t.integer  "prop_setting_id"
   end
 
@@ -135,8 +135,8 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
     t.integer  "step_point"
     t.string   "reset_point"
     t.integer  "user_id"
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.string   "name"
     t.string   "email"
     t.string   "subject"
@@ -155,12 +155,11 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
 
   create_table "results", :force => true do |t|
     t.integer  "voteable_id"
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.integer  "vote_count"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.integer  "user_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -251,16 +250,16 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
 
   create_table "vote_counts", :force => true do |t|
     t.integer  "voteable_id"
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.integer  "vote_count"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   create_table "vote_cycles", :force => true do |t|
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.integer  "user_id"
     t.integer  "vote_setting_id"
     t.datetime "created_at",      :null => false
@@ -270,8 +269,8 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
   create_table "vote_settings", :force => true do |t|
     t.string   "award_program_name"
     t.string   "award_frequency_type"
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.text     "intro_text"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
