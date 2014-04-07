@@ -22,7 +22,7 @@ class PropMailer < ActionMailer::Base
   def prop_notification_email(prop_display)
     
     @prop = prop_display
-    mail :from => @prop.sender.email,:to => @prop.receiver.email, :subject => "Notification Email for getting prop"
+    mail :from => @prop.sender.email,:to => @prop.receiver.email, :subject => "Props to you!"
   end
 
 

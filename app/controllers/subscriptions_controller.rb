@@ -60,7 +60,7 @@ end
 
 # Logic Of Subscribe For Transaction Completion Process
 
-  def paypal_checkout
+ def paypal_checkout
     plan = Plan.find(params[:plan_id])
     subscription = plan.subscriptions.build
     user = User.find_by_id(params[:user_id])

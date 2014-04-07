@@ -80,7 +80,7 @@ class VotesController < ApplicationController
                
             if @vote.save
                vote_count
-              flash[:success] = "Vote for this user successfully submitted."
+              flash[:success] = "Your vote has been submitted. Thank you!"
               redirect_to :back
             end 
           else
@@ -97,7 +97,7 @@ class VotesController < ApplicationController
         end
     else
 
-     redirect_to :back, :notice=> "Take a time to fill all the below records."    
+     redirect_to :back, :notice=> "Looks like you haven't filled in all the information. Please try again."   
    end
 
   end
