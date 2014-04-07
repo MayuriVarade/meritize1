@@ -6,7 +6,11 @@ class PropDisplaysController < ApplicationController
   end
 
   def new
+
     @prop = current_user.admin_user.prop rescue nil
+     @prop_winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND prop_count > 0 ").order('prop_count DESC').first rescue nil
+      @proppoints_winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND points > 0 ").order('prop_count DESC').first rescue nil
+
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     if params[:id] == "1" || params[:id].nil?
      # @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)

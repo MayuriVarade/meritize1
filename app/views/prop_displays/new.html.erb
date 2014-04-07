@@ -13,9 +13,15 @@
           <div class="media ">
             <a href="# " class="pull-left ">    <img src="assets/user2.png" width="64" height="64" class="media-object ">  </a> 
             <div class="media-body ">
+            <% if current_user.admin_user.prop.assign_points == true %>
               <h4 class="media-heading ">Leaderboard</h4> 
-              <p>Jen Smith is one cool employee. She has five props this month!</p>
+              <p><%= @proppoints_winner.receiver.fullname rescue nil%> is one cool employee. He/She has <%= @proppoints_winner.points %>&nbsp;&nbsp; points on props this month!</p>
+            <% else %>
+               <h4 class="media-heading ">Leaderboard</h4> 
+              <p><%= @prop_winner.receiver.fullname rescue nil%> is one cool employee. HE/She has <%= @prop_winner.prop_count %>props this month!
+            <% end %> 
             </div>
+            
           </div>
         </div>
         <div class="col-md-8 ">
