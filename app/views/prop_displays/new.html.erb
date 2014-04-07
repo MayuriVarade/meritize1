@@ -1,10 +1,8 @@
 
-	
-
 	<div id="info">
-		
-      
-      <div class="container ">
+
+		<div class="container " style="margin-bottom:100px">
+
       <div class="jumbotron ">
         <h1>Props for your peeps</h1> 
         <p><%= @prop.intro.html_safe rescue nil %><br></p>
@@ -15,9 +13,15 @@
           <div class="media ">
             <a href="# " class="pull-left ">    <img src="assets/user2.png" width="64" height="64" class="media-object ">  </a> 
             <div class="media-body ">
+            <% if current_user.admin_user.prop.assign_points == true %>
               <h4 class="media-heading ">Leaderboard</h4> 
-              <p>Jen Smith is one cool employee. She has five props this month!</p>
+              <p><%= @proppoints_winner.receiver.fullname rescue nil%> is one cool employee. He/She has <%= @proppoints_winner.points %>&nbsp;&nbsp; points on props this month!</p>
+            <% else %>
+               <h4 class="media-heading ">Leaderboard</h4> 
+              <p><%= @prop_winner.receiver.fullname rescue nil%> is one cool employee. HE/She has <%= @prop_winner.prop_count %>props this month!
+            <% end %> 
             </div>
+            
           </div>
         </div>
         <div class="col-md-8 ">
@@ -29,42 +33,58 @@
               <br/>
               <%= f.text_area :description, :class => "form-control ", :rows => 6 ,:placeholder => "Share with everyone what he or she did to deserve the props." %>
               <br/>
-              	Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
-              <%= f.select(:points,a  ) rescue "" %>
+              <% if current_user.admin_user.prop.present? %>
+                  <% if current_user.admin_user.prop.assign_points == true %>
+                  	Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
+         
+              <%= f.select :points,a ,{}, { :class => 'form-control' }  rescue "" %>
+
+              <% end %>  
+              <% end %>
               <%= f.hidden_field :admin_user_id, :value => current_user.admin_user.id %>
               <%= f.hidden_field :sender_id, :value => current_user.id %>
               <%= f.hidden_field :type_cycle ,:value => reset_type %>
-                <br/>  <br/>
+              <%= f.hidden_field :cycle_start_date, :value => @prop.start_cycle rescue nil%>
+              <%= f.hidden_field :cycle_end_date, :value => @prop.end_cycle rescue nil%>
+              <%= f.hidden_field :prop_setting_id, :value => @prop.id rescue nil%>
+               <br>
               <%= f.submit  "Submit Props", :class => "button button-small"%>
-
+           
               <% end %>
             </div>
-            <div align="right">
+            </div>
+          <div class="panel panel-default ">
+          
               <%= javascript_tag do %>
   				function redirectToTrainer(trainerId){
      				window.location = "<%= url_for(:controller => 'prop_displays', :action => 'new') %>?id=" + trainerId;
   			} 
 			<% end %>
-             <%= select_tag "", options_for_select([["Show props about everyone",1], ["Show props about me only",2]],params[:id]),:class=>"form-control", :onchange=> "redirectToTrainer(this.value)" %>
+             <%= select_tag "prop_about", options_for_select([["Show props about everyone",1], ["Show props about me only",2]],params[:id]),:class=>"form-control", :onchange=> "redirectToTrainer(this.value)" %>
+
             <div class="panel-body ">
               <div class="media ">
-          
-                <% @prop_displays.each do |prop_display| %>
+                 <% @prop_displays.each do |prop_display| %>
                 <div class="media-body ">
-                  <h4 class="media-heading text-left "><%= prop_display.sender.fullname %></h4> 
-                  <p><i>@<%= prop_display.receiver.fullname %> <%= prop_display.description %>.</i></p>
-                  <p class="text-right "><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;</p>
+                  <h4 class="media-heading text-left "><%= prop_display.receiver.fullname rescue nil%></h4> 
+                  <p class="text-left"style="width:auto"><i><%= prop_display.description rescue nil%>.</i></p>
+                  <p class="text-right" style="width:auto"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%> </p>
+                   <hr>
                 </div>
-                
-                <% end %>
-                <hr>
+               <% end %>
+               
               </div>
         
            
           <br></div>
+       <% if @prop_displays_count.length >= 3 %>
             <div class="panel-footer ">
-              <a class="btn btn-block btn-link btn-lg ">Click to see more&nbsp;<i class="fa fa-angle-double-down "></i></a><br></div>
-          </div>
+             <!--  <a class="btn btn-block btn-link btn-lg ">Click to see more&nbsp;<i class="fa fa-angle-double-down "></i></a> -->
+
+     <%= link_to "Click to see more", prop_click_more_prop_displays_path(:user_id =>current_user.id),:method => "get",:remote => true,:id=>"prop_click_more",:class=>"btn btn-block btn-link btn-lg",:onclick =>"$(this).attr(\"href\",$(this).attr(\"href\")+\"&id=\"+$(\"#prop_about\").val())" %>
+        <br></div>
+      <% end %>  
+       
         </div>
       </div>
       <!-- Example row of columns -->
