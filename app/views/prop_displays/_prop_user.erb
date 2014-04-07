@@ -5,7 +5,7 @@
 
         <p><i><%= prop_display.description rescue nil%>.</i></p>
 
-        <p class="text-right "><i class="fa fa-thumbs-up">&nbsp; <i class="fa fa-mail-reply"></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp; <%= prop_display.sender.fullname rescue nil %> </p>
+        <p class="text-right " style="width:auto"><i class="fa fa-thumbs-up">&nbsp; <i class="fa fa-mail-reply"></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp; <%= prop_display.sender.fullname rescue nil %> </p>
       </div>
   <% end %>
 </div>
