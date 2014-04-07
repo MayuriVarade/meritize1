@@ -2,11 +2,12 @@
 <% if @user.status == false %>
 
 Hi <%= @user.firstname %>,
-    
+
 Your Meritize login has been disabled by your Meritize account administrator. Please contact the administrator with any questions.
 
 Thank you,
 Meritize support team
+
 <% else %>
 Hi <%= @user.firstname %>,
       
@@ -15,6 +16,5 @@ Your Meritize login has been enabled by your Meritize account administrator. Ple
 Thank you,
 Meritize support team
 
-<% end %> 
 
 

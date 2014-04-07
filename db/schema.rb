@@ -11,7 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140405085728) do
+
+ActiveRecord::Schema.define(:version => 20140403070552) do
+
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -48,10 +50,10 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
     t.datetime "start_cycle"
     t.datetime "end_cycle"
     t.boolean  "status"
-    t.integer  "current_user_id"
     t.string   "firstname"
     t.string   "lastname"
     t.integer  "admin_user_id"
+    t.integer  "current_user_id"
   end
 
   create_table "payment_notifications", :force => true do |t|
@@ -191,6 +193,24 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
     t.datetime "photo_updated_at"
   end
 
+  create_table "subscription_histories", :force => true do |t|
+    t.string   "email"
+    t.integer  "plan_id"
+    t.integer  "user_id"
+    t.string   "paypal_payment_token"
+    t.string   "paypal_customer_token"
+    t.string   "paypal_recurring_profile_token"
+    t.string   "token"
+    t.float    "price"
+    t.string   "fullname"
+    t.string   "name"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "subscription_id"
+    t.date     "startdate"
+    t.date     "enddate"
+  end
+
   create_table "subscriptions", :force => true do |t|
     t.string   "email"
     t.integer  "plan_id"
@@ -206,6 +226,8 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
     t.string   "total_amount"
     t.string   "fullname"
     t.string   "name"
+    t.date     "subscription_startdate"
+    t.date     "subscription_enddate"
   end
 
   create_table "trial_days", :force => true do |t|
