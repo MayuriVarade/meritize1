@@ -18,10 +18,20 @@
           <div class="media">
             <a href="# " class="pull-left ">      </a> 
             <div class="media-body">
+
                <h4 class="media-heading">Past winners</h4>
-               <%#= image_tag @user.photo.url(:small) %>
-               <img src="/assets/user2.png" width="64" height="64" class="media-object">
-              <p>No winner</p>
+                 <% if @winner.present? %>
+                  <% @photo = User.find_by_id(@winner.voteable_id).photo rescue nil %>
+                     <% unless @photo.blank? %>
+
+                     <%= image_tag User.find_by_id(@winner.voteable_id).photo.url(:small),:width=>"64",:height=> "64",:class => "media-object" rescue nil%>
+                     <% else %>
+                    <img src="/assets/user2.png" width="64" height="64" class="media-object">
+                    <% end %>
+                      <p><%= @winner.end_cycle.strftime(" %B %Y") rescue nil %> - <%= User.find_by_id(@winner.voteable_id).fullname rescue nil %></p>
+                  <% else %>
+                          <p> No winner </p>
+                  <% end %>
             </div>
             <p>&nbsp;</p>
             <div class="media-body">
