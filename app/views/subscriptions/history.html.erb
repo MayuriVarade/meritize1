@@ -54,7 +54,7 @@
               
                <%  @user = User.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count > 1 ").length %>
                
-               <% @s = Subscription.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{current_user.id}'  ") %>
+               <% @s = Subscription.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{current_user.id}' ") %>
                <% @s.each do |s| %>
                  <td><%= s.fullname rescue nil%></td>            
                 <td><%= s.name rescue nil%></td>

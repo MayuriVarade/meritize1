@@ -38,9 +38,7 @@ class Subscription < ActiveRecord::Base
   user.update_attributes(:plan_id => self.plan_id)
   end
 
-
-
-  def save_with_paypal_payment
+ def save_with_paypal_payment
   	response = paypal.make_recurring
   	self.paypal_recurring_profile_token = response.profile_id    
   	save!

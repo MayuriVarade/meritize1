@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
             if count == 1
                 redirect_to change_password_path
             else
-              redirect_to user_root_path
+              redirect_to admin_user_path
             end
 
        elsif user.admin_user.status == false
