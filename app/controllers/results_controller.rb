@@ -9,6 +9,7 @@ class ResultsController < ApplicationController
   	  @vote_setting1 = current_user.vote_setting 
   	  @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting1.start_cycle,@vote_setting1.end_cycle) rescue nil
   	  @result = VoteCount.where("start_cycle = '#{@vote_setting1.start_cycle}' AND end_cycle ='#{@vote_setting1.end_cycle}' AND vote_count > 0 ").order('vote_count DESC').limit(10) rescue nil
+      raise  @result.inspect
   	end	
   end
 
