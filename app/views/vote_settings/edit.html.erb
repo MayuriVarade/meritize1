@@ -81,10 +81,7 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 <label class="form-label">Awards program options:</label>
               </td>
               <td>
-                <div class="checkbox">
-                  <label>
-                   <%= f.check_box :is_autopick_winner, {:class => "myclass", :style => "mystyle"}, true, false %>Let system pick winner automatically 24 hours after cycle end date based on number of votes</label>
-                </div>
+                
                 <div class="checkbox">
                   <label>
                      <%= f.check_box :is_admin_reminder, {:class => "myclass", :style => "mystyle"}, true, false %>Remind Admins about a week before award selection is due</label>
