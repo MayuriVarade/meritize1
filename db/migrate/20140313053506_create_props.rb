@@ -8,8 +8,8 @@ class CreateProps < ActiveRecord::Migration
       t.integer :step_point
       t.string :reset_point
       t.integer :user_id
-      t.datetime :start_cycle
-      t.datetime :end_cycle
+      t.date :start_cycle
+      t.date :end_cycle
       t.string :name
       t.string :email
       t.string :subject

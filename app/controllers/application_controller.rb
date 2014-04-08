@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :session_expiry
   before_filter :update_activity_time
   include SessionsHelper
+   helper_method :current_plan
   
   #Method for trial days for current_user
   def plan_expiry
@@ -21,6 +22,24 @@ class ApplicationController < ActionController::Base
     @end_cycle   =  @vote_setting.end_cycle.to_date
     @days_count  =  (@end_cycle - @start_cycle).round
   end
+
+
+
+  def current_plan
+     if current_user.admin_user.nil?
+      user = current_user
+    else
+      user = User.find(current_user.admin_user)
+    end
+    plans = Subscription.find_all_by_user_id(user).sort{ |a,b| a.updated_at <=> b.updated_at }
+    if plans.empty?
+      Plan.find_by_name("Alloy")
+    else
+      Plan.find_by_id(plans.first.plan_id)
+
+    end
+  end
+
    
 
   private
@@ -57,18 +76,23 @@ class ApplicationController < ActionController::Base
 
 
 
-# def current_plan
-#   if session[:plan_id]
-#     @current_plan ||= Plan.find(session[:plan_id])
-#     session[:plan_id] = nil if @current_plan.purchased_at
+# def check_plan
+#     if current_user.role? :user
+#       if current_plan.name == "Award"
+#         redirect_to user_root_path if controller_name == "prop_displays"
+#         #@access = ["vote"]
+#       elsif current_plan.name == "Applaud"
+#         redirect_to user_root_path if controller_name == "votes"
+#         #@access =["props"]
+#       else
+#         #@access = ["vote","props"]
+#         #  Do Notining
+#       end
+#     else
+#     #  Do Notining
+#     end
 #   end
-  
-#   if session[:plan_id].nil?
-#     @current_plan = Plan.create!
-#     session[:plan_id] ||= @current_plan.id
-#   end
-#   @current_plan
-# end
+
 
 
 end

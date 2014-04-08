@@ -13,7 +13,11 @@
 					      
                             <div class="form-group">
 				    		<label for="name">Upload photo</label>
-				    		<%= f.file_field :photo%>
+				    		 <div id="file_tag"> 
+			                 <%= f.file_field :photo %>
+			                 <span id='val'><%= @user.photo_file_name %></span>
+			               
+			               </div>
                             </div>
 
 		  		        <div class="form-group">
@@ -43,7 +47,7 @@
 							<!-- <span class="help-block">The username you will log in with. Typically it's your email address. Even if it's not, it still has to be in an email address format (name@company.com). It's your call handle too. For example if your username is jsmith@mycompany.co.uk, then your handle is @jsmith</span> -->
 										
 					<% if (params[:type] == "adminuser") || (current_user.role? :user) %>						
-											          <label class="form-label">Email notifications</label>
+							<label class="form-label">Email notifications</label>
 				          <div class="checkbox">
 				            <label>
 				              <%= f.check_box :is_prop, {:class => "myclass", :style => "mystyle"} %>Yes, send me emails as soon as I get Props</label>

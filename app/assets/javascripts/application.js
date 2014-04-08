@@ -79,7 +79,25 @@ function add_fields(link, association, content) {
 
 }
 
-$('a[data-popup]').live('click', function(e) {
-  window.open( $(this).attr('href'), "Popup", "height=600, width=600" );
-  e.preventDefault();
+// $('a[data-popup]').live('click', function(e) {
+//   window.open( $(this).attr('href'), "Popup", "height=600, width=600" );
+//   e.preventDefault();
+// });
+
+
+
+
+$('body').on('click','a[data-popup]', function(e) {
+    window.open( $(this).attr('href'), "Popup", "height=600, width=600" );
+    e.preventDefault();
+});
+
+
+$( document ).ready(function() {
+    $("#submit_plan").click(function(){
+        nicEditors.findEditor('plan_forusers').saveContent();
+        nicEditors.findEditor('plan_foradmins').saveContent();
+        nicEditors.findEditor('plan_pricing').saveContent();
+        return true;
+    })
 });

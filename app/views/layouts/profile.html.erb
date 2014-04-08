@@ -34,7 +34,22 @@
           <i class="nav-icon-12"></i><span>Nominees</span></a>
           <% end %>
           </li>
-        <li><a href="#"><i class="nav-icon-13"></i><span>Results</span></a></li>
+       
+          <li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-13"></i><span>Results</span></a>
+        <ul class="dropdown-menu">
+        <li><%= link_to votes_results_path do %>
+        <i class="nav-icon-14"></i><span>Votes</span></a>
+        <% end %>
+        </li>
+        <li><%= link_to props_results_path do %>
+        <i class="nav-icon-14"></i><span>Props</span></a>
+        <% end %>
+        </li>
+        </ul>
+        </li>
+
+
+
         <li class="dropdown"><a data-toggle="dropdown" href="#"><i class="nav-icon-14"></i><span>Users</span></a>
         <ul class="dropdown-menu">
         <li><%= link_to admin_user_path do %>
@@ -82,14 +97,28 @@
         <% end %>
         </li>
 <% end %>
-     <% elsif current_user.role? :user %>
-            <ul class="nav" id="primary-nav">
-            <li><a href="/prop_displays/new"><i class="nav-icon-9"></i><span>Props</span></a></li>
-           </ul>
-           <ul class="nav" id="primary-nav">
-            <li><a href="/votes/new"><i class="nav-icon-10"></i><span>Vote</span></a></li>
-           </ul>
- <% end %>
+
+      <% elsif current_user.role? :user %>
+          <% if current_plan.name == "Award" %>
+              <ul class="nav" id="primary-nav">
+                <li><a href="/votes/new"><i class="nav-icon-10"></i><span>Vote</span></a></li>
+              </ul> 
+          <% elsif current_plan.name == "Applaud" %>
+              <ul class="nav" id="primary-nav">
+                <li><a href="/prop_displays/new"><i class="nav-icon-9"></i><span>Props</span></a></li>
+              </ul> 
+          <% else %>
+              <!-- <ul class="nav" id="primary-nav">
+                <li><a href="/prop_displays/new"><i class="nav-icon-9"></i><span>Props</span></a></li>
+              </ul> -->
+               <ul class="nav" id="primary-nav">
+                <li><a href="/prop_displays/new"><i class="nav-icon-9"></i><span>Props</span></a></li>
+              </ul>
+              <ul class="nav" id="primary-nav">
+                <li><a href="/votes/new"><i class="nav-icon-10"></i><span>Vote</span></a></li>
+              </ul>
+          <% end %>
+      <% end %>
 
   <% if current_user.role? :productmanager %>
       <li>

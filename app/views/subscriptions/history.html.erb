@@ -1,19 +1,19 @@
 
 <div id="masthead">
-	
-	<div class="container">
-		
-		<div class="masthead-pad">
-			
-			<div class="masthead-text">
-				<h2>Payment History</h2>
-				
-			</div> <!-- /.masthead-text -->
-			
-		</div>
-		
-	</div> <!-- /.container -->	
-	
+
+<div class="container">
+
+<div class="masthead-pad">
+
+<div class="masthead-text">
+<h2>Payment History</h2>
+
+</div> <!-- /.masthead-text -->
+
+</div>
+
+</div> <!-- /.container --> 
+
 </div> <!-- /#masthead -->
 
 
@@ -21,45 +21,45 @@
 
 <div id="content">
 
-	<div class="container">
+<div class="container">
       
        <table class="table table-bordered table-striped table-highlight">
 
-      <!-- CODE FOR PAYMENT HISTORY FOR ADMIN  -->
+      <!-- CODE FOR PAYMENT HISTORY FOR ADMIN -->
     <% if current_user.role? :admin %>
           <thead>
             <tr>
               <th>Sr.No</th>
-              <th>Date</th> 
-              <th>User Name</th>         
-              <th>Plan Name</th>              
+              <th>Date</th>
+              <th>User Name</th>
+              <th>Plan Name</th>
               <th>Amount</th>
               
             </tr>
           </thead>
           <tbody>
-          	<% number_of_months = 0..1 %>
+           <% number_of_months = 0..1 %>
             <% number_of_months.each.with_index(1) do |month_offset, index| %>
 
            </br> <% startdate = month_offset.months.ago.beginning_of_month %>
             <% enddate = month_offset.month.ago.end_of_month %>
             <tr>
 
-              <td>   <%= index %></td>
+              <td> <%= index %></td>
               <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
-                 &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
+                 &nbsp <%= enddate.strftime("%e %b %Y") %></br>
               </td>
                
                  
               
-               <%  @user = User.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count > 1 ").length %>
+               <% @user = User.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count > 1 ").length %>
                
                <% @s = Subscription.where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{current_user.id}' ") %>
                <% @s.each do |s| %>
-                 <td><%= s.fullname rescue nil%></td>            
+                <td><%= s.fullname rescue nil%></td>
                 <td><%= s.name rescue nil%></td>
                  <% @total = Subscription.where("price = ?",s.price) %>
-                  <% @price = @total[0].price %> 
+                  <% @price = @total[0].price %>
                 
                 <td><%= (@user)*(@price).to_f %></td>
               <% end %>
@@ -81,12 +81,12 @@
 
 
          <thead>
-         <tr> 
-         <th>Sr.No</th>  
+         <tr>
+         <th>Sr.No</th>
           <th>Date</th>
          
-          <th>User Name</th>         
-          <th>Plan Name</th>          
+          <th>User Name</th>
+          <th>Plan Name</th>
           <th>Amount</th>
                    
           
@@ -103,7 +103,7 @@
                
               
                   
-                <% @user = User.where("username is null AND admin_user_id is null and created_at >='#{startdate}' AND created_at <='#{enddate}'  ") rescue nil %>
+                <% @user = User.where("username is null AND admin_user_id is null and created_at >='#{startdate}' AND created_at <='#{enddate}' ") rescue nil %>
 
                  <% @user.each_with_index do |adminuser,i| %>
                 <tr>
@@ -112,16 +112,16 @@
                  
                   <td><%= i + 1 %></td>
                   <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
-                         &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
+                         &nbsp <%= enddate.strftime("%e %b %Y") %></br>
                   </td>
                  
-                  <td><%= @subs_user.fullname rescue nil%></td>            
+                  <td><%= @subs_user.fullname rescue nil%></td>
                   <td><%= @subs_user.name rescue nil%></td>
                  
           
                 
                  
-                 <%  @admin = User.where("admin_user_id = ? AND sign_in_count > 1",adminuser.id).length %>           
+                 <% @admin = User.where("admin_user_id = ? AND sign_in_count > 1",adminuser.id).length %>
                  
                  
                  <% @s = Subscription.select("price").where("created_at >='#{startdate}' AND created_at <='#{enddate}' AND user_id = '#{adminuser.id}' ") %>
@@ -129,16 +129,16 @@
                   <% @s.each do |s| %>
 
                      <% @total = Subscription.where("price = ?",s.price) %>
-                     <% @price = @total[0].price %> 
+                     <% @price = @total[0].price %>
                 
                     <td><%= (@admin)*(@price).to_f %></td>
                  <% end %>
 
 
-                <% end %>        
+                <% end %>
                
               
-              <% end %>             
+              <% end %>
             
           
         </tbody>
@@ -157,18 +157,9 @@
 <script>
 
 $(function () {
-	
-	Theme.init ();
-	
+
+Theme.init ();
+
 });
 
 </script>
-
-
-
-
-
-
-
-
-
