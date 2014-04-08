@@ -4,6 +4,7 @@ class ResultsController < ApplicationController
   	if request.post? || params[:result]
          @vote_setting1 = current_user.vote_setting 
   	     @vote_setting = VoteCycle.find_by_id(params[:result][:cycle])
+          @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting.start_cycle,@vote_setting.end_cycle) rescue nil
   	     @result = VoteCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count >0").order('vote_count DESC').limit(10) rescue nil
   	else
   	  @vote_setting1 = current_user.vote_setting 

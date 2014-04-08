@@ -41,7 +41,7 @@
 
               <td align="center">
               <% if @current_result.present? %>
-                <% if @current_result.voteable_id == result.id %>
+                <% if @current_result.voteable_id == result.voteable_id %>
                      Winner.
                 <% else %>
                   -----
