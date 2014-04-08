@@ -1,17 +1,25 @@
 class PropDisplaysController < ApplicationController
     before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
- layout 'profile'
-
+   layout 'profile'
+   include PropDisplaysHelper
   def index
   end
 
   def new
-    @prop = current_user.admin_user.prop
+
+    @prop = current_user.admin_user.prop rescue nil
+     @prop_winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND prop_count > 0 ").order('prop_count DESC').first rescue nil
+      @proppoints_winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND points > 0 ").order('prop_count DESC').first rescue nil
+
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     if params[:id] == "1" || params[:id].nil?
-     @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
+     # @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
+      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at DESC",:limit=>3) rescue nil
+      @prop_displays_count = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at DESC") 
     else
-      @prop_displays = PropDisplay.where("receiver_id = ?",current_user.id)
+      # @prop_displays = PropDisplay.where("receiver_id = ?",current_user.id)
+       @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC",:limit=>3)
+       @prop_displays_count = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC",:limit=>3)
     end
     @prop_display = PropDisplay.new
      @searchuser ||= [] 
@@ -27,28 +35,49 @@ class PropDisplaysController < ApplicationController
   def create
    # receiver = params[:prop_display][:receiver_id]
    # receiver_id = User.find_by_fullname(receiver).id
+   @prop = current_user.admin_user.prop rescue nil
    prop_display_params = params[:prop_display][:receiver_id]
    prop_display_split = prop_display_params.split(" ") rescue nil
    prop_display_fullname = prop_display_split[0] + " " + prop_display_split[1] rescue nil
    prop_display_email1 = prop_display_split[2]
    prop_display_email = prop_display_email1.gsub(/[()]/, "") rescue nil
-       receiver_id = User.where(["fullname LIKE ? and email LIKE ?", "%#{prop_display_fullname}%","%#{prop_display_email}%"])
-       receiver_id = receiver_id[0].id
+       receiver_id = User.where(["fullname LIKE ? and email LIKE ?", "%#{prop_display_fullname}%","%#{prop_display_email}%"]) rescue nil
+       receiver_id = receiver_id[0].id rescue nil
+        @receiver_id = receiver_id 
 
     @prop_display = PropDisplay.new(params[:prop_display])
     @prop_display.receiver_id = receiver_id
-  if prop_display_params.present? && params[:prop_display][:receiver_id].present? && prop_display_email.present? 
-    if @prop_display.save
-       if (@prop_display.receiver.is_prop) == true 
-          PropMailer.prop_notification_email(@prop_display).deliver
-       end 
-        flash[:success] = "Prop for this user successfully submitted."
-        redirect_to :back
-    end 
-  else
-         redirect_to :back, :notice=> "Take a time to fill all the below records.."    
-end
+    
+    if prop_display_params.present? && params[:prop_display][:receiver_id].present? && prop_display_email.present? && params[:prop_display][:description].present?
+        if receiver_id.present? 
+          if @prop_display.save
+              prop_count
+             if (@prop_display.receiver.is_prop) == true 
+                PropMailer.prop_notification_email(@prop_display).deliver
+             end 
+              flash[:success] = "Your props have been submitted. You rock for giving props!"
+              redirect_to :back
+          end 
+        else
+         flash[:notice] = "Sorry, we cannot find that person."
+            redirect_to :back 
+        end 
+    else
+           redirect_to :back, :notice=> "Looks like you haven't filled in all the information. Please try again."  
+    end
+
   end
+
+
+def prop_click_more
+    @prop = current_user.admin_user.prop
+    @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
+    if params[:id] == "1" || params[:id].nil?
+      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at DESC") 
+    else
+      @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC")
+    end
+end
 
   # scheduler method for triggering reminder_email1. 
     def self.reminder_email1
