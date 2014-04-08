@@ -67,7 +67,7 @@ class PropsController < ApplicationController
            diff = (ec - sc + 1).round
             if diff < 28 || diff > 31
               redirect_to :back, :notice => "Please select proper date."
-            elsif sp > ep
+            elsif sp < ep
 
             redirect_to :back ,:notice => "'A user must dole out at least' has to be smaller than the number in 'but no more than'."
 
