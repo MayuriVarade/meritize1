@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: meritize1
+  database: meritize6
   host: localhost
   pool: 5
   username: postgres
@@ -13,7 +13,7 @@ development:
 test:
       adapter: postgresql
       encoding: unicode
-      database: meritize1
+      database: meritize6
       host: localhost
       pool: 5
       username: postgres
@@ -22,7 +22,7 @@ test:
 production:
       adapter: postgresql
       encoding: unicode
-      database: meritize1
+      database: meritize6
       host: localhost
       pool: 5
       username: postgres
