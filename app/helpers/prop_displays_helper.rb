@@ -17,9 +17,11 @@ module PropDisplaysHelper
 	def custom_time(prop_display)
 	   d =  prop_display.created_at.to_date
 	   if d == Date.current
-	   	 "Today at #{prop_display.created_at.strftime('%R %p')}"
+
+	   	 "Today at #{prop_display.created_at.strftime('%I:%M %p')}"
 	   elsif (Date.current - d) == 1
-	   	 "Yesterday #{prop_display.created_at.strftime('%r')}"
+	   	 "Yesterday #{prop_display.created_at.strftime('%I:%M %p')}"
+
 	   	else
 	   	 "#{time_ago_in_words(prop_display.created_at)} ago"
 	   end
