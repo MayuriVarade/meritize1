@@ -68,6 +68,61 @@
           </tbody>
 
         </table>
+
+
+         <h1>Leaderboard - voted by other departments.</h1>
+      
+        <table class="table table-hover table-bordered table-responsive table-condensed">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th>Votes</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+      <% if @result_other_dept.present? %>
+              <% @result_other_dept.each_with_index do |result,i| %>
+                
+            <tr>
+              <td><%= i = i + 1 %></td>
+              <td><%= result.voteable.fullname %></td>
+              <td><%= result.voteable.email %></td>
+              <td><%= result.voteable.department %></td>
+               <td><%= result.vote_count %></td>
+
+              <td align="center">
+              <% if @current_result.present? %>
+                <% if @current_result.voteable_id == result.voteable_id %>
+                     Winner.
+                <% else %>
+                  -----
+                <% end %>     
+              <% else %>
+                
+                 <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:class => "button button-small"%>
+              <% end %>
+              </td>
+            </tr>
+            <% @vote = Vote.find_all_by_voteable_id(result.voteable_id) %>
+          <tr>
+             
+              <td colspan="5"><font size="-2">
+              <% @vote.each do |vote| %>  
+              <%= vote.description %> - <%= vote.voter.fullname %>(<%= vote.voter.department %>)<br>
+               <% end %>
+            </font></td>
+            
+          </tr>
+           
+           <% end %>
+      <% end %>    
+          </tbody>
+
+        </table>
      
       
       

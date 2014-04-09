@@ -33,9 +33,9 @@ module PropDisplaysHelper
      @points_sum = PropDisplay.where("cycle_start_date = '#{@prop.start_cycle}' AND cycle_end_date ='#{@prop.end_cycle}' AND receiver_id = '#{@receiver_id}'").sum(:points)
      if @prop_count.empty?
 
-        @prop_count = PropCount.create(:receiver_id => @receiver_id ,:start_cycle =>@prop.start_cycle,:end_cycle => @prop.end_cycle,:prop_count => @count,:points =>@points_sum) 
+        @prop_count = PropCount.create(:receiver_id => @receiver_id ,:start_cycle =>@prop.start_cycle,:end_cycle => @prop.end_cycle,:prop_count => @count,:points =>@points_sum,:user_id =>current_user.admin_user.id) 
      else
-     	@update_count = PropCount.update(@receiver.id,:receiver_id => @receiver_id ,:start_cycle =>@receiver.start_cycle,:end_cycle => @receiver.end_cycle,:prop_count => @count,:points =>@points_sum)  
+     	@update_count = PropCount.update(@receiver.id,:receiver_id => @receiver_id ,:start_cycle =>@receiver.start_cycle,:end_cycle => @receiver.end_cycle,:prop_count => @count,:points =>@points_sum,:user_id =>current_user.admin_user.id)  
      end	
   end
 
