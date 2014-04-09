@@ -3,17 +3,28 @@ class ResultsController < ApplicationController
   def votes
   	if request.post? || params[:result]
          @vote_setting1 = current_user.vote_setting 
+         @vote_setting1 = current_user.vote_setting 
+         @vote_setting_start = @vote_setting1.start_cycle.to_date
+         @vote_setting_end = @vote_setting1.end_cycle.to_date
+         @diff = (@vote_setting_end - @vote_setting_start + 1).round
   	     @vote_setting = VoteCycle.find_by_id(params[:result][:cycle])
          @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting.start_cycle,@vote_setting.end_cycle) rescue nil
   	     @result = VoteCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
+        
          @result_other_dept = VoteOtherCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
-         raise @result_other_dept.inspect
   	else
   	  @vote_setting1 = current_user.vote_setting 
+      @vote_setting_start = @vote_setting1.start_cycle.to_date
+      @vote_setting_end = @vote_setting1.end_cycle.to_date
+      @diff = (@vote_setting_end - @vote_setting_start + 1).round
+
+      @select_winner_month = (@vote_setting1.end_cycle.to_date - 7)
+      @select_winner_week = (@vote_setting1.end_cycle.to_date - 1)
+      @todays_date = Date.today
   	  @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting1.start_cycle,@vote_setting1.end_cycle) rescue nil
   	  @result = VoteCount.where("start_cycle = '#{@vote_setting1.start_cycle.to_date}' AND end_cycle ='#{@vote_setting1.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
-       @result_other_dept = VoteOtherCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count >0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
-        raise @result_other_dept.inspect
+      @result_other_dept = VoteOtherCount.where("start_cycle = '#{@vote_setting1.start_cycle.to_date}' AND end_cycle ='#{@vote_setting1.end_cycle.to_date}' AND vote_count >0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
+
   	end	
   end
 

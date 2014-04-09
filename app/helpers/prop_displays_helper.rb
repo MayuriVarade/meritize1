@@ -17,9 +17,11 @@ module PropDisplaysHelper
 	def custom_time(prop_display)
 	   d =  prop_display.created_at.to_date
 	   if d == Date.current
-	   	 "Today at #{prop_display.created_at.strftime('%R %p')}"
+
+	   	 "Today at #{prop_display.created_at.strftime('%I:%M %p')}"
 	   elsif (Date.current - d) == 1
-	   	 "Yesterday #{prop_display.created_at.strftime('%r')}"
+	   	 "Yesterday #{prop_display.created_at.strftime('%I:%M %p')}"
+
 	   	else
 	   	 "#{time_ago_in_words(prop_display.created_at)} ago"
 	   end
@@ -33,9 +35,10 @@ module PropDisplaysHelper
      @points_sum = PropDisplay.where("cycle_start_date = '#{@prop.start_cycle}' AND cycle_end_date ='#{@prop.end_cycle}' AND receiver_id = '#{@receiver_id}'").sum(:points)
      if @prop_count.empty?
 
-        @prop_count = PropCount.create(:receiver_id => @receiver_id ,:start_cycle =>@prop.start_cycle,:end_cycle => @prop.end_cycle,:prop_count => @count,:points =>@points_sum,:user_id =>current_user.admin_user.id) 
+       @prop_count = PropCount.create(:receiver_id => @receiver_id ,:start_cycle =>@prop.start_cycle,:end_cycle => @prop.end_cycle,:prop_count => @count,:points =>@points_sum,:user_id => current_user.admin_user.id) 
      else
-     	@update_count = PropCount.update(@receiver.id,:receiver_id => @receiver_id ,:start_cycle =>@receiver.start_cycle,:end_cycle => @receiver.end_cycle,:prop_count => @count,:points =>@points_sum,:user_id =>current_user.admin_user.id)  
+     	@update_count = PropCount.update(@receiver.id,:receiver_id => @receiver_id ,:start_cycle =>@receiver.start_cycle,:end_cycle => @receiver.end_cycle,:prop_count => @count,:points =>@points_sum,:user_id => current_user.admin_user.id)  
+
      end	
   end
 
