@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20140403070552) do
-
+ActiveRecord::Schema.define(:version => 20140409051525) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -50,10 +48,10 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
     t.datetime "start_cycle"
     t.datetime "end_cycle"
     t.boolean  "status"
+    t.integer  "current_user_id"
     t.string   "firstname"
     t.string   "lastname"
     t.integer  "admin_user_id"
-    t.integer  "current_user_id"
   end
 
   create_table "payment_notifications", :force => true do |t|
@@ -104,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
     t.integer  "points"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
   end
 
   create_table "prop_cycles", :force => true do |t|
@@ -278,6 +277,7 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
     t.integer  "vote_count"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
   end
 
   create_table "vote_cycles", :force => true do |t|
@@ -287,6 +287,16 @@ ActiveRecord::Schema.define(:version => 20140403070552) do
     t.integer  "vote_setting_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "vote_other_counts", :force => true do |t|
+    t.integer  "voteable_id"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
+    t.integer  "vote_count"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "vote_settings", :force => true do |t|

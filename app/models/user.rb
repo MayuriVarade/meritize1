@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
    has_many :prop_counts
    has_many :results
    has_many :vote_counts
+   has_many :vote_other_counts
    has_one :settings  
    has_one :prop
    has_one :vote_setting
