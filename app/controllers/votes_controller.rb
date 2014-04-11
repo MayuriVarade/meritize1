@@ -80,6 +80,7 @@ class VotesController < ApplicationController
                
             if @vote.save
                vote_count
+               engage_users
               flash[:success] = "Your vote has been submitted. Thank you!"
               redirect_to :back
             end 

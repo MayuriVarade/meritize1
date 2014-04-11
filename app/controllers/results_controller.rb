@@ -2,16 +2,36 @@ class ResultsController < ApplicationController
   layout 'profile'	
   def votes
   	if request.post? || params[:result]
+
+      if params[:result][:cycle].present?
          @vote_setting1 = current_user.vote_setting 
          @vote_setting1 = current_user.vote_setting 
          @vote_setting_start = @vote_setting1.start_cycle.to_date
          @vote_setting_end = @vote_setting1.end_cycle.to_date
          @diff = (@vote_setting_end - @vote_setting_start + 1).round
-  	     @vote_setting = VoteCycle.find_by_id(params[:result][:cycle])
+         @vote_setting = VoteCycle.find_by_id(params[:result][:cycle])
          @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting.start_cycle,@vote_setting.end_cycle) rescue nil
-  	     @result = VoteCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
-        
+         @result = VoteCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
+         @select_winner_month = (@vote_setting1.end_cycle.to_date - 7)
+        @select_winner_week = (@vote_setting1.end_cycle.to_date - 1)
+        @todays_date = Date.today
          @result_other_dept = VoteOtherCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
+      else
+        @vote_setting1 = current_user.vote_setting 
+        @vote_setting_start = @vote_setting1.start_cycle.to_date
+        @vote_setting_end = @vote_setting1.end_cycle.to_date
+        @diff = (@vote_setting_end - @vote_setting_start + 1).round
+
+        @select_winner_month = (@vote_setting1.end_cycle.to_date - 7)
+        @select_winner_week = (@vote_setting1.end_cycle.to_date - 1)
+        @todays_date = Date.today
+
+        @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting1.start_cycle,@vote_setting1.end_cycle) rescue nil
+        @result = VoteCount.where("start_cycle = '#{@vote_setting1.start_cycle.to_date}' AND end_cycle ='#{@vote_setting1.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
+        @result_other_dept = VoteOtherCount.where("start_cycle = '#{@vote_setting1.start_cycle.to_date}' AND end_cycle ='#{@vote_setting1.end_cycle.to_date}' AND vote_count >0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
+      end
+
+         
   	else
   	  @vote_setting1 = current_user.vote_setting 
       @vote_setting_start = @vote_setting1.start_cycle.to_date
@@ -21,6 +41,7 @@ class ResultsController < ApplicationController
       @select_winner_month = (@vote_setting1.end_cycle.to_date - 7)
       @select_winner_week = (@vote_setting1.end_cycle.to_date - 1)
       @todays_date = Date.today
+
   	  @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting1.start_cycle,@vote_setting1.end_cycle) rescue nil
   	  @result = VoteCount.where("start_cycle = '#{@vote_setting1.start_cycle.to_date}' AND end_cycle ='#{@vote_setting1.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
       @result_other_dept = VoteOtherCount.where("start_cycle = '#{@vote_setting1.start_cycle.to_date}' AND end_cycle ='#{@vote_setting1.end_cycle.to_date}' AND vote_count >0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
@@ -36,11 +57,22 @@ class ResultsController < ApplicationController
 
   def props
     if request.post? || params[:result]
-         @prop_setting = current_user.prop 
+         
+      if params[:result][:cycle].present?
+        @prop_setting = current_user.prop 
          @prop_setting1 = PropCycle.find_by_id(params[:result][:cycle])
          @result = PropCount.where("start_cycle = '#{@prop_setting1.start_cycle.to_date}' AND end_cycle ='#{@prop_setting1.end_cycle.to_date}' AND prop_count >0 AND user_id = '#{current_user.id}'").order('prop_count DESC').limit(10) rescue nil
 
          @result_by_points = PropCount.where("start_cycle = '#{@prop_setting1.start_cycle.to_date}' AND end_cycle ='#{@prop_setting1.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.id}'").order('points DESC').limit(10) rescue nil
+      else
+          @prop_setting = current_user.prop 
+          # @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting1.start_cycle,@vote_setting1.end_cycle) rescue nil
+          @result = PropCount.where("start_cycle = '#{@prop_setting.start_cycle.to_date}' AND end_cycle ='#{@prop_setting.end_cycle.to_date}' AND prop_count > 0 AND user_id = '#{current_user.id}'").order('prop_count DESC').limit(10) rescue nil
+
+           @result_by_points = PropCount.where("start_cycle = '#{@prop_setting.start_cycle.to_date}' AND end_cycle ='#{@prop_setting.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.id}'").order('points DESC').limit(10) rescue nil
+
+      end
+
     else
       @prop_setting = current_user.prop 
       # @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting1.start_cycle,@vote_setting1.end_cycle) rescue nil

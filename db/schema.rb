@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20140409051525) do
-
+ActiveRecord::Schema.define(:version => 20140411090548) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -35,6 +33,16 @@ ActiveRecord::Schema.define(:version => 20140409051525) do
     t.string   "title"
     t.text     "description"
     t.integer  "setting_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "engage_users", :force => true do |t|
+    t.integer  "voter_id"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
+    t.integer  "vote_count"
+    t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
