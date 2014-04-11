@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
    before_filter :authenticate, :only => [:edit, :update,:dashboard,:admin_user,:adminuser_logs,:suspend,:product_manager_logs,:change_password,:show]
    before_filter :correct_user, :only => [:show]
-   before_filter :correct_user_edit, :only => [:edit,:update]
+  
    layout :custom_layout
    require 'will_paginate/array'
+   
+  
    
 
   def show
@@ -16,6 +18,7 @@ class UsersController < ApplicationController
     @random = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
     @user = User.new
     @title="Sign up"
+
   end
 
    def dashboard
@@ -46,16 +49,31 @@ class UsersController < ApplicationController
    end
 
    #method for searching a admin_user and showing list of admin_user
-   def admin_user
+   def admin_user         
        @plan_expiry = plan_expiry
         @searchuser ||= []
-        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
-        @adminusers.each do |adminuser|
+        @adminusers = User.all.paginate :page => params[:page],:per_page => 10
+        @adminusers.each do |adminuser|        
         fullname = adminuser.fullname
         @searchuser << fullname
        end
-       @searchuser
+       @searchuser   
    end
+
+   
+
+ #method for Upload CSV
+def import 
+    
+   AdminuserLog.import(params[:file],current_user.id) 
+   @user = User.import(params[:file],current_user) 
+    
+   redirect_to admin_user_path, notice: "Users imported."    
+end
+
+
+
+
 
    #method for searching a adminuser_logs and showing list of adminuser_logs
 
@@ -64,10 +82,12 @@ class UsersController < ApplicationController
        @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"],:order => "created_at DESC").paginate :page => params[:page],:per_page => 10
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
-        @searchuser << fullname
+        @searchuser << fullname        
        end
        @searchuser
    end
+
+
 
 
    def product_manager_logs
@@ -83,20 +103,13 @@ class UsersController < ApplicationController
   #method for create new_user and sending them verification emails.
 def create
       @user = User.new(params[:user])
-      @random_password = params[:user][:password]
+       @random_password = params[:user][:password]
       if @user.save
         @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
-        
-            UserVerification.welcome_email(@user,@random_password).deliver
-
-            
-         if params[:page_name] == "admin"
-        
-           
-          
+         UserVerification.welcome_email(@user,@random_password).deliver            
+         if params[:page_name] == "admin"         
            redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
-        
-        else
+         else
 
           redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready.
           We have sent login instructions to your email address.
@@ -104,7 +117,6 @@ def create
         
         end
    
-
       else
         @title = "Sign Up"
         render 'new'
@@ -129,6 +141,7 @@ def create
    def edit
     @title = "Edit user"
    end
+
    #method for create updating existing users.
    def update
     @user = User.find(params[:id])
@@ -155,6 +168,8 @@ def create
       render 'edit'
     end
   end
+
+
     #method for deleting users.
     def destroy
       @user = User.find(params[:id])
@@ -162,6 +177,8 @@ def create
       flash[:notice] = "User deleted successfully."
       redirect_to admin_user_path
     end
+
+
     
    #method for change the users password to new password.
    def change_password
@@ -188,7 +205,7 @@ def create
       end
     end
    end
- 
+
 
   
 
@@ -239,6 +256,10 @@ def create
           when "adminuser_logs"
           "profile"
          when "add_adminuser"
+          "profile"
+          when "add"
+          "profile"
+          when "upload"
           "profile"
         when "product_manager_logs"
           "profile"

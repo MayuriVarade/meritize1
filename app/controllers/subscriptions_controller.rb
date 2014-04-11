@@ -3,7 +3,7 @@ class SubscriptionsController < ApplicationController
    before_filter :authenticate, :only => [:edit, :update,:show,:new,:index,:history]
 
  layout "profile"
-
+ require 'will_paginate/array'
   # Method for Subscription return url
 def success
   @subscription = Subscription.new(:user_id => params[:user_id], :token => params[:token], :price => params[:price], :fullname => params[:fullname], :name => params[:name], :subscription_startdate => params[:subscription_startdate],:subscription_enddate => params[:subscription_enddate])
@@ -76,9 +76,8 @@ end
 
   def history
    
-     # @subscriptions = Subscription.all
-     @subscriptions = SubscriptionHistory.find(:all,:conditions => ["user_id = ?", current_user.id], :order => 'created_at, id', :limit => 50)
-     @task_months = @subscriptions.group_by { |t| t.updated_at.beginning_of_month }
+      @subscriptions = Subscription.paginate( :page => params[:page],:per_page => 3)
+     @subscriptions = SubscriptionHistory.find(:all,:conditions => ["user_id = ?", user_id], :order => 'created_at, id', :limit => 50).paginate :page => params[:page],:per_page => 3
      render :layout=>"profile"
   end
 

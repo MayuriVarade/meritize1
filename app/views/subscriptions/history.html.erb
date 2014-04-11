@@ -36,7 +36,7 @@
             </tr>
           </thead>
           <tbody>
-            <% number_of_months = 0..1 %>
+            <% number_of_months = 0..3 %>
              <% number_of_months.each.with_index(1) do |month_offset, index| %>
 
            </br> <% startdate = month_offset.months.ago.beginning_of_month  %>
@@ -47,7 +47,7 @@
                  &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
                </td>
 
-               <% @user = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count >= 1 ").select(:fullname).uniq.length %>
+               <% @user = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count >= '1' ").select(:fullname).uniq.length %>
 
 
                <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{current_user.id}' ") %> 
@@ -100,7 +100,7 @@
             </tr>
           </thead>
           <tbody>
-            <% number_of_months = 0..1 %>
+            <% number_of_months = 0..2 %>
              <% number_of_months.each.with_index(1) do |month_offset, index| %>
 
            </br> <% startdate = month_offset.months.ago.beginning_of_month  %>
@@ -122,7 +122,7 @@
                   <td><%= @subs_user.fullname rescue nil%></td>
                 
 
-               <% @admin = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = ? AND sign_in_count >= 1",adminuser.id).select(:fullname).uniq.length %>
+               <% @admin = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = ? AND sign_in_count >= '1'",adminuser.id).select(:fullname).uniq.length %>
                  
 
                <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{adminuser.id}' ") %> 
@@ -138,6 +138,12 @@
     <% end %>
 
        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
+
+       <div align="right">
+           <ul class="pagination"> <li><%= will_paginate @subscriptions  %></li></ul>
+       </div>
+
+
       </div> <!-- /.container -->
 
 </div> <!-- /#content -->

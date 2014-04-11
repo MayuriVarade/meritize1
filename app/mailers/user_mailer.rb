@@ -41,5 +41,14 @@ class UserMailer < ActionMailer::Base
         )
   end
 
+  def uploaduser_verifymail(user,random_password)
+   @user = user
+   @random_password = random_password
+    mail(
+      to: user.email,
+      subject: 'Verification mail'
+      )
+  end  
+
 
 end

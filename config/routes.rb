@@ -46,7 +46,14 @@ Meritize::Application.routes.draw do
   resources :plans
   get "password_resets/new"
   match '/change_password', :controller => 'users', :action => 'change_password'
-  resources :users 
+   
+  resources :users do
+    collection { post :import }
+  end
+
+  
+  match '/add', :to =>'users#add'
+  match '/upload', :to =>'users#upload'
   match '/admin_user', :to =>'users#admin_user'
   match '/adminuser_logs', :to =>'users#adminuser_logs'
   match '/product_manager_logs', :to =>'users#product_manager_logs'
