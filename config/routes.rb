@@ -18,6 +18,8 @@ Meritize::Application.routes.draw do
   resources :prop_displays do
     collection do 
       get :prop_click_more
+      post :like_prop
+      get  :like_count
     end
   end
 

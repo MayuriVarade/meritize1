@@ -69,6 +69,29 @@ class PropDisplaysController < ApplicationController
   end
 
 
+def like_prop
+  @prop_display =PropDisplay.find_by_id(params[:id])
+    current_user.like!(@prop_display)
+    @likes= @prop_display.likes(@prop_display.id)
+      @count ||= []
+       @likes.each do |like|
+       @count << like.count
+       end
+       @counts = @prop_display.sum_counts(@count)
+     respond_to do |format|
+     format.js {}
+    end
+  end
+
+
+  def like_count
+    @prop_display=PropDisplay.find_by_id(params[:id])
+     @likes = @prop_display.likes(@prop_display.id) rescue nil
+     @likes = @likes.delete_if {|i| i.count == 0 }
+     @likes = @likes.delete_if{|i| i.count == 0}
+  end
+
+
 def prop_click_more
     @prop = current_user.admin_user.prop
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)

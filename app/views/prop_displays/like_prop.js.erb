@@ -1,0 +1,8 @@
+<% if current_user.likes?(@prop_display) %>
+jQuery("#like_prop img").attr("src","/assets/like.png");
+jQuery("#like_count_<%= params[:id]%>").html('<%= "#{@counts}"%>');
+<% else %>
+jQuery("#like_prop img").attr("src","/assets/like.png");
+jQuery("#like_count_<%= params[:id]%>").html('<%= "#{Like.sum('count')
+} likes."%>');
+<% end %>

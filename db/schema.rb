@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140411090548) do
+ActiveRecord::Schema.define(:version => 20140411111305) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -46,6 +46,18 @@ ActiveRecord::Schema.define(:version => 20140411090548) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "likes", :force => true do |t|
+    t.string   "liker_type"
+    t.integer  "liker_id"
+    t.string   "likeable_type"
+    t.integer  "likeable_id"
+    t.datetime "created_at"
+    t.integer  "count",         :default => 0, :null => false
+  end
+
+  add_index "likes", ["likeable_id", "likeable_type"], :name => "fk_likeables"
+  add_index "likes", ["liker_id", "liker_type"], :name => "fk_likes"
 
   create_table "nominees", :force => true do |t|
     t.integer  "user_id"
