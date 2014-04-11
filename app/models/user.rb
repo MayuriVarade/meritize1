@@ -43,7 +43,8 @@ class User < ActiveRecord::Base
 
    before_save :encrypt_password
    before_create { generate_token(:auth_token) }
-
+   
+    acts_as_liker
     
     #method for password reset
 	def send_password_reset

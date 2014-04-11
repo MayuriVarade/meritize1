@@ -3,5 +3,14 @@ class PropDisplay < ActiveRecord::Base
   belongs_to :sender ,:class_name => 'User'
   belongs_to :receiver ,:class_name => 'User'
 
+ acts_as_likeable
+
+  def likes(id)
+    Like.find_all_by_likeable_id(id) rescue nil
+  end
+
+  def sum_counts(count)
+   count.inject{|sum,x| sum + x }
+  end
 
 end
