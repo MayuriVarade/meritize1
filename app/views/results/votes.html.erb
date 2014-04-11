@@ -9,7 +9,7 @@
           <label class="control-label">For voting period</label>
           <%= form_for :result do |f| %>
           <div class="controls">
-            <%= f.select(:cycle, VoteCycle.find(:all, :conditions=>"user_id = '#{current_user.id}'",:order => "created_at DESC").collect {|p| [ (p.start_cycle.strftime("%d %B %Y").to_s  + " to " +  p.end_cycle.strftime("%d %B %Y").to_s ).presence, p.id ] },{ :include_blank => "Current cycle #{@vote_setting1.start_cycle.to_date} to  #{@vote_setting1.end_cycle.to_date} ", :selected => "#{params[:result][:cycle] if request.post?}"}, {:class=>"form-control"}) %>
+            <%= f.select(:cycle, VoteCycle.find(:all, :conditions=>"user_id = '#{current_user.id}'",:order => "created_at DESC").collect {|p| [ (p.start_cycle.strftime("%d %B %Y").to_s  + " to " +  p.end_cycle.strftime("%d %B %Y").to_s ).presence, p.id ] },{ :include_blank => "Current cycle #{@vote_setting1.start_cycle.to_date rescue nil} to  #{@vote_setting1.end_cycle.to_date rescue nil} ", :selected => "#{params[:result][:cycle] if request.post?}"}, {:class=>"form-control"}) %>
              <%= f.submit "Search", :class=> "btn btn-primary",:style=>"background-color: #006DCC; float:right; margin-right:7px"%>
           </div><br>
           <% end %>
@@ -41,14 +41,24 @@
 
               <td align="center">
               <% if @current_result.present? %>
-                <% if @current_result.voteable_id == result.id %>
+                <% if @current_result.voteable_id == result.voteable_id %>
+
                      Winner.
                 <% else %>
                   -----
                 <% end %>     
               <% else %>
-                
+              <% if @diff >= 28 %>
+                <% if @todays_date >= @select_winner_month %>
                  <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:class => "button button-small"%>
+                 <% end %>
+              <% elsif @diff >=7 %>
+                   <% if @todays_date >= @select_winner_week %>
+                        <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:class => "button button-small"%>
+                    <% end %>   
+               <% else %>
+
+              <% end %>   
               <% end %>
               </td>
             </tr>
@@ -68,7 +78,71 @@
           </tbody>
 
         </table>
-     
+
+
+
+     <h1>Leaderboard - voted by other departments</h1>
+      
+        <table class="table table-hover table-bordered table-responsive table-condensed">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th>Votes</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+      <% if @result_other_dept.present? %>
+              <% @result_other_dept.each_with_index do |result,i| %>
+                
+               <tr>
+              <td><%= i = i + 1 %></td>
+              <td><%= result.voteable.fullname %></td>
+              <td><%= result.voteable.email %></td>
+              <td><%= result.voteable.department %></td>
+               <td><%= result.vote_count %></td>
+
+              <td align="center">
+              <% if @current_result.present? %>
+                      <% if @current_result.voteable_id == result.voteable_id%>
+                           Winner.
+                      <% else %>
+                        -----
+                      <% end %>     
+                  <% else %>
+                    <% if @diff >= 28 %>
+                        <% if @todays_date >= @select_winner_month %>
+                         <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:class => "button button-small"%>
+                         <% end %>
+                    <% elsif @diff >=7 %>
+                         <% if @todays_date >= @select_winner_week %>
+                              <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:class => "button button-small"%>
+                          <% end %>   
+                   <% else %>
+
+                  <% end %>   
+              <% end %>
+              </td>
+            </tr>
+            <% @vote = Vote.find_all_by_voteable_id(result.voteable_id) %>
+          <tr>
+             
+              <td colspan="5"><font size="-2">
+              <% @vote.each do |vote| %>  
+              <%= vote.description %> - <%= vote.voter.fullname %>(<%= vote.voter.department %>)<br>
+               <% end %>
+            </font></td>
+            
+          </tr>
+           
+           <% end %>
+      <% end %>    
+          </tbody>
+
+        </table>
       
       
       

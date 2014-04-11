@@ -30,7 +30,7 @@
                       <div class="controls">
                           
                           <%= f.text_field :firstname,:class=> "form-control",:style=>"height:auto" %>
-                          
+                      
                         </div> <!-- /controls -->       
                       </div>
 
@@ -82,6 +82,8 @@
                         <div class="controls">
                           <%= f.text_field :department, :class=> "form-control",:style=>"height:auto" %>
                           <%= f.hidden_field :companyname,:value => current_user.companyname %>
+                       
+
                         </div> <!-- /controls -->       
                       </div> 
                       </div>
@@ -92,7 +94,11 @@
                        <%= f.hidden_field :admin_user_id ,:value => current_user.id %>
                        <%= f.hidden_field :password ,:value => @random %>
                        <%= f.hidden_field :password_confirmation ,:value => @random %>
-                        <% if params[:type] == "adminuser" %>
+                       <%= f.hidden_field :is_prop ,:value => true %>
+                       <%= f.hidden_field :is_prop,:value=>true rescue nil %>
+                       <%= f.hidden_field :is_prop_reminder ,:value => true rescue nil %>
+                       <%= f.hidden_field :is_vote_reminder ,:value => true rescue nil %>
+                       <% if params[:type] == "adminuser" %>
                                 <%= hidden_field_tag("page_name", "admin") %>
                           <% end %>
          

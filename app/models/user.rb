@@ -20,7 +20,9 @@ class User < ActiveRecord::Base
    belongs_to :nominee 
    has_many :prop_counts
    has_many :results
+   has_many :engage_users
    has_many :vote_counts
+   has_many :vote_other_counts
    has_one :settings  
    has_one :prop
    has_one :vote_setting
@@ -41,7 +43,8 @@ class User < ActiveRecord::Base
 
    before_save :encrypt_password
    before_create { generate_token(:auth_token) }
-
+   
+    acts_as_liker
     
     #method for password reset
   def send_password_reset

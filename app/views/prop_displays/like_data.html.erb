@@ -1,0 +1,11 @@
+<% @likes.each do |like| %>
+<% user = User.find(like.liker_id)%>
+<div style="margin:5px 0;">
+<%= user.photo? ? (image_tag user.photo.url(:small),:width => 20) : (image_tag avatar_url(user),:width => 20) rescue nil%>&nbsp;&nbsp;
+ <%= "#{user.firstname} #{user.lastname }".capitalize  rescue nil%>&nbsp;&nbsp;
+ <span style="color:#599eff"><%= "(#{like.count})likes" rescue nil %></span></br></div>
+<% end %>
+
+<% unless @likes.present? %>
+	0 likes.
+<% end %>

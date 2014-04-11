@@ -4920,3 +4920,6 @@ th.visible-print, td.visible-print {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
     outline: 0 none;
 }
+
+.like{ width:auto; height:auto;}
+.like_count{width:20px; text-align:center; position:relative; background:#599eff; padding:2px; color:#fff; left:20px; top:-40px; font-size:11px; font-weight:bold; }

@@ -2,7 +2,7 @@ class SettingsController < ApplicationController
   # GET /settings
   # GET /settings.json
   layout 'profile'
-  before_filter :authenticate, :only => [:edit, :update,:index,:show]
+  before_filter :authenticate, :only => [:edit, :update,:index,:show,:new]
   before_filter :correct_user, :only => [:edit, :update,:show,:new]
   
   def index

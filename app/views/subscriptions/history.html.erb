@@ -47,7 +47,10 @@
                  &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
                </td>
 
+
                <% @user = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count >= '1' ").select(:fullname).uniq.length %>
+
+
 
 
                <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{current_user.id}' ") %> 
@@ -123,6 +126,10 @@
                 
 
                <% @admin = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = ? AND sign_in_count >= '1'",adminuser.id).select(:fullname).uniq.length %>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aabc4c0cdd68bde98d7e10c675b288aefcc11e2e
                  
 
                <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{adminuser.id}' ") %> 

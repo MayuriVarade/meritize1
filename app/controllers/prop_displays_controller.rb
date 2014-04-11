@@ -8,8 +8,8 @@ class PropDisplaysController < ApplicationController
   def new
 
     @prop = current_user.admin_user.prop rescue nil
-     @prop_winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND prop_count > 0 ").order('prop_count DESC').first rescue nil
-      @proppoints_winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND points > 0 ").order('prop_count DESC').first rescue nil
+    @prop_winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND prop_count > 0 AND user_id = '#{current_user.admin_user_id}'").order('prop_count DESC').first rescue nil
+    @proppoints_winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.admin_user_id}'").order('prop_count DESC').first rescue nil
 
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     if params[:id] == "1" || params[:id].nil?
@@ -66,6 +66,29 @@ class PropDisplaysController < ApplicationController
            redirect_to :back, :notice=> "Looks like you haven't filled in all the information. Please try again."  
     end
 
+  end
+
+
+def like_prop
+  @prop_display =PropDisplay.find_by_id(params[:id])
+    current_user.like!(@prop_display)
+    @likes= @prop_display.likes(@prop_display.id)
+      @count ||= []
+       @likes.each do |like|
+       @count << like.count
+       end
+       @counts = @prop_display.sum_counts(@count)
+     respond_to do |format|
+     format.js {}
+    end
+  end
+
+
+  def like_count
+    @prop_display=PropDisplay.find_by_id(params[:id])
+     @likes = @prop_display.likes(@prop_display.id) rescue nil
+     @likes = @likes.delete_if {|i| i.count == 0 }
+     @likes = @likes.delete_if{|i| i.count == 0}
   end
 
 

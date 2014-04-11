@@ -11,7 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140405085728) do
+
+ActiveRecord::Schema.define(:version => 20140411111305) do
+
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -37,6 +39,28 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "engage_users", :force => true do |t|
+    t.integer  "voter_id"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
+    t.integer  "vote_count"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "likes", :force => true do |t|
+    t.string   "liker_type"
+    t.integer  "liker_id"
+    t.string   "likeable_type"
+    t.integer  "likeable_id"
+    t.datetime "created_at"
+    t.integer  "count",         :default => 0, :null => false
+  end
+
+  add_index "likes", ["likeable_id", "likeable_type"], :name => "fk_likeables"
+  add_index "likes", ["liker_id", "liker_type"], :name => "fk_likes"
+
   create_table "nominees", :force => true do |t|
     t.integer  "user_id"
     t.datetime "created_at",      :null => false
@@ -48,10 +72,10 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
     t.datetime "start_cycle"
     t.datetime "end_cycle"
     t.boolean  "status"
+    t.integer  "current_user_id"
     t.string   "firstname"
     t.string   "lastname"
     t.integer  "admin_user_id"
-    t.integer  "current_user_id"
   end
 
   create_table "payment_notifications", :force => true do |t|
@@ -102,6 +126,7 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
     t.integer  "points"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
   end
 
   create_table "prop_cycles", :force => true do |t|
@@ -276,6 +301,7 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
     t.integer  "vote_count"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
   end
 
   create_table "vote_cycles", :force => true do |t|
@@ -285,6 +311,16 @@ ActiveRecord::Schema.define(:version => 20140405085728) do
     t.integer  "vote_setting_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "vote_other_counts", :force => true do |t|
+    t.integer  "voteable_id"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
+    t.integer  "vote_count"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "vote_settings", :force => true do |t|

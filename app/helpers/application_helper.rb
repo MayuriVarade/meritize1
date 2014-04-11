@@ -18,7 +18,8 @@ module ApplicationHelper
       
       def icon_tick(alt_text='Tick')
 
-        build_image_tag("/assets/deactivate.png", alt_text)
+       build_image_tag("/assets/deactivate.png", alt_text)
+
       end
 
       def icon_cross(alt_text='Cross')

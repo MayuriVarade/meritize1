@@ -1,4 +1,7 @@
 
+<%= stylesheet_link_tag "facebox" %>
+<%= javascript_include_tag "facebox" %>
+
 	<div id="info">
 
 		<div class="container " style="margin-bottom:100px">
@@ -13,13 +16,21 @@
           <div class="media ">
             <a href="# " class="pull-left ">    <img src="assets/user2.png" width="64" height="64" class="media-object ">  </a> 
             <div class="media-body ">
+
+          <% if current_user.admin_user.prop.present? %>    
+
             <% if current_user.admin_user.prop.assign_points == true %>
               <h4 class="media-heading ">Leaderboard</h4> 
-              <p><%= @proppoints_winner.receiver.fullname rescue nil%> is one cool employee. He/She has <%= @proppoints_winner.points rescue nil %>&nbsp;&nbsp; points on props this month!</p>
+
+              <p><%= @proppoints_winner.receiver.fullname rescue nil%> is one cool employee. He/She has <%= @proppoints_winner.points rescue nil%>&nbsp;&nbsp; points on props this month!</p>
+
             <% else %>
                <h4 class="media-heading ">Leaderboard</h4> 
-              <p><%= @prop_winner.receiver.fullname rescue nil%> is one cool employee. HE/She has <%= @prop_winner.prop_count %>props this month!
+              <p><%= @prop_winner.receiver.fullname rescue nil%> is one cool employee. HE/She has <%= @prop_winner.prop_count rescue nil%>&nbsp;&nbsp;props this month!
             <% end %> 
+
+          <% end %>  
+
             </div>
             
           </div>
@@ -34,7 +45,7 @@
               <%= f.text_area :description, :class => "form-control ", :rows => 6 ,:placeholder => "Share with everyone what he or she did to deserve the props." %>
               <br/>
               <% if current_user.admin_user.prop.present? %>
-                  <% if current_user.admin_user.prop.assign_points == true %>
+                <% if current_user.admin_user.prop.assign_points == true %>
                   	Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
          
               <%= f.select :points,a ,{}, { :class => 'form-control' }  rescue "" %>
@@ -67,8 +78,21 @@
                  <% @prop_displays.each do |prop_display| %>
                 <div class="media-body ">
                   <h4 class="media-heading text-left "><%= prop_display.receiver.fullname rescue nil%></h4> 
-                  <p class="text-left"style="width:auto"><i><%= prop_display.description rescue nil%>.</i></p>
+
+                  <p class="text-left"style="width:auto"><i><%= prop_display.description rescue nil%></i></p>
+
                   <p class="text-right" style="width:auto"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%> </p>
+
+<div class="like"><%= link_to (image_tag "like.png"),like_prop_prop_displays_path(:id =>prop_display.id),:method => "post",:remote => true,:id => "like_prop"%></div>
+
+       <div class="like_count" id="like_count_<%=prop_display.id %>" val= "<%=prop_display.id %>"><%= Like.where(:likeable_type=>"PropDisplay",:likeable_id=>prop_display.id).sum(:count)%></div>
+         </br> 
+
+<%#if Like.where(:likeable_type=>"PropDisplay",:likeable_id=>prop_display.id).sum(:count) >= 1
+ %>
+<%= link_to "ShowLike", like_count_prop_displays_path(:id =>prop_display.id), :id=>"like_count",:method => "get",:remote=> true %>
+      <%# end %>
+
                    <hr>
                 </div>
                <% end %>
