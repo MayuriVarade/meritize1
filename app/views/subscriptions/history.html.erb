@@ -103,7 +103,7 @@
             </tr>
           </thead>
           <tbody>
-            <% number_of_months = 0..2 %>
+            <% number_of_months = 0..1 %>
              <% number_of_months.each.with_index(1) do |month_offset, index| %>
 
            </br> <% startdate = month_offset.months.ago.beginning_of_month  %>
@@ -116,7 +116,7 @@
                 <tr>
                   <% i = 0 %>
                   <% i+1 %>
-                  <% @subs_user = SubscriptionHistory.where("user_id = ?",adminuser.id)[i] %>
+                  <% @subs_user = Subscription.where("user_id = ?",adminuser.id)[i] %>
                  <td><%= index %></td>
                   <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
                          &nbsp <%= enddate.strftime("%e %b %Y") %></br>
@@ -126,11 +126,7 @@
                 
 
                <% @admin = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = ? AND sign_in_count >= '1'",adminuser.id).select(:fullname).uniq.length %>
-<<<<<<< HEAD
-=======
 
->>>>>>> aabc4c0cdd68bde98d7e10c675b288aefcc11e2e
-                 
 
                <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{adminuser.id}' ") %> 
             

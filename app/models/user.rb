@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
 
    attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo,:time_zone,:fullname, 
-                   :plan_name,:department,:is_prop,:is_prop_reminder,:is_vote_reminder
+                   :plan_name,:department,:is_prop,:is_prop_reminder,:is_vote_reminder,:agree
    has_attached_file :photo,:styles =>{:small => "150x150>"},
   :storage => :s3, :s3_credentials => "#{Rails.root}/config/s3.yml",
   :path => "public/attachments/user/:id/:style/:basename.:extension",
@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
    validates_attachment_content_type :photo, :content_type => ["image/jpg", "image/jpeg", "image/png"]
    has_and_belongs_to_many :roles
    has_one :plan
-
 
    has_one :setting 
    belongs_to :nominee 
@@ -43,6 +42,9 @@ class User < ActiveRecord::Base
 
    before_save :encrypt_password
    before_create { generate_token(:auth_token) }
+
+   validates :terms_and_conditions, acceptance: true
+
    
     acts_as_liker
     
