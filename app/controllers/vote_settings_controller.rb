@@ -167,7 +167,7 @@ class VoteSettingsController < ApplicationController
             else 
                 respond_to do |format|
                   if @vote_setting.update_attributes(params[:vote_setting])
-                    @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
+                    @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id,:award_program_name =>@vote_setting.award_program_name)
                     format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
                     format.json { head :no_content }
                   else
@@ -189,7 +189,7 @@ class VoteSettingsController < ApplicationController
             else 
                 respond_to do |format|
                   if @vote_setting.update_attributes(params[:vote_setting])
-                    @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
+                    @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id,:award_program_name =>@vote_setting.award_program_name)
                     format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
                     format.json { head :no_content }
                   else
@@ -211,7 +211,7 @@ class VoteSettingsController < ApplicationController
           else 
               respond_to do |format|
                 if @vote_setting.update_attributes(params[:vote_setting])
-                  @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id )
+                  @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id,:award_program_name =>@vote_setting.award_program_name)
                   format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
                   format.json { head :no_content }
                 else

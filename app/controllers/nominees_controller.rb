@@ -96,14 +96,21 @@ class NomineesController < ApplicationController
 
      
     if nominee_params.present?
-
-      if @nominee.save
-       flash[:success] = "User has been successfully nominated."
-       redirect_to :back
-    
+       nomineeemail = User.where('email = ?',nominee_email)
+      if nomineeemail.present?
+        if @nominee.save
+         flash[:success] = "User has been successfully nominated."
+         redirect_to :back
+      
+        else
+          redirect_to :back, :notice=> "Take a time to fill all the below records.."
+        end
       else
-        redirect_to :back, :notice=> "Take a time to fill all the below records.."
+        flash[:notice] = "Sorry, we cannot find that person."
+        redirect_to :back 
       end
+    else
+        redirect_to :back, :notice=> "Take a time to fill all the below records.."
     end
 end
 

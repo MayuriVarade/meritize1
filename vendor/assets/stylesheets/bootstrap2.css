@@ -4921,5 +4921,27 @@ th.visible-print, td.visible-print {
     outline: 0 none;
 }
 
-.like{ width:auto; height:auto; float:right; margin-right:20px}
+
+.like{ width:auto; height:auto;}
 .like_count{width:20px; text-align:center; position:relative; background:#599eff; padding:2px; color:#fff; left:20px; top:-40px; font-size:11px; font-weight:bold; }
+
+.voter_main_img {
+    border: 10px solid #FFFFFF;
+    border-radius: 100px;
+    box-shadow: 0 0 1px #808080;
+    float: left;
+    height: 200px;
+    margin: 0 20px 20px 0;
+    width: 200px;
+}
+.voter_img{ width:70px; height:70px; border-radius:50px; margin:0 10px 10px 0; float:left}
+
+.winner_img{ width:100px; height:100px; border-radius:50px;}
+
+
+.blue{ color:#459CE7}
+
+.award{ background:url(/assets/award.png) no-repeat center 15px }
+
+.winner{ position:absolute; width:auto; height:auto}
+
