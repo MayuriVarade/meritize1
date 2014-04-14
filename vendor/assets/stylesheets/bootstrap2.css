@@ -4922,7 +4922,7 @@ th.visible-print, td.visible-print {
 }
 
 
-.like{ width:auto; height:auto;}
+.like{ width:auto; height:auto; float:right; margin-right:20px}
 .like_count{width:20px; text-align:center; position:relative; background:#599eff; padding:2px; color:#fff; left:20px; top:-40px; font-size:11px; font-weight:bold; }
 
 .voter_main_img {
