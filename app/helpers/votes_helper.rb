@@ -20,8 +20,8 @@ module VotesHelper
     else
        if @vote_other.empty? && @vote_count.empty?
            
-         @voter_count1 = VoteCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => 1,:user_id => current_user.admin_user.id) rescue nil
-          @voter_count = VoteOtherCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil
+         @voter_count1 = VoteCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil
+          @voter_count = VoteOtherCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => 1,:user_id => current_user.admin_user.id) rescue nil
        else
           @update_count1 = VoteCount.update(@voteable.id,:voteable_id => @receiver ,:start_cycle =>@voteable.start_cycle,:end_cycle => @voteable.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil 
         @update_count = VoteOtherCount.update(@voteable_other.id,:voteable_id => @receiver ,:start_cycle =>@voteable_other.start_cycle,:end_cycle =>@voteable_other.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil  

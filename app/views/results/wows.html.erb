@@ -49,87 +49,39 @@
 	 
       <hr>
        <h1 class="wow_heading">User Votes</h1>
-	   
+    <% if @wall_of_winner_voter.present? %>
+	   <% @wall_of_winner_voter.each do |winner_voter| %>
 	   <div class="row">
 				<div class="col-md-6">
-					<img src="/assets/testimonial4.jpg" alt="globe" width="128" height="128" class="voter_img">
+
+
+
+
+					 <% unless winner_voter.voteable.photo.blank? %>
+	  
+			  		<%= image_tag winner_voter.voteable.photo.url,:width =>"128",:height => "128",:class => "voter_img" rescue nil %>
+			      <% else %>
+		             <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_img">  
+	      		<% end %>
 					
-						<strong><a href="#">Rupert Sential @rsential</a></strong>
-						<p><strong class="blue">2150</strong> Points</p>
-						<p>@JenSmith thanks for attending the prospect call at the last 
-							minutes. Props to you for helping me close the deal
-						</p>
+						<strong><a href="#"><%= winner_voter.voter.fullname rescue nil%></a></strong>
 						
+						<p><%= winner_voter.description rescue nil%>
+						</p>
+						<hr>
 				 </div>
 				 
+		<% end %>		 
+	<% end %>			 
 				 
 				 
-				 <div class="col-md-6">
-					<img src="/assets/testimonial1.jpg" alt="globe" class="voter_img">
-					
-						<strong><a href="#">Rupert Sential @rsent</a></strong>
-						
-						<strong><a href="#">ial</a></strong>
-						<p><strong class="blue">223</strong> Points</p>
-						<p>@JenSmith thanks for attending the prospect call at the last 
-							minutes. Props to you for helping me close the deal
-						</p>
-						
-						<hr>
-					
-		 </div>
 				 
 				 
-				 <div class="col-md-6">
-					<img src="/assets/testimonial1.jpg" alt="globe" width="128" height="128" class="voter_img">
-					
-						<strong><a href="#">Rupert Sential @rsential</a></strong>
-						<p><strong class="blue">80</strong> Points</p>
-						<p>@JenSmith thanks for attending the prospect call at the last 
-							minutes. Props to you for helping me close the deal
-						</p>
-						
-						<hr>
-					
-		 </div>
 				 
+				
 				 
-				 <div class="col-md-6"><img src="/assets/testimonial4.jpg" alt="globe" width="128" height="128" class="voter_img"><strong><a href="#">Rupert Sential @rsential</a></strong>
-						<p><strong class="blue">120</strong> Points</p>
-						<p>@JenSmith thanks for attending the prospect call at the last 
-							minutes. Props to you for helping me close the deal
-						</p>
-						
-						<hr>
-					
-		 </div>
-				 
-				 <div class="col-md-6">
-					<img src="/assets/testimonial3.jpg" alt="globe" width="128" height="128" class="voter_img">
-					
-						<strong><a href="#">Rupert Sential @rsential</a></strong>
-						<p><strong class="blue">230</strong> Points</p>
-						<p>@JenSmith thanks for attending the prospect call at the last 
-							minutes. Props to you for helping me close the deal
-						</p>
-						
-						<hr>
-					
-		 </div>
-				 
-				 
-				 <div class="col-md-6">
-					<img src="/assets/testimonial2.jpg" alt="globe" width="128" height="128" class="voter_img">
-					
-						<strong><a href="#">Rupert Sential @rsential</a></strong>
-						<p><strong class="blue">25460</strong> Points</p>
-						<p>@JenSmith thanks for attending the prospect call at the last 
-							minutes. Props to you for helping me close the deal
-						</p>
-						
-						<hr>
-					
-		 </div>
+				
+				
 				 
 				 
 				 

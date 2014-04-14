@@ -89,14 +89,16 @@ class ResultsController < ApplicationController
     if current_user.role?(:admin)
       @vote_cycle = VoteCycle.find_all_by_user_id(current_user.id,:order => "id desc").first
       @wall_of_winner = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_cycle.start_cycle,@vote_cycle.end_cycle,current_user.id) rescue nil
-      @wall_of_winner_voter = Vote.find_all_by_start_cycle_and_end_cycle_and_voteable_id(@vote_cycle.start_cycle,@vote_cycle.end_cycle,@wall_of_winner.voteable_id) rescue nil
       @previous_winner = Result.where(["id != ? and user_id = ? and user_id is not null",@wall_of_winner.id,current_user.id]) rescue nil
+           
+        @wall_of_winner_voter = Vote.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND voteable_id = '#{@wall_of_winner.voteable_id}'") rescue nil
+       
     else
        @vote_cycle = VoteCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first
       @wall_of_winner = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_cycle.start_cycle,@vote_cycle.end_cycle,current_user.admin_user.id) rescue nil
       @wall_of_winner_voter = Vote.find_all_by_start_cycle_and_end_cycle_and_voteable_id(@vote_cycle.start_cycle,@vote_cycle.end_cycle,@wall_of_winner.voteable_id) rescue nil
       @previous_winner = Result.where(["id != ? and user_id = ? and user_id is not null",@wall_of_winner.id,current_user.admin_user_id]) rescue nil
-      
+      @wall_of_winner_voter = Vote.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND voteable_id = '#{@wall_of_winner.voteable_id}'") rescue nil
     end  
   end
   private
