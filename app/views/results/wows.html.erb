@@ -6,7 +6,7 @@
 	  
       
       <div class="row">
-	  
+	  <% if @wall_of_winner.present %>
 	  
 	  <div class="col-md-12">
 	  <h1 class="wow_heading"><%= @vote_cycle.award_program_name rescue nil %></h1>
@@ -15,6 +15,7 @@
 				
 	   
 	  <div class="col-md-9">
+
 	     <% unless @wall_of_winner.voteable.photo.blank? %>
 	  
 	  		<%= image_tag @wall_of_winner.voteable.photo.url,:width =>"128",:height => "128",:class => "voter_main_img" rescue nil %>
@@ -42,7 +43,7 @@
         </div>
         
       </div>
-     
+     <% end %>
 	  
 	  
 	 
