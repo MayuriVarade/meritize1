@@ -140,6 +140,7 @@ def create
  
    def edit
     @title = "Edit user"
+    @user = User.find(params[:id])
    end
 
    #method for create updating existing users.
