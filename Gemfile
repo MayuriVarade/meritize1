@@ -11,7 +11,7 @@ gem 'rails', '3.2.14'
 
 # Postgres gem used to create database on server
 
-
+gem 'sqlite3'
 gem 'execjs'
 gem 'therubyracer'
 gem 'paperclip'
@@ -22,6 +22,9 @@ gem 'bundler'
 gem "will_paginate"
 gem 'aws-s3'
 gem 'aws-sdk'
+
+gem 'roo'
+
 gem "socialization"
 
 # Gems used only for assets and not required

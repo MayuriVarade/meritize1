@@ -47,68 +47,103 @@ class User < ActiveRecord::Base
     acts_as_liker
     
     #method for password reset
-	def send_password_reset
-	  generate_token(:password_reset_token)
-	  self.password_reset_sent_at = Time.zone.now
-	  save!
-	  UserMailer.password_reset(self).deliver
-	end
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!
+    UserMailer.password_reset(self).deliver
+  end
     #method for generating authentication token. 
-	def generate_token(column)
-	  begin
-	    self[column] = SecureRandom.urlsafe_base64
-	  end while User.exists?(column => self[column])
-	end
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
+  end
 
-	def has_password?(submitted_password)
-	  encrypted_password == encrypt(submitted_password)
-	end
+  def has_password?(submitted_password)
+    encrypted_password == encrypt(submitted_password)
+  end
 
    #Method for trial days for admin
-	def self.admin_user_plan_expiry(user)     
+  def self.admin_user_plan_expiry(user)     
       @trial_days = TrialDay.first     
       @admin_user_plan_expiry = (user.created_at + @trial_days.days.days)
       @current_date = (Time.zone.now)
       @remaining_days = (@admin_user_plan_expiry - @current_date).to_i / 1.day       
     end
 
-	class << self
-	def authenticate(email, submitted_password)
-	user = find_by_email(email)
-	(user && user.has_password?(submitted_password)) ? user :nil
+  class << self
+  def authenticate(email, submitted_password)
+  user = find_by_email(email)
+  (user && user.has_password?(submitted_password)) ? user :nil
 
-	end
+  end
 
-	def authenticate_with_salt(id,cookie_salt)
-	  user = find_by_id(id)
-	  (user && user.salt == cookie_salt) ? user :nil
-	end 
-	end
-	def role?(role)
-	  return !!self.roles.find_by_name(role.to_s)
-	end
-			
+  def authenticate_with_salt(id,cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user :nil
+  end 
+  end
+  def role?(role)
+    return !!self.roles.find_by_name(role.to_s)
+  end
+
+
+
+
+def self.to_csv
+      CSV.generate do |csv|
+        csv << column_names
+        all.each do |user|
+          csv << user.attributes.values_at(*column_names)
+        end
+      end
+  end
+
+
+
+
+
+ def self.import(file, current_user)  
+  
+  current_user = current_user.id #admin current id
+  
+    CSV.foreach(file.path, headers: true) do |row|
+    @random_password = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
+    add = row.to_hash   
+  
+    @user = User.create(:firstname => add['firstname'],:lastname => add['firstname'],:email =>add['email'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user)
+    
+    UserMailer.uploaduser_verifymail(@user,@random_password).deliver
+  end
+end
+
+
+
+
+
+
+
+      
   private
-	# def encrypt_password
-	# self.salt = make_salt if new_record?
-	# self.encrypted_password = encrypt(password)
-	# end
-	def encrypt_password
+  
+  def encrypt_password
     self.salt = make_salt if new_record?
     self.encrypted_password = encrypt(password) unless password.nil? 
    end
 
-	def encrypt(string)
-	secure_hash("#{salt}--#{string}")
-	end
+  def encrypt(string)
+  secure_hash("#{salt}--#{string}")
+  end
 
-	def make_salt
-	secure_hash("#{Time.now.utc}--#{password}")
-	end
+  def make_salt
+  secure_hash("#{Time.now.utc}--#{password}")
+  end
 
-	def secure_hash(string)
-	Digest::SHA2.hexdigest(string)
-	end
+  def secure_hash(string)
+  Digest::SHA2.hexdigest(string)
+  end
 
-	
+
+  
 end
