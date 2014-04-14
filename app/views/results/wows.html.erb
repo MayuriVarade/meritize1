@@ -1,0 +1,176 @@
+
+	<div id="info" class="award">
+		
+      
+      <div class="container" style="margin-bottom:100px">
+	  
+      
+      <div class="row">
+	  
+	  
+	  <div class="col-md-12">
+	  <h1 class="wow_heading"><%= @vote_cycle.award_program_name rescue nil %></h1>
+	  </div>
+				
+				
+	   
+	  <div class="col-md-9">
+	     <% unless @wall_of_winner.voteable.photo.blank? %>
+	  
+	  		<%= image_tag @wall_of_winner.voteable.photo.url,:width =>"128",:height => "128",:class => "voter_main_img" rescue nil %>
+	      <% else %>
+             <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
+	      <% end %>
+          <h3 class="blue"><%= @wall_of_winner.voteable.fullname rescue nil %></h3>
+           <p>Software Developer<br>
+            January 6, 2014        </p>
+          
+           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>
+           Etiam adipiscing leo non nulla condimentum,</p>
+          <%= @wall_of_winner.voteable.email rescue nil %><br>
+        
+          <strong class="blue"><%= PropCount.find_by_receiver_id(@wall_of_winner.voteable.id).points rescue nil%> </strong> Points (<%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> Voters )        </div>
+	  
+	  
+	  
+	  
+	 
+        <div class="col-md-3">
+
+          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= PropCount.find_by_receiver_id(@wall_of_winner.voteable.id).points rescue nil%></span> Points</span></p>
+          <p><strong>(<%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> Voters )        </strong></p>
+        </div>
+        
+      </div>
+     
+	  
+	  
+	 
+      <hr>
+       <h1 class="wow_heading">User Votes</h1>
+	   
+	   <div class="row">
+				<div class="col-md-6">
+					<img src="/assets/testimonial4.jpg" alt="globe" width="128" height="128" class="voter_img">
+					
+						<strong><a href="#">Rupert Sential @rsential</a></strong>
+						<p><strong class="blue">2150</strong> Points</p>
+						<p>@JenSmith thanks for attending the prospect call at the last 
+							minutes. Props to you for helping me close the deal
+						</p>
+						
+				 </div>
+				 
+				 
+				 
+				 <div class="col-md-6">
+					<img src="/assets/testimonial1.jpg" alt="globe" class="voter_img">
+					
+						<strong><a href="#">Rupert Sential @rsent</a></strong>
+						
+						<strong><a href="#">ial</a></strong>
+						<p><strong class="blue">223</strong> Points</p>
+						<p>@JenSmith thanks for attending the prospect call at the last 
+							minutes. Props to you for helping me close the deal
+						</p>
+						
+						<hr>
+					
+		 </div>
+				 
+				 
+				 <div class="col-md-6">
+					<img src="/assets/testimonial1.jpg" alt="globe" width="128" height="128" class="voter_img">
+					
+						<strong><a href="#">Rupert Sential @rsential</a></strong>
+						<p><strong class="blue">80</strong> Points</p>
+						<p>@JenSmith thanks for attending the prospect call at the last 
+							minutes. Props to you for helping me close the deal
+						</p>
+						
+						<hr>
+					
+		 </div>
+				 
+				 
+				 <div class="col-md-6"><img src="/assets/testimonial4.jpg" alt="globe" width="128" height="128" class="voter_img"><strong><a href="#">Rupert Sential @rsential</a></strong>
+						<p><strong class="blue">120</strong> Points</p>
+						<p>@JenSmith thanks for attending the prospect call at the last 
+							minutes. Props to you for helping me close the deal
+						</p>
+						
+						<hr>
+					
+		 </div>
+				 
+				 <div class="col-md-6">
+					<img src="/assets/testimonial3.jpg" alt="globe" width="128" height="128" class="voter_img">
+					
+						<strong><a href="#">Rupert Sential @rsential</a></strong>
+						<p><strong class="blue">230</strong> Points</p>
+						<p>@JenSmith thanks for attending the prospect call at the last 
+							minutes. Props to you for helping me close the deal
+						</p>
+						
+						<hr>
+					
+		 </div>
+				 
+				 
+				 <div class="col-md-6">
+					<img src="/assets/testimonial2.jpg" alt="globe" width="128" height="128" class="voter_img">
+					
+						<strong><a href="#">Rupert Sential @rsential</a></strong>
+						<p><strong class="blue">25460</strong> Points</p>
+						<p>@JenSmith thanks for attending the prospect call at the last 
+							minutes. Props to you for helping me close the deal
+						</p>
+						
+						<hr>
+					
+		 </div>
+				 
+				 
+				 
+				 
+				
+		</div>
+				
+				
+				
+	   
+	  
+       <h1 class = "wow_heading">Previous Winners</h1>
+	   <%  @previous_winner.each do |previous_winner| %>
+	   <div class="row" style="text-align:center">
+	   					
+			
+			<div class="col-md-4">
+		  <% unless previous_winner.voteable.photo.blank? %>		
+			<div><%=image_tag previous_winner.voteable.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%></div>
+	      <% else %>
+             <div><img src="/assets/user2.png" alt="globe" width="128" height="128" class="winner_img"></div>
+	      <% end %> 
+	   		<div>
+			<h4><%= previous_winner.voteable.fullname rescue nil%></h4>
+			<%= previous_winner.end_cycle.strftime(" %B %Y") rescue nil%> 
+			</div>
+	   		</div>
+			
+		<% end %>	
+			
+			
+			
+			
+			
+			
+			
+	   </div>
+	   
+	   
+	   
+    </div>
+     
+      
+   
+	</div>

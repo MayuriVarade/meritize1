@@ -72,11 +72,11 @@ module VotesHelper
        end
     else
        if @vote_other.empty?
-          @voter_count1 = VoteCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) 
-          @voter_count = VoteOtherCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) 
+          @voter_count1 = VoteCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil
+          @voter_count = VoteOtherCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil 
        else
-          @update_count1 = VoteCount.update(@voteable.id,:voteable_id => @receiver ,:start_cycle =>@voteable.start_cycle,:end_cycle => @voteable.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id)  
-          @update_count = VoteOtherCount.update(@voteable_other.id,:voteable_id => @receiver ,:start_cycle =>@voteable_other.start_cycle,:end_cycle => @voteable_other.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id)  
+          @update_count1 = VoteCount.update(@voteable.id,:voteable_id => @receiver ,:start_cycle =>@voteable.start_cycle,:end_cycle => @voteable.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil 
+          @update_count = VoteOtherCount.update(@voteable_other.id,:voteable_id => @receiver ,:start_cycle =>@voteable_other.start_cycle,:end_cycle => @voteable_other.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil 
 
        end
     end   
@@ -85,9 +85,9 @@ module VotesHelper
     @engage_users = EngageUser.where("voter_id = '#{current_user.id}'")
     @count = Vote.where("voter_id = '#{current_user.id}'").count
     if @engage_users.empty?
-       @voter_count1 = EngageUser.create(:voter_id => current_user.id ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) 
+       @voter_count1 = EngageUser.create(:voter_id => current_user.id ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil
     else
-        @update_count = EngageUser.update(current_user.id,:voter_id => current_user.id ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle =>  @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id)  
+        @update_count = EngageUser.update(current_user.id,:voter_id => current_user.id ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle =>  @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil 
     end  
   end  
 

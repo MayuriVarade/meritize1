@@ -26,7 +26,7 @@
               <th>Email</th>
               <th>Department</th>
               <th>Props</th>
-              
+              <th>Has given props?</th>
             </tr>
           </thead>
           <tbody>
@@ -38,6 +38,12 @@
                             <td><%= result.receiver.email %></td>
                             <td><%= result.receiver.department %></td>
                              <td><%= result.prop_count %></td>
+                             <% @has_given_prop = PropDisplay.where("cycle_start_date = '#{ @prop_setting.start_cycle.to_date}' AND cycle_end_date ='#{@prop_setting.end_cycle.to_date}' AND sender_id = '#{result.receiver_id}'") %>
+                             <% if @has_given_prop.present? %>
+                             <td>Yes</td>
+                             <% else %>
+                              <td>No</td>
+                             <% end %>
                           </tr>
                      
                         <% end %>
@@ -57,7 +63,7 @@
                   <th>Email</th>
                   <th>Department</th>
                   <th>Points</th>
-                  
+                  <th>Has given props?</th>
                 </tr>
               </thead>
               <tbody>
@@ -69,6 +75,12 @@
                               <td><%= result.receiver.email %></td>
                               <td><%= result.receiver.department %></td>
                                <td><%= result.points %></td>
+                                <% @has_given_prop = PropDisplay.where("cycle_start_date = '#{ @prop_setting.start_cycle.to_date}' AND cycle_end_date ='#{@prop_setting.end_cycle.to_date}' AND sender_id = '#{result.receiver_id}'") %>
+                             <% if @has_given_prop.present? %>
+                             <td>Yes</td>
+                             <% else %>
+                              <td>No</td>
+                             <% end %>
                             </tr>
                        
                           <% end %>
