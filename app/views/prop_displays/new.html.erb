@@ -76,24 +76,21 @@
             <div class="panel-body ">
               <div class="media ">
                  <% @prop_displays.each do |prop_display| %>
-                <div class="media-body ">
+              <div class="media-body" style="border-bottom: 1px solid #eee; margin-bottom: 10px;">
                   <h4 class="media-heading text-left "><%= prop_display.receiver.fullname rescue nil%></h4> 
 
                   <p class="text-left"style="width:auto"><i><%= prop_display.description rescue nil%></i></p>
 
-                  <p class="text-right" style="width:auto"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%> </p>
+           <div class="text-right" style="width:auto"><div style="float:right"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%></div></div>
+       
+      <div class="like"><%= link_to (image_tag "like.png"),like_prop_prop_displays_path(:id =>prop_display.id),:method => "post",:remote => true,:id => "like_prop"%>
 
-<div class="like"><%= link_to (image_tag "like.png"),like_prop_prop_displays_path(:id =>prop_display.id),:method => "post",:remote => true,:id => "like_prop"%></div>
-
-       <div class="like_count" id="like_count_<%=prop_display.id %>" val= "<%=prop_display.id %>"><%= Like.where(:likeable_type=>"PropDisplay",:likeable_id=>prop_display.id).sum(:count)%></div>
+       <div class="like_count" id="like_count_<%=prop_display.id %>" val= "<%=prop_display.id %>"><%= link_to Like.where(:likeable_type=>"PropDisplay",:likeable_id=>prop_display.id).sum(:count) ,like_count_prop_displays_path(:id =>prop_display.id), :id=>"like_count",:method => "get",:remote=> true,:style=>"color:#fff" %></div></div>
          </br> 
 
-<%#if Like.where(:likeable_type=>"PropDisplay",:likeable_id=>prop_display.id).sum(:count) >= 1
- %>
-<%= link_to "ShowLike", like_count_prop_displays_path(:id =>prop_display.id), :id=>"like_count",:method => "get",:remote=> true %>
-      <%# end %>
 
-                   <hr>
+
+                   
                 </div>
                <% end %>
                
