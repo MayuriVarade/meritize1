@@ -59,7 +59,7 @@
 
 					 <% unless winner_voter.voteable.photo.blank? %>
 	  
-			  		<%= image_tag winner_voter.voteable.photo.url,:width =>"128",:height => "128",:class => "voter_img" rescue nil %>
+			  		<%= image_tag winner_voter.voter.photo.url,:width =>"128",:height => "128",:class => "voter_img" rescue nil %>
 			      <% else %>
 		             <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_img">  
 	      		<% end %>
