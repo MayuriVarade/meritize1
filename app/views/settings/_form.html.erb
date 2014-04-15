@@ -37,16 +37,16 @@
               <td>
                 
                 <% if params[:action] == "edit" %>
-                <div style ="float:left;margin-right:10px;width:auto;">
+                <div style ="float:left;margin-left:-65px;width:auto;">
                   <%= image_tag @setting.photo.url(:small) %>
                </div>
                 <% end %>
 
-               <div style="float:left;margin:40px 0 0 150px" id="file_tag"> 
-                 <%= f.file_field :photo %>
-                 <span id='val'><%= @setting.photo_file_name %></span>
-         
+               <div style="float:left;margin:25px 0 0 15px" id="file_tag"> 
+                <span><%= f.file_field :photo, title: "to upload"%>Current File</span>         
                </div>
+
+
 
               </td>
             </tr>
