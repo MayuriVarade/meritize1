@@ -16,11 +16,13 @@
       <% if current_user.admin_user.prop.present? %>     
           <div class="media ">
            <% if current_user.admin_user.prop.assign_points == true %>  
+            <% if @proppoints_winner.present? %>
               <% unless  @proppoints_winner.receiver.photo.blank? %>
                  <a href="# " class="pull-left "> <%= image_tag @proppoints_winner.receiver.photo.url(:small) ,:width => "64",:height => "64",:class => "media-object "rescue nil%> </a> 
               <% else %>   
                   <a href="# " class="pull-left "><img src="/assets/user2.png" width="64" height="64" class="media-object ">  </a> 
-              <% end %>    
+              <% end %> 
+            <% end %>     
             <div class="media-body ">
 
              

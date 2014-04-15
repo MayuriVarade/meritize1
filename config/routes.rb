@@ -66,6 +66,7 @@ Meritize::Application.routes.draw do
   match '/account_creation', :to =>'users#account_creation'
   match '/suspend', :to =>'users#suspend'
   match '/wows', :to =>'results#wows'
+  match '/prop_wows', :to =>'results#prop_wows'
   resources :sessions, :only => [:new,:create,:destroy,:edit]
   root :to => 'sessions#new'
     match 'dashboard' => 'users#dashboard', :as => 'user_root'

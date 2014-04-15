@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   
    layout :custom_layout
    require 'will_paginate/array'
-   
+   require 'csv'
   
    
 

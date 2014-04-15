@@ -102,6 +102,31 @@ class ResultsController < ApplicationController
       @wall_of_winner_voter = Vote.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND voteable_id = '#{@wall_of_winner.voteable_id}'") rescue nil
     end  
   end
+
+  def prop_wows
+    if current_user.role?(:admin)
+      @prop_cycle = PropCycle.find_all_by_user_id(current_user.id,:order => "id desc").first
+      if current_user.prop.present?  
+        if current_user.prop.assign_points == true
+          @result = PropCount.where("start_cycle = '#{@prop_cycle.start_cycle.to_date}' AND end_cycle ='#{@prop_cycle.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.id}'").order('points DESC').limit(1) rescue nil
+
+        else  
+          @result = PropCount.where("start_cycle = '#{@prop_cycle.start_cycle.to_date}' AND end_cycle ='#{@prop_cycle.end_cycle.to_date}' AND prop_count >0 AND user_id = '#{current_user.id}'").order('prop_count DESC').limit(1) rescue nil
+        end
+          
+      end 
+    else
+      @prop_cycle = PropCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first
+        if current_user.admin_user.prop.present?  
+          if current_user.admin_user.prop.assign_points == true
+            @result = PropCount.where("start_cycle = '#{@prop_cycle.start_cycle.to_date}' AND end_cycle ='#{@prop_cycle.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.admin_user.id}'").order('points DESC').limit(1) rescue nil
+           
+          else  
+            @result = PropCount.where("start_cycle = '#{@prop_cycle.start_cycle.to_date}' AND end_cycle ='#{@prop_cycle.end_cycle.to_date}' AND prop_count >0 AND user_id = '#{current_user.admin_user.id}'").order('prop_count DESC').limit(1) rescue nil
+          end
+        end   
+    end  
+  end
   private
     def authenticate
       deny_access unless signed_in?

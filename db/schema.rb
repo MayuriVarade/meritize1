@@ -128,8 +128,8 @@ ActiveRecord::Schema.define(:version => 20140414074827) do
   end
 
   create_table "prop_cycles", :force => true do |t|
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.integer  "user_id"
     t.integer  "prop_id"
     t.datetime "created_at",  :null => false
