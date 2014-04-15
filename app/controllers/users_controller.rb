@@ -52,7 +52,8 @@ class UsersController < ApplicationController
    def admin_user         
        @plan_expiry = plan_expiry
         @searchuser ||= []
-        @adminusers = User.all.paginate :page => params[:page],:per_page => 10
+        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
+        
         @adminusers.each do |adminuser|        
         fullname = adminuser.fullname
         @searchuser << fullname
@@ -64,12 +65,17 @@ class UsersController < ApplicationController
 
  #method for Upload CSV
 def import 
-    
-   AdminuserLog.import(params[:file],current_user.id) 
+   if params[:file].blank?
+      flash[:error] = 'Please Upload File.'
+      redirect_to upload_path      
+   else 
+    AdminuserLog.import(params[:file],current_user.id)
+   
    @user = User.import(params[:file],current_user) 
-    
+   
    redirect_to admin_user_path, notice: "Users imported."    
-end
+   end
+ end
 
 
 
@@ -140,6 +146,8 @@ def create
  
    def edit
     @title = "Edit user"
+    @user = User.find(params[:id])
+
    end
 
    #method for create updating existing users.
