@@ -6,7 +6,7 @@
 	  
       
       <div class="row">
-	  <% if @result.present? %>
+	  <% if @wall_of_winner.present? %>
 	  
 	  <div class="col-md-12">
 	  <h1 class="wow_heading"><%= @vote_cycle.award_program_name rescue nil %></h1>
@@ -15,22 +15,22 @@
 				
 	   
 	  <div class="col-md-9">
-        <% @result.each do |prop_winner| %>
-	     <% unless prop_winner.receiver.photo.blank? %>
+
+	     <% unless @wall_of_winner.receiver.photo.blank? %>
 	  
-	  		<%= image_tag prop_winner.receiver.photo.url,:width =>"128",:height => "128",:class => "voter_main_img" rescue nil %>
+	  		<%= image_tag @wall_of_winner.receiver.photo.url,:width =>"128",:height => "128",:class => "voter_main_img" rescue nil %>
 	      <% else %>
              <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
 	      <% end %>
-          <h3 class="blue"><%= prop_winner.receiver.fullname rescue nil %></h3>
+          <h3 class="blue"><%= @wall_of_winner.receiver.fullname rescue nil %></h3>
            <p>Software Developer<br>
             January 6, 2014        </p>
           
            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>
            Etiam adipiscing leo non nulla condimentum,</p>
-          <%= @wall_of_winner.voteable.email rescue nil %><br>
+          <%= @wall_of_winner.receiver.email rescue nil %><br>
         
-          <strong class="blue"><%= prop_winner.points rescue nil%> </strong> Points  </div>
+          <strong class="blue"><%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).points rescue nil%> </strong> Points (<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )        </div>
 	  
 	  
 	  
@@ -38,18 +38,17 @@
 	 
         <div class="col-md-3">
 
-          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= prop_winner.points rescue nil%></span> Points</span></p>
-          <p><strong></strong></p>
+          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).points rescue nil%></span> Points</span></p>
+          <p><strong>(<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )        </strong></p>
         </div>
         
       </div>
     
-	 
+	  
 	  
 	 
-      <hr>
+      
        <h1 class="wow_heading">User Votes</h1>
-      	<%  @wall_of_winner_voter = PropDisplay.where("cycle_start_date = '#{prop_winner.start_cycle.to_date}' AND cycle_end_date ='#{prop_winner.end_cycle.to_date}'AND receiver_id = '#{prop_winner.receiver_id}'").select("DISTINCT ON (sender_id) *") rescue nil %>    
     <% if @wall_of_winner_voter.present? %>
 	   <% @wall_of_winner_voter.each do |winner_voter| %>
 	   <div class="row">
@@ -90,7 +89,7 @@
 				
 		</div>
 	 <% end %>			
-	<% end %>			
+				
 				
 	   
 	   
@@ -101,13 +100,13 @@
 	   					
 			
 			<div class="col-md-4">
-		  <% unless previous_winner.voteable.photo.blank? %>		
-			<div><%=image_tag previous_winner.voteable.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%></div>
+		  <% unless previous_winner.receiver.photo.blank? %>		
+			<div><%=image_tag previous_winner.receiver.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%></div>
 	      <% else %>
              <div><img src="/assets/user2.png" alt="globe" width="128" height="128" class="winner_img"></div>
 	      <% end %> 
 	   		<div>
-			<h4><%= previous_winner.voteable.fullname rescue nil%></h4>
+			<h4><%= previous_winner.receiver.fullname rescue nil%></h4>
 			<%= previous_winner.end_cycle.strftime(" %B %Y") rescue nil%> 
 			</div>
 	   		</div>
@@ -127,5 +126,5 @@
     </div>
      
       
-   
+</div>   
 	</div>

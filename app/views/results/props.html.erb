@@ -27,6 +27,7 @@
               <th>Department</th>
               <th>Props</th>
               <th>Has given props?</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -44,6 +45,25 @@
                              <% else %>
                               <td>No</td>
                              <% end %>
+                                <td align="center">
+                                      <% if @current_result.present? %>
+                                        <% if @current_result.receiver_id == result.receiver_id %>
+
+                                             Winner.
+                                        <% else %>
+                                          -----
+                                        <% end %>     
+                                      <% else %>
+                                            <% if @diff >= 28 %>
+                                              <% if @todays_date >= @select_winner_month %>
+                                               <%= link_to "Select as winner",{:controller => 'results',:action => 'prop_winner', :id => result.id} ,:confirm => "Are you sure you want to select #{result.receiver.fullname rescue nil} as the winner? Once you select this user as the winner you can not change the winner.",:class => "button button-small",:class => "button button-small"%>
+                                               <% end %>
+                                          
+                                             <% else %>
+
+                                            <% end %>   
+                                      <% end %>
+                                    </td>
                           </tr>
                      
                         <% end %>

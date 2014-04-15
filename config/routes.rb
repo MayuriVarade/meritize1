@@ -37,6 +37,7 @@ Meritize::Application.routes.draw do
      match 'props', :on=>:collection 
   end
    match '/results/votes/:id/winner' => 'results#winner'
+   match '/results/props/:id/prop_winner' => 'results#prop_winner'
   root :to => 'homes#index'
   resources :trial_days
   resources :settings  
