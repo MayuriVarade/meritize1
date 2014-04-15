@@ -13,11 +13,11 @@ class VotesController < ApplicationController
         @votes_last = Vote.find_all_by_voter_id(current_user.id,:order => "id desc").first
         
         @vote_setting = current_user.admin_user.vote_setting 
-        @vote_cycle = VoteCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first
+        @vote_cycle = VoteCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first 
 
         @winner = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_cycle.start_cycle,@vote_cycle.end_cycle,current_user.admin_user_id) rescue nil
        
-
+        
         @vote = Vote.new
         
         @setting = current_user.admin_user.setting
@@ -28,8 +28,8 @@ class VotesController < ApplicationController
         
           if @nominees.present?
                  @searchuser ||= [] 
-                  @nomineeusers = Nominee.where(["firstname || lastname || fullname LIKE ? and user_id != ? and current_user_id = ? and current_user_id is not null and start_cycle = ? and end_cycle = ?
-                    ", "%#{params[:search]}%",current_user.id,current_user.admin_user_id,"#{@vote_setting.start_cycle.to_date}","#{@vote_setting.end_cycle.to_date}"])
+                  @nomineeusers = Nominee.where(["firstname || lastname || fullname LIKE ? and user_id != ? and user_id != ? and current_user_id = ? and current_user_id is not null and start_cycle = ? and end_cycle = ?
+                    ", "%#{params[:search]}%",current_user.id,@winner.voteable_id,current_user.admin_user_id,"#{@vote_setting.start_cycle.to_date}","#{@vote_setting.end_cycle.to_date}"])
                   @nomineeusers.each do |nomineeuser|
                   fullname = nomineeuser.fullname + "(" + nomineeuser.email + ")"
                   @searchuser << fullname
@@ -37,14 +37,27 @@ class VotesController < ApplicationController
                  @searchuser
                
           else
-              @searchuser ||= [] 
-              @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
+            if @vote_setting.present?
+              if @vote_setting.is_allow_vote == true && @winner.present?
+                @searchuser ||= [] 
+                @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,@winner.voteable_id,current_user.admin_user_id])
 
-              @adminusers.each do |adminuser|
-                fullname = adminuser.fullname + "(" + adminuser.email + ")"
-                @searchuser << fullname
-              end
-              @searchuser
+                @adminusers.each do |adminuser|
+                  fullname = adminuser.fullname + "(" + adminuser.email + ")"
+                  @searchuser << fullname
+                end
+                @searchuser
+              else
+                @searchuser ||= [] 
+                @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
+
+                @adminusers.each do |adminuser|
+                  fullname = adminuser.fullname + "(" + adminuser.email + ")"
+                  @searchuser << fullname
+                end
+                @searchuser   
+              end  
+            end  
                
           end
        
