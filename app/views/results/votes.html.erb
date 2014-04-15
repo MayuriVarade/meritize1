@@ -71,7 +71,7 @@
             <% @vote = Vote.find_all_by_voteable_id(result.voteable_id) %>
           <tr>
              
-              <td colspan="5"><font size="-2">
+              <td colspan="7"><font size="-2">
               <% @vote.each do |vote| %>  
               <%= vote.description %> - <%= vote.voter.fullname %>(<%= vote.voter.department %>)<br>
                <% end %>
@@ -136,7 +136,7 @@
             <% @vote = Vote.find_all_by_voteable_id(result.voteable_id) %>
           <tr>
              
-              <td colspan="5"><font size="-2">
+              <td colspan="7"><font size="-2">
               <% @vote.each do |vote| %>  
               <%= vote.description %> - <%= vote.voter.fullname %>(<%= vote.voter.department %>)<br>
                <% end %>
