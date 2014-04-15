@@ -56,6 +56,7 @@ class ResultsController < ApplicationController
   def winner
   	@votecount = VoteCount.find_by_id(params[:id])
     @winner = Result.create(:start_cycle => @votecount.start_cycle,:end_cycle =>@votecount.end_cycle,:voteable_id =>@votecount.voteable_id,:vote_count => @votecount.vote_count,:user_id => current_user.id) rescue nil
+    flash[:success] = "Done! The winner has been selected."
     redirect_to votes_results_path
   end	
 

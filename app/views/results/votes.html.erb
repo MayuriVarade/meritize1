@@ -56,11 +56,11 @@
               <% else %>
               <% if @diff >= 28 %>
                 <% if @todays_date >= @select_winner_month %>
-                 <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:class => "button button-small"%>
+                 <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:confirm => "Are you sure you want to select #{result.voteable.fullname rescue nil} as the winner? Once you select this user as the winner you can not change the winner.",:class => "button button-small",:class => "button button-small"%>
                  <% end %>
               <% elsif @diff >=7 %>
                    <% if @todays_date >= @select_winner_week %>
-                        <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:class => "button button-small"%>
+                        <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id},:confirm => "Are you sure you want to select #{result.voteable.fullname rescue nil} as the winner? Once you select this user as the winner you can not change the winner.",:class => "button button-small"%>
                     <% end %>   
                <% else %>
 
@@ -121,11 +121,11 @@
                   <% else %>
                     <% if @diff >= 28 %>
                         <% if @todays_date >= @select_winner_month %>
-                         <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:class => "button button-small"%>
+                         <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id},:confirm => "Are you sure you want to select #{result.voteable.fullname rescue nil} as the winner? Once you select this user as the winner you can not change the winner.",:class => "button button-small"%>
                          <% end %>
                     <% elsif @diff >=7 %>
                          <% if @todays_date >= @select_winner_week %>
-                              <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id} ,:class => "button button-small"%>
+                              <%= link_to "Select as winner",{:controller => 'results',:action => 'winner', :id => result.id},:confirm => "Are you sure you want to select #{result.voteable.fullname rescue nil} as the winner? Once you select this user as the winner you can not change the winner." ,:class => "button button-small"%>
                           <% end %>   
                    <% else %>
 
