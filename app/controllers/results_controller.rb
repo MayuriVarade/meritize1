@@ -7,26 +7,26 @@ class ResultsController < ApplicationController
       if params[:result][:cycle].present?
          @vote_setting1 = current_user.vote_setting 
          @vote_setting1 = current_user.vote_setting 
-         @vote_setting_start = @vote_setting1.start_cycle.to_date
-         @vote_setting_end = @vote_setting1.end_cycle.to_date
-         @diff = (@vote_setting_end - @vote_setting_start + 1).round
-         @vote_setting = VoteCycle.find_by_id(params[:result][:cycle])
+         @vote_setting_start = @vote_setting1.start_cycle.to_date rescue nil
+         @vote_setting_end = @vote_setting1.end_cycle.to_date rescue nil
+         @diff = (@vote_setting_end - @vote_setting_start + 1).round rescue nil
+         @vote_setting = VoteCycle.find_by_id(params[:result][:cycle]) rescue nil
          @current_result = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_setting.start_cycle,@vote_setting.end_cycle,current_user.id) rescue nil
          @result = VoteCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
-         @select_winner_month = (@vote_setting1.end_cycle.to_date - 7)
-         @select_winner_week = (@vote_setting1.end_cycle.to_date - 1)
+         @select_winner_month = (@vote_setting1.end_cycle.to_date - 7) rescue nil
+         @select_winner_week = (@vote_setting1.end_cycle.to_date - 1) rescue nil
          @todays_date = Date.today
          @result_other_dept = VoteOtherCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
          @engage_user = EngageUser.where("vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
 
       else
         @vote_setting1 = current_user.vote_setting 
-        @vote_setting_start = @vote_setting1.start_cycle.to_date
-        @vote_setting_end = @vote_setting1.end_cycle.to_date
-        @diff = (@vote_setting_end - @vote_setting_start + 1).round
+        @vote_setting_start = @vote_setting1.start_cycle.to_date rescue nil
+        @vote_setting_end = @vote_setting1.end_cycle.to_date rescue nil
+        @diff = (@vote_setting_end - @vote_setting_start + 1).round rescue nil
 
-        @select_winner_month = (@vote_setting1.end_cycle.to_date - 7)
-        @select_winner_week = (@vote_setting1.end_cycle.to_date - 1)
+        @select_winner_month = (@vote_setting1.end_cycle.to_date - 7) rescue nil
+        @select_winner_week = (@vote_setting1.end_cycle.to_date - 1) rescue nil
         @todays_date = Date.today
 
         @current_result = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_setting1.start_cycle,@vote_setting1.end_cycle,current_user.id) rescue nil
@@ -38,12 +38,12 @@ class ResultsController < ApplicationController
          
   	else
   	  @vote_setting1 = current_user.vote_setting 
-      @vote_setting_start = @vote_setting1.start_cycle.to_date
-      @vote_setting_end = @vote_setting1.end_cycle.to_date
-      @diff = (@vote_setting_end - @vote_setting_start + 1).round
+      @vote_setting_start = @vote_setting1.start_cycle.to_date rescue nil
+      @vote_setting_end = @vote_setting1.end_cycle.to_date rescue nil
+      @diff = (@vote_setting_end - @vote_setting_start + 1).round rescue nil
 
-      @select_winner_month = (@vote_setting1.end_cycle.to_date - 7)
-      @select_winner_week = (@vote_setting1.end_cycle.to_date - 1)
+      @select_winner_month = (@vote_setting1.end_cycle.to_date - 7) rescue nil
+      @select_winner_week = (@vote_setting1.end_cycle.to_date - 1) rescue nil
       @todays_date = Date.today
 
   	  @current_result = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_setting1.start_cycle,@vote_setting1.end_cycle,current_user.id) rescue nil
