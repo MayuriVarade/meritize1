@@ -1,5 +1,5 @@
 class ResultsController < ApplicationController
-  before_filter :authenticate, :only => [:votes, :props,:wows]
+  before_filter :authenticate, :only => [:votes, :props,:wows,:prop_wows]
   layout 'profile'	
   def votes
   	if request.post? || params[:result]
