@@ -23,7 +23,7 @@
              <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
 	      <% end %>
           <h3 class="blue"><%= @wall_of_winner.receiver.fullname rescue nil %></h3>
-           <p><%= @wall_of_winner.receiver.department rescue nil %></p>
+           <p><%= @wall_of_winner.receiver.department rescue nil %>&nbsp;Department</p>
           
           <%= @wall_of_winner.receiver.email rescue nil %><br>
         
