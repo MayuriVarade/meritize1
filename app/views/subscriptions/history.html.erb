@@ -45,7 +45,7 @@
               <td>   <%= index %></td>
               <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
                  &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
-               </td>
+              </td>
 
 
                <% @user = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count >= '1' ").select(:fullname).uniq.length %>
@@ -116,7 +116,7 @@
                 <tr>
                   <% i = 0 %>
                   <% i+1 %>
-                  <% @subs_user = Subscription.where("user_id = ?",adminuser.id)[i] %>
+                  <% @subs_user = SubscriptionHistory.where("user_id = ?",adminuser.id)[i] %>
                  <td><%= index %></td>
                   <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
                          &nbsp <%= enddate.strftime("%e %b %Y") %></br>

@@ -43,8 +43,8 @@ class User < ActiveRecord::Base
 
    before_save :encrypt_password
    before_create { generate_token(:auth_token) }
+   
 
-   validates :terms_and_conditions, acceptance: true
 
    
     acts_as_liker
@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
     save!
     UserMailer.password_reset(self).deliver
   end
+
     #method for generating authentication token. 
   def generate_token(column)
     begin
@@ -73,7 +74,8 @@ class User < ActiveRecord::Base
       @admin_user_plan_expiry = (user.created_at + @trial_days.days.days)
       @current_date = (Time.zone.now)
       @remaining_days = (@admin_user_plan_expiry - @current_date).to_i / 1.day       
-    end
+  end
+
 
   class << self
   def authenticate(email, submitted_password)
@@ -101,7 +103,7 @@ def self.to_csv
           csv << user.attributes.values_at(*column_names)
         end
       end
-  end
+end
 
 
 
@@ -113,12 +115,13 @@ def self.to_csv
   
     CSV.foreach(file.path, headers: true) do |row|
     @random_password = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
-    add = row.to_hash   
-  
-    @user = User.create(:firstname => add['firstname'],:lastname => add['firstname'],:email =>add['email'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user)
-    
+    add = row.to_hash
+    @user = User.create(:firstname => add['firstname'],:lastname => add['lastname'],:email =>add['email'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user)
+    if @user.save
+      @user.update_column(:fullname,"#{[:firstname]} #{[:lastname]} ")
     UserMailer.uploaduser_verifymail(@user,@random_password).deliver
   end
+ end
 end
 
 

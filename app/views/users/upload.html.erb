@@ -7,7 +7,7 @@
             <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
               <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Manage Users</a>
+            <a class="navbar-brand" href="admin_user">Manage Users</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -32,9 +32,7 @@
       <%= form_tag import_users_path, multipart: true do %>
         <%= file_field_tag :file %></br>
         <%=  hidden_field_tag :admin_user_id , :value => current_user.id %>
-        <%= submit_tag "Upload CSV File",:class => "button button-primary" %>
-      <% end %>
-
+        
 
        
         <h1>Step 2.</h1>Excellent, we have the file and can understand it. Let's confirm we got it right:<br>
@@ -42,8 +40,12 @@
         c. The third column is called "Employee Last Name"; we'll put that in "Last Name".<br>
         We also see that there are 28 entries.
         <p></p>If any of this is not right, check out our article here and go back to Step 1.<br>
+
+
+        <%= submit_tag "Everything checks out. Let's do this!",:class => "button button-primary" %>
+      <% end %>
         
-        <a href="users_upload_results.html" class="button button-primary">Everything checks out. Let's do this!</a>
+        
       </div>
     </div>
   </div>

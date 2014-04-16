@@ -100,6 +100,12 @@
     required: "Please enter your Last name"
 
     },
+
+    "user[agree]" :{
+    required: "Please accept Terms and Conditions."
+
+    },
+ 
  
 
     "user[email]" :{
