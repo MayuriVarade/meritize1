@@ -97,6 +97,7 @@
               <th>Email</th>
               <th>Department</th>
               <th>Votes</th>
+              <th>Has voted?</th>
               <th></th>
             </tr>
           </thead>
@@ -110,7 +111,12 @@
               <td><%= result.voteable.email %></td>
               <td><%= result.voteable.department %></td>
                <td><%= result.vote_count %></td>
-
+               <% @has_voted = Vote.where("cycle_start_date = '#{@vote_setting1.start_cycle.to_date}' AND cycle_end_date ='#{@vote_setting1.end_cycle.to_date}' AND voter_id = '#{result.voteable_id}'") %>
+               <% if @has_voted.present? %>
+                <td>Yes</td>
+               <% else %>
+                  <td>No</td>
+               <% end %> 
               <td align="center">
               <% if @current_result.present? %>
                       <% if @current_result.voteable_id == result.voteable_id%>

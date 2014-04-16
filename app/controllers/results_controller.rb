@@ -100,7 +100,7 @@ class ResultsController < ApplicationController
           @diff = (@prop_setting_end - @prop_setting_start + 1).round rescue nil
 
           @current_result = PropResult.find_by_start_cycle_and_end_cycle_and_user_id(@prop_setting.start_cycle,@prop_setting.end_cycle,current_user.id) rescue nil
-          @select_winner_month = (@prop_setting.end_cycle.to_date - 100) rescue nil
+          @select_winner_month = (@prop_setting.end_cycle.to_date - 7) rescue nil
           @todays_date = Date.today 
       # @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting1.start_cycle,@vote_setting1.end_cycle) rescue nil
       @result = PropCount.where("start_cycle = '#{@prop_setting.start_cycle.to_date}' AND end_cycle ='#{@prop_setting.end_cycle.to_date}' AND prop_count > 0 AND user_id = '#{current_user.id}'").order('prop_count DESC').limit(10) rescue nil
