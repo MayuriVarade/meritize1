@@ -76,8 +76,7 @@ end
 
   def history
    
-      @subscriptions = Subscription.paginate( :page => params[:page],:per_page => 3)
-     @subscriptions = SubscriptionHistory.find(:all,:conditions => ["user_id = ?", user_id], :order => 'created_at, id', :limit => 50).paginate :page => params[:page],:per_page => 3
+     @subscriptions = SubscriptionHistory.find(:all,:conditions => ["user_id = ?", user_id], :order => 'created_at, id', :limit => 3).paginate :page => params[:page],:per_page => 1
      render :layout=>"profile"
   end
 

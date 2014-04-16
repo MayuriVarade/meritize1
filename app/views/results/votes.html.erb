@@ -68,7 +68,7 @@
               <% end %>
               </td>
             </tr>
-            <% @vote = Vote.find_all_by_voteable_id(result.voteable_id) %>
+            <% @vote = Vote.find_all_by_cycle_start_date_and_cycle_end_date_and_voteable_id(result.start_cycle,result.end_cycle,result.voteable_id) rescue nil%>
           <tr>
              
               <td colspan="7"><font size="-2">
@@ -139,7 +139,7 @@
               <% end %>
               </td>
             </tr>
-            <% @vote = Vote.find_all_by_voteable_id(result.voteable_id) %>
+            <% @vote = Vote.find_all_by_cycle_start_date_and_cycle_end_date_and_voteable_id(result.start_cycle,result.end_cycle,result.voteable_id) rescue nil%>
           <tr>
              
               <td colspan="7"><font size="-2">
