@@ -23,11 +23,8 @@
              <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
 	      <% end %>
           <h3 class="blue"><%= @wall_of_winner.receiver.fullname rescue nil %></h3>
-           <p>Software Developer<br>
-            January 6, 2014        </p>
+           <p><%= @wall_of_winner.receiver.department rescue nil %></p>
           
-           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>
-           Etiam adipiscing leo non nulla condimentum,</p>
           <%= @wall_of_winner.receiver.email rescue nil %><br>
         
           <strong class="blue"><%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).points rescue nil%> </strong> Points (<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )        </div>
