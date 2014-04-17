@@ -65,6 +65,7 @@ Meritize::Application.routes.draw do
   match '/users/:id/delete', :to => "users#destroy"
   match '/users/:id/status', :to => "users#toggled_status"
   match '/history', :to => "subscriptions#history"
+  match '/productadmin_history', :to => "subscriptions#productadmin_history"
   match '/users/validations/check_email', :to=>"users#check_email"
   match '/account_creation', :to =>'users#account_creation'
   match '/suspend', :to =>'users#suspend'

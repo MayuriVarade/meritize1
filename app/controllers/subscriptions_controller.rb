@@ -87,9 +87,46 @@ end
                 @user = AdminuserLog.where("created_at >='#{@start_date}' AND updated_at <='#{@end_date}' AND admin_user_id = '#{current_user.id}' AND sign_in_count >= '1' ").select(:fullname).uniq.length rescue nil
                 @price = @s.sum('price') rescue nil
                 @sum = (@user)*(@price).to_f rescue nil
-              else
+              end  
+         else
+          redirect_to :back, :notice=> "Endate cannot be greater than start date"
+        end  
+
+    end 
+  end
+
+
+
+
+
+
+  def productadmin_history
+
+    if request.post? || params[:vehicle]
+     @start_date = params[:vehicle][:start_date].to_s.to_date
+     @end_date = params[:vehicle][:end_date].to_s.to_date
+     @user = params[:vehicle][:user].to_i
+     
+         if  @start_date < @end_date 
+             
+             
+                @user1 = User.where("username is null AND admin_user_id is null  ") rescue nil
+                @user1.each_with_index do |adminuser,i|
+                  i = 0
+                  j = i+1
                 
-                   
+                @subs_user = SubscriptionHistory.where("user_id = ?", @user)[j]
+                
+                @name = @subs_user.fullname 
+
+                
+                @admin = AdminuserLog.where("created_at >='#{@start_date}' AND updated_at <='#{@end_date}' AND admin_user_id = ? AND sign_in_count >= '1'",@user).select(:fullname).uniq.length rescue nil
+                @s1 = SubscriptionHistory.where("created_at >='#{@start_date}' AND updated_at <='#{@end_date}' AND user_id = '#{@user}' ") rescue nil   
+                
+                @price1 = @s1.sum('price')
+                @sum1 = (@admin)*(@price1).to_f
+
+                
               end  
          else
           redirect_to :back, :notice=> "Endate cannot be greater than start date"
