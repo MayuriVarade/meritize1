@@ -55,30 +55,24 @@
        &nbsp;&nbsp;&nbsp;&nbsp;
       </td>
 
-
-
-   
-   
-      
+      <td>
+          <%= f.select(:user, User.find(:all, :conditions=>"username is null and admin_user_id is null ").collect {|p| [ p.fullname.presence || p.id, p.id ] }, {:prompt => 'Select User', :selected => "#{params[:vehicle][:user] if request.post?}"}, {:class=>"form-control"}) %>
+       </td>
      <td>
        &nbsp;&nbsp;&nbsp;&nbsp;
       </td>
    
      
      <td>
-    
         <%= f.submit "Submit" ,:class => "btn btn-primary"%>
-         
-    </td>
+     </td>
       
    </tr>
-   
+      
+ <% end %>
   </table>
-  <% end %>
+  
   </br></br>
-
-
-
 
 
 
@@ -87,38 +81,37 @@
       <!-- CODE FOR PAYMENT HISTORY FOR ADMIN -->
 
 
-<% if request.post? %>
-      <% if current_user.role? :admin %>
+       
 
-        <thead>
+    
+
+
+
+         <thead>
             <tr>
-            
+              
               <th>Date</th>
+              <th>User Name</th>
               <th>Amount</th>
             </tr>
-          </thead>
-          <tbody>
-            
+            </thead>
+            <tbody>
             <tr>
-              
-              <td><%= @start_date.strftime("%e %b %Y") %> &nbsp TO
-                 &nbsp <%= @end_date.strftime("%e %b %Y") %></br>
-              </td>
-                 
-              
-             <td> <%= @sum %></td>
 
-            </tr>
+              <td><%= @start_date.strftime("%e %b %Y") rescue nil %> &nbsp 
+               &nbsp <%= @end_date.strftime("%e %b %Y") rescue nil%></br>
+              </td>
+              <td><%= @name rescue nil %></td>
+
+
+              <td> <%= @sum1 rescue nil %></td>
+             
+              </tr>
+            
+           
           </tbody>
 
 
-
-     
-        <!-- CODE FOR PAYMENT HISTORY FOR PRODUCTADMIN -->    
-    
-    <% end %>
-    <% end %>
- 
        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
 
  

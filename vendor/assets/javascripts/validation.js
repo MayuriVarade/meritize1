@@ -70,6 +70,8 @@
 
     },
 
+    
+
     "user[lastname]" :{
     required: true
 
@@ -288,7 +290,5 @@
 
         });
 
-
-  
     
 });
