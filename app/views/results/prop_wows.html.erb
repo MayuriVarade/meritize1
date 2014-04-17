@@ -1,12 +1,12 @@
 
 	<div id="info" class="award">
 		
-      
+    <% if @wall_of_winner.present? %>   
       <div class="container" style="margin-bottom:100px">
 	  
       
       <div class="row">
-	  <% if @wall_of_winner.present? %>
+	 
 	  
 	  <div class="col-md-12">
 	  <h1 class="wow_heading"><%= @vote_cycle.award_program_name rescue nil %></h1>
@@ -122,10 +122,36 @@
 			
 	   </div>
 	   
-	 <% end %>  
+	 
 	   
     </div>
      
+
+     <% else %>
+        <div class="container" style="margin-bottom:100px">
+	
+			<center> <h1>Wall of Winner</h1></center>
+	
+		<div class="col-md-6">
+		<img src="assets/charactor.png" alt="">
+		</div>
+		
+		<div class="col-md-6">
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		 <h1>Lorem ipsum dolor sit amet,  consectetur adipiscing elit.</h1>
+		 <h4>
+		 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis rhoncus erat, sed suscipit mi. Mauris euismod felis ac dolor consequat vestibulum.
+		 </h4>
+		</div>
+	
+	</div>
+
+
+     <% end %>
       
 </div>   
 	</div>
