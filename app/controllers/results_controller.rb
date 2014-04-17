@@ -42,7 +42,7 @@ class ResultsController < ApplicationController
       @vote_setting_end = @vote_setting1.end_cycle.to_date rescue nil
       @diff = (@vote_setting_end - @vote_setting_start + 1).round rescue nil
 
-      @select_winner_month = (@vote_setting1.end_cycle.to_date - 7) rescue nil
+      @select_winner_month = (@vote_setting1.end_cycle.to_date - 100) rescue nil
       @select_winner_week = (@vote_setting1.end_cycle.to_date - 1) rescue nil
       @todays_date = Date.today
 
