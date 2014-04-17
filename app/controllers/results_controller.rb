@@ -79,7 +79,7 @@ class ResultsController < ApplicationController
          @diff = (@prop_setting_end - @prop_setting_start + 1).round rescue nil
          @prop_setting1 = PropCycle.find_by_id(params[:result][:cycle]) rescue nil
          @current_result = PropResult.find_by_start_cycle_and_end_cycle_and_user_id(@prop_setting.start_cycle,@prop_setting.end_cycle,current_user.id) rescue nil
-         @select_winner_month = (@prop_setting.end_cycle.to_date - 100) rescue nil
+         @select_winner_month = (@prop_setting.end_cycle.to_date - 7) rescue nil
          @todays_date = Date.today
          @result = PropCount.where("start_cycle = '#{@prop_setting1.start_cycle.to_date}' AND end_cycle ='#{@prop_setting1.end_cycle.to_date}' AND prop_count >0 AND user_id = '#{current_user.id}'").order('prop_count DESC').limit(10) rescue nil
          @result_by_points = PropCount.where("start_cycle = '#{@prop_setting1.start_cycle.to_date}' AND end_cycle ='#{@prop_setting1.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.id}'").order('points DESC').limit(10) rescue nil
@@ -91,7 +91,7 @@ class ResultsController < ApplicationController
           @diff = (@prop_setting_end - @prop_setting_start + 1).round rescue nil
 
           @current_result = PropResult.find_by_start_cycle_and_end_cycle_and_user_id(@prop_setting.start_cycle,@prop_setting.end_cycle,current_user.id) rescue nil
-          @select_winner_month = (@prop_setting.end_cycle.to_date - 100) rescue nil
+          @select_winner_month = (@prop_setting.end_cycle.to_date - 7) rescue nil
           @todays_date = Date.today
           # @current_result = Result.find_by_start_cycle_and_end_cycle(@vote_setting1.start_cycle,@vote_setting1.end_cycle) rescue nil
           @result = PropCount.where("start_cycle = '#{@prop_setting.start_cycle.to_date}' AND end_cycle ='#{@prop_setting.end_cycle.to_date}' AND prop_count > 0 AND user_id = '#{current_user.id}'").order('prop_count DESC').limit(10) rescue nil
@@ -119,14 +119,14 @@ class ResultsController < ApplicationController
   def wows
     if current_user.role?(:admin)
       @vote_cycle = VoteCycle.find_all_by_user_id(current_user.id,:order => "id desc").first rescue nil
-      @wall_of_winner = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_cycle.start_cycle,@vote_cycle.end_cycle,current_user.id) rescue nil
+      @wall_of_winner = Result.find_all_by_user_id(current_user.id,:order => "id desc").first rescue nil
       @previous_winner = Result.where(["id != ? and user_id = ? and user_id is not null",@wall_of_winner.id,current_user.id]) rescue nil
            
         @wall_of_winner_voter = Vote.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND voteable_id = '#{@wall_of_winner.voteable_id}'") rescue nil
        
     else
-       @vote_cycle = VoteCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first
-      @wall_of_winner = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_cycle.start_cycle,@vote_cycle.end_cycle,current_user.admin_user.id) rescue nil
+      @vote_cycle = VoteCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first
+      @wall_of_winner = Result.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil
       @wall_of_winner_voter = Vote.find_all_by_start_cycle_and_end_cycle_and_voteable_id(@vote_cycle.start_cycle,@vote_cycle.end_cycle,@wall_of_winner.voteable_id) rescue nil
       @previous_winner = Result.where(["id != ? and user_id = ? and user_id is not null",@wall_of_winner.id,current_user.admin_user_id]) rescue nil
       @wall_of_winner_voter = Vote.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND voteable_id = '#{@wall_of_winner.voteable_id}'") rescue nil
@@ -135,15 +135,15 @@ class ResultsController < ApplicationController
 
   def prop_wows
     if current_user.role?(:admin)
+       
          @prop_cycle = PropCycle.find_all_by_user_id(current_user.id,:order => "id desc").first rescue nil
-         @prop_cycle = PropCycle.find_all_by_user_id(current_user.id,:order => "id desc").first rescue nil
-         @wall_of_winner = PropResult.find_by_start_cycle_and_end_cycle_and_user_id(@prop_cycle.start_cycle,@prop_cycle.end_cycle,current_user.id) rescue nil
+         @wall_of_winner = PropResult.find_all_by_user_id(current_user.id,:order => "id desc").first rescue nil 
          @previous_winner = PropResult.where(["id != ? and user_id = ? and user_id is not null",@wall_of_winner.id,current_user.id]) rescue nil
          @wall_of_winner_voter = PropDisplay.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND receiver_id = '#{@wall_of_winner.receiver_id}'").select("DISTINCT ON (sender_id) *") rescue nil
        
     else  
           @prop_cycle = PropCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil
-          @wall_of_winner = PropResult.find_by_start_cycle_and_end_cycle_and_user_id(@prop_cycle.start_cycle,@prop_cycle.end_cycle,current_user.admin_user.id) rescue nil
+          @wall_of_winner = PropResult.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil 
           @previous_winner = PropResult.where(["id != ? and user_id = ? and user_id is not null",@wall_of_winner.id,current_user.admin_user.id]) rescue nil
           @wall_of_winner_voter = PropDisplay.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND receiver_id = '#{@wall_of_winner.receiver_id}'").select("DISTINCT ON (sender_id) *")  rescue nil
     end

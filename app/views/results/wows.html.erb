@@ -106,7 +106,10 @@
 	      <% end %> 
 	   		<div>
 			<h4><%= previous_winner.voteable.fullname rescue nil%></h4>
-			<%= previous_winner.end_cycle.strftime(" %B %Y") rescue nil%> 
+			<h5><%= previous_winner.voteable.department rescue nil%>&nbsp;Department</h5>
+			<strong class="blue"><%= PropCount.find_by_receiver_id(previous_winner.voteable.id).points rescue nil%> </strong> Points (<%= previous_winner.vote_count rescue nil%>&nbsp;Voters) 
+	
+			<h5><%= previous_winner.end_cycle.strftime(" %B %Y") rescue nil%></h5> 
 			</div>
 	   		</div>
 			
@@ -127,3 +130,5 @@
       
    
 	</div>
+</div>	
+</div>	
