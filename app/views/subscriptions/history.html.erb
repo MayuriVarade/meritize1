@@ -36,7 +36,7 @@
             </tr>
           </thead>
           <tbody>
-            <% number_of_months = 0..3 %>
+            <% number_of_months = 0..12 %>
              <% number_of_months.each.with_index(1) do |month_offset, index| %>
 
            </br> <% startdate = month_offset.months.ago.beginning_of_month  %>
@@ -53,16 +53,18 @@
 
 
 
-               <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{current_user.id}' ") %> 
+               <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{current_user.id}' ")%> 
             
-              
+             
            
               
 
                <% @price = @s.sum('price') %>
               <td> <%= (@user)*(@price).to_f %></td>
-              
+             
             </tr>
+            
+           
           
             <% end %>
           </tbody>
@@ -142,9 +144,7 @@
 
        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
 
-       <div align="right">
-           <ul class="pagination"> <li><%= will_paginate @subscriptions  %></li></ul>
-       </div>
+       
 
 
       </div> <!-- /.container -->
