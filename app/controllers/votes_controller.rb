@@ -182,6 +182,22 @@ class VotesController < ApplicationController
 
     end  
 
+    def self.award_selection_email
+      @admin_user = User.where("username is null  and admin_user_id is null")
+      @admin_user.each do |au|
+        
+        @vote_setting = VoteSetting.find_by_user_id(au.id)
+        
+        if @vote_setting.is_admin_reminder == true 
+           @reminder_day = @vote_setting.end_cycle.to_date - 1.week
+          if @reminder_day == Date.today
+              VoteMailer.award_selection_email(au,@vote_setting).deliver
+          end
+        end  
+      end
+
+    end  
+
 
 
     private
