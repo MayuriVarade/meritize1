@@ -117,14 +117,14 @@ end
                 
                 @subs_user = SubscriptionHistory.where("user_id = ?", @user)[j]
                 
-                @name = @subs_user.fullname 
+                @name = @subs_user.fullname rescue nil
 
                 
                 @admin = AdminuserLog.where("created_at >='#{@start_date}' AND updated_at <='#{@end_date}' AND admin_user_id = ? AND sign_in_count >= '1'",@user).select(:fullname).uniq.length rescue nil
                 @s1 = SubscriptionHistory.where("created_at >='#{@start_date}' AND updated_at <='#{@end_date}' AND user_id = '#{@user}' ") rescue nil   
                 
-                @price1 = @s1.sum('price')
-                @sum1 = (@admin)*(@price1).to_f
+                @price1 = @s1.sum('price') rescue nil
+                @sum1 = (@admin)*(@price1).to_f rescue nil
 
                 
               end  

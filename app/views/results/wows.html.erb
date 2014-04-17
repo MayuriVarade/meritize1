@@ -94,11 +94,11 @@
 	   
        <h1 class = "wow_heading">Previous Winners</h1>
     <% if @previous_winner.present? %>   
-	   <%  @previous_winner.each do |previous_winner| %>
+	  
 	   <div class="row" style="text-align:center">
 	   					
-			
-			<div class="col-md-4">
+			 <%  @previous_winner.each do |previous_winner| %>
+			<div class="col-md-3">
 		  <% unless previous_winner.voteable.photo.blank? %>		
 			<div><%=image_tag previous_winner.voteable.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%></div>
 	      <% else %>
@@ -117,13 +117,13 @@
 			
 			
 			
-			
+		 <% end %> 	
 			
 			
 			
 	   </div>
 	   
-	 <% end %>  
+	 
 	   
     </div>
      
@@ -132,3 +132,4 @@
 	</div>
 </div>	
 </div>	
+</div>

@@ -93,9 +93,9 @@
 	   
        <h1 class = "wow_heading">Previous Winners</h1>
     <% if @previous_winner.present? %>   
-	   <%  @previous_winner.each do |previous_winner| %>
+	  
 	   <div class="row" style="text-align:center">
-	   					
+	   	 <%  @previous_winner.each do |previous_winner| %>				
 			
 			<div class="col-md-4">
 		  <% unless previous_winner.receiver.photo.blank? %>		
