@@ -13,26 +13,34 @@
       </div>
       <div class="row ">
         <div class="col-md-4 ">
+      <% if current_user.admin_user.prop.present? %>     
           <div class="media ">
-            <a href="# " class="pull-left ">    <img src="assets/user2.png" width="64" height="64" class="media-object ">  </a> 
+           <% if current_user.admin_user.prop.assign_points == true %>  
+            <% if @winner.present? %>
+              <% unless  @winner.receiver.photo.blank? %>
+                 <a href="# " class="pull-left "> <%= image_tag @winner.receiver.photo.url(:small) ,:width => "64",:height => "64",:class => "media-object "rescue nil%> </a> 
+              <% else %>   
+                  <a href="# " class="pull-left "><img src="/assets/user2.png" width="64" height="64" class="media-object ">  </a> 
+              <% end %> 
+            <% end %>     
             <div class="media-body ">
 
-          <% if current_user.admin_user.prop.present? %>    
+             
 
-            <% if current_user.admin_user.prop.assign_points == true %>
+           
               <h4 class="media-heading ">Leaderboard</h4> 
 
-              <p><%= @proppoints_winner.receiver.fullname rescue nil%> is one cool employee. He/She has <%= @proppoints_winner.points rescue nil%>&nbsp;&nbsp; points on props this month!</p>
+              <p><%= @winner.receiver.fullname rescue nil%> is one cool employee. He/she has <%= @winner.points rescue nil%>&nbsp;points on props this month!</p>
 
             <% else %>
                <h4 class="media-heading ">Leaderboard</h4> 
-              <p><%= @prop_winner.receiver.fullname rescue nil%> is one cool employee. HE/She has <%= @prop_winner.prop_count rescue nil%>&nbsp;&nbsp;props this month!
+              <p><%= @winner.receiver.fullname rescue nil%> is one cool employee. He/she has <%= @winner.prop_count rescue nil%>&nbsp;&nbsp;props this month!
             <% end %> 
 
-          <% end %>  
+         
 
             </div>
-            
+        <% end %>       
           </div>
         </div>
         <div class="col-md-8 ">

@@ -37,10 +37,13 @@ Meritize::Application.routes.draw do
      match 'props', :on=>:collection 
   end
    match '/results/votes/:id/winner' => 'results#winner'
+   match '/results/props/:id/prop_winner' => 'results#prop_winner'
   root :to => 'homes#index'
   resources :trial_days
   resources :settings  
-  resources :subscriptions  
+  resources :subscriptions do
+   match 'history', :on=>:collection
+  end
     
     get "paypal/checkout", to: 'subscriptions#paypal_checkout'
     match"/success", :to=> "subscriptions#success", :as => 'success'
@@ -66,6 +69,7 @@ Meritize::Application.routes.draw do
   match '/account_creation', :to =>'users#account_creation'
   match '/suspend', :to =>'users#suspend'
   match '/wows', :to =>'results#wows'
+  match '/prop_wows', :to =>'results#prop_wows'
   resources :sessions, :only => [:new,:create,:destroy,:edit]
   root :to => 'sessions#new'
     match 'dashboard' => 'users#dashboard', :as => 'user_root'

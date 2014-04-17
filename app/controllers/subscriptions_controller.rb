@@ -75,11 +75,27 @@ end
   end
 
   def history
-   
-     @subscribe = Subscription.find_by_user_id(user_id)
-     @subscriptions = SubscriptionHistory.find(:all,:conditions => ["user_id = ?", user_id], :order => 'created_at, id', :limit => 3)
 
-     render :layout=>"profile"
+    if request.post? || params[:vehicle]
+     @start_date = params[:vehicle][:start_date].to_s.to_date
+     @end_date = params[:vehicle][:end_date].to_s.to_date
+     @user = params[:vehicle][:user].to_i
+     
+         if  @start_date < @end_date 
+             if current_user.role?(:admin) 
+                @s = SubscriptionHistory.where("created_at >='#{@start_date }' AND updated_at <='#{@end_date }' AND user_id = '#{current_user.id}' ") rescue nil
+                @user = AdminuserLog.where("created_at >='#{@start_date}' AND updated_at <='#{@end_date}' AND admin_user_id = '#{current_user.id}' AND sign_in_count >= '1' ").select(:fullname).uniq.length rescue nil
+                @price = @s.sum('price') rescue nil
+                @sum = (@user)*(@price).to_f rescue nil
+              else
+                
+                   
+              end  
+         else
+          redirect_to :back, :notice=> "Endate cannot be greater than start date"
+        end  
+
+    end 
   end
 
 

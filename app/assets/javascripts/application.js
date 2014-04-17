@@ -59,6 +59,32 @@ jQuery(function (){
       altFormat : 'yy-mm-dd' } );
 });
 
+jQuery(function (){
+        jQuery('#vehicle_start_date').datepicker( 
+    { altField  : '#vehicle_start_date',  // selector of the hidden input field you want sent to the server
+      dateFormat: 'yy-mm-dd',
+      altFormat : 'yy-mm-dd' } );
+  
+});     
+
+//javascript functions for datepicker
+
+
+jQuery(function (){
+        jQuery('#vehicle_end_date').datepicker( 
+    { altField  : '#vehicle_end_date',  // selector of the hidden input field you want sent to the server
+      dateFormat: 'yy-mm-dd',
+      altFormat : 'yy-mm-dd' } );
+});
+
+
+
+
+
+
+
+
+
 //javascript functions for nested forms to
 
 

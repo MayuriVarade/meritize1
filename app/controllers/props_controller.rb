@@ -154,6 +154,7 @@ class PropsController < ApplicationController
     sc =  params[:prop][:start_cycle].to_s.to_date
     ec =  params[:prop][:end_cycle].to_s.to_date
     osc = @prop.start_cycle
+   
     oec = @prop.end_cycle
      reminder1_days = params[:prop][:reminder1_days].to_i
      reminder2_days = params[:prop][:reminder2_days].to_i 

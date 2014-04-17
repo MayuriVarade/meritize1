@@ -16,19 +16,18 @@
 	   
 	  <div class="col-md-9">
 
-	     <% unless @wall_of_winner.voteable.photo.blank? %>
+	     <% unless @wall_of_winner.receiver.photo.blank? %>
 	  
-	  		<%= image_tag @wall_of_winner.voteable.photo.url,:width =>"128",:height => "128",:class => "voter_main_img" rescue nil %>
+	  		<%= image_tag @wall_of_winner.receiver.photo.url,:width =>"128",:height => "128",:class => "voter_main_img" rescue nil %>
 	      <% else %>
              <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
 	      <% end %>
-          <h3 class="blue"><%= @wall_of_winner.voteable.fullname rescue nil %></h3>
-           <p><p><%= @wall_of_winner.voteable.department rescue nil %>&nbsp;Department </p>
+          <h3 class="blue"><%= @wall_of_winner.receiver.fullname rescue nil %></h3>
+           <p><%= @wall_of_winner.receiver.department rescue nil %>&nbsp;Department</p>
           
-           
-          <%= @wall_of_winner.voteable.email rescue nil %><br>
+          <%= @wall_of_winner.receiver.email rescue nil %><br>
         
-          <strong class="blue"><%= PropCount.find_by_receiver_id(@wall_of_winner.voteable.id).points rescue nil%> </strong> Points (<%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> Voters )        </div>
+          <strong class="blue"><%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).points rescue nil%> </strong> Points (<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )        </div>
 	  
 	  
 	  
@@ -36,8 +35,8 @@
 	 
         <div class="col-md-3">
 
-          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= PropCount.find_by_receiver_id(@wall_of_winner.voteable.id).points rescue nil%></span> Points</span></p>
-          <p><strong>(<%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> Voters )        </strong></p>
+          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).points rescue nil%></span> Points</span></p>
+          <p><strong>(<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )        </strong></p>
         </div>
         
       </div>
@@ -45,7 +44,7 @@
 	  
 	  
 	 
-      <hr>
+      
        <h1 class="wow_heading">User Votes</h1>
     <% if @wall_of_winner_voter.present? %>
 	   <% @wall_of_winner_voter.each do |winner_voter| %>
@@ -55,14 +54,14 @@
 
 
 
-					 <% unless winner_voter.voter.photo.blank? %>
+					 <% unless winner_voter.sender.photo.blank? %>
 	  
-			  		<%= image_tag winner_voter.voter.photo.url,:width =>"128",:height => "128",:class => "voter_img" rescue nil %>
+			  		<%= image_tag winner_voter.sender.photo.url,:width =>"128",:height => "128",:class => "voter_img" rescue nil %>
 			      <% else %>
 		             <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_img">  
 	      		<% end %>
 					
-						<strong><a href="#"><%= winner_voter.voter.fullname rescue nil%></a></strong>
+						<strong><a href="#"><%= winner_voter.sender.fullname rescue nil%></a></strong>
 						<strong><a href="#"></a></strong>
 						<p><strong class="blue"></strong></p>
 						<p><%= winner_voter.description rescue nil%>
@@ -99,13 +98,13 @@
 	   					
 			
 			<div class="col-md-4">
-		  <% unless previous_winner.voteable.photo.blank? %>		
-			<div><%=image_tag previous_winner.voteable.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%></div>
+		  <% unless previous_winner.receiver.photo.blank? %>		
+			<div><%=image_tag previous_winner.receiver.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%></div>
 	      <% else %>
              <div><img src="/assets/user2.png" alt="globe" width="128" height="128" class="winner_img"></div>
 	      <% end %> 
 	   		<div>
-			<h4><%= previous_winner.voteable.fullname rescue nil%></h4>
+			<h4><%= previous_winner.receiver.fullname rescue nil%></h4>
 			<%= previous_winner.end_cycle.strftime(" %B %Y") rescue nil%> 
 			</div>
 	   		</div>
@@ -125,5 +124,5 @@
     </div>
      
       
-   
+</div>   
 	</div>

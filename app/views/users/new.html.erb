@@ -22,7 +22,7 @@
                   <a href="/">Meritize</a>
               </h3>
               <h4>Set up your new account.</h4>
-              <div style="text-align: center; color:#fff; font-size: 15px;">All Meritize accounts come with a trial of our Alloy plan.</div>
+              <div style="text-align: center; color:#fff; font-size: 15px;">All Meritize accounts come with a free trial of our Alloy plan.</div>
             </div>
           </div>
           <div class="row">
@@ -88,11 +88,12 @@
                         </div>
                         <div class="checkbox">
                             <label>
-                                <%= f.check_box :agree, {},true,false %> You have read &amp; agree to the  <a href="#">Terms of service</a> 
+                                <input type="checkbox" name="checkbox" value="check"  />
+                                You have read &amp; agree to the  <a href="#">Terms of service</a>    
                             </label>
                           </div>
 
-
+                         
                         
                          <div class="already-account" style="margin-bottom:0">
                             Already have an account?
@@ -103,7 +104,8 @@
                           </div>
                            <div class="submit">
 
-                            <%= f.submit "Create my account",:onclick => "if(!this.form.checkbox.checked){alert('You must agree to the terms first.');return false}", :class =>"button-clear"  %>
+
+                            <%= f.submit "Create my account",:onclick =>"if(!this.form.checkbox.checked){alert('You must agree to the terms first.');return false}",:class =>"button-clear"  %>
                           </div>
                          
                           <% end %>

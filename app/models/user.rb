@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
    belongs_to :nominee 
    has_many :prop_counts
    has_many :results
+   has_many :prop_results
    has_many :engage_users
    has_many :vote_counts
    has_many :vote_other_counts

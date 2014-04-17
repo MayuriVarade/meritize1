@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   
    layout :custom_layout
    require 'will_paginate/array'
-   
+   require 'csv'
   
    
 
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
        @plan_expiry = plan_expiry
         @searchuser ||= []
         @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
-        
+
         @adminusers.each do |adminuser|        
         fullname = adminuser.fullname
         @searchuser << fullname
