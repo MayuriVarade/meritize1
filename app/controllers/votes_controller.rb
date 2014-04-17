@@ -15,7 +15,7 @@ class VotesController < ApplicationController
         @vote_setting = current_user.admin_user.vote_setting 
         @vote_cycle = VoteCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first 
 
-        @winner = Result.find_all_by_user_id(current_user.id,:order => "id desc").first rescue nil
+        @winner = Result.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil
        
         
         @vote = Vote.new
