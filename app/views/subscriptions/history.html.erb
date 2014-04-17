@@ -1,3 +1,10 @@
+<% content_for :styles do %>
+ <%= stylesheet_link_tag "application"%>
+ 
+ 
+<% end %>
+
+
 <div id="masthead">
 
 <div class="container">
@@ -18,84 +25,114 @@
 
 <div id="content">
 
-<div class="container">
+<div class="container"style="margin-bottom:100px">
+        <%= form_for :vehicle do |f| %>
+  
+  <table>
       
+     <tr>
+       <td> <label>From Date</label></td>
+        <td>
+       <label class="label2">&nbsp;</label>
+      </td>
+     
+      <td>
+         <label >To Date</label>
+      </td> 
+     
+       
+     
+
+
+    </tr> 
+
+ 
+  <tr>
+    
+   
+     <td> <%= f.text_field :start_date, :value=> "#{params[:vehicle][:start_date] if request.post?}",:class=>"form-control" %>  </td>
+      <td>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+      </td>
+   
+     <td>
+      <%= f.text_field :end_date, :value=> "#{params[:vehicle][:end_date] if request.post?}",:class=>"form-control" %>
+        
+   
+    
+     </td>
+     <td>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+      </td>
+   
+     <td>
+      <% if current_user.role? :productmanager %>
+      <td>
+          <%= f.select(:user, User.find(:all, :conditions=>"username is null and admin_user_id is null and status= true").collect {|p| [ p.fullname.presence || p.id, p.id ] }, {:prompt => 'Select User', :selected => "#{params[:vehicle][:user] if request.post?}"}, {:class=>"form-control"}) %>
+       </td> 
+      <% end %> 
+     <td>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+      </td>
+   
+     <td>
+     <td>
+    
+        <%= f.submit "Submit" ,:class => "btn btn-primary"%>
+         
+    </td>
+      
+   </tr>
+   
+  </table>
+  <% end %>
+  </br></br>
+
+
+
        <table class="table table-bordered table-striped table-highlight">
 
       <!-- CODE FOR PAYMENT HISTORY FOR ADMIN -->
 
 
-   <% if current_user.role? :admin %>  
+       
 
+    
+
+<% if request.post?  %>
+      <% if current_user.role? :admin %>  
 
         <thead>
             <tr>
-              <th>Sr.No</th>
+            
               <th>Date</th>           
               <th>Amount</th>
             </tr>
           </thead>
           <tbody>
-            <% number_of_months = 0..3 %>
-             <% number_of_months.each.with_index(1) do |month_offset, index| %>
-
-           </br> <% startdate = month_offset.months.ago.beginning_of_month  %>
-            <% enddate = month_offset.month.ago.end_of_month  %>
-            <tr>
-              <td>   <%= index %></td>
-              <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
-                 &nbsp <%= enddate.strftime("%e %b %Y") %></br> 
-              </td>
-
-
-               <% @user = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = '#{current_user.id}' AND sign_in_count >= '1' ").select(:fullname).uniq.length %>
-
-
-
-
-               <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{current_user.id}' ") %> 
             
+            <tr>
               
-           
+              <td><%= @start_date.strftime("%e %b %Y") %> &nbsp TO
+                 &nbsp <%= @end_date.strftime("%e %b %Y") %></br> 
+              </td>
+                 
               
-
-               <% @price = @s.sum('price') %>
-              <td> <%= (@user)*(@price).to_f %></td>
+             <td> <%= @sum %></td>
               
             </tr>
           
-            <% end %>
           </tbody>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
-
-
+     
         <!-- CODE FOR PAYMENT HISTORY FOR PRODUCTADMIN -->
 
     
     <% elsif current_user.role? :productmanager %>
 
-
-
-
-
          <thead>
             <tr>
-              <th>Sr.No</th>
+              
               <th>Date</th> 
               <th>User Name</th> 
                      
@@ -103,64 +140,45 @@
             </tr>
           </thead>
           <tbody>
-            <% number_of_months = 0..1 %>
-             <% number_of_months.each.with_index(1) do |month_offset, index| %>
-
-           </br> <% startdate = month_offset.months.ago.beginning_of_month  %>
-            <% enddate = month_offset.month.ago.end_of_month  %>
-
-            
-               <% @user = User.where("username is null AND admin_user_id is null  ") rescue nil %>
-
-                 <% @user.each_with_index do |adminuser,i| %>
+                  <% @subs_user = SubscriptionHistory.where("user_id = ?",@user) %>
+                      
+                   <% @subs_user.each do |subuser| %>                  
                 <tr>
-                  <% i = 0 %>
-                  <% i+1 %>
-                  <% @subs_user = SubscriptionHistory.where("user_id = ?",adminuser.id)[i] %>
-                 <td><%= index %></td>
-                  <td><%= startdate.strftime("%e %b %Y") %> &nbsp TO
-                         &nbsp <%= enddate.strftime("%e %b %Y") %></br>
+                   
+                    <% @admin = AdminuserLog.where("created_at >='#{@start_date}' AND updated_at <='#{@end_date}' AND admin_user_id = ? AND sign_in_count >= '1'",subuser.id).select(:fullname).uniq.length rescue nil %>
+                       <%@s1 = SubscriptionHistory.where("created_at >='#{@start_date}' AND updated_at <='#{@end_date}' AND user_id = '#{subuser.id}' ") rescue nil %>
+                       
+                       
+                       <% @price1 = @s1.sum('price') %>
+                      
+                        
+                                               
+                  <td><%= @start_date.strftime("%e %b %Y") %> &nbsp TO
+                         &nbsp <%= @end_date.strftime("%e %b %Y") %></br>
                   </td>
                  
-                  <td><%= @subs_user.fullname rescue nil%></td>
-                
-
-               <% @admin = AdminuserLog.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND admin_user_id = ? AND sign_in_count >= '1'",adminuser.id).select(:fullname).uniq.length %>
-
-
-               <% @s = SubscriptionHistory.where("created_at >='#{startdate}' AND updated_at <='#{enddate}' AND user_id = '#{adminuser.id}' ") %> 
-            
-               <% @price = @s.sum('price') %>
-              <td> <%= (@admin)*(@price).to_f %></td>
-               <% end %>
+                 <td><%= @sub_user = subuser.fullname rescue nil %></td>
+                         
+                          
+              <td> <%= @sum1 = (@admin)*(@price1).to_f %></td>
+              
               </tr>
-            
             <% end %>
+           
           </tbody>
 
     <% end %>
-
+ 
        </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
 
-       <div align="right">
-           <ul class="pagination"> <li><%= will_paginate @subscriptions  %></li></ul>
-       </div>
-
+ 
+ <% end %>      
 
       </div> <!-- /.container -->
 
 </div> <!-- /#content -->
 
 </div> <!-- /#wrapper -->
+</div>
 
 
-
-<script>
-
-$(function () {
-
-Theme.init ();
-
-});
-
-</script>

@@ -41,7 +41,9 @@ Meritize::Application.routes.draw do
   root :to => 'homes#index'
   resources :trial_days
   resources :settings  
-  resources :subscriptions  
+  resources :subscriptions do
+   match 'history', :on=>:collection
+  end
     
     get "paypal/checkout", to: 'subscriptions#paypal_checkout'
     match"/success", :to=> "subscriptions#success", :as => 'success'
