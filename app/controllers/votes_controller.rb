@@ -15,7 +15,7 @@ class VotesController < ApplicationController
         @vote_setting = current_user.admin_user.vote_setting 
         @vote_cycle = VoteCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first 
 
-        @winner = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_cycle.start_cycle,@vote_cycle.end_cycle,current_user.admin_user_id) rescue nil
+        @winner = Result.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil
        
         
         @vote = Vote.new
@@ -178,6 +178,22 @@ class VotesController < ApplicationController
           end
          end 
         end
+      end
+
+    end  
+
+    def self.award_selection_email
+      @admin_user = User.where("username is null  and admin_user_id is null")
+      @admin_user.each do |au|
+        
+        @vote_setting = VoteSetting.find_by_user_id(au.id)
+        
+        if @vote_setting.is_admin_reminder == true 
+           @reminder_day = @vote_setting.end_cycle.to_date - 1.week
+          if @reminder_day == Date.today
+              VoteMailer.award_selection_email(au,@vote_setting).deliver
+          end
+        end  
       end
 
     end  

@@ -93,12 +93,14 @@ end
 
     #method for sending vote reminder1 for votes.
     scheduler.in '1d' do
+      VotesController.award_selection_email
       #method for sending vote reminder1 for votes
       VotesController.reminder_email1
       #method for sending vote reminder2 for votes
       VotesController.reminder_email2
       #method for sending vote reminder3 for votes
       VotesController.reminder_email3
+
     end
 
 
