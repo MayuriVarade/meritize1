@@ -2,7 +2,7 @@ require 'rufus-scheduler'
 
 scheduler = Rufus::Scheduler.new
 
-scheduler.in '1d' do
+scheduler.in '3s' do
 
   #method for triggering new cycles,written here for testing purpose. 
   # this method will trigger every day and check for cycle completion and create new cycle recursively if cycle duration for month is over   
