@@ -27,16 +27,32 @@
 	          
 	          <%= @wall_of_winner.receiver.email rescue nil %><br>
 	        
-	          <strong class="blue"><%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).points rescue nil%> </strong> Points (<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )        </div>
+	          <strong class="blue">
+	          	<% if @prop_setting.present? %>
+		          	 <% if @prop_setting.assign_points == true %> 
+		          		<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).points rescue nil%> </strong> Points (<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )        
+	                 <% else %>
+	                   	<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> </strong> Points (<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )  
+	                 <% end %>
+                 <% end %>
+	          </div>
 		  
 		  
 		  
 		  
 		 
 	        <div class="col-md-3">
-
-	          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).points rescue nil%></span> Points</span></p>
-	          <p><strong>(<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )        </strong></p>
+	            <% if @prop_setting.present? %>
+	                <% if @prop_setting.assign_points == true %> 
+			          	<p><span class="button"><span style="font-size:40px; font-weight:bold">
+			          	<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).points rescue nil%></span> Points</span></p>
+			          	<p><strong>(<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )</strong></p>
+			        <% else %>  
+	                      <p><span class="button"><span style="font-size:40px; font-weight:bold">
+			          	<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%></span> Points</span></p>
+			          	<p><strong>(<%= PropCount.find_by_receiver_id(@wall_of_winner.receiver.id).prop_count rescue nil%> Voters )</strong></p>
+			        <% end %>
+			    <% end %>    
 	        </div>
 	        
 	      </div>

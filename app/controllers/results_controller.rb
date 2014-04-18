@@ -135,13 +135,14 @@ class ResultsController < ApplicationController
 
   def prop_wows
     if current_user.role?(:admin)
-       
+         @prop_setting = current_user.prop
          @prop_cycle = PropCycle.find_all_by_user_id(current_user.id,:order => "id desc").first rescue nil
          @wall_of_winner = PropResult.find_all_by_user_id(current_user.id,:order => "id desc").first rescue nil 
          @previous_winner = PropResult.where(["id != ? and user_id = ? and user_id is not null",@wall_of_winner.id,current_user.id]) rescue nil
          @wall_of_winner_voter = PropDisplay.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND receiver_id = '#{@wall_of_winner.receiver_id}'").select("DISTINCT ON (sender_id) *") rescue nil
        
     else  
+         @prop_setting = current_user.admin_user.prop
           @prop_cycle = PropCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil
           @wall_of_winner = PropResult.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil 
           @previous_winner = PropResult.where(["id != ? and user_id = ? and user_id is not null",@wall_of_winner.id,current_user.admin_user.id]) rescue nil
