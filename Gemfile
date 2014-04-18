@@ -23,7 +23,6 @@ gem "will_paginate"
 gem 'aws-s3'
 gem 'aws-sdk'
 gem 'fastercsv'
-gem 'heroku'
 
 gem 'roo'
 
