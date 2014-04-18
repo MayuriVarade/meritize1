@@ -6,7 +6,7 @@ class UsersController < ApplicationController
    require 'will_paginate/array'
    require 'csv'
   
-   
+    
 
   def show
     @user = User.find(params[:id])
@@ -71,8 +71,8 @@ def import
    else 
     AdminuserLog.import(params[:file],current_user.id)
    
-   @user = User.import(params[:file],current_user) 
-   
+   @user = User.import(params[:file],current_user)
+
    redirect_to admin_user_path, notice: "Users imported."    
    end
  end

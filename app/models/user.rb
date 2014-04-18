@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
 
    attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo,:time_zone,:fullname, 
-                   :plan_name,:department,:is_prop,:is_prop_reminder,:is_vote_reminder,:agree
+                   :plan_name,:department,:is_prop,:is_prop_reminder,:is_vote_reminder,:agree,:department
    has_attached_file :photo,:styles =>{:small => "150x150>"},
   :storage => :s3, :s3_credentials => "#{Rails.root}/config/s3.yml",
   :path => "public/attachments/user/:id/:style/:basename.:extension",
@@ -109,21 +109,33 @@ end
 
 
 
- def self.import(file, current_user)  
+
+
+
+def self.import(file, current_user)  
   
   current_user = current_user.id #admin current id
   
-    CSV.foreach(file.path, headers: true) do |row|
+    CSV.foreach(file.path, skip_blanks: true, headers: true) do |row|
     @random_password = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
     add = row.to_hash
-    @user = User.create(:firstname => add['firstname'],:lastname => add['lastname'],:email =>add['email'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user)
 
+    @check_user = User.find_by_email(add['email'])
+
+    if @check_user.present?
+    @check_user.update_attributes(:firstname => add['firstname'],:lastname => add['lastname'],:department => add['department'])
+    else
+    @user = User.create(:firstname => add['firstname'],:lastname => add['lastname'],:email =>add['email'],:department => add['department'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user)
     if @user.save
-      @user.update_column(:fullname,"params#{[:firstname]} #{[:lastname]} ")
+    @user.update_column(:fullname,"#{[:firstname]} #{[:lastname]} ")
     UserMailer.uploaduser_verifymail(@user,@random_password).deliver
+    end
   end
  end
 end
+
+
+
 
 
 
