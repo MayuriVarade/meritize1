@@ -117,8 +117,9 @@ end
     @random_password = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
     add = row.to_hash
     @user = User.create(:firstname => add['firstname'],:lastname => add['lastname'],:email =>add['email'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user)
+
     if @user.save
-      @user.update_column(:fullname,"#{[:firstname]} #{[:lastname]} ")
+      @user.update_column(:fullname,"params#{[:firstname]} #{[:lastname]} ")
     UserMailer.uploaduser_verifymail(@user,@random_password).deliver
   end
  end
