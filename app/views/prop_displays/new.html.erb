@@ -13,8 +13,9 @@
       </div>
       <div class="row ">
         <div class="col-md-4 ">
-      <% if current_user.admin_user.prop.present? %>     
+          
           <div class="media ">
+            <% if current_user.admin_user.prop.present? %> 
            <% if current_user.admin_user.prop.assign_points == true %>  
             <% if @winner.present? %>
               <% unless  @winner.receiver.photo.blank? %>
@@ -40,9 +41,10 @@
          
 
             </div>
-        <% end %>       
+             
           </div>
-        </div>
+          <% end %>  
+       
         <div class="col-md-8 ">
           <div class="panel panel-default ">
             <div class="panel-heading ">
@@ -120,7 +122,7 @@
      
       
     </div>
-     
+    </div>  
       
    
 	</div>
