@@ -28,7 +28,7 @@
 			           
 			          <%= @wall_of_winner.voteable.email rescue nil %><br>
 			        
-			          <strong class="blue"><%= PropCount.find_by_receiver_id(@wall_of_winner.voteable.id).points rescue nil%> </strong> Points (<%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> Voters )        </div>
+			          <strong class="blue"><%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> </strong> Voters</div>
 				  
 				  
 				  
@@ -36,8 +36,8 @@
 				 
 			        <div class="col-md-3">
 
-			          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= PropCount.find_by_receiver_id(@wall_of_winner.voteable.id).points rescue nil%></span> Points</span></p>
-			          <p><strong>(<%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> Voters )        </strong></p>
+			          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> </span> Voters</span></p>
+			         
 			        </div>
 			        
 			      </div>
@@ -107,7 +107,7 @@
 				   		<div>
 						<h4><%= previous_winner.voteable.fullname rescue nil%></h4>
 						<h5><%= previous_winner.voteable.department rescue nil%>&nbsp;Department</h5>
-						<strong class="blue"><%= PropCount.find_by_receiver_id(previous_winner.voteable.id).points rescue nil%> </strong> Points (<%= previous_winner.vote_count rescue nil%>&nbsp;Voters) 
+						<strong class="blue"><%= previous_winner.vote_count rescue nil%> </strong> Voters 
 				
 						<h5><%= previous_winner.end_cycle.strftime(" %B %Y") rescue nil%></h5> 
 						</div>
