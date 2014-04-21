@@ -2,7 +2,7 @@
 	<div id="info" class="award">
 		
     <% if @wall_of_winner.present? %>
-			      <div class="container" style="margin-bottom:100px">
+	  <div class="container" style="margin-bottom:100px">
 				  
 			      
 			      <div class="row">
@@ -97,7 +97,7 @@
 				    <h1 class = "wow_heading">Previous Winners</h1>
 				   <div class="row" style="text-align:center">
 				   					
-						 <%  @previous_winner.each do |previous_winner| %>
+					<%  @previous_winner.each do |previous_winner| %>
 						<div class="col-md-3">
 					  <% unless previous_winner.voteable.photo.blank? %>		
 						<div><%=image_tag previous_winner.voteable.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%></div>
@@ -122,10 +122,10 @@
 						
 						
 				   </div>
-				   
+				<% end %>	   
 				 
 				   
-			    </div>
+	   </div>
      <% else %>
         		<div class="container" style="margin-bottom:100px">
 	
@@ -149,7 +149,7 @@
 	
 				</div>
      <% end %> 	
-    <% end %>	   
+      
    
 	
 </div>	
