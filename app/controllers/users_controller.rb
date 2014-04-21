@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
 
   def new
+
     #@random generates random value which wiil be used for generating temparay password.
     @random = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
     @user = User.new
@@ -110,6 +111,7 @@ def import
 def create
       @user = User.new(params[:user])
        @random_password = params[:user][:password]
+       
       if @user.save
         @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
          UserVerification.welcome_email(@user,@random_password).deliver            
@@ -124,6 +126,8 @@ def create
         end
    
       else
+        @random = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
+
         @title = "Sign Up"
         render 'new'
       end
