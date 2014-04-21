@@ -28,7 +28,7 @@
 			           
 			          <%= @wall_of_winner.voteable.email rescue nil %><br>
 			        
-			          <strong class="blue"><%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> </strong> Voters</div>
+			          <strong class="blue"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </strong> Voters</div>
 				  
 				  
 				  
@@ -36,7 +36,7 @@
 				 
 			        <div class="col-md-3">
 
-			          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> </span> Voters</span></p>
+			          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </span> Voters</span></p>
 			         
 			        </div>
 			        
