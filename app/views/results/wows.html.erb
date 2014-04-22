@@ -2,7 +2,7 @@
 	<div id="info" class="award">
 		
     <% if @wall_of_winner.present? %>
-			      <div class="container" style="margin-bottom:100px">
+	  <div class="container" style="margin-bottom:100px">
 				  
 			      
 			      <div class="row">
@@ -28,7 +28,7 @@
 			           
 			          <%= @wall_of_winner.voteable.email rescue nil %><br>
 			        
-			          <strong class="blue"><%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> </strong> Voters</div>
+			          <strong class="blue"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </strong> Voters</div>
 				  
 				  
 				  
@@ -36,7 +36,7 @@
 				 
 			        <div class="col-md-3">
 
-			          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= VoteCount.find_by_voteable_id(@wall_of_winner.voteable.id).vote_count rescue nil%> </span> Voters</span></p>
+			          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </span> Voters</span></p>
 			         
 			        </div>
 			        
@@ -87,7 +87,7 @@
 							 
 							
 					</div>
-				 <% end %>			
+						
 							
 							
 				   
@@ -97,7 +97,7 @@
 				    <h1 class = "wow_heading">Previous Winners</h1>
 				   <div class="row" style="text-align:center">
 				   					
-						 <%  @previous_winner.each do |previous_winner| %>
+					<%  @previous_winner.each do |previous_winner| %>
 						<div class="col-md-3">
 					  <% unless previous_winner.voteable.photo.blank? %>		
 						<div><%=image_tag previous_winner.voteable.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%></div>
@@ -122,10 +122,10 @@
 						
 						
 				   </div>
-				   
+				<% end %>	   
 				 
 				   
-			    </div>
+	   </div>
      <% else %>
         		<div class="container" style="margin-bottom:100px">
 	
@@ -141,9 +141,9 @@
 						<p>&nbsp;</p>
 						<p>&nbsp;</p>
 						<p>&nbsp;</p>
-						 <h1>Lorem ipsum dolor sit amet,  consectetur adipiscing elit.</h1>
+						 <h1>There are no winners to show just yet.</h1>
 						 <h4>
-						 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis rhoncus erat, sed suscipit mi. Mauris euismod felis ac dolor consequat vestibulum.
+						 Once you pick the winner from Results page,the winner will get displayed here. 
 						 </h4>
 					</div>
 	

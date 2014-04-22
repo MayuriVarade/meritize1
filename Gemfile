@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.14'
 
@@ -11,7 +11,7 @@ gem 'rails', '3.2.14'
 
 # Postgres gem used to create database on server
 
-gem 'sqlite3'
+# gem 'sqlite3'
 gem 'execjs'
 gem 'therubyracer'
 gem 'paperclip'
@@ -23,7 +23,9 @@ gem "will_paginate"
 gem 'aws-s3'
 gem 'aws-sdk'
 gem 'fastercsv'
-gem 'csv_validator'
+
+gem 'heroku'
+
 gem 'roo'
 gem 'smarter_csv'
 gem "socialization"
