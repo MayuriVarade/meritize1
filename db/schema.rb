@@ -71,10 +71,10 @@ ActiveRecord::Schema.define(:version => 20140418051104) do
     t.datetime "start_cycle"
     t.datetime "end_cycle"
     t.boolean  "status"
+    t.integer  "current_user_id"
     t.string   "firstname"
     t.string   "lastname"
     t.integer  "admin_user_id"
-    t.integer  "current_user_id"
   end
 
   create_table "payment_notifications", :force => true do |t|
@@ -170,8 +170,8 @@ ActiveRecord::Schema.define(:version => 20140418051104) do
     t.integer  "step_point"
     t.string   "reset_point"
     t.integer  "user_id"
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.string   "name"
     t.string   "email"
     t.string   "subject"
@@ -316,8 +316,8 @@ ActiveRecord::Schema.define(:version => 20140418051104) do
   end
 
   create_table "vote_cycles", :force => true do |t|
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.integer  "user_id"
     t.integer  "vote_setting_id"
     t.datetime "created_at",         :null => false
@@ -338,8 +338,8 @@ ActiveRecord::Schema.define(:version => 20140418051104) do
   create_table "vote_settings", :force => true do |t|
     t.string   "award_program_name"
     t.string   "award_frequency_type"
-    t.datetime "start_cycle"
-    t.datetime "end_cycle"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
     t.text     "intro_text"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
@@ -365,8 +365,8 @@ ActiveRecord::Schema.define(:version => 20140418051104) do
     t.integer  "voteable_id"
     t.text     "description"
     t.string   "core_values"
-    t.datetime "cycle_end_date"
-    t.datetime "cycle_start_date"
+    t.date     "cycle_end_date"
+    t.date     "cycle_start_date"
     t.integer  "vote_setting_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
    layout :custom_layout
    require 'will_paginate/array'
    require 'csv'
-  
+
     
 
   def show
@@ -68,13 +68,11 @@ def import
    if params[:file].blank?
       flash[:error] = 'Please Upload File.'
       redirect_to upload_path      
-   else 
-    AdminuserLog.import(params[:file],current_user.id)
-   
-   @user = User.import(params[:file],current_user)
-
-   redirect_to admin_user_path, notice: "Users imported."    
-   end
+   else
+     AdminuserLog.import(params[:file],current_user.id)    
+     @user = User.import(params[:file],current_user)
+     redirect_to admin_user_path, notice: "Users imported." 
+    end
  end
 
 

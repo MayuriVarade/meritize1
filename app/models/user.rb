@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
                       }
    validates_attachment_content_type :photo, :content_type => ["image/jpg", "image/jpeg", "image/png"]
    has_and_belongs_to_many :roles
+
    has_one :plan
 
    has_one :setting 
@@ -43,8 +44,13 @@ class User < ActiveRecord::Base
 
    before_save :encrypt_password
    before_create { generate_token(:auth_token) }
+
+   # validates_attachment_content_type :csv, :content_type =>  ["text/csv",'text/comma-separated-values','text/csv','application/csv','application/excel','application/vnd.ms-excel','application/vnd.msexcel','text/anytext','text/plain']
+   
+   validates_presence_of :firstname, :with => /^[-\w\._@]+$/i, :allow_blank => false, :message => "should only contain letters, numbers, or .-_@"
    
 
+   # csv_regex = /^([a-z]+)(,\s*[a-z]+)*$/i
 
    
     acts_as_liker
@@ -129,6 +135,7 @@ def self.import(file, current_user)
     if @user.save
     @user.update_column(:fullname,"#{[:firstname]} #{[:lastname]} ")
     UserMailer.uploaduser_verifymail(@user,@random_password).deliver
+   
     end
   end
  end

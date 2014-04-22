@@ -23,9 +23,9 @@ gem "will_paginate"
 gem 'aws-s3'
 gem 'aws-sdk'
 gem 'fastercsv'
-
+gem 'csv_validator'
 gem 'roo'
-
+gem 'smarter_csv'
 gem "socialization"
 
 # Gems used only for assets and not required
