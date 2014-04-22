@@ -68,10 +68,11 @@ def import
    if params[:file].blank?
       flash[:error] = 'Please Upload File.'
       redirect_to upload_path      
-   else
+   else 
      AdminuserLog.import(params[:file],current_user.id)    
      @user = User.import(params[:file],current_user)
      redirect_to admin_user_path, notice: "Users imported." 
+     
     end
  end
 
@@ -111,17 +112,20 @@ def create
       if @user.save
         @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
          UserVerification.welcome_email(@user,@random_password).deliver            
-         if params[:page_name] == "admin"         
+         if params[:page_name] == "admin" 
+
            redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
-         else
+         elsif params[:page_name] == "user"
 
           redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready.
           We have sent login instructions to your email address.
-      Contact us at support@imeritize.com if you have any questions."}
-        
+          Contact us at support@imeritize.com if you have any questions."}
+        else
+           redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
         end
    
       else
+
         @title = "Sign Up"
         render 'new'
       end

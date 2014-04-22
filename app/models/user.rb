@@ -45,13 +45,7 @@ class User < ActiveRecord::Base
    before_save :encrypt_password
    before_create { generate_token(:auth_token) }
 
-   # validates_attachment_content_type :csv, :content_type =>  ["text/csv",'text/comma-separated-values','text/csv','application/csv','application/excel','application/vnd.ms-excel','application/vnd.msexcel','text/anytext','text/plain']
-   
-   validates_presence_of :firstname, :with => /^[-\w\._@]+$/i, :allow_blank => false, :message => "should only contain letters, numbers, or .-_@"
-   
-
-   # csv_regex = /^([a-z]+)(,\s*[a-z]+)*$/i
-
+  
    
     acts_as_liker
     
