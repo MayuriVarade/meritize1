@@ -1,5 +1,5 @@
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (3.2.14)
       actionpack (= 3.2.14)
@@ -50,10 +50,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    csv_validator (0.0.3)
-      actionpack
-      activemodel
-      mail
     erubis (2.7.0)
     excon (0.16.10)
     execjs (2.0.2)
@@ -185,7 +181,6 @@ DEPENDENCIES
   aws-sdk
   bundler
   coffee-rails (~> 3.2.1)
-  csv_validator
   execjs
   fastercsv
   heroku
