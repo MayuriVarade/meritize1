@@ -66,25 +66,4 @@ Meritize::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
-
-
-  # Define roles, user and IP address of deployment server
-# role :name, %{[user]@[IP adde.]}
-role :app, %w{deployer@162.243.248.210}
-role :web, %w{deployer@162.243.248.210}
-role :db,  %w{deployer@162.243.248.210}
-
-# Define server(s)
-server '162.243.248.210', user: 'deployer', roles: %w{web}
-
-# SSH Options
-# See the example commented out section in the file
-# for more options.
-set :ssh_options, {
-    forward_agent: false,
-    auth_methods: %w(password),
-    password: 'deployer',
-    user: 'deployer',
-}
-
 end
