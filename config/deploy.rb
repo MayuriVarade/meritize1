@@ -12,6 +12,7 @@ set :deploy_to, "/home/deployer/apps/my_app"
 set :pty, true
 
 set :format, :pretty
+set :stages, %w(production)
 
 # Set the post-deployment instructions here.
 # Once the deployment is complete, Capistrano
