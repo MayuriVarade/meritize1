@@ -1,3 +1,5 @@
+require "rvm/capistrano"
+require "bundler/capistrano"
 # Define the name of the application
 set :application, 'imeritize'
 
