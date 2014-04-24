@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
  #method for Upload CSV
 def import 
-   if params[:file].blank?
+   if params[:file].blank? 
       flash[:error] = 'Please Upload File.'
       redirect_to upload_path      
    else 

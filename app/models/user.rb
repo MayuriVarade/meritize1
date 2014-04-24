@@ -128,7 +128,7 @@ def self.import(file, current_user)
     @user = User.create(:firstname => add['firstname'],:lastname => add['lastname'],:email =>add['email'],:department => add['department'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user)
     if @user.save
     @user.update_column(:fullname,"#{[:firstname]} #{[:lastname]} ")
-    UserMailer.uploaduser_verifymail(@user,@random_password).deliver
+     UserMailer.delay(run_at: 1.minutes.from_now).uploaduser_verifymail(@user,@random_password)
    
     end
   end

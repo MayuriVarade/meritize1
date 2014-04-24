@@ -23,9 +23,9 @@ gem "will_paginate"
 gem 'aws-s3'
 gem 'aws-sdk'
 gem 'fastercsv'
+gem 'delayed_job_active_record'
 
-gem 'heroku'
-
+gem "daemons"
 gem 'roo'
 gem 'smarter_csv'
 gem "socialization"
