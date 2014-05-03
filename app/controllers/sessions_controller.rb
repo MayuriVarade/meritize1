@@ -86,8 +86,9 @@ class SessionsController < ApplicationController
  
    	def destroy
   	  sign_out
-      #redirect_to root_path
-      redirect_to '/signin'
+      # Changed to signin page. AAD 5/2/14
+      # redirect_to root_path
+      redirect_to "/signin"
    	end
 
 

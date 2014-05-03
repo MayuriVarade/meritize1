@@ -38,6 +38,7 @@ Meritize::Application.routes.draw do
   end
    match '/results/votes/:id/winner' => 'results#winner'
    match '/results/props/:id/prop_winner' => 'results#prop_winner'
+   # Changed default page to signin. AAD 5/2/14
   #root :to => 'homes#index'
   root :to => 'sessions#new'
   resources :trial_days
