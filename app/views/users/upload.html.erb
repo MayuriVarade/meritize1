@@ -1,41 +1,22 @@
 
   <div id="info">
     <div class="container" style = "margin-bottom:100px">
-      <div class="navbar navbar-default">
-        <div class="container">
-          <div class="navbar-header">
-            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-              <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="admin_user">Manage Users</a>
-          </div>
-          <div class="collapse navbar-collapse">
-            
-          </div>
-        </div>
-      </div>
+      
       <div class="jumbotron">
-        <p>Use this page to create several users at a time. You will need a file with a list of names &amp; email addresses. We'll take their email address and make it their username, and their role will be "Voter". You can also decide if the system should send the new users their password. Oh, and if there is someone with that email address already we will update their First Name and Last Name.</p>
+        <p>Use this page to create several users at a time. You will need a file with a list of first name, last name, email address and department. We'll take their email address and make it their username. The system will send the new users their password. Oh, and if there is someone with that email address already, we will update their first name and last name.</p>
       </div>
       <div class="container">
-        <h1>Step 1.</h1>Let's get started. We need a file from you. It has to be a "csv" file. That stands for comma separated values. You can create one in Excel by doing a File - Save As. Make sure to leave the column headers in so that we understand the contents of your file.
-        <p></p>
+        Let's get started. We need a file from you. It has to be a "csv" file. That stands for comma separated values. You can create one in Excel by doing a File - Save As. Make sure to leave the column headers in so that we understand the contents of your file.
+        It's important that the column headers be named this: <b>firstname,lastname,email,department. Note the lower case.</b></p>
+        <p>Actually, it's more than important. If the column headers aren't that we won't be able to load the information in to the system.</p>
 
-
-        <h2>Import Users</h2>
-      <%= form_tag import_users_path, multipart: true do %>
-        <%= file_field_tag :file %></br>
+        <h4>Step 1. Select the CSV file that has all the users</h4>
+        <%= form_tag import_users_path, multipart: true do %>
+        <%= file_field_tag :file, accept: 'text/csv' %></br>
         <%=  hidden_field_tag :admin_user_id , :value => current_user.id %>
-        
 
-       
-        <h1>Step 2.</h1>Excellent, we have the file and can understand it. Let's confirm we got it right:<br>
-        a. The first column is called "Email Address"; we'll put that in "Email".<br> b. The second column is called "Employee First Name"; we'll put that in "First Name".<br>
-        c. The third column is called "Employee Last Name"; we'll put that in "Last Name".<br>
-        We also see that there are 28 entries.
-        <p></p>If any of this is not right, check out our article here and go back to Step 1.<br>
-
-
+        <h4>Step 2.</h4>
+        After you have uploaded the file, click the button below to kick off the upload process. Note that by clicking this button you certify that you are authorized to create users. And that you understand that an email will be sent immediately to the users at the email address in the csv file.<br />
         <%= submit_tag "Everything checks out. Let's do this!",:class => "button button-primary" %>
       <% end %>
         
