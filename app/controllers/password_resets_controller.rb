@@ -8,9 +8,9 @@ class PasswordResetsController < ApplicationController
     if user
       
       user.send_password_reset
-      redirect_to password_resets_new_url, :notice => "Email sent with password reset instructions."
+      redirect_to password_resets_new_url, :notice => "Email has been sent with the password reset instructions"
     else
-      redirect_to password_resets_new_url, :notice => "No account found with that email address."
+      redirect_to password_resets_new_url, :notice => "No user account found with that email address"
     end
   end
 

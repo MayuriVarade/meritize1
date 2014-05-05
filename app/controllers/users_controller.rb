@@ -119,7 +119,7 @@ def create
            redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
          elsif params[:page_name] == "user"
 
-          redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}.Your brand new Meritize account is ready.
+          redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}. Your brand new Meritize account is ready.
           We have sent login instructions to your email address.
           Contact us at support@imeritize.com if you have any questions."}
         else

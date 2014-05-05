@@ -1,12 +1,11 @@
 ActionMailer::Base.smtp_settings = {
-  :enable_starttls_auto => true,
-  :address => "smtp.gmail.com",
+  :user_name => 'meritize',
+  :password => 'Meritgrid14!',
+  :domain => 'imeritize.com',
+  :address => 'smtp.sendgrid.net',
   :port => 587,
-  :domain => "localhost",
-  :authentication => :login,
-  :user_name => "rubyrails9@gmail.com",
-  :password => "kipl123!@#"
-
+  :authentication => :plain,
+  :enable_starttls_auto => true
 }
 
-ActionMailer::Base.default_url_options[:host] = "meritize-test1.herokuapp.com/"
+ActionMailer::Base.default_url_options[:host] = "https://meritize.herokuapp.com/"
