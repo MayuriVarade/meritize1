@@ -1,6 +1,6 @@
 class UserVerification < ActionMailer::Base
   default from: "support@imeritize.com",
-  bcc: "support@imeritize.com"
+  bcc: "amol@imeritize.com" # so that I get notified any time a customer signs up
 
   def welcome_email(user,random_password)
     @user = user
