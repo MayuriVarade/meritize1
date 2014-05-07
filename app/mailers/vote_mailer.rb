@@ -1,5 +1,5 @@
 class VoteMailer < ActionMailer::Base
-  default from: "support@imeritize.com"
+  default from: "Meritize <support@imeritize.com>"
 
   def vote_mail(user,vote_setting)
   	@user = user

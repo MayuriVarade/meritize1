@@ -1,6 +1,6 @@
 class PropMailer < ActionMailer::Base
 
-	default :from => "support@imeritize.com"
+	default :from => "Meritize <support@imeritize.com>"
 
   def prop_mail(user,prop)
   	@user = user
