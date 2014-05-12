@@ -161,8 +161,8 @@ def create
             :email_sender_subject3 => 'Remember when you voted?',
             :email_sender_body3 => "I don't either! Take a minute and vote for the employee of the month. Click here and login with your email address: http://www.imeritize.com",
             :is_autopick_winner => 'f',
-            :is_admin_reminder => 't', 
-            :is_allow_vote => 'f',
+            :is_admin_reminder => 'f', # Disallow voters to vote for last time's winner
+            :is_allow_vote => 't',
             :reminder1_days => 5,
             :reminder2_days=> 10,
             :reminder3_days => 20)
