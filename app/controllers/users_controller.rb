@@ -119,6 +119,88 @@ def create
            redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
          elsif params[:page_name] == "user"
 
+          # Set default settings
+          # Amol May 2014
+          @setting = Setting.new(
+            :company_name => @user.companyname, 
+            :description => 'Enter description about your company', 
+            :website_address => 'www.mycompanywebsite.com',
+            :user_id => @user.id)
+          core_values = @setting.core_values.build(
+            :title => 'Excellence',
+            :description => 'Strive for excellence at every juncture and deliver excellent results to our customers')
+          core_values = @setting.core_values.build(
+            :title => 'Respect',
+            :description => 'Treat each other with respect and conduct ourselves with utmost integrity')
+          core_values = @setting.core_values.build(
+            :title => 'Innovation',
+            :description => 'Be open to new ideas and push each other to find new solutions to age-old problems')
+          core_values = @setting.core_values.build(
+            :title => 'Passion',
+            :description => 'Do what we love and love what we do')
+          if @setting.save
+            # do nothing, all good
+          else
+            logger.info @setting.errors.full_message
+          end
+
+          @todaysdate = Date.today
+          @VoteSetting = VoteSetting.new(
+            :award_frequency_type => 'Monthly', 
+            :award_program_name => 'Employee of the month',
+            :start_cycle => @todaysdate,
+            :end_cycle => (@todaysdate >> 1) - 1, 
+            :intro_text => "Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?", 
+            :user_id => @user.id,
+            :email_sender_name => @user.firstname + ' ' + @user.lastname,
+            :email_sender_email => @user.email,
+            :email_sender_subject1 => "It's time to vote",
+            :email_sender_body1 => 'Hello dear colleague. Take a minute and vote for employee of the month. Click here to login with your email address: http://www.imeritize.com',
+            :email_sender_subject2 => 'We need you',
+            :email_sender_body2 => 'Yes, we really do! Or more like your colleagues do. They want to know who you think did the best this past month. Take a minute and vote for the employee of the month. Click here and login with your email address: http://www.imeritize.com',
+            :email_sender_subject3 => 'Remember when you voted?',
+            :email_sender_body3 => "I don't either! Take a minute and vote for the employee of the month. Click here and login with your email address: http://www.imeritize.com",
+            :is_autopick_winner => 'f',
+            :is_admin_reminder => 't', 
+            :is_allow_vote => 'f',
+            :reminder1_days => 5,
+            :reminder2_days=> 10,
+            :reminder3_days => 20)
+          if @VoteSetting.save
+            # do nothing, all good
+          else
+            logger.info @VoteSetting.errors.full_message
+          end
+
+          @PropsSetting = Prop.new(
+            :enable => 't', 
+            :assign_points => 't', 
+            :start_point => 1,
+            :step_point => 1, 
+            :end_point => 3, 
+            :reset_point => 2, 
+            :start_cycle => @todaysdate, 
+            :end_cycle => (@todaysdate >> 1) - 1, 
+            :intro => "Ah, team work. It's so good to know someone has your back. Someone who can answer that tough question for you or pick up a sandwich for you while you power through lunch. Or simply hear you out while you vent. Send them some props. It will bring a smile to their face.", 
+            :name => @user.firstname + ' ' + @user.lastname, 
+            :email => @user.email, 
+            :body => "It feels great to get props. And it feels even better when you give them out. We'd appreciate it if you could spread them around. Click here and login with your email address: www.imeritize.com", 
+            :body2 => "Hey. Sorry to bug you again. But we noticed you haven't given props in a while. You know how the world works - what goes around comes around. So give some props today. Click here and login with your email address: www.imeritize.com", 
+            :body3 => "Now hear ye, hear ye. We know you know that you like to be appreciated. It's not about the money. Well, it is. So let me rephrase. It's not all about the money. Think, my friend, think. Who are you thankful for? Click here and login with your email address: www.imeritize.com", 
+            :subject => "Props, praise, kudos and high-fives", 
+            :subject2 => "The sweet smell of props", 
+            :subject3 => "No excuses", 
+            :reminder1_days => 5,
+            :reminder2_days => 10,
+            :reminder3_days => 20,
+            :user_id => @user.id)
+          if @PropsSetting.save
+            # do nothing, all good
+          else
+            logger.info @PropsSetting.errors.full_message
+          end
+
+          # Even if settings weren't saved, send user to confirmation message screen because the user was created
           redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}. Your brand new Meritize account is ready.
           We have sent login instructions to your email address.
           Contact us at support@imeritize.com if you have any questions."}
