@@ -289,7 +289,11 @@ def create
         params[:change_password][:new_password_confirmation]
 
           if @user.save
-            flash[:notice] = 'Password successfully updated'
+            if current_user.role?(:admin)
+              flash[:notice] = "Password successfully updated. If you haven't already, your next step is to create users. Users will be able to give props to each other, or they could vote for one another for an award."
+            else
+              flash[:notice] = 'Your password has been updated'
+            end
             redirect_to change_password_path
           else
             flash[:error] = 'New password mismatch'
