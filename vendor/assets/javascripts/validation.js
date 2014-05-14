@@ -40,8 +40,8 @@
             },
         messages: {
             "session[email]":{
-                         required:  "Please enter your Email Address",
-                         email   :  "Please enter Valid Email Id"
+                         required:  "Please enter your email address",
+                         email   :  "Please enter a valid email address"
                          
 
                         
@@ -49,7 +49,7 @@
         
         
              "session[password]":{
-                              required:"Please enter Password"
+                              required:"Please enter your password"
                              }                    
             }
         });
@@ -104,7 +104,7 @@
     },
 
     "user[agree]" :{
-    required: "Please accept Terms and Conditions."
+    required: "Please accept Terms of service."
 
     },
  
@@ -145,8 +145,8 @@
 
 
      "email" :{
-                required: "Please Enter Your Registered Email Address",
-                email:   "Please Enter Valid Email Address"
+                required: "Please enter the email address you have registered with",
+                email:   "Please enter a valid email address"
 
              }
 

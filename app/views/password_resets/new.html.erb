@@ -24,7 +24,7 @@
 								<%= form_tag password_resets_path,:id => "forgot-form", :method => :post do %>	
 
 							  		<div class="form-group">
-				    		        <label for="name">Email Address</label>
+				    		        <label for="name">Email address</label>
 				    		        <%= text_field_tag :email, params[:email],:class=> "form-control" %>
 				  		            </div>
 
@@ -34,7 +34,7 @@
 									<% end %>
 							  		
 							  		<div class="submit">
-							  			<%= submit_tag "Reset Password",:class=>"button-clear" %>&nbsp;&nbsp;<%= link_to "Sign In", signin_path, :class=>"button-clear" %>
+							  			<%= submit_tag "Reset Password",:class=>"button-clear" %>&nbsp;&nbsp;<%= link_to "Log in", signin_path, :class=>"button-clear" %>
 							  			</div>
 							  			
 							<% end %>

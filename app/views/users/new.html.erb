@@ -22,7 +22,7 @@
                   <a href="/">Meritize</a>
               </h3>
               <h4>Set up your new account.</h4>
-              <div style="text-align: center; color:#fff; font-size: 15px;">All Meritize accounts come with a free trial of our Alloy plan.</div>
+              <div style="text-align: center; color:#fff; font-size: 15px;">All Meritize accounts include a free trial of our <a href="http://www.imeritize.com/charts.html">Alloy</a> plan.</div>
             </div>
           </div>
           <div class="row">
@@ -67,7 +67,7 @@
                           <div class="form-group">
                             <label for="name">How did you hear About Us?</label>
                                    
-                                   <%= f.select :hear_aboutus, options_for_select([["Select One", ""], "From a Friend", "Google search", "Other search engine","Facebook","Twitter","LinkedIn","Blog" ]), {}, { :class => 'form-control' } %>
+                                   <%= f.select :hear_aboutus, options_for_select([["Select One", ""], "From a Friend", "Google search", "Other search engine","Facebook","Twitter","Blog","Other" ]), {}, { :class => 'form-control' } %>
                                   <!-- <%= f.text_area :hear_aboutus ,:rows =>'4',:columns => '3', :class => "form-control"  %> -->
 
                                </div>
@@ -98,7 +98,7 @@
                          <div class="already-account" style="margin-bottom:0">
                             Already have an account?
 
-                            <%= link_to "Sign In", signin_path %>
+                            <%= link_to "Log in", signin_path %>
                 
 
                           </div>

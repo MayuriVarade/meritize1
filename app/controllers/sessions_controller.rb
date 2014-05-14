@@ -11,11 +11,11 @@ class SessionsController < ApplicationController
       user = User.authenticate(params[:session][:email], params[:session][:password])
       
       if user.nil? 
-      	flash.now[:error] = "Invalid email/password combination."
+      	flash.now[:error] = "We don’t recognize that combination of email address and password. Please try again."
       	@title = "Sign in"
       	render 'new'
       elsif user.status == false 
-          flash.now[:error] = "Your account has been deactivated. Please contact administrator."
+          flash.now[:error] = "Your account has been deactivated. Please contact the administrator."
           @title = "Sign in"
           render 'new'
      

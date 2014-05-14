@@ -201,8 +201,8 @@ def create
           end
 
           # Even if settings weren't saved, send user to confirmation message screen because the user was created
-          redirect_to account_creation_path, :flash => {:notice => "Hello #{@user.firstname}. Your brand new Meritize account is ready.
-          We have sent login instructions to your email address.
+          redirect_to account_creation_path, :flash => {:notice => "Hello, #{@user.firstname}. Your brand new Meritize account is ready.
+          We have sent your instructions for getting started to your email address.
           Contact us at support@imeritize.com if you have any questions."}
         else
            redirect_to admin_user_path ,:flash => {:notice => "User successfully created and temporary password sent to user."}
