@@ -103,14 +103,14 @@ class NomineesController < ApplicationController
          redirect_to :back
       
         else
-          redirect_to :back, :notice=> "Take a time to fill all the below records.."
+          redirect_to :back, :notice=> "Please enter all the fields below."
         end
       else
         flash[:notice] = "Sorry, we cannot find that person."
         redirect_to :back 
       end
     else
-        redirect_to :back, :notice=> "Take a time to fill all the below records.."
+        redirect_to :back, :notice=> "Please enter all the fields below."
     end
 end
 

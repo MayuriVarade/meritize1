@@ -290,7 +290,7 @@ def create
 
           if @user.save
             if current_user.role?(:admin)
-              flash[:notice] = "Password successfully updated. If you haven't already, your next step is to create users. Users will be able to give props to each other, or they could vote for one another for an award."
+              flash[:notice] = "Password successfully updated. If you haven't already, your next step is to create users."
             else
               flash[:notice] = 'Your password has been updated'
             end
