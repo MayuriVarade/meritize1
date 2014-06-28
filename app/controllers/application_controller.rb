@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   def session_expiry
     get_session_time_left
     unless @session_time_left > 0
-      flash.now[:error] = "Your session has timed out. Please log back in."
+      flash.now[:error] = "Your session has timed out or you haven't logged in. Please log in."
       sign_out
        
     end

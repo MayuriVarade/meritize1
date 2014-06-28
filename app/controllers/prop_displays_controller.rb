@@ -11,7 +11,9 @@ class PropDisplaysController < ApplicationController
     # @prop_winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND prop_count > 0 AND user_id = '#{current_user.admin_user_id}'").order('prop_count DESC').first rescue nil
     # @proppoints_winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.admin_user_id}'").order('points DESC').first rescue nil
     @prop_cycle = PropCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first 
-    @winner = PropResult.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil 
+    # Changed 6/27/14. Show leader, not winner
+    #@winner = PropResult.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil 
+    @winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.admin_user_id}'").order('points DESC').first rescue nil
 
 
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
