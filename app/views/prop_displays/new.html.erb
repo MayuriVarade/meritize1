@@ -14,9 +14,9 @@
       <div class="col-md-4"> 
         <div class="media">
         <h4 class="media-heading ">Leaderboard</h4> 
-        <% if current_user.admin_user.prop.present? %> 
-          <% if current_user.admin_user.prop.assign_points == true %>  
-            <% if @winner.present? %>
+        <% if @winner.present? %>
+          <% if current_user.admin_user.prop.present? %> 
+            <% if current_user.admin_user.prop.assign_points == true %>  
               <% unless  @winner.receiver.photo.blank? %>
                 <a href="# " class="pull-left "> <%= image_tag @winner.receiver.photo.url(:small) ,:width => "64",:height => "64",:class => "media-object "rescue nil%> </a> 
               <% else %>   
@@ -29,18 +29,17 @@
             <p><%= @winner.receiver.fullname rescue nil%> is leading with <%= @winner.prop_count rescue nil%>&nbsp;&nbsp;props!
           <% end %> 
             </div>             
-        </div>
         <% else %>
-          <h4 class="media-heading ">Leaderboard</h4>
           <p>No props have been awarded. Be the first to send props.</p>
         <% end %>  
+        </div>
       </div>
 
         <div class="col-md-8 ">
           <div class="panel panel-default ">
             <div class="panel-heading ">
             <%= form_for(@prop_display) do |f| %>
-              <b>Props for your peeps</b><br>
+              <b>Give props</b><br>
               <%= f.text_field :receiver_id, :class => "form-control ",:placeholder => "Enter the name of the person you want to send props to" %>
               <br/>
               <%= f.text_area :description, :class => "form-control ", :rows => 6 ,:placeholder => "Share with everyone what he or she did to deserve the props." %>
