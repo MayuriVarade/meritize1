@@ -60,18 +60,18 @@ class VoteSettingsController < ApplicationController
     if sc.present? && ec.present?
 
     if sc > ec 
-      redirect_to :back ,:notice => "Start date cannot be greater than End date" 
+      redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date." 
     else
       diff = (ec - sc + 1).round
         if diff < 28 || diff > 31
-          redirect_to :back, :notice => "Please select correct date."
+          redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the cycle timeframe does not seem to be a month long."
         elsif (reminder1_days > 31) || (reminder2_days > 31) || (reminder3_days > 31)
-          redirect_to :back, :notice => "Please select reminder days less than 7 days."      
+          redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the reminder days entry is more than 31 days."      
         else
           respond_to do |format|
             if @vote_setting.save
                               
-              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Settings for vote was successfully created.' }
+              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Settings for vote were successfully created.' }
               format.json { render json: @vote_setting, status: :created, location: @vote_setting }
             else
               format.html { render action: "new" }
@@ -81,25 +81,25 @@ class VoteSettingsController < ApplicationController
          end 
        end 
       else
-      redirect_to :back, :notice=> "Take a time to fill all the below records.."
+      redirect_to :back, :notice=> "Settings not saved. Looks like you missed filling out some settings."
     end 
   elsif params[:vote_setting][:award_frequency_type] == "Weekly"
 
     if sc.present? && ec.present?
 
     if sc > ec 
-      redirect_to :back ,:notice => "Start date cannot be greater than End date" 
+      redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date." 
     else
       diff = (ec - sc + 1).round
-        if diff < 7 || diff > 7
-          redirect_to :back, :notice => "Please select correct date for weekly."
+        if diff < 5 || diff > 8
+          redirect_to :back, :notice => "Settings not saved. You have selected a weekly cycle but the cycle timeframe does not seem to be a week long."
         elsif (reminder1_days > 7) || (reminder2_days > 7) || (reminder3_days > 7)
-          redirect_to :back, :notice => "Please select reminder days less than 7 days."  
+          redirect_to :back, :notice => "Settings not saved. You have selected a weekly cycle but the reminder days entry is more than 7 days."  
         else
           respond_to do |format|
             if @vote_setting.save
                               
-              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Settings for vote was successfully created.' }
+              format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Settings for vote were successfully created.' }
               format.json { render json: @vote_setting, status: :created, location: @vote_setting }
             else
               format.html { render action: "new" }
@@ -109,22 +109,22 @@ class VoteSettingsController < ApplicationController
          end 
        end 
       else
-      redirect_to :back, :notice=> "Take a time to fill all the below records.."
+      redirect_to :back, :notice=> "Settings not saved. Looks like you missed filling out some settings."
     end 
    elsif params[:vote_setting][:award_frequency_type] == "Quaterly"  
       if sc > ec 
-        redirect_to :back ,:notice => "Start date cannot be greater than End date" 
+        redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date." 
       
         diff = (ec - sc + 1).round
           if diff < 89 || diff > 92
-            redirect_to :back, :notice => "Please select correct date for Quaterly."
+            redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the cycle timeframe does not seem to be a quarter long."
           elsif (reminder1_days > 90) || (reminder2_days > 90) || (reminder3_days > 90)
-          redirect_to :back, :notice => "Please select reminder days less than 90 days."    
+          redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the reminder days entry is more than 90 days."    
           else
             respond_to do |format|
               if @vote_setting.save
                                 
-                format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Settings for vote was successfully created.' }
+                format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Settings for vote were successfully created.' }
                 format.json { render json: @vote_setting, status: :created, location: @vote_setting }
               else
                 format.html { render action: "new" }
@@ -133,7 +133,7 @@ class VoteSettingsController < ApplicationController
             end
            end 
       else
-      redirect_to :back, :notice=> "Take a time to fill all the below records.."    
+      redirect_to :back, :notice=> "Settings not saved. Looks like you missed filling out some settings."    
       end 
      
    end
@@ -144,8 +144,8 @@ class VoteSettingsController < ApplicationController
   #method for updating vote_setting and new trigger cycles and pastcycles. 
   def update
     @vote_setting = VoteSetting.find(params[:id])
-     sc =  params[:vote_setting][:start_cycle].to_s.to_date
-     ec =  params[:vote_setting][:end_cycle].to_s.to_date
+    sc =  params[:vote_setting][:start_cycle].to_s.to_date
+    ec =  params[:vote_setting][:end_cycle].to_s.to_date
 
     osc = @vote_setting.start_cycle
     oec = @vote_setting.end_cycle
@@ -156,19 +156,21 @@ class VoteSettingsController < ApplicationController
 
     if params[:vote_setting][:award_frequency_type] == "Monthly"  
         if sc > ec 
-          redirect_to :back ,:notice => "Start date cannot be greater."
+          redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date."
 
         else
            diff = ec - sc + 1
             if diff < 28 || diff > 31
-              redirect_to :back, :notice => "Please select correct date."
+              redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the cycle timeframe does not seem to be a month long."
             elsif (reminder1_days > 31) || (reminder2_days > 31) || (reminder3_days > 31)
-                    redirect_to :back, :notice => "Please select reminder days less than 31 days."    
+                    redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the reminder days entry is more than 31 days."    
             else 
                 respond_to do |format|
                   if @vote_setting.update_attributes(params[:vote_setting])
-                    @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id,:award_program_name =>@vote_setting.award_program_name)
-                    format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
+                    if sc != osc || ec != oec
+                      @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id,:award_program_name =>@vote_setting.award_program_name)
+                    end
+                    format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings were successfully updated.' }
                     format.json { head :no_content }
                   else
                     format.html { render action: "edit" }
@@ -179,18 +181,20 @@ class VoteSettingsController < ApplicationController
          end 
     elsif params[:vote_setting][:award_frequency_type] == "Weekly"
          if sc > ec 
-          redirect_to :back ,:notice => "Start date cannot be greater."
+          redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date."
          elsif (reminder1_days > 7) || (reminder2_days > 7) || (reminder3_days > 7)
-          redirect_to :back, :notice => "Please select reminder days less than 7 days."   
+          redirect_to :back, :notice => "Settings not saved. You have selected a weekly cycle but the reminder days entry is more than 7 days."   
         else
            diff = ec - sc + 1
-            if diff < 7 || diff > 7
-              redirect_to :back, :notice => "Please select correct date range for weekly."
+            if diff < 5 || diff > 8
+              redirect_to :back, :notice => "Settings not saved. You have selected a weekly cycle but the cycle timeframe does not seem to be a week long."
             else 
                 respond_to do |format|
                   if @vote_setting.update_attributes(params[:vote_setting])
-                    @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id,:award_program_name =>@vote_setting.award_program_name)
-                    format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
+                    if sc != osc || ec != oec
+                      @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id,:award_program_name =>@vote_setting.award_program_name)
+                    end
+                    format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings were successfully updated.' }
                     format.json { head :no_content }
                   else
                     format.html { render action: "edit" }
@@ -201,18 +205,20 @@ class VoteSettingsController < ApplicationController
          end
     elsif params[:vote_setting][:award_frequency_type] == "Quaterly"
         if sc > ec 
-        redirect_to :back ,:notice => "Start date cannot be greater."
+        redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date."
         elsif (reminder1_days > 90) || (reminder2_days > 90) || (reminder3_days > 90)
-          redirect_to :back, :notice => "Please select reminder days less than 7 days."    
+          redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the reminder days entry is more than 90 days."    
         else
          diff = ec - sc + 1
           if diff < 89 || diff > 92
-            redirect_to :back, :notice => "Please select correct date range for weekly."
+            redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the cycle timeframe does not seem to be a quarter long."
           else 
               respond_to do |format|
                 if @vote_setting.update_attributes(params[:vote_setting])
-                  @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id,:award_program_name =>@vote_setting.award_program_name)
-                  format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings was successfully updated.' }
+                  if sc != osc || ec != oec
+                    @vote_cycle = VoteCycle.create(:start_cycle => osc ,:end_cycle => oec ,:user_id => current_user.id,:vote_setting_id => @vote_setting.id,:award_program_name =>@vote_setting.award_program_name)
+                  end
+                  format.html { redirect_to edit_vote_setting_path(@vote_setting), notice: 'Vote settings were successfully updated.' }
                   format.json { head :no_content }
                 else
                   format.html { render action: "edit" }
