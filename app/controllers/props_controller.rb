@@ -56,21 +56,18 @@ class PropsController < ApplicationController
      reminder2_days = params[:prop][:reminder2_days].to_i 
      reminder3_days = params[:prop][:reminder3_days].to_i
 
-  if params[:prop][:reset_point] == "2"  
+  if params[:prop][:reset_point] == "2" || params[:prop][:reset_point] == "1"  #Monthly or Never reset points
       if sc.present? && ec.present?
         if sc > ec 
-          redirect_to :back ,:notice => "Start cycle cannot be greater."
+          redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date."
         elsif (reminder1_days > 31) || (reminder2_days > 31) || (reminder3_days > 31)
-              redirect_to :back, :notice => "Please select reminder days less than 7 days."      
-              
+              redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the reminder days entry is more than 31 days." 
         elsif
            diff = (ec - sc + 1).round
             if diff < 28 || diff > 31
-              redirect_to :back, :notice => "Please select proper date."
+              redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the cycle timeframe does not seem to be a month long."
             elsif sp > ep
-
-            redirect_to :back ,:notice => "'A user must dole out at least' has to be smaller than the number in 'but no more than'."
-
+              redirect_to :back ,:notice => "Settings not saved. 'A user must dole out at least' has to be smaller than the number in 'but no more than'."
             else
               respond_to do |format|
                 if @prop.save
@@ -84,20 +81,20 @@ class PropsController < ApplicationController
             end
           end
       else
-        redirect_to :back, :notice=> "Please fill the all record"
+        redirect_to :back, :notice=> "Settings not saved. Looks like you missed filling out some settings."
       end 
-  elsif params[:prop][:reset_point] == "3"
+  elsif params[:prop][:reset_point] == "3" #Quarterly
       if sc.present? && ec.present?
         if sc > ec 
-          redirect_to :back ,:notice => "Start cycle cannot be greater."
+          redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date."
         elsif (reminder1_days > 90) || (reminder2_days > 90) || (reminder3_days > 90)
-          redirect_to :back, :notice => "Please select reminder days less than 90 days." 
+          redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the reminder days entry is more than 90 days." 
         elsif
            diff = (ec - sc + 1).round
             if diff < 89 || diff > 92
-              redirect_to :back, :notice => "Please select proper date."
+              redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the cycle timeframe does not seem to be a quarter long."
             elsif sp > ep
-            redirect_to :back ,:notice => "A user must dole out at least has to be smaller than the number in but no more than."
+            redirect_to :back ,:notice => "Settings not saved. A user must dole out at least has to be smaller than the number in but no more than."
           else
               respond_to do |format|
                 if @prop.save
@@ -111,8 +108,10 @@ class PropsController < ApplicationController
             end
           end
         else
-          redirect_to :back, :notice=> "Please fill the all record"
+          redirect_to :back, :notice=> "Settings not saved. Looks like you missed filling out some settings."
         end 
+=begin
+# The cycle for "Never reset points" is a monthly cycle. Merging this block with the block for "2" above
   elsif params[:prop][:reset_point] == "1"
      if sc.present? && ec.present?
         if sc > ec 
@@ -141,8 +140,9 @@ class PropsController < ApplicationController
             end
           end
       else
-        redirect_to :back, :notice=> "Please fill the all record"
+        redirect_to :back, :notice=> "Settings not saved. Looks like you missed filling out some settings."
       end 
+=end
    end     
  end 
 
@@ -154,29 +154,31 @@ class PropsController < ApplicationController
     sc =  params[:prop][:start_cycle].to_s.to_date
     ec =  params[:prop][:end_cycle].to_s.to_date
     osc = @prop.start_cycle
-   
     oec = @prop.end_cycle
-     reminder1_days = params[:prop][:reminder1_days].to_i
-     reminder2_days = params[:prop][:reminder2_days].to_i 
-     reminder3_days = params[:prop][:reminder3_days].to_i
-    
-    if params[:prop][:reset_point] == "2"
+    reminder1_days = params[:prop][:reminder1_days].to_i
+    reminder2_days = params[:prop][:reminder2_days].to_i 
+    reminder3_days = params[:prop][:reminder3_days].to_i
+
+    if params[:prop][:reset_point] == "2" || params[:prop][:reset_point] == "1"
         if sc.present? && ec.present?
           if sc > ec 
-            redirect_to :back ,:notice => "Start cycle cannot be greater."
+            redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date."
           
           else
              diff = ec - sc + 1
               if diff < 28 || diff > 31
-                redirect_to :back, :notice => "Please select proper date."
+                redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the cycle timeframe does not seem to be a month long."
               elsif (reminder1_days > 31) || (reminder2_days > 31) || (reminder3_days > 31)
-              redirect_to :back, :notice => "Please select reminder days less than 31 days."  
+                redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the reminder days entry is more than 31 days."  
                       
               else
                 respond_to do |format|
                   if @prop.update_attributes(params[:prop])
-                    PropCycle.create(:start_cycle => osc, :end_cycle => oec, :user_id => current_user.id, :prop_id => @prop.id)
-                    format.html { redirect_to :back, notice: 'Settings for props were successfully created.' }
+                    # Create an entry in PropCycle only if user has changed the cycle
+                    if sc != osc || ec != oec
+                      PropCycle.create(:start_cycle => osc, :end_cycle => oec, :user_id => current_user.id, :prop_id => @prop.id)
+                    end
+                    format.html { redirect_to :back, notice: 'Settings for props were successfully updated.' }
                     format.json { head :no_content }
                   else
                     format.html { render action: "edit" }
@@ -186,24 +188,26 @@ class PropsController < ApplicationController
               end
             end
           else
-          redirect_to :back, :notice=> "Please fill the all record"
+          redirect_to :back, :notice=> "Settings not saved. Looks like you missed filling out some settings."
         end
     elsif params[:prop][:reset_point] == "3"
         if sc.present? && ec.present?
           if sc > ec 
-            redirect_to :back ,:notice => "Start cycle cannot be greater."
+            redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date."
            
           else
              diff = ec - sc + 1
               if diff < 89 || diff > 92
-                redirect_to :back, :notice => "Please select proper date."
+                redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the cycle timeframe does not seem to be a quarter long."
               elsif (reminder1_days > 90) || (reminder2_days > 90) || (reminder3_days > 90)
-          redirect_to :back, :notice => "Please select reminder days less than 90 days."    
+          redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the reminder days entry is more than 90 days."    
                   
               else
                 respond_to do |format|
                   if @prop.update_attributes(params[:prop])
-                    PropCycle.create(:start_cycle => osc, :end_cycle => oec, :user_id => current_user.id, :prop_id => @prop.id)
+                    if sc != osc || ec != oec
+                      PropCycle.create(:start_cycle => osc, :end_cycle => oec, :user_id => current_user.id, :prop_id => @prop.id)
+                    end
                     format.html { redirect_to :back, notice: 'Settings for props were successfully created.' }
                     format.json { head :no_content }
                   else
@@ -214,8 +218,10 @@ class PropsController < ApplicationController
               end
             end
           else
-          redirect_to :back, :notice=> "Please fill the all record"
+          redirect_to :back, :notice=> "Settings not saved. Looks like you missed filling out some settings."
           end
+=begin
+# The cycle for "Never reset points" is a monthly cycle. Merging this block with the block for "2" above
        elsif params[:prop][:reset_point] == "1"
         if sc.present? && ec.present?
           if sc > ec 
@@ -242,8 +248,8 @@ class PropsController < ApplicationController
             end
           else
           redirect_to :back, :notice=> "Please fill the all record"
-          end    
-
+          end
+=end    
     end
   end
 
