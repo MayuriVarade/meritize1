@@ -178,7 +178,7 @@ def create
             :start_point => 1,
             :step_point => 1, 
             :end_point => 3, 
-            :reset_point => 2, 
+            :reset_point => 1, # never let points expire 
             :start_cycle => @todaysdate, 
             :end_cycle => (@todaysdate >> 1) - 1, 
             :intro => "Ah, team work. It's so good to know someone has your back. Someone who can answer that tough question for you or pick up a sandwich for you while you power through lunch. Or simply hear you out while you vent. Send them some props. It will bring a smile to their face.", 
