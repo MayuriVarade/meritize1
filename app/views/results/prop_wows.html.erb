@@ -148,7 +148,11 @@
 					<p>&nbsp;</p>
 					  <h1>There are no winners to show just yet.</h1>
 						 <h4>
-						 Winners will be displayed here after you select winners from the Results screen.  
+						 <% if @current_user.admin_user_id.nil? %>
+						 	Winners will be displayed here after you select a winner from the <a href="/results/props">Results</a> screen. You will be allowed to select a winner towards the end of the awards cycle.
+						 <% else %>
+						 	Send <a href="/prop_displays/new">props</a> to your peers. Your administrator will select a winner at the end of the awards cycle.
+						 <% end %>
 						 </h4>
 					</div>
 				

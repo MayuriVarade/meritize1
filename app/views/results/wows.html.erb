@@ -143,7 +143,11 @@
 						<p>&nbsp;</p>
 						 <h1>There are no winners to show just yet.</h1>
 						 <h4>
-						 Once you pick the winner from Results page, the winner will be displayed here. 
+						 <% if @current_user.admin_user_id.nil? %>
+						 	Winners will be displayed here after you select a winner from the <a href="/results/votes">Results</a> screen. You will be allowed to select a winner towards the end of the awards cycle.
+						 <% else %>
+						 	<a href="/votes/new">Vote</a> for a peer. Your administrator will select a winner at the end of the awards cycle.
+						 <% end %>
 						 </h4>
 					</div>
 	
