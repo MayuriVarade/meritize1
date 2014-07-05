@@ -60,8 +60,9 @@ class PropsController < ApplicationController
       if sc.present? && ec.present?
         if sc > ec 
           redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date."
-        elsif (reminder1_days > 31) || (reminder2_days > 31) || (reminder3_days > 31)
-              redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the reminder days entry is more than 31 days." 
+        elsif (reminder1_days > 29) || (reminder2_days > 29) || (reminder3_days > 29)
+              # Reminder is not on nth day, it's start date + n days. See scheduler.rake
+              redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the reminder days entry is more than 29 days." 
         elsif
            diff = (ec - sc + 1).round
             if diff < 28 || diff > 31
@@ -87,8 +88,9 @@ class PropsController < ApplicationController
       if sc.present? && ec.present?
         if sc > ec 
           redirect_to :back ,:notice => "Settings not saved. The cycle start date is after the cycle end date."
-        elsif (reminder1_days > 90) || (reminder2_days > 90) || (reminder3_days > 90)
-          redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the reminder days entry is more than 90 days." 
+        elsif (reminder1_days > 89) || (reminder2_days > 89) || (reminder3_days > 89)
+          # Reminder is not on nth day, it's start date + n days. See scheduler.rake
+          redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the reminder days entry is more than 89 days." 
         elsif
            diff = (ec - sc + 1).round
             if diff < 89 || diff > 92
@@ -168,8 +170,8 @@ class PropsController < ApplicationController
              diff = ec - sc + 1
               if diff < 28 || diff > 31
                 redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the cycle timeframe does not seem to be a month long."
-              elsif (reminder1_days > 31) || (reminder2_days > 31) || (reminder3_days > 31)
-                redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the reminder days entry is more than 31 days."  
+              elsif (reminder1_days > 29) || (reminder2_days > 29) || (reminder3_days > 29)
+                redirect_to :back, :notice => "Settings not saved. You have selected a monthly cycle but the reminder days entry is more than 29 days."  
                       
               else
                 respond_to do |format|
@@ -199,8 +201,8 @@ class PropsController < ApplicationController
              diff = ec - sc + 1
               if diff < 89 || diff > 92
                 redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the cycle timeframe does not seem to be a quarter long."
-              elsif (reminder1_days > 90) || (reminder2_days > 90) || (reminder3_days > 90)
-          redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the reminder days entry is more than 90 days."    
+              elsif (reminder1_days > 89) || (reminder2_days > 89) || (reminder3_days > 89)
+          redirect_to :back, :notice => "Settings not saved. You have selected a quarterly cycle but the reminder days entry is more than 89 days."    
                   
               else
                 respond_to do |format|
