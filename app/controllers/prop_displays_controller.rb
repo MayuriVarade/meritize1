@@ -107,6 +107,9 @@ def prop_click_more
     end
 end
 
+# These three reminder email methods are no longer used
+# Replaced by scheduler.rake
+=begin
   # scheduler method for triggering reminder_email1. 
     def self.reminder_email1
        admin_user = User.where("username is null  and admin_user_id is null")
@@ -168,6 +171,8 @@ end
         end
       end
     end
+=end
+
   private
      #method for deny access if users try to access the pages without login.
     def authenticate

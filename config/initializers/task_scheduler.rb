@@ -2,6 +2,8 @@ require 'rufus-scheduler'
 
 scheduler = Rufus::Scheduler.new
 
+# Moved to scheduler.rake to work with Heroku scheduler
+=begin
 scheduler.in '1d' do
 
   #method for triggering new cycles,written here for testing purpose. 
@@ -88,6 +90,7 @@ end
      #method for sending vote reminder3 for props
      PropDisplaysController.reminder_email3
  end
+=end
 
 
 
