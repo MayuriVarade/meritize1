@@ -51,10 +51,10 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
             </tr>
             <tr>
               <td>
-                <label class="form-label">Reset points periodically:</label>
+                <label class="form-label">Reset points periodically and<br> props award cycle:</label>
               </td>
               <td>
-                <%= f.select :reset_point, options_for_select([ ["Never reset points, let points accumulate forever","1"], ["Monthly","2"], ["Quaterly","3"]],:selected => @prop.reset_point),{},{:class=>"form-control"} %><br>
+                <%= f.select :reset_point, options_for_select([ ["Never reset points and monthly award cycle","1"], ["Reset points monthly and monthly award cycle","2"], ["Reset points quarterly and quarterly award cycle","3"]],:selected => @prop.reset_point),{},{:class=>"form-control"} %><br>
                   <%= f.hidden_field :user_id, :value => current_user.id %>
                 <table class="table">
                   <tbody>
