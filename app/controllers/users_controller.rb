@@ -219,7 +219,8 @@ def create
 
 
 
-
+# Moved to scheduler.rake for Heroku scheduler
+=begin
   def self.reminder_email           
           admin_user = User.where("username is null  and admin_user_id is null")          
           admin_user.each do |user| 
@@ -229,7 +230,7 @@ def create
         end 
     end         
   end  
-
+=end
 
  
    def edit

@@ -1,0 +1,17 @@
+Hello <%= @user.firstname %>,
+<p>
+	<% if @user_expiry < 1 %>
+		The trial period for the Meritize account you setup using the email address <%= @user.email %> has expired. 
+	<% else %>
+		The trial period for the Meritize account you setup using the email address <%= @user.email %> will expire in <%= @user_expiry %> 
+		<% if @user_expiry == 1%>
+			day.
+		<% else %>
+			days.
+		<% end %>
+	<% end %>
+	We hope you have enjoyed using Meritize. Please select a paid plan to continue using Meritize.
+</p>
+<br/>
+Best regards,<br/>
+Meritize support team.

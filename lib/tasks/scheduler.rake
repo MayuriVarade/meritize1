@@ -157,21 +157,29 @@ task :send_reminders => :environment do
 		# select user_id, start_cycle, end_cyle, is_admin_reminder, award_frequency_type from vote_settings
 	    @vs = VoteSetting.find_by_user_id(au.id)
 	    unless @vs.nil?
-	    	puts 'For ID: ' + @vs.user_id.to_s
 		    if @vs.is_admin_reminder == true
-		    	puts 'Reminder is on'
 		    	if @vs.award_frequency_type == 'Weekly'
 		        	@reminder_day = @vs.end_cycle.to_date - 2.day
 		        else
 		        	@reminder_day = @vs.end_cycle.to_date - 1.week
 		        end
-		        puts 'Reminder day is ' + @reminder_day.to_s
 		        if @reminder_day == Date.today
 		        	puts 'Sending pick winner reminder to user id: ' + au.id.to_s
 		            VoteMailer.award_selection_email(au,@vs).deliver
 		        end
 		    end
 		end
+
+		# Send a reminder to admin if their trial period is about to expire
+		# SQL Statements for testing this
+		# select id, email, firstname, created_at, created_at + INTERVAL '60 days' from users where admin_user_id is null order by id;
+        unless  au.plan_type == "premium"      
+	        @user_expiry = User.admin_user_plan_expiry(au)
+	        if @user_expiry < 8
+	        	puts 'Sending trial expiration reminder to user id: ' + au.id.to_s + '. Expiry in days: ' + @user_expiry.to_s
+    	    	UserMailer.trialday_reminder_mail(au,@user_expiry).deliver
+    	    end
+        end 
 	end        
 
     puts 'Send Reminders completed'

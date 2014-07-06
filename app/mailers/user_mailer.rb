@@ -29,7 +29,7 @@ class UserMailer < ActionMailer::Base
   def trialday_reminder_mail(user,user_expiry)
         @user_expiry = user_expiry
         @user = user
-        mail :to => user.email, :subject => "Paypal Subscription Trial Days"
+        mail :to => user.email, :subject => "Meritize trial"
   end
 
   def user_status_mail(user)
