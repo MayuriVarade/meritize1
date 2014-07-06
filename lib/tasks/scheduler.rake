@@ -88,14 +88,15 @@ task :send_reminders => :environment do
 	# The logic here assumes that this task is executed only once a day
 	# If it is called more than once a day, the same reminder emails will be sent out again & again
 
-	# SQL statements for testing this
-	# select user_id, start_cycle, reminder1_days, reminder2_days, reminder3_days from props;
-	# select id, email, admin_user_id, is_prop_reminder, is_vote_reminder from users where id = 24;
-    # method for sending reminders for props
 	admin_user = User.where("username is null  and admin_user_id is null")
 	admin_user.each do |au|
 		users = User.where("admin_user_id = ?",au.id)
 		users.each do |user|
+
+			# Reminder emails for Props to each user
+			# SQL statements for testing this
+			# select user_id, start_cycle, reminder1_days, reminder2_days, reminder3_days from props;
+			# select id, email, admin_user_id, is_prop_reminder, is_vote_reminder from users where id = 24;
 	  		@props = user.admin_user.prop
 	  		unless @props.nil?  
       			# send reminder only if user hasn't already submitted a prop in the current cycle
@@ -122,15 +123,56 @@ task :send_reminders => :environment do
           				PropMailer.prop_mail_reminder3(user,prop).deliver
 	      			end
 	    		end
-	  		end 
+	  		end
+        	
+			# Reminder emails for Voting to each user
+			# SQL statements for testing this
+			# select user_id, start_cycle, reminder1_days, reminder2_days, reminder3_days from vote_settings;
+			# select id, email, admin_user_id, is_prop_reminder, is_vote_reminder from users where admin_user_id = 24;
+        	@vote_setting = user.admin_user.vote_setting
+        	unless @vote_setting.nil? 
+	           	if Vote.where("created_at >= '#{@vote_setting.start_cycle.to_date}' AND voter_id = '#{user.id}'").empty? && (user.is_vote_reminder) == true
+		        	@vote_reminder1_days = ( @vote_setting.start_cycle.to_date + @vote_setting.reminder1_days )
+		        	@vote_reminder2_days = ( @vote_setting.start_cycle.to_date + @vote_setting.reminder2_days )
+		        	@vote_reminder3_days = ( @vote_setting.start_cycle.to_date + @vote_setting.reminder3_days )
+            		vote_setting = au.vote_setting
+            		if @vote_reminder1_days == Date.today && @vote_setting.reminder1_days > 0
+                		puts 'Sending vote reminder email #1 to user id: ' + user.id.to_s
+                		VoteMailer.vote_mail(user,vote_setting).deliver
+            		end  
+            		if @vote_reminder2_days == Date.today && @vote_setting.reminder2_days > 0
+                		puts 'Sending vote reminder email #2 to user id: ' + user.id.to_s
+                		VoteMailer.vote_mail_reminder2(user,vote_setting).deliver
+            		end  
+            		if @vote_reminder3_days == Date.today && @vote_setting.reminder3_days > 0
+                		puts 'Sending vote reminder email #3 to user id: ' + user.id.to_s
+                		VoteMailer.vote_mail_reminder3(user,vote_setting).deliver
+            		end  
+            	end
+        	end 
 		end
-	end
+	
+		# Send a reminder to the admin if they have checked the option to be reminded about selecting a winner
+		# SQL Statements for testing this
+		# select user_id, start_cycle, end_cyle, is_admin_reminder, award_frequency_type from vote_settings
+	    @vs = VoteSetting.find_by_user_id(au.id)
+	    unless @vs.nil?
+	    	puts 'For ID: ' + @vs.user_id.to_s
+		    if @vs.is_admin_reminder == true
+		    	puts 'Reminder is on'
+		    	if @vs.award_frequency_type == 'Weekly'
+		        	@reminder_day = @vs.end_cycle.to_date - 2.day
+		        else
+		        	@reminder_day = @vs.end_cycle.to_date - 1.week
+		        end
+		        puts 'Reminder day is ' + @reminder_day.to_s
+		        if @reminder_day == Date.today
+		        	puts 'Sending pick winner reminder to user id: ' + au.id.to_s
+		            VoteMailer.award_selection_email(au,@vs).deliver
+		        end
+		    end
+		end
+	end        
 
-    #PropDisplaysController.reminder_email1  
-    #method for sending vote reminder2 for props
-    #PropDisplaysController.reminder_email2
-    #method for sending vote reminder3 for props
-    #PropDisplaysController.reminder_email3
-
-    puts 'Send Reminers completed'
+    puts 'Send Reminders completed'
 end

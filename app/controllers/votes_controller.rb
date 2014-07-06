@@ -117,6 +117,8 @@ class VotesController < ApplicationController
 
   end
 
+# The reminder emails logic has been moved to schedule.rake, to work with Heroku scheduler
+=begin
     # scheduler method for triggering reminder_email1. 
     def self.reminder_email1
       admin_user = User.where("username is null  and admin_user_id is null")
@@ -197,7 +199,7 @@ class VotesController < ApplicationController
       end
 
     end  
-
+=end
 
 
     private
