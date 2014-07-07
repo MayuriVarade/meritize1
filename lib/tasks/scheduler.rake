@@ -7,10 +7,12 @@ task :update_cycle => :environment do
 	# update vote_settings set end_cycle = '2014-07-03' where user_id = 2;
 	# select user_id, start_cycle, end_cycle from vote_settings order by user_id desc;
 	# select * from vote_cycles order by id desc limit 5;
+	# update vote_settings set end_cycle = '7/5/14' where user_id = 19
 	puts 'Checking vote cycles'
 	@vote_cycle = VoteSetting.all
 	@vote_cycle.each do |vc|
-		if vc.end_cycle.to_date <= Date.today
+		if vc.end_cycle.to_date + 1.day == Date.today
+			# If the cycle ends on the 15th, we want to create a new cycle on the 16th at 12:00 am.
 			vcuserid = vc.user_id
 			vcid = vc.id
 			puts 'Found cycle to update. User ID: ' + vcuserid.to_s + '. Vote Setting ID: ' + vcid.to_s + '.'
@@ -30,7 +32,7 @@ task :update_cycle => :environment do
 	end
 
 	# SQL statements for testing this
-	# select id, user_id, start_cycle, end_cycle, updated_at from props where user_id = 2;
+	# select id, user_id, start_cycle, end_cycle, updated_at from props order by user_id desc;;
 	# select * from prop_displays where admin_user_id = 2 limit 10;
 	# update prop_displays set points = 4, type_cycle = 1 where admin_user_id = 2;
 	# update props set start_cycle = '6/1/14', end_cycle = '6/30/14', reset_point = 1 where user_id = 2;
@@ -39,7 +41,7 @@ task :update_cycle => :environment do
     @prop_cycle.each do |pc|
 	    if pc.reset_point == "2"
 		    # Reset points monthly
-	        if pc.end_cycle.to_date <= Date.today
+	        if pc.end_cycle.to_date + 1.day == Date.today
    				puts 'Found cycle to update. User ID: ' + pc.user_id.to_s + '. Props Setting ID: ' + pc.id.to_s + '.'
 	        	p = PropDisplay.where("type_cycle = ?", "2")
 	            p.each do |p|
@@ -53,7 +55,7 @@ task :update_cycle => :environment do
 	        end
 	    elsif pc.reset_point == "3"
 		    # Reset points quarterly
-	        if pc.end_cycle.to_date <= Date.today
+	        if pc.end_cycle.to_date + 1.day == Date.today
    				puts 'Found cycle to update. User ID: ' + pc.user_id.to_s + '. Props Setting ID: ' + pc.id.to_s + '.'
 	            p = PropDisplay.where("type_cycle = ?", "3")
 	            p.each do |p|
@@ -67,7 +69,7 @@ task :update_cycle => :environment do
 	        end
 	    else
 		    # Reset points never, reset cycle monthly
-	        if pc.end_cycle.to_date <= Date.today
+	        if pc.end_cycle.to_date + 1.day == Date.today
    				puts 'Found cycle to update. User ID: ' + pc.user_id.to_s + '. Props Setting ID: ' + pc.id.to_s + '.'
 	            p = PropDisplay.where("type_cycle = ?", "1")
 	            PropCycle.create(:start_cycle => pc.start_cycle,:end_cycle =>pc.end_cycle,:user_id =>pc.user_id,:prop_id => pc.id)   
