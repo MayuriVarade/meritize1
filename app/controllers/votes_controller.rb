@@ -64,6 +64,8 @@ class VotesController < ApplicationController
     end
     # method for submitting votes and overidding previous votes. 
     def create
+      puts 'AD In create'
+
        @votes = Vote.find_by_voter_id(current_user)
        @vote_setting = current_user.admin_user.vote_setting.end_cycle.to_date rescue nil
        @votes_last = Vote.find_all_by_voter_id(current_user).last 
@@ -84,13 +86,15 @@ class VotesController < ApplicationController
         else
           nomineeemail =  User.where(["id != ? and admin_user_id = ? and admin_user_id is not null and email = ?",current_user.id,current_user.admin_user_id,voteable_email])
         end  
-       
+
+    puts 'AD Right before If in crete'       
     if (voteable_params.present?) && (params[:vote][:description].present?) && (params[:vote][:core_values].present?)  
         if nomineeemail.present? 
           unless @votes.present? && @votes.vote_setting_id.present? && @vote_setting == @votes_last.cycle_end_date.to_date
             @vote = Vote.new(params[:vote])
             @vote.voteable_id = voteable_id
-               
+            
+            puts 'AD In this IF'
             if @vote.save
                vote_count
                engage_users
@@ -98,9 +102,10 @@ class VotesController < ApplicationController
               redirect_to :back
             end 
           else
-            
+            puts 'AD Calling update_vote_count'
             update_vote_count
             Vote.update(@votes_last.id, :voter_id => current_user.id, :core_values => params[:vote][:core_values], :voteable_id =>voteable_id,:description =>params[:vote][:description],:vote_setting_id =>params[:vote][:vote_setting_id],:cycle_end_date => params[:vote][:cycle_end_date],:cycle_start_date => params[:vote][:cycle_start_date])
+            puts 'AD Calling create_vote_count'
             create_vote_count
             flash[:success] = "Vote for this user successfully changed."
             redirect_to :back
