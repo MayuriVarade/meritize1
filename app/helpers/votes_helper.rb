@@ -64,23 +64,17 @@ module VotesHelper
      @voteable_other = VoteOtherCount.find_by_start_cycle_and_end_cycle_and_voteable_id(@vote_setting1.start_cycle,@vote_setting1.end_cycle,@receiver)
      @count = Vote.where("cycle_start_date = '#{@vote_setting1.start_cycle.to_date}' AND cycle_end_date ='#{@vote_setting1.end_cycle.to_date}' AND voteable_id = '#{@receiver}'").count
     if  @voterdept == @voteabledept
-      puts 'AD create_vote_count 1'
        if @vote_count.empty?
-          puts 'AD create_vote_count 2'
 
           @voter_count = VoteCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) 
        else
-        puts 'AD create_vote_count 3'
         @update_count = VoteCount.update(@voteable.id,:voteable_id => @receiver ,:start_cycle =>@voteable.start_cycle,:end_cycle => @voteable.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id)  
        end
     else
-        puts 'AD create_vote_count 4'
        if @vote_other.empty?
-        puts 'AD create_vote_count 5'
           @voter_count1 = VoteCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil
           @voter_count = VoteOtherCount.create(:voteable_id => @receiver ,:start_cycle =>@vote_setting1.start_cycle,:end_cycle => @vote_setting1.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil 
        else
-          puts 'AD create_vote_count 6'
           @update_count1 = VoteCount.update(@voteable.id,:voteable_id => @receiver ,:start_cycle =>@voteable.start_cycle,:end_cycle => @voteable.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil 
           @update_count = VoteOtherCount.update(@voteable_other.id,:voteable_id => @receiver ,:start_cycle =>@voteable_other.start_cycle,:end_cycle => @voteable_other.end_cycle,:vote_count => @count,:user_id => current_user.admin_user.id) rescue nil 
 
