@@ -6,7 +6,7 @@ class PropMailer < ActionMailer::Base
   	@user = user
   	@prop = prop
     puts "Mail to: " + user.email
-    puts "Mail subject: " + user.subject
+    puts "Mail subject: " + prop.subject
     puts "Mail from: " + prop.name
     puts "Mail email:" + prop.email
     mail :to => user.email, :subject => prop.subject, :from => prop.name + '<' + prop.email + '>'
@@ -16,7 +16,7 @@ class PropMailer < ActionMailer::Base
   	@user = user
   	@prop = prop
     puts "Mail to: " + user.email
-    puts "Mail subject: " + user.subject
+    puts "Mail subject: " + prop.subject
     puts "Mail from: " + prop.name
     puts "Mail email:" + prop.email
     mail :to => user.email, :subject => prop.subject2, :from => prop.name + '<' + prop.email + '>'
