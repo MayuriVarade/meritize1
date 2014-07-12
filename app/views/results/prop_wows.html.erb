@@ -9,7 +9,7 @@
 		 
 		  
 		  <div class="col-md-12">
-		  <h1 class="wow_heading"><%= @vote_cycle.award_program_name rescue nil %></h1>
+		  <h1 class="wow_heading">Wall of Winners - Props</h1>
 		  </div>
 					
 					
@@ -23,9 +23,9 @@
 	             <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
 		      <% end %>
 	          <h3 class="blue"><%= @wall_of_winner.receiver.fullname rescue nil %></h3>
-	           <p><%= @wall_of_winner.receiver.department rescue nil %>&nbsp;Department</p>
+	           <%= @wall_of_winner.receiver.department rescue nil %>&nbsp;Department
 	          
-	          <%= @wall_of_winner.receiver.email rescue nil %><br>
+	          <br><%= @wall_of_winner.receiver.email rescue nil %><br>
 	        
 	          <strong class="blue">
 	          	<% if @prop_setting.present? %>
@@ -78,10 +78,11 @@
 		      		<% end %>
 						
 							<strong><a href="#"><%= winner_voter.sender.fullname rescue nil%></a></strong>
-							<strong><a href="#"></a></strong>
-							<p><strong class="blue"></strong></p>
-							<p><%= winner_voter.description rescue nil%>
-							</p>
+							<% if @prop_setting.assign_points == true %>
+								<br><%= winner_voter.points %><% if winner_voter.points == 1 %> point<% else %> points<% end %>
+							<% end %>
+							<br><%= winner_voter.description rescue nil%>
+							</br>
 							<hr>
 					 </div>
 					 
