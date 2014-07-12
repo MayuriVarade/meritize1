@@ -19,12 +19,12 @@ class PropDisplaysController < ApplicationController
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     if params[:id] == "1" || params[:id].nil?
      # @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
-      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at DESC",:limit=>3) rescue nil
+      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at DESC",:limit=>10) rescue nil
       @prop_displays_count = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at DESC") 
     else
       # @prop_displays = PropDisplay.where("receiver_id = ?",current_user.id)
-       @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC",:limit=>3)
-       @prop_displays_count = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC",:limit=>3)
+       @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC",:limit=>10)
+       @prop_displays_count = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC",:limit=>10)
     end
     @prop_display = PropDisplay.new
      @searchuser ||= [] 
@@ -98,12 +98,14 @@ def like_prop
 
 
 def prop_click_more
+    # Click more should really show additional 10 and then 10 additional props after user clicks again and so on.
+    # For now hard coded to pulling the top 100 so that the system isn't overburdened
     @prop = current_user.admin_user.prop
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     if params[:id] == "1" || params[:id].nil?
-      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at DESC") 
+      @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id,:order => "created_at DESC", :limit=>100) 
     else
-      @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC")
+      @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC", :limit=>100)
     end
 end
 
