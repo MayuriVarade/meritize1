@@ -30,9 +30,9 @@
 	          <strong class="blue">
 	          	<% if @prop_setting.present? %>
 		          	 <% if @prop_setting.assign_points == true %> 
-		          		<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%> </strong> Points (<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> Voters )        
+		          		<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%> </strong> points (<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)        
 	                 <% else %>
-	                   	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> </strong> Points (<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> Voters )  
+	                   	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> </strong> points (<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)  
 	                 <% end %>
                  <% end %>
 	          </div>
@@ -45,12 +45,12 @@
 	            <% if @prop_setting.present? %>
 	                <% if @prop_setting.assign_points == true %> 
 			          	<p><span class="button"><span style="font-size:40px; font-weight:bold">
-			          	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%></span> Points</span></p>
-			          	<p><strong>(<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> Voters )</strong></p>
+			          	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%></span> points</span></p>
+			          	<p><strong>(<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)</strong></p>
 			        <% else %>  
 	                      <p><span class="button"><span style="font-size:40px; font-weight:bold">
-			          	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%></span> Points</span></p>
-			          	<p><strong>(<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> Voters )</strong></p>
+			          	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%></span> points</span></p>
+			          	<p><strong>(<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)</strong></p>
 			        <% end %>
 			    <% end %>    
 	        </div>
@@ -61,7 +61,7 @@
 		  
 		 
 	      
-	       <h1 class="wow_heading">User Votes</h1>
+	       <h1 class="wow_heading">Props</h1>
 	    <% if @wall_of_winner_voter.present? %>
 		   <% @wall_of_winner_voter.each do |winner_voter| %>
 		   <div class="row">
