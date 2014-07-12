@@ -84,11 +84,11 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
                 
                 <div class="checkbox">
                   <label>
-                     <%= f.check_box :is_admin_reminder, {:class => "myclass", :style => "mystyle"}, true, false %>Remind me a few days before award selection is due</label>
+                     <%= f.check_box :is_admin_reminder %>Remind me a few days before award selection is due</label>
                 </div>
                 <div class="checkbox">
                   <label>
-                    <%= f.check_box :is_allow_vote, {:class => "myclass", :style => "mystyle"}, true, false %>Disallow voters to vote for last time's winner</label>
+                    <%= f.check_box :is_allow_vote %>Don't allow voters to vote for last time's winner</label>
                 </div>
               </td>
             </tr>
