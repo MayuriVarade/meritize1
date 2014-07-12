@@ -79,7 +79,13 @@
               <div class="media-body" style="border-bottom: 1px solid #eee; margin-bottom: 10px;">
                   <h4 class="media-heading text-left "><%= prop_display.receiver.fullname rescue nil%></h4> 
 
-                  <p class="text-left"style="width:auto"><i><%= prop_display.description rescue nil%></i></p>
+                  <p class="text-left" style="width:auto">
+                    <% if prop_display.points.nil? %>
+                      <!-- don't display points -->
+                    <% else %>
+                      <%= prop_display.points rescue nil%> point<% if prop_display.points != 1%>s<% end %><br>
+                    <% end if %>
+                    <i><%= prop_display.description rescue nil%></i></p>
 
            <div class="text-right" style="width:auto"><div style="float:right"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%></div></div>
        
