@@ -8,7 +8,7 @@
 <div id="info">
 
       <div class="container" style="margin-bottom:100px">
-           <h2>Welcome to Dashboard</h2>
+           <h2>Welcome to Meritize</h2>
           <% if current_user.role? :productmanager %>
 
            <ul>
@@ -16,11 +16,12 @@
    
              
           <% elsif current_user.role? :admin %>
-            <div id="deletesuccess" class="jumbotron">
             <% unless  current_user.plan_type == "premium" %>
+              <div id="deletesuccess" class="jumbotron">
                 Only <%= @plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
-                <% end %>
-             </div>
+              </div>
+            <% end %>
+            
          <% else %>
           <!--  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
            Email:<%= current_user.email %><br/> -->
