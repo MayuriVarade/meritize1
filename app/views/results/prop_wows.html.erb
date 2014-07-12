@@ -45,8 +45,8 @@
 	            <% if @prop_setting.present? %>
 	                <% if @prop_setting.assign_points == true %> 
 			          	<p><span class="button"><span style="font-size:40px; font-weight:bold">
-			          	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%></span> points</span></p>
-			          	<p><strong>(<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)</strong></p>
+			          	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%></span> points</span>
+			          	<br><strong>(<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)</strong></p>
 			        <% else %>  
 	                      <p><span class="button"><span style="font-size:40px; font-weight:bold">
 			          	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%></span> points</span></p>

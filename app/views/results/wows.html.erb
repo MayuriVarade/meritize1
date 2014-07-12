@@ -9,7 +9,7 @@
 				 
 				  
 				  <div class="col-md-12">
-				  <h1 class="wow_heading"><%= @vote_cycle.award_program_name rescue nil %></h1>
+				  <h1 class="wow_heading">Wall of Winners - <%= @vote_cycle.award_program_name rescue nil %></h1>
 				  </div>
 							
 							
@@ -23,12 +23,12 @@
 			             <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
 				      <% end %>
 			          <h3 class="blue"><%= @wall_of_winner.voteable.fullname rescue nil %></h3>
-			           <p><p><%= @wall_of_winner.voteable.department rescue nil %>&nbsp;Department </p>
+			           <%= @wall_of_winner.voteable.department rescue nil %>&nbsp;Department <br>
 			          
 			           
 			          <%= @wall_of_winner.voteable.email rescue nil %><br>
 			        
-			          <strong class="blue"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </strong> Voters</div>
+			          <strong class="blue"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </strong><% if VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count == 1%> vote<% else %> votes<% end %></div>
 				  
 				  
 				  
@@ -36,7 +36,7 @@
 				 
 			        <div class="col-md-3">
 
-			          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </span> Voters</span></p>
+			          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </span><% if VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count == 1%> vote<% else %> votes<% end %></span></p>
 			         
 			        </div>
 			        
@@ -46,7 +46,7 @@
 				  
 				 
 			      <hr>
-			       <h1 class="wow_heading">User Votes</h1>
+			       <h1 class="wow_heading">User votes</h1>
 			    <% if @wall_of_winner_voter.present? %>
 				   <% @wall_of_winner_voter.each do |winner_voter| %>
 				   <div class="row">
@@ -64,9 +64,7 @@
 								
 									<strong><a href="#"><%= winner_voter.voter.fullname rescue nil%></a></strong>
 									<strong><a href="#"></a></strong>
-									<p><strong class="blue"></strong></p>
-									<p><%= winner_voter.description rescue nil%>
-									</p>
+									<br><%= winner_voter.description rescue nil%>
 									<hr>
 							 </div>
 							 

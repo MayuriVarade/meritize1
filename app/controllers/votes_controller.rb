@@ -102,12 +102,12 @@ class VotesController < ApplicationController
             update_vote_count
             Vote.update(@votes_last.id, :voter_id => current_user.id, :core_values => params[:vote][:core_values], :voteable_id =>voteable_id,:description =>params[:vote][:description],:vote_setting_id =>params[:vote][:vote_setting_id],:cycle_end_date => params[:vote][:cycle_end_date],:cycle_start_date => params[:vote][:cycle_start_date])
             create_vote_count
-            flash[:success] = "Vote for this user successfully changed."
+            flash[:success] = "Your vote has been successfully changed."
             redirect_to :back
           end
 
         else
-          flash[:notice] = "Sorry, we cannot find that person. It's also possible that he/she has not been nominated."
+          flash[:notice] = "Sorry, we cannot find that person. It's also possible that they have not been nominated."
           redirect_to :back 
         end
     else
