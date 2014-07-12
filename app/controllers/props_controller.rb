@@ -39,7 +39,7 @@ class PropsController < ApplicationController
   # GET /props/1/edit
   def edit
     @prop = Prop.find(params[:id])
-    @past_cycles = @prop.prop_cycles
+    @past_cycles = @prop.prop_cycles.order("created_at DESC")
 
   end
 
