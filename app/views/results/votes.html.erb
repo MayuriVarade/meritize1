@@ -35,7 +35,13 @@
                 
             <tr>
               <td><%= i = i + 1 %></td>
-              <td><%= result.voteable.fullname %></td>
+              <td>
+                <% if result.voteable.photo.blank? %>
+                  <img src="/assets/user2.png"class="circular_micro_img">
+                <% else %>
+                  <%= image_tag result.voteable.photo.url(:micro), :class => "circular_micro_img" %>
+                <% end %>
+                <%= result.voteable.fullname %></td>
               <td><%= result.voteable.email %></td>
               <td><%= result.voteable.department %></td>
                <td><%= result.vote_count %></td>
@@ -107,7 +113,13 @@
                 
                <tr>
               <td><%= i = i + 1 %></td>
-              <td><%= result.voteable.fullname %></td>
+              <td>
+                <% if result.voteable.photo.blank? %>
+                  <img src="/assets/user2.png"class="circular_micro_img">
+                <% else %>
+                  <%= image_tag result.voteable.photo.url(:micro), :class => "circular_micro_img" %>
+                <% end %>
+                <%= result.voteable.fullname %></td>
               <td><%= result.voteable.email %></td>
               <td><%= result.voteable.department %></td>
                <td><%= result.vote_count %></td>
@@ -174,7 +186,13 @@
                 
                <tr>
               <td><%= i = i + 1 %></td>
-              <td><%= result.voter.fullname %></td>
+              <td>
+                <% if result.voter.photo.blank? %>
+                  <img src="/assets/user2.png"class="circular_micro_img">
+                <% else %>
+                  <%= image_tag result.voter.photo.url(:micro), :class => "circular_micro_img" %>
+                <% end %>
+                <%= result.voter.fullname %></td>
               <td><%= result.voter.email %></td>
               <td><%= result.voter.department %></td>
               
