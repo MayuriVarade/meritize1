@@ -24,11 +24,11 @@
                   <% @photo = User.find_by_id(@winner.voteable_id).photo rescue nil %>
                      <% unless @photo.blank? %>
 
-                     <%= image_tag User.find_by_id(@winner.voteable_id).photo.url(:small),:width=>"64",:height=> "64",:class => "media-object" rescue nil%>
+                     <%= image_tag User.find_by_id(@winner.voteable_id).photo.url(:small),:class => "voter_img" rescue nil%>
                      <% else %>
-                    <img src="/assets/user2.png" width="64" height="64" class="media-object">
+                    <img src="/assets/user2.png" class="voter_img">
                     <% end %>
-                      <p><%= @winner.end_cycle.strftime(" %B %Y") rescue nil %> - <%= User.find_by_id(@winner.voteable_id).fullname rescue nil %></p>
+                      <%= User.find_by_id(@winner.voteable_id).fullname rescue nil %><p><%= @winner.end_cycle.strftime(" %B %Y") rescue nil %></p>
                   <% else %>
                           <p> No winner </p>
                   <% end %>
@@ -39,11 +39,11 @@
         <% if @votes_last.present? %>
         <% @photo = @votes_last.voteable.photo rescue nil %>
                <% unless @photo.blank? %>
-               <%= image_tag @votes_last.voteable.photo.url(:small),:width=>"64",:height=> "64",:class => "media-object" rescue nil%>
+               <%= image_tag @votes_last.voteable.photo.url(:small),:class => "voter_img" rescue nil%>
                <% else %>
-              <img src="/assets/user2.png" width="64" height="64" class="media-object">
+              <img src="/assets/user2.png" class="voter_img">
               <% end %>
-              <p><%= @votes_last.cycle_end_date.strftime(" %B %Y") rescue nil %> - <%= @votes_last.voteable.fullname rescue nil %></p>
+              <%= @votes_last.voteable.fullname rescue nil %><p><%= @votes_last.cycle_end_date.strftime(" %B %Y") rescue nil %></p>
         <% end %>      
             </div>
           </div>

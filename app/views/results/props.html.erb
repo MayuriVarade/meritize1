@@ -35,7 +35,15 @@
                         <% @result.each_with_index do |result,i| %>
                           <tr>
                             <td><%= i = i + 1 %></td>
-                            <td><%= result.receiver.fullname %></td>
+                            <td>
+                              <% if result.receiver.photo.blank? %>
+                                <img src="/assets/user2.png"class="circular_micro_img">
+                                <!--<img src="http://s3.amazonaws.com/meritize/public/attachments/user/299/small/batman.jpg?1405222546" class="voter_img">-->
+                              <% else %>
+                                <%= image_tag result.receiver.photo.url(:micro), :class => "circular_micro_img" %>
+                              <% end %>
+                              <%= result.receiver.fullname %>
+                            </td>
                             <td><%= result.receiver.email %></td>
                             <td><%= result.receiver.department %></td>
                              <td><%= result.prop_count %></td>
@@ -92,7 +100,13 @@
                           <% @result_by_points.each_with_index do |result,i| %>
                             <tr>
                               <td><%= i = i + 1 %></td>
-                              <td><%= result.receiver.fullname %></td>
+                              <td>
+                                <% if result.receiver.photo.blank? %>
+                                <img src="/assets/user2.png"class="circular_micro_img">
+                                <!--<img src="http://s3.amazonaws.com/meritize/public/attachments/user/299/small/batman.jpg?1405222546" class="voter_img">-->
+                              <% else %>
+                                <%= image_tag result.receiver.photo.url(:micro), :class => "circular_micro_img" %>
+                              <% end %><%= result.receiver.fullname %></td>
                               <td><%= result.receiver.email %></td>
                               <td><%= result.receiver.department %></td>
                                <td><%= result.points %></td>

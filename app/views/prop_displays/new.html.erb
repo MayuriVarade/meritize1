@@ -19,7 +19,7 @@
             <% if current_user.admin_user.prop.assign_points == true %>  
               <% unless  @winner.receiver.photo.blank? %>
                 <a href="# " class="pull-left "> <%= image_tag @winner.receiver.photo.url(:small) ,:width => "64",:height => "64",:class => "media-object "rescue nil%> </a> 
-              <% else %>   
+              <% else %>
                 <a href="# " class="pull-left "><img src="/assets/user2.png" width="64" height="64" class="media-object ">  </a> 
               <% end %> 
             <% end %>     
@@ -80,9 +80,10 @@
               <div class="media-body" style="border-bottom: 1px solid #eee; margin-bottom: 10px;">
                   <h4 class="media-heading text-left ">
                     <% if prop_display.receiver.photo.blank? %>
-                      <img src="/assets/user2.png" width="30" height="30" class="media-object">
+                      <img src="/assets/user2.png"class="voter_img">
+                      <!--<img src="http://s3.amazonaws.com/meritize/public/attachments/user/299/small/batman.jpg?1405222546" class="voter_img">-->
                     <% else %>
-                      <%= image_tag prop_display.receiver.photo.url(:micro) %>
+                      <%= image_tag prop_display.receiver.photo.url(:small), :class => "voter_img" %>
                     <% end %>
                     <%= prop_display.receiver.fullname rescue nil%></h4> 
 
@@ -95,7 +96,13 @@
                     <% end if %>
                     <i><%= prop_display.description rescue nil%></i></p>
 
-           <div class="text-right" style="width:auto"><div style="float:right"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%></div></div>
+           <div class="text-right" style="width:auto"><div style="float:right"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%>
+            <% if prop_display.sender.photo.blank? %>
+              <img src="/assets/user2.png"class="circular_micro_img">
+            <% else %>
+              <%= image_tag prop_display.receiver.photo.url(:small), :class => "circular_micro_img" %>
+            <% end %>
+          </div></div>
        
       <div class="like"><%= link_to (image_tag "like.png"),like_prop_prop_displays_path(:id =>prop_display.id),:method => "post",:remote => true,:id => "like_prop"%>
 

@@ -4934,10 +4934,11 @@ th.visible-print, td.visible-print {
     margin: 0 20px 20px 0;
     width: 200px;
 }
-.voter_img{ width:70px; height:70px; border-radius:50px; margin:0 10px 10px 0; float:left}
+.voter_img{ width:64px; height:64px; border-radius:32px; margin:0 5px 5px 0; float:left}
 
 .winner_img{ width:100px; height:100px; border-radius:50px;}
 
+.circular_micro_img{ width:30px; height:30px; border-radius:15px; margin:0 2px 2px 0; float:center}
 
 .blue{ color:#459CE7}
 
