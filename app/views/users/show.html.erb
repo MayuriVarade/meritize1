@@ -38,11 +38,9 @@
 							<tr>
 								<td colspan="2">
 									<% if current_user.photo.blank? %>
-				 						
 				 						<img src="/assets/user2.png" width="64" height="64" class="media-object"><br/>
 									<% else %>
-					                	<strong>Profile Photo</strong> <br/>
-					                	<%= image_tag @user.photo.url(:small) %><br/>
+					                	<%= image_tag @user.photo.url(:micro) %><br/>
                 					<% end %></td>
 							  </tr>
 							  

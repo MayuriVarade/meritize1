@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
    attr_accessible :username, :email, :password, :password_confirmation,:role_ids, :user_id,:username, :firstname, :lastname,:plan_id,:plan_type,:companyname, :hear_aboutus,:admin_user_id,:photo,:time_zone,:fullname, 
                    :plan_name,:department,:is_prop,:is_prop_reminder,:is_vote_reminder,:agree,:department
-   has_attached_file :photo,:styles =>{:small => "150x150>"},
+   has_attached_file :photo,:styles =>{:micro => "30x30#", :small => "150x150>"},
   :storage => :s3, :s3_credentials => "#{Rails.root}/config/s3.yml",
   :path => "public/attachments/user/:id/:style/:basename.:extension",
   :convert_options => {
