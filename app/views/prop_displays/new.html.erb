@@ -30,7 +30,7 @@
           <% end %> 
             </div>             
         <% else %>
-          <p>No props have been awarded. Be the first to send props.</p>
+          <p>No props have been awarded. Be the first to give props.</p>
         <% end %>  
         </div>
       </div>
@@ -78,7 +78,13 @@
               <% @prop_displays.each do |prop_display| %>
               
               <div class="media-body" style="border-bottom: 1px solid #eee; margin-bottom: 10px;">
-                  <h4 class="media-heading text-left "><%= prop_display.receiver.fullname rescue nil%></h4> 
+                  <h4 class="media-heading text-left ">
+                    <% if prop_display.receiver.photo.blank? %>
+                      <img src="/assets/user2.png" width="30" height="30" class="media-object">
+                    <% else %>
+                      <%= image_tag prop_display.receiver.photo.url(:micro) %>
+                    <% end %>
+                    <%= prop_display.receiver.fullname rescue nil%></h4> 
 
                   <p class="text-left" style="width:auto">
                     <% if prop_display.points.nil? %>
