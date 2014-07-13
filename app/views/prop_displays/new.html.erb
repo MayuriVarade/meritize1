@@ -18,9 +18,9 @@
           <% if current_user.admin_user.prop.present? %> 
             <% if current_user.admin_user.prop.assign_points == true %>  
               <% unless  @winner.receiver.photo.blank? %>
-                <a href="# " class="pull-left "> <%= image_tag @winner.receiver.photo.url(:small) ,:width => "64",:height => "64",:class => "media-object "rescue nil%> </a> 
+                <%= image_tag @winner.receiver.photo.url(:small), :class => "voter_img" rescue nil%>
               <% else %>
-                <a href="# " class="pull-left "><img src="/assets/user2.png" width="64" height="64" class="media-object ">  </a> 
+                <img src="/assets/user2.png" class="voter_img">
               <% end %> 
             <% end %>     
             <div class="media-body ">
