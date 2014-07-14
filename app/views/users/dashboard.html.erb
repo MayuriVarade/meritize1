@@ -9,6 +9,7 @@
 
       <div class="container" style="margin-bottom:100px">
            <h2>Welcome to Meritize</h2>
+           <h4>Here's how to get started with Meritize.</h4>
           <% if current_user.role? :productmanager %>
 
            <ul>
@@ -21,13 +22,23 @@
                 Only <%= @plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
               </div>
             <% end %>
-            Here's how to get started with Meritize!!
+            
          <% else %>
           <!--  User Name: <%= current_user.firstname %> <%= current_user.lastname %><br/>
            Email:<%= current_user.email %><br/> -->
-           <h1>Vote for the Employee of the Month</h1> 
-           <p>Who's rocking it? Who's the one person that stands head and shoulders above everyone else? Who's gone that extra mile? Who deserves to be the Employee of the Month?<br></p>
-           <p></p>
+           <% if current_user.admin_user.prop.present? %>
+             <h1>Send props for a job well done</h1>
+             The <a href="/prop_displays/new">Props</a> screen allows you to publicly praise one of your peers for a job well done. To send them props, start entering their name and Meritize will look them up. Meritize searches by name and email address. Next, share why you are giving props.
+             <% if current_user.admin_user.prop.assign_points == true %>
+               You can award points to the person(s) you are sending props.
+             <% end %>
+             And click Submit Props. That's it! Scroll down and you will see props others have given. One other thing. The <a href="/prop_wows">WoW screen for Props</a> is a "Wall of Winners" and will show you the winners.
+           <% end %>
+           <% if current_user.admin_user.plan_name == 'Alloy' || current_user.admin_user.plan_name == 'Award' %>
+            <h1>Vote for the <%= current_user.admin_user.vote_setting.award_program_name rescue nil %></h1> 
+            The <a href="/votes/new">Vote</a> screen allows you to privately vote for a peer for an awards program. To vote, start entering their name and Meritize will look them up. Meritize searches by name and email address. Next, share why you are voting for them. Select the core value(s) they have exhibited and click Vote. That's it! One more thing. The <a href="/wows">WoW screen for Votes</a> is a "Wall of Winners" and will show you the award winners. 
+           <% end %>
+
         <% end %>
       
         
