@@ -100,7 +100,7 @@
             <% if prop_display.sender.photo.blank? %>
               <img src="/assets/user2.png"class="circular_micro_img">
             <% else %>
-              <%= image_tag prop_display.receiver.photo.url(:small), :class => "circular_micro_img" %>
+              <%= image_tag prop_display.sender.photo.url(:micro), :class => "circular_micro_img" %>
             <% end %>
           </div></div>
        
