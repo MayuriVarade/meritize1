@@ -9,7 +9,7 @@
 				
 				<h4> Forgot password? </h4>
 				   <p>
-						Enter your email address and in just a minute we will send a brand new, but temporary, password to your email account.
+						Enter your email address and in just a minute we will send a brand new password to your email account.
 
 						</br> Check your spam folder just in case the email gremlins decide to drop it in that folder.
 					</p>
@@ -21,6 +21,11 @@
 					<div class="formy">
 						<div class="row">
 							<div class="col-md-12">
+								<section class="round">
+									<% flash.each do |key, value| %>
+										<div class="flash <%= key %>"><b><%= value %></b></div><br>
+									<% end %>
+							  		
 								<%= form_tag password_resets_path,:id => "forgot-form", :method => :post do %>	
 
 							  		<div class="form-group">
@@ -28,13 +33,9 @@
 				    		        <%= text_field_tag :email, params[:email],:class=> "form-control" %>
 				  		            </div>
 
-                                    <section class="round">
-									<% flash.each do |key, value| %>
-										<div class="flash <%= key %>"><%= value %></div>
-									<% end %>
-							  		
+                                    
 							  		<div class="submit">
-							  			<%= submit_tag "Reset Password",:class=>"button-clear" %>&nbsp;&nbsp;<%= link_to "Log in", signin_path, :class=>"button-clear" %>
+							  			<%= submit_tag "Reset Password",:class=>"button-clear" %>&nbsp;&nbsp;<%= link_to "Back to log in", signin_path, :class=>"button-clear" %>
 							  			</div>
 							  			
 							<% end %>

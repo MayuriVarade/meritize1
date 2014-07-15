@@ -8,7 +8,7 @@
           <div class="formy">
             <div class="row">
               <div class="col-md-12">
-          <h3>Forgot Password? </h3>
+          <h1>Forgot Password? </h1>
                     
 
            <%= form_for @user, :url => password_reset_path(params[:id]),:html =>{:id =>"password-edit"} do |f| %>
@@ -25,21 +25,21 @@
             <% end %> 
             <div class="form-group">
 
-              <h2>Please enter the temporary password you received via email.</h2>
+              <h3>Enter the new password you received via email</h3>
 
-                <label for="name">Temporary Password</label>
+                <label for="name">New password</label>
                 
                   <%= f.password_field :password ,:class=> "form-control"%>
               </div>
                <div class="form-group">
-                <label for="name">Temporary Password confirmation</label>
+                <label for="name">New password confirmation</label>
                 
                   <%= f.password_field :password_confirmation ,:class=> "form-control"%>
               </div>
               
               
               <div class="submit">
-                <%= f.submit "Update Password",:class=>"button button-small" %>
+                <%= f.submit "Change my password",:class=>"button button-small" %>
               
               </div>
           <% end %>

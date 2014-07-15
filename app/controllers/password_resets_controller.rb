@@ -8,9 +8,9 @@ class PasswordResetsController < ApplicationController
     if user
       
       user.send_password_reset
-      redirect_to password_resets_new_url, :notice => "Email has been sent with the password reset instructions"
+      redirect_to password_resets_new_url, :notice => "A new password has been set and emailed to you. Follow the instructions in the email to start using the new password."
     else
-      redirect_to password_resets_new_url, :notice => "No user account found with that email address"
+      redirect_to password_resets_new_url, :notice => "Sorry, we could not locate a Meritize user with that email address"
     end
   end
 
@@ -21,9 +21,9 @@ class PasswordResetsController < ApplicationController
   def update
     @user = User.find_by_password_reset_token!(params[:id])
     if @user.password_reset_sent_at < 2.hours.ago
-      redirect_to new_password_reset_path, :alert => "Password reset has expired."
+      redirect_to new_password_reset_path, :alert => "The new password we set for you has expired. You need to request another password."
     elsif @user.update_attributes(params[:user])
-      redirect_to root_url, :notice => "Password has been reset!"
+      redirect_to root_url, :notice => "Password has been reset! Log in with your new password to continue."
     else
       render :edit
     end
