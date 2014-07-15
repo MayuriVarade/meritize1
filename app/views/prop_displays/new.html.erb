@@ -94,7 +94,7 @@
                     <% else %>
                       <%= prop_display.points rescue nil%> point<% if prop_display.points != 1%>s<% end %><br>
                     <% end if %>
-                    <i><%= prop_display.description rescue nil%></i></p>
+                    <%= prop_display.description rescue nil%></p>
 
            <div class="text-right" style="width:auto"><div style="float:right"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%>
             <% if prop_display.sender.photo.blank? %>
