@@ -8,7 +8,7 @@ class PasswordResetsController < ApplicationController
     if user
       
       user.send_password_reset
-      redirect_to password_resets_new_url, :notice => "A new password has been set and emailed to you. Follow the instructions in the email to start using the new password."
+      redirect_to password_resets_new_url, :notice => "A new password has been emailed to you. Follow the instructions in the email to start using the new password."
     else
       redirect_to password_resets_new_url, :notice => "Sorry, we could not locate a Meritize user with that email address"
     end
