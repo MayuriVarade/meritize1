@@ -40,6 +40,8 @@ class SessionsController < ApplicationController
 
             if count == 1
                 redirect_to change_password_path
+            elsif (count <=4) # redirect to the dashboard the first few times a user logs in
+              redirect_to("/dashboard")
             else
               redirect_to admin_user_path
             end
@@ -69,6 +71,8 @@ class SessionsController < ApplicationController
             redirect_to change_password_path
          elsif (plan_expiry <= 0) && (current_user.role?(:admin)) && (current_user.plan_type == "free")
            redirect_to plans_path
+         elsif (count <=4) # redirect to the dashboard the first few times a user logs in
+            redirect_to("/dashboard")
          elsif current_user.role?(:admin)
           redirect_to admin_user_path
          else
