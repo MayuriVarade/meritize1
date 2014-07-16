@@ -21,24 +21,10 @@
       <div class="container" style="margin-bottom:100px">
 
       <div class="jumbotron">
-        <p>Use this page to nominate who can win the award. You don't have to have nominees. If you don't have any nominees, your voters can vote for any voter. If you do have nominees, your voters will have to vote for one of the nominees.</p>
-        <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+        <p>Use this page to nominate who can win the <%= @vote_settings.award_program_name %> award. You don't have to have nominees. If you don't have any nominees, your voters can vote for any user. If you do have nominees, your voters will have to vote for one of the nominees.</p>
       </div>
 
 
-      <div class="form-group">
-          <label class="control-label">For voting period</label>
-          <div class="controls">
-            <dev class="form-control">
-            
-            <%= @vote_settings.start_cycle.strftime("%d %B %Y") rescue nil%>&nbsp;
-               TO&nbsp; <%= @vote_settings.end_cycle.strftime("%d %B %Y") rescue nil%>
-                          
-            </select>
-
-          </div><br>
-          
-        </div>
 
     <div class="navbar navbar-default">
         <div class="container">
@@ -46,7 +32,7 @@
             <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
               <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Manage Nominee</a>
+            <a class="navbar-brand" href="#">Manage Nominees</a>
           </div>
          
             <ul class="nav navbar-nav">
@@ -74,10 +60,7 @@
 
 
 
-
-
-
-<h3>Nominees</h3>
+<h4>Nominees for voting cycle: <%= @vote_settings.start_cycle.strftime("%d %B %Y") rescue nil%>&nbsp;to&nbsp;<%= @vote_settings.end_cycle.strftime("%d %B %Y") rescue nil%></h4>
 <table class="table table-hover table-bordered table-responsive table-condensed">
 <thead>
   <tr>        
