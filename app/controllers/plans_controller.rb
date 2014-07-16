@@ -5,7 +5,7 @@
   # GET /plans.json
   def index
   	
-    @plans = Plan.all
+    @plans = Plan.order(:id)
     @plan_expiry = plan_expiry 
     @subscription = Subscription.find_by_user_id(current_user) 
       # raise current_user.id.inspect
