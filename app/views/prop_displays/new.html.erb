@@ -10,44 +10,53 @@
       <p><%= @prop.intro.html_safe rescue nil %><br></p>
       <p></p>
     </div>
+
     <div class="row">
       <div class="col-md-4"> 
         <div class="media">
-        <h4 class="media-heading ">Leaderboard</h4> 
-        <% if @winner.present? %>
-          <% if current_user.admin_user.prop.present? %> 
-            <% if current_user.admin_user.prop.assign_points == true %>  
+          <h4 class="media-heading">Leaderboard</h4> 
+          <% if @winner.present? %>
+            <div class="media-body">
               <% unless  @winner.receiver.photo.blank? %>
                 <%= image_tag @winner.receiver.photo.url(:small), :class => "voter_img" rescue nil%>
               <% else %>
                 <img src="/assets/user2.png" class="voter_img">
               <% end %> 
-            <% end %>     
-            <div class="media-body ">
-              <p><%= @winner.receiver.fullname rescue nil%> is leading with <%= @winner.points rescue nil%>&nbsp;points and <%= @winner.prop_count rescue nil%>&nbsp;props!</p>
+              <p><%= @winner.receiver.fullname rescue nil%> is leading with <% if current_user.admin_user.prop.assign_points %><%= @winner.points rescue nil%>&nbsp;points and <% end %><%= @winner.prop_count rescue nil%>&nbsp;props!</p>
+            </div>
+            <% # Show top 10 leaderboard
+            @winners_leaderboard.each do |winner_leaderboard|
+              if winner_leaderboard.receiver_id != @winner.receiver_id
+                # Don't display the leader as that has already been displayed %>
+                <div style="font-size:12px">
+                  <% unless  winner_leaderboard.receiver.photo.blank? %>
+                    <%= image_tag winner_leaderboard.receiver.photo.url(:micro), :class => "circular_micro_img" rescue nil%>
+                  <% else %>
+                    <img src="/assets/user2.png" class="circular_micro_img">
+                  <% end %>
+                  <%= winner_leaderboard.receiver.fullname rescue nil %> has <% if current_user.admin_user.prop.assign_points %><%= winner_leaderboard.points rescue nil%>&nbsp;points and <% end %><%= winner_leaderboard.prop_count rescue nil%>&nbsp;props
+                </div>
+              <% end %>       
+            <% end %>
           <% else %>
-            <p><%= @winner.receiver.fullname rescue nil%> is leading with <%= @winner.prop_count rescue nil%>&nbsp;&nbsp;props!
-          <% end %> 
-            </div>             
-        <% else %>
-          <p>No props have been awarded. Be the first to give props.</p>
-        <% end %>  
+            <p>No props have been awarded. Be the first to give props.</p>
+          <% end %>  
         </div>
       </div>
 
-        <div class="col-md-8 ">
-          <div class="panel panel-default ">
-            <div class="panel-heading ">
-            <%= form_for(@prop_display) do |f| %>
+        <div class="col-md-8">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <%= form_for(@prop_display) do |f| %>
               <b>Give props</b><br>
               <%= f.text_field :receiver_id, :class => "form-control ",:placeholder => "Enter the name of the person you want to send props to" %>
               <br/>
               <%= f.text_area :description, :class => "form-control ", :rows => 6 ,:placeholder => "Share with everyone what they did to deserve the props." %>
               <br/>
               <% if current_user.admin_user.prop.present? %>
-                <% if current_user.admin_user.prop.assign_points == true %>
-                  	Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
-         
+              <% if current_user.admin_user.prop.assign_points == true %>
+              Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
+
               <%= f.select :points,a ,{}, { :class => 'form-control' }  rescue "" %>
 
               <% end %>  
@@ -58,99 +67,99 @@
               <%= f.hidden_field :cycle_start_date, :value => @prop.start_cycle rescue nil%>
               <%= f.hidden_field :cycle_end_date, :value => @prop.end_cycle rescue nil%>
               <%= f.hidden_field :prop_setting_id, :value => @prop.id rescue nil%>
-               <br>
+              <br>
               <%= f.submit  "Submit Props", :class => "button button-small"%>
-           
+
               <% end %>
             </div>
-           
-          <div class="panel panel-default ">
-          
+
+            <div class="panel panel-default ">
+
               <%= javascript_tag do %>
-  				function redirectToTrainer(trainerId){
-     				window.location = "<%= url_for(:controller => 'prop_displays', :action => 'new') %>?id=" + trainerId;
-  			} 
-			<% end %>
-             <%= select_tag "prop_about", options_for_select([["Show props about everyone",1], ["Show props about me only",2]],params[:id]),:class=>"form-control", :onchange=> "redirectToTrainer(this.value)" %>
+              function redirectToTrainer(trainerId){
+              window.location = "<%= url_for(:controller => 'prop_displays', :action => 'new') %>?id=" + trainerId;
+            } 
+            <% end %>
+            <%= select_tag "prop_about", options_for_select([["Show props about everyone",1], ["Show props about me only",2]],params[:id]),:class=>"form-control", :onchange=> "redirectToTrainer(this.value)" %>
 
             <div class="panel-body ">
               <div class="media ">
-              <% @prop_displays.each do |prop_display| %>
-              
-              <div class="media-body" style="border-bottom: 1px solid #eee; margin-bottom: 10px;">
+                <% @prop_displays.each do |prop_display| %>
+
+                <div class="media-body" style="border-bottom: 1px solid #eee; margin-bottom: 10px;">
                   <h4 class="media-heading text-left ">
                     <% if prop_display.receiver.photo.blank? %>
-                      <img src="/assets/user2.png"class="voter_img">
-                      <!--<img src="http://s3.amazonaws.com/meritize/public/attachments/user/299/small/batman.jpg?1405222546" class="voter_img">-->
+                    <img src="/assets/user2.png"class="voter_img">
+                    <!--<img src="http://s3.amazonaws.com/meritize/public/attachments/user/299/small/batman.jpg?1405222546" class="voter_img">-->
                     <% else %>
-                      <%= image_tag prop_display.receiver.photo.url(:small), :class => "voter_img" %>
+                    <%= image_tag prop_display.receiver.photo.url(:small), :class => "voter_img" %>
                     <% end %>
                     <%= prop_display.receiver.fullname rescue nil%></h4> 
 
-                  <p class="text-left" style="width:auto">
-                    <% if prop_display.points.nil? %>
+                    <p class="text-left" style="width:auto">
+                      <% if prop_display.points.nil? %>
                       No points awarded
                       <!-- don't display points -->
-                    <% else %>
+                      <% else %>
                       <%= prop_display.points rescue nil%> point<% if prop_display.points != 1%>s<% end %><br>
-                    <% end if %>
-                    <%= prop_display.description rescue nil%></p>
+                      <% end if %>
+                      <%= prop_display.description rescue nil%></p>
 
-           <div class="text-right" style="width:auto"><div style="float:right"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%>
-            <% if prop_display.sender.photo.blank? %>
-              <img src="/assets/user2.png"class="circular_micro_img">
-            <% else %>
-              <%= image_tag prop_display.sender.photo.url(:micro), :class => "circular_micro_img" %>
-            <% end %>
-          </div></div>
-       
-      <div class="like"><%= link_to (image_tag "like.png"),like_prop_prop_displays_path(:id =>prop_display.id),:method => "post",:remote => true,:id => "like_prop"%>
+                      <div class="text-right" style="width:auto"><div style="float:right"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%>
+                        <% if prop_display.sender.photo.blank? %>
+                        <img src="/assets/user2.png"class="circular_micro_img">
+                        <% else %>
+                        <%= image_tag prop_display.sender.photo.url(:micro), :class => "circular_micro_img" %>
+                        <% end %>
+                      </div></div>
 
-       <div class="like_count" id="like_count_<%=prop_display.id %>" val= "<%=prop_display.id %>"><%= link_to Like.where(:likeable_type=>"PropDisplay",:likeable_id=>prop_display.id).sum(:count) ,like_count_prop_displays_path(:id =>prop_display.id), :id=>"like_count",:method => "get",:remote=> true,:style=>"color:#fff" %></div></div>
-         </br> 
+                      <div class="like"><%= link_to (image_tag "like.png"),like_prop_prop_displays_path(:id =>prop_display.id),:method => "post",:remote => true,:id => "like_prop"%>
+
+                       <div class="like_count" id="like_count_<%=prop_display.id %>" val= "<%=prop_display.id %>"><%= link_to Like.where(:likeable_type=>"PropDisplay",:likeable_id=>prop_display.id).sum(:count) ,like_count_prop_displays_path(:id =>prop_display.id), :id=>"like_count",:method => "get",:remote=> true,:style=>"color:#fff" %></div></div>
+                     </br> 
 
 
 
-                   
-                </div>
-               <% end %>
-               
-              </div>
-        
-           
-          <br></div>
-       <% if @prop_displays_count.length > 3 %>
-            <div class="panel-footer ">
-             <!--  <a class="btn btn-block btn-link btn-lg ">Click to see more&nbsp;<i class="fa fa-angle-double-down "></i></a> -->
 
-     <%= link_to "Click to see more", prop_click_more_prop_displays_path(:user_id =>current_user.id),:method => "get",:remote => true,:id=>"prop_click_more",:class=>"btn btn-block btn-link btn-lg",:onclick =>"$(this).attr(\"href\",$(this).attr(\"href\")+\"&id=\"+$(\"#prop_about\").val())" %>
-        <br></div>
-      <% end %>  
-       
-        </div>
-      </div>
-      <!-- Example row of columns -->
-     
-      
-    </div>
-    </div>  
-      
-   
-	</div>
+                   </div>
+                   <% end %>
 
-  <script>
-  var data = <%= raw @searchuser %>;
+                 </div>
 
-  jQuery(function() {
 
-    jQuery( "#prop_display_receiver_id" ).autocomplete(
-    {
-       source:data
-    });
-      
-  });
-  </script>
-     <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
+                 <br></div>
+                 <% if @prop_displays_count.length > 3 %>
+                 <div class="panel-footer ">
+                   <!--  <a class="btn btn-block btn-link btn-lg ">Click to see more&nbsp;<i class="fa fa-angle-double-down "></i></a> -->
+
+                   <%= link_to "Click to see more", prop_click_more_prop_displays_path(:user_id =>current_user.id),:method => "get",:remote => true,:id=>"prop_click_more",:class=>"btn btn-block btn-link btn-lg",:onclick =>"$(this).attr(\"href\",$(this).attr(\"href\")+\"&id=\"+$(\"#prop_about\").val())" %>
+                   <br></div>
+                   <% end %>  
+
+                 </div>
+               </div>
+               <!-- Example row of columns -->
+
+
+             </div>
+           </div>  
+
+
+         </div>
+
+         <script>
+         var data = <%= raw @searchuser %>;
+
+         jQuery(function() {
+
+          jQuery( "#prop_display_receiver_id" ).autocomplete(
+          {
+           source:data
+         });
+
+        });
+         </script>
+         <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
 
 
 

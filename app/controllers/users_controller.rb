@@ -255,7 +255,7 @@ def create
     @user.update_column(:is_prop_reminder,params[:user][:is_prop_reminder])
     
     if params[:page_name] == "admin"
-      flash[:success] = "Profile updated successfully."
+      flash[:success] = "Profile updated successfully.<br>If you haven't already, your next step is to create <a href='/admin_user'>users</a>."
       redirect_to admin_user_path
     elsif
     flash[:notice] = "Profile updated successfully."
@@ -291,7 +291,7 @@ def create
 
           if @user.save
             if current_user.role?(:admin)
-              flash[:notice] = "Password successfully updated. If you haven't already, your next step is to create users."
+              flash[:notice] = "Password successfully updated.<br>If you haven't already, your next step is to create <a href='/admin_user'>users</a>.".html_safe
             else
               flash[:notice] = 'Your password has been updated'
             end

@@ -44,6 +44,8 @@
               <img src="/assets/user2.png" class="voter_img">
               <% end %>
               <%= @votes_last.voteable.fullname rescue nil %><p><%= @votes_last.cycle_end_date.strftime(" %B %Y") rescue nil %></p>
+        <% else %>
+          <p> No past votes </p>
         <% end %>      
             </div>
           </div>
