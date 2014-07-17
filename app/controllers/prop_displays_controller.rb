@@ -14,12 +14,14 @@ class PropDisplaysController < ApplicationController
     # Changed 6/27/14. Show leader, not winner
     #@winner = PropResult.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil 
     if current_user.admin_user.prop.assign_points
-      @winner = PropCount.where("points > 0 AND user_id = '#{current_user.admin_user_id}'").order('points DESC').order('prop_count DESC').first rescue nil
-      @winners_leaderboard = PropCount.where("points > 0 AND user_id = '#{current_user.admin_user_id}'").order('points DESC').order('prop_count DESC').limit(10) rescue nil
+      #@winner = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.admin_user_id}'").order('points DESC').order('prop_count DESC').first rescue nil
+      #@winners_leaderboard = PropCount.where("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.admin_user_id}'").order('points DESC').order('prop_count DESC').limit(10) rescue nil
       # use this to find leader for curent cycle: ("start_cycle = '#{@prop.start_cycle.to_date}' AND end_cycle ='#{@prop.end_cycle.to_date}' AND points > 0 AND user_id = '#{current_user.admin_user_id}'").order('points DESC').first rescue nil
+      @winner = PropCount.select("receiver_id, sum(prop_count) as prop_count, sum(points) as points").where("user_id = '#{current_user.admin_user_id}'").group("receiver_id").order('points DESC').order('prop_count DESC').first rescue nil
+      @winners_leaderboard = PropCount.select("receiver_id, sum(prop_count) as prop_count, sum(points) as points").where("user_id = '#{current_user.admin_user_id}'").group("receiver_id").order('points DESC').order('prop_count DESC').limit(10) rescue nil
     else
-      @winner = PropCount.where("prop_count > 0 AND user_id = '#{current_user.admin_user_id}'").order('prop_count DESC').first rescue nil
-      @winners_leaderboard = PropCount.where("prop_count > 0 AND user_id = '#{current_user.admin_user_id}'").order('prop_count DESC').limit(10) rescue nil
+      @winner = PropCount.select("receiver_id, sum(prop_count) as prop_count, sum(points) as points").where("user_id = '#{current_user.admin_user_id}'").group("receiver_id").order('prop_count DESC').first rescue nil
+      @winners_leaderboard = PropCount.select("receiver_id, sum(prop_count) as prop_count, sum(points) as points").where("user_id = '#{current_user.admin_user_id}'").group("receiver_id").order('prop_count DESC').limit(10) rescue nil
     end
     @prop_displays =  PropDisplay.find_all_by_admin_user_id(current_user.admin_user.id)
     if params[:id] == "1" || params[:id].nil?
