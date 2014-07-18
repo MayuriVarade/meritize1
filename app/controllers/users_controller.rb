@@ -255,7 +255,7 @@ def create
     @user.update_column(:is_prop_reminder,params[:user][:is_prop_reminder])
     
     if params[:page_name] == "admin"
-      flash[:success] = "Profile updated successfully.<br>If you haven't already, your next step is to create <a href='/admin_user'>users</a>."
+      flash[:success] = "Profile updated successfully."
       redirect_to admin_user_path
     elsif
     flash[:notice] = "Profile updated successfully."
