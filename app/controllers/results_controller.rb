@@ -14,7 +14,7 @@ class ResultsController < ApplicationController
          @current_result = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_setting.start_cycle,@vote_setting.end_cycle,current_user.id) rescue nil
          @result = VoteCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
          @select_winner_month = (@vote_setting1.end_cycle.to_date - 7) rescue nil
-         @select_winner_week = (@vote_setting1.end_cycle.to_date - 1) rescue nil
+         @select_winner_week = (@vote_setting1.end_cycle.to_date - 3) rescue nil
          @todays_date = Date.today
          @result_other_dept = VoteOtherCount.where("start_cycle = '#{@vote_setting.start_cycle.to_date}' AND end_cycle ='#{@vote_setting.end_cycle.to_date}' AND vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
          @engage_user = EngageUser.where("vote_count > 0 AND user_id = '#{current_user.id}'").order('vote_count DESC').limit(10) rescue nil
@@ -26,7 +26,7 @@ class ResultsController < ApplicationController
         @diff = (@vote_setting_end - @vote_setting_start + 1).round rescue nil
 
         @select_winner_month = (@vote_setting1.end_cycle.to_date - 7) rescue nil
-        @select_winner_week = (@vote_setting1.end_cycle.to_date - 1) rescue nil
+        @select_winner_week = (@vote_setting1.end_cycle.to_date - 3) rescue nil
         @todays_date = Date.today
 
         @current_result = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_setting1.start_cycle,@vote_setting1.end_cycle,current_user.id) rescue nil
@@ -43,7 +43,7 @@ class ResultsController < ApplicationController
       @diff = (@vote_setting_end - @vote_setting_start + 1).round rescue nil
 
       @select_winner_month = (@vote_setting1.end_cycle.to_date - 7) rescue nil
-      @select_winner_week = (@vote_setting1.end_cycle.to_date - 1) rescue nil
+      @select_winner_week = (@vote_setting1.end_cycle.to_date - 3) rescue nil
       @todays_date = Date.today
 
   	  @current_result = Result.find_by_start_cycle_and_end_cycle_and_user_id(@vote_setting1.start_cycle,@vote_setting1.end_cycle,current_user.id) rescue nil
@@ -168,6 +168,14 @@ class ResultsController < ApplicationController
     flash[:success] = "Done! The winner has been selected."
     redirect_to props_results_path
   end
+
+  def prop_winner_notify
+    @user = User.find_by_id(params[:id])
+    PropMailer.prop_winner_notify(@user).deliver
+    flash[:success] = "The winner has been notified."
+    redirect_to props_results_path
+  end
+
   private
     def authenticate
       deny_access unless signed_in?

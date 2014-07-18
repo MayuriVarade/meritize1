@@ -2,7 +2,7 @@
 <div id="info">
     <div class="container" style="margin-bottom:100px">
       <div class="jumbotron">
-        <p>The best part of your job. See who is winning, who is voting and pick the winner.</p>
+        <p>The best part of your job. See who is winning, who is voting and pick the winner. Note that you will be able to select a winner seven days before a monthly cycle ends and three days before a weekly cycle ends.</p>
       </div>
      
         <div class="form-group">
@@ -57,7 +57,8 @@
                                       <% if @current_result.present? %>
                                         <% if @current_result.receiver_id == result.receiver_id %>
 
-                                             Winner!
+                                             
+                                        <%= link_to "Winner! Notify winner",{:controller => 'results',:action => 'prop_winner_notify', :id => result.receiver_id} ,:confirm => "Are you sure you want to notify #{result.receiver.fullname rescue nil}by email?",:class => "button button-small"%>
                                         <% else %>
                                           -----
                                         <% end %>     

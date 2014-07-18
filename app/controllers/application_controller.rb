@@ -55,7 +55,9 @@ class ApplicationController < ActionController::Base
   def session_expiry
     get_session_time_left
     unless @session_time_left > 0
-      flash.now[:error] = "Your session has timed out or you haven't logged in. Please log in."
+      # Commented this out as this was showing when the server comes up after being idle
+      # If a user's session times out, the user is shown the message in sessions_helper.rb, deny_access method
+      # flash.now[:error] = "Your session has timed out or you haven't logged in. Please log in."
       sign_out
        
     end
