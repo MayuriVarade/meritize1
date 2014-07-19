@@ -11,18 +11,20 @@
 
     Best regards,
     Meritize support team
+    www.imeritize.com
      
 
  <% else %>
 
  Hi <%= @user.firstname %>,
 
-    Someone at your organization has created a Meritize login for you. Meritize is an employee rewards and recognition software. You can send props to your co-workers or vote for them to win an award. Login at https://meritize.herokuapp.com using this temporary password: <b><%=@random_password %></b>. Your username is <%= @user.email %>.
-
-    Don't hesitate to contact us at  support@imeritize.com if you have any questions.
+    <%= @user.admin_user.fullname %> at your organization has created a Meritize login for you. Meritize is an employee rewards and recognition software. You can send props to others in your organization or vote for them to win an award. You can log in at https://meritize.herokuapp.com with your email address <%= @user.email %> and password <%=@random_password %>. 
+    
+    Don't hesitate to contact us at support@imeritize.com if you have any questions. You can also reach <%= @user.admin_user.fullname %> at <%= @user.admin_user.email %>
 
     Best regards,
-    Meritize support team  
+    Meritize support team
+    www.imeritize.com
 
  <% end %> 
     
