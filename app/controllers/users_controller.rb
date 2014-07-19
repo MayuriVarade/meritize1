@@ -295,7 +295,10 @@ def create
             else
               flash[:notice] = 'Your password has been updated'
             end
-            redirect_to change_password_path
+            #redirect_to change_password_path
+            # redirect user to dashboard as leaving the user on the change password screen was confusing the user
+            # they couldn't tell if the password change has occurred as the password screens get cleared out
+            redirect_to("/dashboard")
           else
             flash[:error] = 'New password mismatch'
             render :action => 'change_password'
