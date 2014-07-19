@@ -55,7 +55,7 @@
               <% if @current_result.present? %>
                 <% if @current_result.voteable_id == result.voteable_id %>
 
-                     Winner!
+                     <%= link_to "Winner! Notify winner",{:controller => 'results',:action => 'vote_winner_notify', :id => result.voteable.id} ,:confirm => "Are you sure you want to notify #{result.voteable.fullname rescue nil}by email?",:class => "button button-small"%>
                 <% else %>
                   -----
                 <% end %>     
@@ -132,7 +132,7 @@
               <td align="center">
               <% if @current_result.present? %>
                       <% if @current_result.voteable_id == result.voteable_id%>
-                           Winner!
+                           <%= link_to "Winner! Notify winner",{:controller => 'results',:action => 'vote_winner_notify', :id => result.voteable.id} ,:confirm => "Are you sure you want to notify #{result.voteable.fullname rescue nil}by email?",:class => "button button-small"%>
                       <% else %>
                         -----
                       <% end %>     

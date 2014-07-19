@@ -28,7 +28,6 @@ class PropMailer < ActionMailer::Base
   def prop_winner_notify(user)
     @user = user
     mail :to => user.email, :subject => "Meritize winner!" 
-    #, :body => "Hi <%= @user.firstname %>,<br><br>Congratulations! You have been selected as a winner. Login to <a href=\"https://meritize.herokuapp.com/signin\">Meritize</a> to see your picture on the Wall-of-Winners (Wow).<br><br>Keep up the good work,<br>Meritize."
   end
 
 end

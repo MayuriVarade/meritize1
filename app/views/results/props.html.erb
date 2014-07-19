@@ -121,7 +121,7 @@
                                       <% if @current_result.present? %>
                                         <% if @current_result.receiver_id == result.receiver_id %>
 
-                                             Winner!
+                                             <%= link_to "Winner! Notify winner",{:controller => 'results',:action => 'prop_winner_notify', :id => result.receiver_id} ,:confirm => "Are you sure you want to notify #{result.receiver.fullname rescue nil}by email?",:class => "button button-small"%>
                                         <% else %>
                                           -----
                                         <% end %>     

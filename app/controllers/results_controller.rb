@@ -176,6 +176,13 @@ class ResultsController < ApplicationController
     redirect_to props_results_path
   end
 
+  def vote_winner_notify
+    @user = User.find_by_id(params[:id])
+    VoteMailer.vote_winner_notify(@user).deliver
+    flash[:success] = "The winner has been notified."
+    redirect_to votes_results_path
+  end
+
   private
     def authenticate
       deny_access unless signed_in?

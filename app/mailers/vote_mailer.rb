@@ -23,4 +23,9 @@ class VoteMailer < ActionMailer::Base
     @vote_setting = vote_setting
     mail :from => vote_setting.email_sender_email,:to => @au.email, :subject => "Award selection reminder"
   end
+  def vote_winner_notify(user)
+    @user = user
+    mail :to => user.email, :subject => "Meritize winner!" 
+  end
+
 end
