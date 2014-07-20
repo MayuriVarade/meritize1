@@ -76,7 +76,7 @@ class VotesController < ApplicationController
        
        voteable = User.where(["fullname LIKE ? and email LIKE ?", "%#{voteable_fullname}%","%#{voteable_email}%"])
        voteable_id = voteable[0].id rescue nil
-       @receiver = voteable[0].id
+       @receiver = voteable[0].id rescue nil
 
         @nominees = Nominee.where("start_cycle ='#{@vote_setting1.start_cycle}' AND end_cycle ='#{@vote_setting1.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'")
         if @nominees.present?
