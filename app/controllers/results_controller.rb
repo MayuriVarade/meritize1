@@ -139,13 +139,15 @@ class ResultsController < ApplicationController
          @prop_cycle = PropCycle.find_all_by_user_id(current_user.id,:order => "id desc").first rescue nil
          @wall_of_winner = PropResult.find_all_by_user_id(current_user.id,:order => "id desc").first rescue nil 
          @previous_winner = PropResult.where(["id != ? and user_id = ? and user_id is not null",@wall_of_winner.id,current_user.id]) rescue nil
-         if PropDisplay.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND receiver_id = '#{@wall_of_winner.receiver_id}'").count > 10
+         @propdisplay = PropDisplay.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND receiver_id = '#{@wall_of_winner.receiver_id}'")
+        unless @propdisplay.nil?
+          if @propdisplay.count > 10
           # if winner has received more than 10 props then show by a distinct list of senders
           @wall_of_winner_voter = PropDisplay.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND receiver_id = '#{@wall_of_winner.receiver_id}'").select("DISTINCT ON (sender_id) *").limit(10).order("sender_id desc, created_at desc") rescue nil
-        else
-          @wall_of_winner_voter = PropDisplay.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND receiver_id = '#{@wall_of_winner.receiver_id}'").limit(10).order("created_at desc") rescue nil
-        end
-       
+          else
+            @wall_of_winner_voter = PropDisplay.where("cycle_start_date = '#{@wall_of_winner.start_cycle.to_date}' AND cycle_end_date ='#{@wall_of_winner.end_cycle.to_date}'AND receiver_id = '#{@wall_of_winner.receiver_id}'").limit(10).order("created_at desc") rescue nil
+          end
+        end 
     else  
          @prop_setting = current_user.admin_user.prop
           @prop_cycle = PropCycle.find_all_by_user_id(current_user.admin_user.id,:order => "id desc").first rescue nil
