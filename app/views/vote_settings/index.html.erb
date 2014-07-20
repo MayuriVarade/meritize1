@@ -1,4 +1,8 @@
-<h1>Listing vote settings</h1>
+<% # This page and controller is not used. %>
+<% # Commented out everything and added a line "Access Denied" for security reasons. %>
+<p align="center">Access denied</p>
+
+<!--<h1>Listing vote settings</h1>
 
 <table>
   <tr>
@@ -12,20 +16,21 @@
     <th></th>
   </tr>
 
-<% @vote_settings.each do |vote_setting| %>
+ @vote_settings.each do |vote_setting| %>
   <tr>
-    <td><%= vote_setting.award_program_name %></td>
-    <td><%= vote_setting.award_frequency_type %></td>
-    <td><%= vote_setting.start_cycle %></td>
-    <td><%= vote_setting.end_cycle %></td>
-    <td><%= vote_setting.intro_text %></td>
-    <td><%= link_to 'Show', vote_setting %></td>
-    <td><%= link_to 'Edit', edit_vote_setting_path(vote_setting) %></td>
-    <td><%= link_to 'Destroy', vote_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>vote_setting.award_program_name %></td>
+    <td>vote_setting.award_frequency_type %></td>
+    <td>vote_setting.start_cycle %></td>
+    <td>vote_setting.end_cycle %></td>
+    <td>vote_setting.intro_text %></td>
+    <td>link_to 'Show', vote_setting %></td>
+    <td>link_to 'Edit', edit_vote_setting_path(vote_setting) %></td>
+    <td>link_to 'Destroy', vote_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-<% end %>
+end %>
 </table>
 
 <br />
 
-<%= link_to 'New Vote setting', new_vote_setting_path %>
+link_to 'New Vote setting', new_vote_setting_path %>
+-->
