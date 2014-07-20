@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140712032805) do
+ActiveRecord::Schema.define(:version => 20140720004527) do
 
   create_table "adminuser_logs", :force => true do |t|
     t.integer  "user_id"
@@ -314,9 +314,9 @@ ActiveRecord::Schema.define(:version => 20140712032805) do
     t.boolean  "status",                 :default => true
     t.string   "fullname"
     t.string   "department"
-    t.boolean  "is_prop"
-    t.boolean  "is_prop_reminder"
-    t.boolean  "is_vote_reminder"
+    t.boolean  "is_prop",                :default => true
+    t.boolean  "is_prop_reminder",       :default => true
+    t.boolean  "is_vote_reminder",       :default => true
     t.string   "plan_name"
     t.boolean  "agree"
   end
