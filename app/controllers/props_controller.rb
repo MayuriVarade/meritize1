@@ -55,6 +55,9 @@ class PropsController < ApplicationController
      reminder1_days = params[:prop][:reminder1_days].to_i
      reminder2_days = params[:prop][:reminder2_days].to_i 
      reminder3_days = params[:prop][:reminder3_days].to_i
+  if (reminder1_days < 0) || (reminder2_days < 0) || (reminder3_days < 0)
+    redirect_to :back ,:notice => "Settings not saved. Reminder days entry can not be less than 0."
+  else
 
   if params[:prop][:reset_point] == "2" || params[:prop][:reset_point] == "1"  #Monthly or Never reset points
       if sc.present? && ec.present?
@@ -145,7 +148,8 @@ class PropsController < ApplicationController
         redirect_to :back, :notice=> "Settings not saved. Looks like you missed filling out some settings."
       end 
 =end
-   end     
+    end
+  end
  end 
 
   # PUT /props/1
@@ -160,6 +164,9 @@ class PropsController < ApplicationController
     reminder1_days = params[:prop][:reminder1_days].to_i
     reminder2_days = params[:prop][:reminder2_days].to_i 
     reminder3_days = params[:prop][:reminder3_days].to_i
+    if (reminder1_days < 0) || (reminder2_days < 0) || (reminder3_days < 0)
+      redirect_to :back ,:notice => "Settings not saved. Reminder days entry can not be less than 0 days."
+    else
 
     if params[:prop][:reset_point] == "2" || params[:prop][:reset_point] == "1"
         if sc.present? && ec.present?
@@ -253,6 +260,7 @@ class PropsController < ApplicationController
           end
 =end    
     end
+  end
   end
 
   # DELETE /props/1

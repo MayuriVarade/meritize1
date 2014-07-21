@@ -51,9 +51,13 @@ class VoteSettingsController < ApplicationController
     @vote_setting = VoteSetting.new(params[:vote_setting])
     sc =   params[:vote_setting][:start_cycle].to_s.to_date
     ec =   params[:vote_setting][:end_cycle].to_s.to_date
-     reminder1_days = params[:vote_setting][:reminder1_days].to_i
-     reminder2_days = params[:vote_setting][:reminder2_days].to_i 
-     reminder3_days = params[:vote_setting][:reminder3_days].to_i
+    reminder1_days = params[:vote_setting][:reminder1_days].to_i
+    reminder2_days = params[:vote_setting][:reminder2_days].to_i 
+    reminder3_days = params[:vote_setting][:reminder3_days].to_i
+
+  if (reminder1_days < 0) || (reminder2_days < 0) || (reminder3_days < 0)
+    redirect_to :back ,:notice => "Settings not saved. Reminder days entry can not be less than 0 days."
+  else
 
     #method for days validations when creating vote_setting and new trigger cycles and pastcycles. 
   if params[:vote_setting][:award_frequency_type] == "Monthly"
@@ -136,8 +140,9 @@ class VoteSettingsController < ApplicationController
       redirect_to :back, :notice=> "Settings not saved. Looks like you missed filling out some settings."    
       end 
      
-   end
+    end
   end
+end
 
   # PUT /vote_settings/1
   # PUT /vote_settings/1.json
@@ -150,9 +155,14 @@ class VoteSettingsController < ApplicationController
     osc = @vote_setting.start_cycle
     oec = @vote_setting.end_cycle
 
-     reminder1_days = params[:vote_setting][:reminder1_days].to_i
-     reminder2_days = params[:vote_setting][:reminder2_days].to_i 
-     reminder3_days = params[:vote_setting][:reminder3_days].to_i
+    reminder1_days = params[:vote_setting][:reminder1_days].to_i
+    reminder2_days = params[:vote_setting][:reminder2_days].to_i 
+    reminder3_days = params[:vote_setting][:reminder3_days].to_i
+
+  if (reminder1_days < 0) || (reminder2_days < 0) || (reminder3_days < 0)
+   redirect_to :back ,:notice => "Settings not saved. Reminder days entry can not be less than 0 days."
+  else
+
 
     if params[:vote_setting][:award_frequency_type] == "Monthly"  
         if sc > ec 
@@ -228,6 +238,7 @@ class VoteSettingsController < ApplicationController
             end  
        end
 
+      end
     end
   end
 
