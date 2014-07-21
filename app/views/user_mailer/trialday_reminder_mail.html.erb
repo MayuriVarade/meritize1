@@ -1,6 +1,6 @@
 Hello <%= @user.firstname %>,
 <p>
-	<% if @user_expiry == 0 || @user_expiry = 5 || @user_expiry == 10 %>
+	<% if @user_expiry == 0 || @user_expiry == -5 || @user_expiry == -14 %>
 		The trial period for the Meritize account you setup using the email address <%= @user.email %> has expired. 
 	<% else %>
 		The trial period for the Meritize account you setup using the email address <%= @user.email %> will expire in <%= @user_expiry %> 

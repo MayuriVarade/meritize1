@@ -177,7 +177,7 @@ task :send_reminders => :environment do
 		# select id, email, firstname, created_at, created_at + INTERVAL '60 days' from users where admin_user_id is null order by id;
         unless  au.plan_type == "premium"      
 	        @user_expiry = User.admin_user_plan_expiry(au)
-	        if @user_expiry < 8
+	        if (@user_expiry <= 5 && @user_expiry > 0) || (@user_expiry == 0 || @user_expiry == -5 || @user_expiry == -14)
 	        	puts 'Sending trial expiration reminder to user id: ' + au.id.to_s + '. Expiry in days: ' + @user_expiry.to_s
     	    	UserMailer.trialday_reminder_mail(au,@user_expiry).deliver
     	    end
