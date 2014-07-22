@@ -24,12 +24,21 @@ class VotesController < ApplicationController
         unless current_user.admin_user.setting.nil? 
           @core_values = @setting.core_values 
         end
-         @nominees = Nominee.where("start_cycle ='#{@vote_setting.start_cycle}' AND end_cycle ='#{@vote_setting.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}'") rescue nil
+        if @vote_setting.is_allow_vote == true && @winner.present?
+          @nominees = Nominee.where("start_cycle ='#{@vote_setting.start_cycle}' AND end_cycle ='#{@vote_setting.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}' AND status = true and user_id != ?",@winner.voteable_id) rescue nil
+        else
+          @nominees = Nominee.where("start_cycle ='#{@vote_setting.start_cycle}' AND end_cycle ='#{@vote_setting.end_cycle }' AND current_user_id = '#{current_user.admin_user_id}' AND status = true") rescue nil
+        end
         
           if @nominees.present?
-                 @searchuser ||= [] 
-                  @nomineeusers = Nominee.where(["firstname || lastname || fullname LIKE ? and user_id != ? and user_id != ? and current_user_id = ? and current_user_id is not null and start_cycle = ? and end_cycle = ?
+                 @searchuser ||= []
+                 if @vote_setting.is_allow_vote == true && @winner.present?
+                    @nomineeusers = Nominee.where(["firstname || lastname || fullname LIKE ? and status = true and user_id != ? and user_id != ? and current_user_id = ? and current_user_id is not null and start_cycle = ? and end_cycle = ?
                     ", "%#{params[:search]}%",current_user.id,@winner.voteable_id,current_user.admin_user_id,"#{@vote_setting.start_cycle.to_date}","#{@vote_setting.end_cycle.to_date}"])
+                  else
+                    @nomineeusers = Nominee.where(["firstname || lastname || fullname LIKE ? and status = true and user_id != ? and current_user_id = ? and current_user_id is not null and start_cycle = ? and end_cycle = ?
+                    ", "%#{params[:search]}%",current_user.id,current_user.admin_user_id,"#{@vote_setting.start_cycle.to_date}","#{@vote_setting.end_cycle.to_date}"])
+                  end
                   @nomineeusers.each do |nomineeuser|
                   fullname = nomineeuser.fullname + "(" + nomineeuser.email + ")"
                   @searchuser << fullname
@@ -40,7 +49,7 @@ class VotesController < ApplicationController
             if @vote_setting.present?
               if @vote_setting.is_allow_vote == true && @winner.present?
                 @searchuser ||= [] 
-                @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,@winner.voteable_id,current_user.admin_user_id])
+                @adminusers = User.where(["firstname || lastname || fullname LIKE ? AND status = true and id != ? and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,@winner.voteable_id,current_user.admin_user_id])
 
                 @adminusers.each do |adminuser|
                   fullname = adminuser.fullname + "(" + adminuser.email + ")"
@@ -49,7 +58,7 @@ class VotesController < ApplicationController
                 @searchuser
               else
                 @searchuser ||= [] 
-                @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
+                @adminusers = User.where(["firstname || lastname || fullname LIKE ? AND status = true and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
 
                 @adminusers.each do |adminuser|
                   fullname = adminuser.fullname + "(" + adminuser.email + ")"

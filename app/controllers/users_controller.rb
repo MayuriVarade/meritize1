@@ -34,8 +34,16 @@ class UsersController < ApplicationController
    def toggled_status
         @users = User.find(params[:id])
         @users.status = !@users.status?
-        @users.update_column(:status,@users.status)       
-        redirect_to :back         
+        @users.update_column(:status,@users.status)
+        @users.update_column(:updated_at,Time.zone.now)
+        # Update Nominee status as well 
+        @nominee = Nominee.find_by_user_id(params[:id])
+        unless @nominee.nil?
+          @nominee.status = @users.status
+          @nominee.updated_at = Time.zone.now
+          @nominee.save
+        end
+        redirect_to :back
         UserMailer.user_status_mail(@users).deliver         
     end
    
@@ -53,7 +61,7 @@ class UsersController < ApplicationController
    def admin_user         
        @plan_expiry = plan_expiry
         @searchuser ||= []
-        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"]).paginate :page => params[:page],:per_page => 10
+        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"], :order => 'fullname DESC').paginate :page => params[:page],:per_page => 10
 
         @adminusers.each do |adminuser|        
         fullname = adminuser.fullname
@@ -254,6 +262,17 @@ def create
     @user.update_column(:is_vote_reminder,params[:user][:is_vote_reminder])
     @user.update_column(:is_prop_reminder,params[:user][:is_prop_reminder])
     
+    # Save nominee info
+    @nominee = Nominee.find_by_user_id(params[:id])
+    unless @nominee.nil?
+      @nominee.firstname = @user.firstname
+      @nominee.lastname = @user.lastname
+      @nominee.fullname = @user.fullname
+      @nominee.updated_at = Time.zone.now
+      @nominee.save
+    end
+
+
     if params[:page_name] == "admin"
       flash[:success] = "Profile updated successfully."
       redirect_to admin_user_path

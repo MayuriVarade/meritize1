@@ -66,9 +66,10 @@
   <tr>        
 
               
-              <th>User Name</th>
-              <th>User Email</th>
-               <th colspan="2">Action</th>    
+              <th>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th align="center">Action</th>    
   </tr>
   </thead>
   <tbody>
@@ -77,7 +78,8 @@
         
         <tr>
           <td><%= nominee.fullname %></td>
-          <td><%= nominee.email %></td></br>
+          <td><%= nominee.email %></td>
+          <td><% if nominee.status%>Active<% else %>User has been inactivated<% end %></td>
           
           <td align="center">
 

@@ -51,7 +51,7 @@ class NomineesController < ApplicationController
     @nominee = Nominee.new
     @searchuser ||= []
 
-    @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id =? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.id])
+    @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id != ? and admin_user_id =? and admin_user_id is not null and status = true", "%#{params[:search]}%",current_user.id,current_user.id])
 
         @adminusers.each do |adminuser|
           fullname = adminuser.fullname + "(" + adminuser.email + ")"
@@ -77,6 +77,8 @@ class NomineesController < ApplicationController
       nominee_params = params[:nominee][:user_id]
       nominee_split = nominee_params.split(" ")
 
+      # This is a problem. The person's name can have a space in it
+      # "user_id"=>"User 14 Company2 (amoldalvicoursera+local2user14@gmail.com)"}
       nominee_fullname = nominee_split[0] + " " + nominee_split[1] rescue nil
 
       nominee_email1 = nominee_split[2]

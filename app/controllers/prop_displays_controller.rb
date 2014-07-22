@@ -35,7 +35,7 @@ class PropDisplaysController < ApplicationController
     end
     @prop_display = PropDisplay.new
      @searchuser ||= [] 
-        @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id !=? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
+        @adminusers = User.where(["firstname || lastname || fullname LIKE ? and id !=? and admin_user_id = ? and admin_user_id is not null and status = true", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
         @adminusers.each do |adminuser|
         fullname = adminuser.fullname + "(" + adminuser.email + ")"
         @searchuser << fullname
