@@ -1,0 +1,37 @@
+<%= javascript_include_tag "jquery-1.5.2.min","jquery.validate.min","validation" %>
+
+<!-- Forgot Password Page -->
+
+<body id="signup">
+	<div class="container">
+		<div class="row header">
+			<div class="col-md-12">
+				
+				<h4> Forgot password? </h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="wrapper clearfix">
+					<div class="formy">
+						<div class="row">
+							<div class="col-md-12">
+								<section class="round">
+									<% flash.each do |key, value| %>
+										<div class="flash <%= key %>"><%= value %></div><br>
+									<% end %>
+							  		
+							  		<div class="submit">
+							  			<%= link_to "Back to log in", signin_path, :class=>"button-clear" %>
+							  		</div>
+							  			
+							</div>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+				

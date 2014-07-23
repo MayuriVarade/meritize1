@@ -55,6 +55,7 @@ Meritize::Application.routes.draw do
   resources :plans
   get "password_resets/new"
   match '/change_password', :controller => 'users', :action => 'change_password'
+  match '/reset_confirm', :to =>'password_resets#reset_confirm'
    
   resources :users do
     collection { post :import }
