@@ -320,11 +320,13 @@ def create
             redirect_to("/dashboard")
           else
             flash[:error] = 'New password mismatch'
-            render :action => 'change_password'
+            #render :action => 'change_password'
+            redirect_to "/change_password"
           end
       else
           flash[:error] = 'Old password incorrect'
-          render :action => 'change_password'
+          #render :action => 'change_password'
+          redirect_to "/change_password"
       end
     end
    end
