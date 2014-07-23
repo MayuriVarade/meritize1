@@ -46,7 +46,7 @@ class UserMailer < ActionMailer::Base
    @random_password = random_password
     mail(
       to: user.email,
-      subject: 'Verification mail'
+      subject: 'Registration email'
       )
   end  
 

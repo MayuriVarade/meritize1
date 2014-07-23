@@ -113,26 +113,27 @@ end
 
 
 def self.import(file, current_user)  
-  
+
   current_user = current_user.id #admin current id
-  
-    CSV.foreach(file.path, skip_blanks: true, headers: true) do |row|
+
+  CSV.foreach(file.path, skip_blanks: true, headers: true) do |row|
     @random_password = (0..6).map{ ('a'..'z').to_a[rand(26)] }.join
     add = row.to_hash
 
     @check_user = User.find_by_email(add['email'])
-
     if @check_user.present?
-    @check_user.update_attributes(:firstname => add['firstname'],:lastname => add['lastname'],:department => add['department'])
+      @check_user.update_attributes(:firstname => add['firstname'],:lastname => add['lastname'],:department => add['department'], :fullname => add['firstname'] + ' ' + add['lastname'])
     else
-    @user = User.create(:firstname => add['firstname'],:lastname => add['lastname'],:email =>add['email'],:department => add['department'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user)
-    if @user.save
-    @user.update_column(:fullname,"#{[:firstname]} #{[:lastname]} ")
-     UserMailer.delay(run_at: 1.minutes.from_now).uploaduser_verifymail(@user,@random_password)
-   
+      @user = User.create(:firstname => add['firstname'],:lastname => add['lastname'],:email =>add['email'],:department => add['department'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user, :fullname => add['firstname'] + ' ' + add['lastname'])
+      if @user.save
+        UserMailer.uploaduser_verifymail(@user,@random_password).deliver
+      end
     end
+#    if @user.save
+#      @user.update_column(:fullname,"#{[:firstname]} #{[:lastname]} ")
+#      UserMailer.delay(run_at: 1.minutes.from_now).uploaduser_verifymail(@user,@random_password)
+#    end
   end
- end
 end
 
 
