@@ -51,7 +51,7 @@
               <b>Give props</b><br>
               <%= f.text_field :receiver_id, :class => "form-control ",:placeholder => "Enter the name of the person you want to send props to" %>
               <br/>
-              <%= f.text_area :description, :class => "form-control ", :rows => 6 ,:placeholder => "Share with everyone what they did to deserve the props." %>
+              <%= f.text_area :description, :class => "form-control ", :rows => 6 ,:placeholder => "Share with everyone what they did to deserve the props" %>
               <br/>
               <% if current_user.admin_user.prop.present? %>
               <% if current_user.admin_user.prop.assign_points == true %>
@@ -68,7 +68,8 @@
               <%= f.hidden_field :cycle_end_date, :value => @prop.end_cycle rescue nil%>
               <%= f.hidden_field :prop_setting_id, :value => @prop.id rescue nil%>
               <br>
-              <%= f.submit  "Submit Props", :class => "button button-small"%>
+              <% # Has to be f.button instead of f.submit so that disable_with works and user doesn't submit duplicate props on double click #%>
+              <%= f.button :"Submit Props", :class => "button button-small", data: { disable_with: "Please wait..." } %>
 
               <% end %>
             </div>

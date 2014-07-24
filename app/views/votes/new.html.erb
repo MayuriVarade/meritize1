@@ -86,7 +86,8 @@
                 </div>
                 <% end %>
                <% end %>
-                <%= f.submit "Vote", :class => "button button-small"%>
+               <% # Has to be f.button instead of f.submit so that disable_with works and user doesn't submit duplicate on double click #%>
+                <%= f.button :Vote, :class => "button button-small", data: { disable_with: "Please wait..." } %>
               </div><br></div>
           </div>
            <% end %>
