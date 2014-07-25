@@ -79,11 +79,12 @@ class VotesController < ApplicationController
        @vote_setting1 = current_user.admin_user.vote_setting 
        voteable_params = params[:vote][:voteable_id]
        voteable_split = voteable_params.split(" ") rescue nil
-       voteable_fullname = voteable_split[0] + " " + voteable_split[1] rescue nil
-       voteable_email1 = voteable_split[2]
+       # There could be spaces in the name. Safest assumption is first array item is partial firstname, and last array element is email
+       voteable_firstname = voteable_split.first rescue nil
+       voteable_email1 = voteable_split.last
        voteable_email = voteable_email1.gsub(/[()]/, "") rescue nil
        
-       voteable = User.where(["fullname LIKE ? and email LIKE ?", "%#{voteable_fullname}%","%#{voteable_email}%"])
+       voteable = User.where(["firstname LIKE ? and email LIKE ? and admin_user_id = ?", "%#{voteable_firstname}%","%#{voteable_email}%",current_user.admin_user_id])
        voteable_id = voteable[0].id rescue nil
        @receiver = voteable[0].id rescue nil
 

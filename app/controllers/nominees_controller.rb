@@ -77,13 +77,17 @@ class NomineesController < ApplicationController
       nominee_params = params[:nominee][:user_id]
       nominee_split = nominee_params.split(" ")
 
-      # This is a problem. The person's name can have a space in it
+      # There could be spaces in the name. Safest assumption is first array item is partial firstname, and last array element is email
       # "user_id"=>"User 14 Company2 (amoldalvicoursera+local2user14@gmail.com)"}
-      nominee_fullname = nominee_split[0] + " " + nominee_split[1] rescue nil
+      nominee_firstname = nominee_split.first rescue nil
 
-      nominee_email1 = nominee_split[2]
+      nominee_email1 = nominee_split.last
       nominee_email = nominee_email1.gsub(/[()]/, "") rescue nil
-      nominee = User.where(["fullname LIKE ? and email LIKE ?", "%#{nominee_fullname}%","%#{nominee_email}%"])
+      nominee = User.where(["firstname LIKE ? and email LIKE ? and admin_user_id = ?", "%#{nominee_firstname}%","%#{nominee_email}%", current_user.id])
+      if nominee == nil || nominee.length == 0
+        flash[:success] = "Sorry, we couldn't locate that user."
+         redirect_to :back
+       end
       user_id = nominee[0].id
       email = nominee[0].email
       fullname = nominee[0].fullname

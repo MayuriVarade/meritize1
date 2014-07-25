@@ -50,10 +50,11 @@ class PropDisplaysController < ApplicationController
    @prop = current_user.admin_user.prop rescue nil
    prop_display_params = params[:prop_display][:receiver_id]
    prop_display_split = prop_display_params.split(" ") rescue nil
-   prop_display_fullname = prop_display_split[0] + " " + prop_display_split[1] rescue nil
-   prop_display_email1 = prop_display_split[2]
+   # There could be spaces in the name. Safest assumption is first array item is partial firstname, and last array element is email
+   prop_display_firstname = prop_display_split.first rescue nil
+   prop_display_email1 = prop_display_split.last
    prop_display_email = prop_display_email1.gsub(/[()]/, "") rescue nil
-       receiver_id = User.where(["fullname LIKE ? and email LIKE ?", "%#{prop_display_fullname}%","%#{prop_display_email}%"]) rescue nil
+       receiver_id = User.where(["firstname LIKE ? and email LIKE ? and admin_user_id = ?", "%#{prop_display_firstname}%","%#{prop_display_email}%",current_user.admin_user_id]) rescue nil
        receiver_id = receiver_id[0].id rescue nil
         @receiver_id = receiver_id 
 
