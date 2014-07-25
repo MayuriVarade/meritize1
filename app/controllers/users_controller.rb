@@ -61,7 +61,7 @@ class UsersController < ApplicationController
    def admin_user         
        @plan_expiry = plan_expiry
         @searchuser ||= []
-        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"], :order => 'fullname DESC').paginate :page => params[:page],:per_page => 10
+        @adminusers = User.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"], :order => 'fullname ASC, email ASC').paginate :page => params[:page],:per_page => 10
 
         @adminusers.each do |adminuser|        
         fullname = adminuser.fullname

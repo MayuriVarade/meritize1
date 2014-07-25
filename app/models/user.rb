@@ -124,7 +124,7 @@ def self.import(file, current_user)
     if @check_user.present?
       @check_user.update_attributes(:firstname => add['firstname'],:lastname => add['lastname'],:department => add['department'], :fullname => add['firstname'] + ' ' + add['lastname'])
     else
-      @user = User.create(:firstname => add['firstname'],:lastname => add['lastname'],:email =>add['email'],:department => add['department'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user, :fullname => add['firstname'] + ' ' + add['lastname'])
+      @user = User.create(:firstname => add['firstname'],:lastname => add['lastname'],:email =>add['email'],:department => add['department'],:role_ids => 3 ,:password =>@random_password ,:password_confirmation =>@random_password,:admin_user_id => current_user, :fullname => add['firstname'] + ' ' + add['lastname'], :is_prop => true, :is_vote_reminder => true, :is_prop_reminder => true)
       if @user.save
         UserMailer.uploaduser_verifymail(@user,@random_password).deliver
       end
