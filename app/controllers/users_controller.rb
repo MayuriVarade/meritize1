@@ -96,7 +96,7 @@ def import
        @adminusers = AdminuserLog.find_all_by_admin_user_id(current_user.id, :conditions => ["firstname || lastname || fullname LIKE ?", "%#{params[:search]}%"],:order => "created_at DESC").paginate :page => params[:page],:per_page => 10
        @adminusers.each do |adminuser|
         fullname = adminuser.fullname
-        @searchuser << fullname        
+        @searchuser << fullname       
        end
        @searchuser
    end
@@ -120,7 +120,7 @@ def create
        @random_password = params[:user][:password]
        
       if @user.save
-        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+        @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]}")
          UserVerification.welcome_email(@user,@random_password).deliver            
          if params[:page_name] == "admin" 
 
@@ -252,7 +252,7 @@ def create
     @user = User.find(params[:id])
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
-    @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]} ")
+    @user.update_column(:fullname,"#{params[:user][:firstname]} #{params[:user][:lastname]}")
     @user.update_column(:firstname,"#{params[:user][:firstname]}")
     @user.update_column(:lastname,"#{params[:user][:lastname]}")
     @user.update_column(:department,"#{params[:user][:department]}")

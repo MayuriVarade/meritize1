@@ -40,7 +40,7 @@ class VotesController < ApplicationController
                     ", "%#{params[:search]}%",current_user.id,current_user.admin_user_id,"#{@vote_setting.start_cycle.to_date}","#{@vote_setting.end_cycle.to_date}"])
                   end
                   @nomineeusers.each do |nomineeuser|
-                  fullname = nomineeuser.fullname + "(" + nomineeuser.email + ")"
+                  fullname = nomineeuser.fullname + " (" + nomineeuser.email + ")"
                   @searchuser << fullname
                  end
                  @searchuser
@@ -52,7 +52,7 @@ class VotesController < ApplicationController
                 @adminusers = User.where(["firstname || lastname || fullname LIKE ? AND status = true and id != ? and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,@winner.voteable_id,current_user.admin_user_id])
 
                 @adminusers.each do |adminuser|
-                  fullname = adminuser.fullname + "(" + adminuser.email + ")"
+                  fullname = adminuser.fullname + " (" + adminuser.email + ")"
                   @searchuser << fullname
                 end
                 @searchuser
@@ -61,7 +61,7 @@ class VotesController < ApplicationController
                 @adminusers = User.where(["firstname || lastname || fullname LIKE ? AND status = true and id != ? and admin_user_id = ? and admin_user_id is not null", "%#{params[:search]}%",current_user.id,current_user.admin_user_id])
 
                 @adminusers.each do |adminuser|
-                  fullname = adminuser.fullname + "(" + adminuser.email + ")"
+                  fullname = adminuser.fullname + " (" + adminuser.email + ")"
                   @searchuser << fullname
                 end
                 @searchuser   
