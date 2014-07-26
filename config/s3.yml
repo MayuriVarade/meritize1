@@ -2,10 +2,6 @@
     access_key_id: AKIAIWWQF5REKTC4ZYGQ
     secret_access_key: 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
 
-	awsprod: &awsprod
-    access_key_id: AKIAIGK7VSI6A2XYSYSA
-    secret_access_key: 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
-
 development:
     <<: *common
     bucket: meritize
@@ -15,5 +11,6 @@ test:
     bucket: meritize
 
 production:
-    <<: *awsprod
+    access_key_id: AKIAIGK7VSI6A2XYSYSA
+    secret_access_key: 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
     bucket: meritizephotos
