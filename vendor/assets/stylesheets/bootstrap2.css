@@ -4939,6 +4939,7 @@ th.visible-print, td.visible-print {
 .winner_img{ width:100px; height:100px; border-radius:50px;}
 
 .circular_micro_img{ width:30px; height:30px; border-radius:15px; margin:0 2px 2px 0; float:center}
+.icon_micro_img { width:17px; height:17px}
 
 .blue{ color:#459CE7}
 

@@ -1,0 +1,27 @@
+<div class="container" style="margin-bottom:100px">
+  <div class="row header">
+    <h2>Change Prop</h2>
+    <h4 class="media-heading text-left ">
+      <% if @prop_display.receiver.photo.blank? %>
+        <img src="/assets/user2.png"class="voter_img">
+      <% else %>
+        <%= image_tag @prop_display.receiver.photo.url(:small), :class => "voter_img" %>
+      <% end %>
+      <%= @prop_display.receiver.fullname rescue nil%>
+      <br><div style="font-size:11px;color:gray"><%= custom_time(@prop_display) %></div>
+    </h4>
+    <div class="col-md-8 message">
+      <%= form_for(@prop_display) do |f| %>
+        <% #= render 'shared/error_messages' %>
+        <div class="form-group">
+          <label for="name">Prop</label>
+          <%= f.text_area :description, :class => "form-control", autofocus: true, cols: 20, rows: 4, maxlength: 600  %>
+        </div>
+
+        <div class="submit" style="margin-top:20px">
+          <%= f.submit "Save changes", :class => "button button-small" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

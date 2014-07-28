@@ -5,6 +5,27 @@ class PropDisplaysController < ApplicationController
   def index
   end
 
+  def edit
+    @prop_display = PropDisplay.find(params[:id])
+    unless current_user.id == @prop_display.sender_id || current_user.id == @prop_display.admin_user_id
+      flash[:notice] = "You cannot edit the Prop you have selected"
+      redirect_to "/prop_displays/new"
+    end
+  end
+
+  def update
+    @prop_display = PropDisplay.find(params[:id])
+    unless current_user.id == @prop_display.sender_id || current_user.id == @prop_display.admin_user_id
+      flash[:notice] = "You cannot edit the Prop you have selected"
+      redirect_to "/prop_displays/new"
+    else
+      @prop_display.update_column(:description, "#{params[:prop_display][:description]}")
+      @prop_display.update_column(:updated_at, Time.zone.now)
+      flash[:notice] = "Prop has been changed"
+      redirect_to "/prop_displays/new"
+    end
+  end
+
   def new
 
     @prop = current_user.admin_user.prop rescue nil
