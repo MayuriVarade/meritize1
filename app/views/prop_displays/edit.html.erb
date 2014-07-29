@@ -1,6 +1,6 @@
 <div class="container" style="margin-bottom:100px">
   <div class="row header">
-    <h2>Change Prop</h2>
+    <h2>Edit Prop</h2>
     <h4 class="media-heading text-left ">
       <% if @prop_display.receiver.photo.blank? %>
         <img src="/assets/user2.png"class="voter_img">
@@ -8,7 +8,7 @@
         <%= image_tag @prop_display.receiver.photo.url(:small), :class => "voter_img" %>
       <% end %>
       <%= @prop_display.receiver.fullname rescue nil%>
-      <br><div style="font-size:11px;color:gray"><%= custom_time(@prop_display) %></div>
+      <br><div style="font-size:11px;color:gray"><%= custom_time(@prop_display,"created_at") %></div>
     </h4>
     <div class="col-md-8 message">
       <%= form_for(@prop_display) do |f| %>

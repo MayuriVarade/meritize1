@@ -14,17 +14,27 @@ module PropDisplaysHelper
 		current_user.admin_user.prop.reset_point rescue nil
 	end
 
-	def custom_time(prop_display)
-	   d =  prop_display.created_at.to_date
-	   if d == Date.current
+	def custom_time(prop_display, created_or_updated)
 
-	   	 "Today at #{prop_display.created_at.strftime('%l:%M %p')}"
-	   elsif (Date.current - d) == 1
-	   	 "Yesterday #{prop_display.created_at.strftime('%l:%M %p')}"
-
-	   	else
-	   	 "#{time_ago_in_words(prop_display.created_at)} ago"
-	   end
+		if created_or_updated == 'updated_at'
+	  	d =  prop_display.updated_at.to_date
+	  	if d == Date.current
+	  		"Today at #{prop_display.updated_at.strftime('%l:%M %p')}"
+	  	elsif (Date.current - d) == 1
+	  		"Yesterday #{prop_display.updated_at.strftime('%l:%M %p')}"
+	  	else
+	  		"#{time_ago_in_words(prop_display.updated_at)} ago"
+	  	end
+		else
+	  	d =  prop_display.created_at.to_date
+	  	if d == Date.current
+	  		"Today at #{prop_display.created_at.strftime('%l:%M %p')}"
+	  	elsif (Date.current - d) == 1
+	  		"Yesterday #{prop_display.created_at.strftime('%l:%M %p')}"
+	  	else
+	  		"#{time_ago_in_words(prop_display.created_at)} ago"
+	  	end
+	  end
 	end
 
      def prop_count
