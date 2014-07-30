@@ -1,24 +1,56 @@
-<div class="panel-body ">
- <div class="media">
-  <% @prop_displays.each do |prop_display| %>
-      <div class="media-body" style="border-bottom: 1px solid #eee; margin-bottom: 10px;">
-        <h4 class="media-heading text-left"><%= prop_display.receiver.fullname rescue nil %></h4>
+              <div class="media ">
+                <% @prop_displays.each do |prop_display| %>
 
-		<p class="text-left" style="width:auto">
-        <% if prop_display.points.nil? %>
-            <!-- don't display points -->
-        <% else %>
-            <%= prop_display.points rescue nil%> point<% if prop_display.points != 1%>s<% end %><br>
-        <% end if %>
-        <i><%= prop_display.description rescue nil%></i></p>
+                <div class="media-body" style="border-bottom: 1px solid #eee; margin-bottom: 10px;">
+                  <h4 class="media-heading text-left">
+                    <% if prop_display.receiver.photo.blank? %>
+                    <img src="/assets/user2.png" class="voter_img">
+                    <!--<img src="http://s3.amazonaws.com/meritize/public/attachments/user/299/small/batman.jpg?1405222546" class="voter_img">-->
+                    <% else %>
+                    <%= image_tag prop_display.receiver.photo.url(:small), :class => "voter_img" %>
+                    <% end %>
+                    <%= prop_display.receiver.fullname rescue nil%>
+                  </h4> 
 
-       <div class="text-right" style="width:auto"><div style="float:right"><i class="fa fa-thumbs-up ">&nbsp; <i class="fa fa-mail-reply "></i>&nbsp;&nbsp;</i>&nbsp;<%= custom_time(prop_display) %>&nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%></div> </div>
-       
-      <div class="like"><%= link_to (image_tag "like.png"),like_prop_prop_displays_path(:id =>prop_display.id),:method => "post",:remote => true,:id => "like_prop"%>
-        
-        <div class="like_count" id="like_count_<%=prop_display.id %>" val= "<%=prop_display.id %>"><%= link_to Like.where(:likeable_type=>"PropDisplay",:likeable_id=>prop_display.id).sum(:count) ,like_count_prop_displays_path(:id =>prop_display.id), :id=>"like_count",:method => "get",:remote=> true,:style=>"color:#fff" %></div></div>
-                  
-      </div>
-  <% end %>
- </div>
-</div>
+                    <p class="text-left" style="width:auto">
+                      <% if prop_display.points.nil? || current_user.admin_user.prop.assign_points == false %>
+                      <!-- No points awarded -->
+                      <!-- don't display points and don't display message as points is probably turned off. -->
+                      <% else %>
+                      <%= prop_display.points rescue nil%> point<% if prop_display.points != 1%>s<% end %><br>
+                      <% end if %>
+                      <%= prop_display.description rescue nil%>
+                      <% if prop_display.created_at != prop_display.updated_at %>
+                        <span style="font-size:9px">(edited <%= custom_time(prop_display,"updated_at") %>)</span>
+                      <% end %>
+                      <% # Let user edit the prop if they are the one that gave the prop %>
+                      <% if current_user.id == prop_display.sender_id %>
+                        <%= link_to edit_prop_display_path(prop_display.id) do %>
+                          <span class="fa fa-pencil" title="Click to edit Prop"></span>
+                        <% end %>
+                      <% end %>
+                    </p>
+
+                      <div class="text-right" style="width:auto"><div style="float:right">
+                        <%= custom_time(prop_display,"created_at") %>
+                        &nbsp;by&nbsp;<%= prop_display.sender.fullname rescue nil%>
+                        <% if prop_display.sender.photo.blank? %>
+                        <img src="/assets/user2.png"class="circular_micro_img">
+                        <% else %>
+                        <%= image_tag prop_display.sender.photo.url(:micro), :class => "circular_micro_img" %>
+                        <% end %>
+                      </div></div>
+
+                      <div class="like"><%= link_to (image_tag "like.png"),like_prop_prop_displays_path(:id =>prop_display.id),:method => "post",:remote => true,:id => "like_prop"%>
+
+                       <div class="like_count" id="like_count_<%=prop_display.id %>" val= "<%=prop_display.id %>"><%= link_to Like.where(:likeable_type=>"PropDisplay",:likeable_id=>prop_display.id).sum(:count) ,like_count_prop_displays_path(:id =>prop_display.id), :id=>"like_count",:method => "get",:remote=> true,:style=>"color:#fff" %></div></div>
+                     </br> 
+
+
+
+
+                   </div>
+                  <% end %>
+
+                 </div>
+               

@@ -52,7 +52,7 @@ class PropDisplaysController < ApplicationController
     else
       # @prop_displays = PropDisplay.where("receiver_id = ?",current_user.id)
        @prop_displays = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC",:limit=>10)
-       @prop_displays_count = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC",:limit=>10)
+       @prop_displays_count = PropDisplay.find_all_by_receiver_id(current_user,:order => "created_at DESC")
     end
     @prop_display = PropDisplay.new
      @searchuser ||= [] 
