@@ -127,7 +127,7 @@
                           else
                             @propdesc = prop_display.description
                           end
-                          @sharemsg = "I got Props on @Meritize! " + @propdesc %>
+                          @sharemsg = "I got Props on @Meritize! " + @propdesc.gsub("\"", "'") %>
                           <!-- 
                           <a href="https://www.facebook.com/sharer/sharer.php?u=<%= @public_prop_url %>" target="_blank"><img src="/assets/fb.png" class="circular_micro_img"></a>
                           <a href="https://plus.google.com/share?url=www.imeritize.com onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a>
