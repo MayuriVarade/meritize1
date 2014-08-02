@@ -30,6 +30,7 @@ Meritize::Application.routes.draw do
   get "props/edit"
 
 
+
   resources :vote_settings
   resources :votes
   resources :results,:only => [:index] do
@@ -40,8 +41,7 @@ Meritize::Application.routes.draw do
    match '/results/props/:id/prop_winner' => 'results#prop_winner'
    match '/results/props/:id/prop_winner_notify' => 'results#prop_winner_notify'
    match '/results/props/:id/vote_winner_notify' => 'results#vote_winner_notify'
-   # Changed default page to signin. AAD 5/2/14
-  #root :to => 'homes#index'
+  match '/homes' => 'homes#show'
   root :to => 'sessions#new'
   resources :trial_days
   resources :settings  
