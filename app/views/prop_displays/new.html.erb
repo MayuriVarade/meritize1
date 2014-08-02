@@ -127,12 +127,13 @@
                           else
                             @propdesc = prop_display.description
                           end
-                          @sharemsg = "I got Props on @Meritize! " + @propdesc
-                          @public_prop_url = "http://localhost:3000?t=" + prop_display.id.to_s + "-" + prop_display.sender_id.to_s + "-" + prop_display.receiver_id.to_s + "-" + prop_display.admin_user_id.to_s + "-"  + prop_display.cycle_start_date.to_s + "-" +prop_display.cycle_end_date.to_s %>
+                          @sharemsg = "I got Props on @Meritize! " + @propdesc %>
+                          <!-- 
                           <a href="https://www.facebook.com/sharer/sharer.php?u=<%= @public_prop_url %>" target="_blank"><img src="/assets/fb.png" class="circular_micro_img"></a>
                           <a href="https://plus.google.com/share?url=www.imeritize.com onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a>
                           <a href="https://twitter.com/home?status=<%=@sharemsg.html_safe%>" target="_blank"><img src="/assets/developer.linkedin.com.ico" class="circular_micro_img"></a>
                           https://www.linkedin.com/shareArticle?summary=&url=http%3A%2F%2Fwww1%2Esmmconnect%2Ecom%2Fwelcome%2Fwilsonlearning_sept11&ro=false&title=http%3A%2F%2Fwww1%2Esmmconnect%2Ecom%2Fwelcome%2Fwilsonlearning_sept11&mini=true&source=
+                        -->
                           <a href="https://twitter.com/home?status=<%=@sharemsg.html_safe%>" target="_blank"><img src="/assets/tw.png" class="circular_micro_img"></a>
                         <% end %>
                         <%= custom_time(prop_display,"created_at") %>
