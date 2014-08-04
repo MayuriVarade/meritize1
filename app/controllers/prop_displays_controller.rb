@@ -3,13 +3,14 @@ class PropDisplaysController < ApplicationController
    layout 'profile'
    include PropDisplaysHelper
   def index
+    @prop_displays = PropDisplay.find_all_by_admin_user_id(current_user.id, :order => "updated_at desc").paginate :page => params[:page],:per_page => 10
   end
 
   def edit
     @prop_display = PropDisplay.find(params[:id])
     unless current_user.id == @prop_display.sender_id || current_user.id == @prop_display.admin_user_id
       flash[:notice] = "You cannot edit the Prop you have selected"
-      redirect_to "/prop_displays/new"
+      redirect_to :back
     end
   end
 
@@ -17,12 +18,16 @@ class PropDisplaysController < ApplicationController
     @prop_display = PropDisplay.find(params[:id])
     unless current_user.id == @prop_display.sender_id || current_user.id == @prop_display.admin_user_id
       flash[:notice] = "You cannot edit the Prop you have selected"
-      redirect_to "/prop_displays/new"
+      redirect_to :back
     else
       @prop_display.update_column(:description, "#{params[:prop_display][:description]}")
       @prop_display.update_column(:updated_at, Time.zone.now)
       flash[:notice] = "Prop has been changed"
-      redirect_to "/prop_displays/new"
+      if current_user.id == @prop_display.admin_user_id
+        redirect_to "/prop_displays"
+      else
+        redirect_to "/prop_displays/new"
+      end
     end
   end
 

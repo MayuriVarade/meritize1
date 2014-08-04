@@ -1,6 +1,32 @@
-<% # This page and controller shows all the props across all accounts. %>
-<% # Commented out everything and added a line "Access Denied" %>
-<p align="center">Access denied</p>
-<!--<h1>PropDisplays#index</h1>
-<p>Find me in app/views/prop_displays/index.html.erb</p>
--->
+<div class="container" style="margin-bottom:100px">
+	<h1>Props</h1>
+
+	<table class="table table-hover table-bordered table-responsive table-condensed">
+	  <tr>
+	    <th>ID</th>
+	    <th>From</th>
+	    <th>To</th>
+	    <th>Props</th>
+	    <th>Date and Time stamp</th>
+	    <th>&nbsp;</th>
+	  </tr>
+	 
+	  <% @prop_displays.each do |prop_display| %>
+	    <tr>
+	      <td><%= prop_display.id %></td>
+	      <td><%= prop_display.sender.fullname %></td>
+	      <td><%= prop_display.receiver.fullname %></td>
+	      <td><%= prop_display.description %></td>
+	      <td><%= Time.parse(prop_display.created_at.to_s).in_time_zone(current_user.time_zone).strftime('%F %r') %>
+	      	<% if prop_display.created_at != prop_display.updated_at %>
+	      		<br><%= Time.parse(prop_display.updated_at.to_s).in_time_zone(current_user.time_zone).strftime('%F %r') %> (last updated)
+	      	<% end %>
+	      </td>	      
+	      <td><%= link_to 'Edit', edit_prop_display_path(prop_display) %></td>
+	    </tr>
+	  <% end %>
+	</table>
+	<div align="right">
+    	<ul class="pagination"> <li><%= will_paginate @prop_displays  %></li></ul>
+	</div>
+</div>
