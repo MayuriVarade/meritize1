@@ -3,8 +3,31 @@ class VotesController < ApplicationController
   # before_filter :check_plan
   layout 'profile'
   include VotesHelper
-    def index
+  def index
+      @votes = Vote.joins("JOIN users ON users.id = votes.voter_id").where("admin_user_id=?",current_user.id).order("updated_at desc").paginate :page => params[:page],:per_page => 10
+  end
+  def edit
+    @vote = Vote.find(params[:id])
+    @voter_admin = User.find(@vote.voter_id)
+    unless current_user.id == @voter_admin.admin_user_id
+      flash[:notice] = "You cannot edit the Vote you have selected"
+      redirect_to "/dashboard"
     end
+  end
+  def update
+    @vote = Vote.find(params[:id])
+    @voter_admin = User.find(@vote.voter_id)
+    unless current_user.id == @voter_admin.admin_user_id
+      flash[:notice] = "You cannot edit the Vote you have selected"
+      redirect_to :back
+    else
+      @vote.update_column(:description, "#{params[:vote][:description]}")
+      @vote.update_column(:updated_at, Time.zone.now)
+      flash[:notice] = "Vote has been changed"
+      redirect_to "/votes"
+    end
+  end
+
     # method for submitting votes.
     def new
         @votes = Vote.find_by_voter_id(current_user)

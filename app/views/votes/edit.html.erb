@@ -1,0 +1,26 @@
+<div class="container" style="margin-bottom:100px">
+  <div class="row header">
+    <h2>Edit Vote</h2>
+    <h4 class="media-heading text-left ">
+      <% if @vote.voteable.photo.blank? %>
+        <img src="/assets/user2.png" class="voter_img">
+      <% else %>
+        <%= image_tag @vote.voteable.photo.url(:small), :class => "voter_img" %>
+      <% end %>
+      <%= @vote.voteable.fullname rescue nil%>
+      <br><div style="font-size:11px;color:gray"><%= custom_time(@vote,"created_at") %></div>
+    </h4>
+    <div class="col-md-8 message">
+      <%= form_for(@vote) do |f| %>
+        <div class="form-group">
+          <label for="name">Vote</label>
+          <%= f.text_area :description, :class => "form-control", autofocus: true, cols: 20, rows: 4, maxlength: 600  %>
+        </div>
+
+        <div class="submit" style="margin-top:20px">
+          <%= f.submit "Save changes", :class => "button button-small" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

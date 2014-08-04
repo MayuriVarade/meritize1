@@ -1,7 +1,34 @@
-<% # This page and controller is not used. %>
-<% # Commented out everything and added a line "Access Denied" for security reasons. %>
-<p align="center">Access denied</p>
+<div class="container" style="margin-bottom:100px">
+	<h1>Votes</h1>
 
-<!--<h1>PropDisplays#index</h1>
-<p>Find me in app/views/prop_displays/index.html.erb</p>
--->
+	<table class="table table-hover table-bordered table-responsive table-condensed">
+	  <tr>
+	    <th>ID</th>
+	    <th>From</th>
+	    <th>To</th>
+	    <th>Vote</th>
+	    <th>Core values</th>
+	    <th>Date and Time stamp</th>
+	    <th>&nbsp;</th>
+	  </tr>
+	 
+	  <% @votes.each do |vote| %>
+	    <tr>
+	      <td><%= vote.id %></td>
+	      <td><%= vote.voter.fullname %></td>
+	      <td><%= vote.voteable.fullname %></td>
+	      <td><%= vote.description %></td>
+	      <td><%= vote.core_values %></td>
+	      <td><%= Time.parse(vote.created_at.to_s).in_time_zone(current_user.time_zone).strftime('%F %r') %>
+	      	<% if vote.created_at != vote.updated_at %>
+	      		<br><%= Time.parse(vote.updated_at.to_s).in_time_zone(current_user.time_zone).strftime('%F %r') %> (last updated)
+	      	<% end %>
+	      </td>	      
+	      <td><%= link_to 'Edit', edit_vote_path(vote) %></td>
+	    </tr>
+	  <% end %>
+	</table>
+	<div align="right">
+    	<ul class="pagination"> <li><%= will_paginate @votes  %></li></ul>
+	</div>
+</div>
