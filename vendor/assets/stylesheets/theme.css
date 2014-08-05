@@ -447,12 +447,13 @@ a:focus, button:focus {
 #footer {
     background: none repeat scroll 0 0 #9DA3A6;
     bottom: 0;
-    margin-top: 50px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    margin-top: 20px;
+    padding-bottom: 7px;
+    padding-top: 7px;
     position: fixed;
     width: 100%;
     z-index:100;
+    font-size: 11px;
 }
   #footer .copyright {
     color: #B5C5CF;
