@@ -1,166 +1,114 @@
-
-	<div id="info" class="award">
-		
-	    <% if @wall_of_winner.present? %>   
-	      <div class="container" style="margin-bottom:100px">
-		  
-	      
-	      <div class="row">
-		 
-		  
-		  <div class="col-md-12">
-		  <h1 class="wow_heading">Wall of Winners - Props</h1>
-		  </div>
-					
-					
-		   
-		  <div class="col-md-9">
-
-		     <% unless @wall_of_winner.receiver.photo.blank? %>
-		  
+<div id="info" class="award">
+	<% if @wall_of_winner.present? %>   
+		<div class="container" style="margin-bottom:100px">
+	    <div class="row">
+			  <div class="col-md-12">
+				  <h1 class="wow_heading">Wall of Winners - Props</h1>
+		  	</div>	
+			  <div class="col-md-9">
+			  <% unless @wall_of_winner.receiver.photo.blank? %>
 		  		<%= image_tag @wall_of_winner.receiver.photo.url,:width =>"128",:height => "128",:class => "voter_main_img" rescue nil %>
-		      <% else %>
-	             <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
-		      <% end %>
-	          <h3 class="blue"><%= @wall_of_winner.receiver.fullname rescue nil %></h3>
-	           <%= @wall_of_winner.receiver.department rescue nil %>&nbsp;Department
-	          
-	          <br><%= @wall_of_winner.receiver.email rescue nil %><br>
-	        
-	          <strong class="blue">
-	          	<% if @prop_setting.present? %>
-		          	 <% if @prop_setting.assign_points == true %> 
-		          		<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%> </strong> points (<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)        
-	                 <% else %>
-	                   	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> </strong> points (<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)  
-	                 <% end %>
-                 <% end %>
-	          </div>
-		  
-		  
-		  
-		  
-		 
-	        <div class="col-md-3">
-	            <% if @prop_setting.present? %>
-	                <% if @prop_setting.assign_points == true %> 
-			          	<p><span class="button"><span style="font-size:40px; font-weight:bold">
-			          	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%></span> points</span>
-			          	<br><strong>(<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)</strong></p>
-			        <% else %>  
-	                      <p><span class="button"><span style="font-size:40px; font-weight:bold">
-			          	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%></span> points</span></p>
-			          	<p><strong>(<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)</strong></p>
-			        <% end %>
-			    <% end %>    
-	        </div>
-	        
-	      </div>
-	    
-		  
-		  
-		 
-	      
-	       <h1 class="wow_heading">Props</h1>
-	    <% if @wall_of_winner_voter.present? %>
-		   <% @wall_of_winner_voter.each do |winner_voter| %>
-		   <div class="row">
-					<div class="col-md-6">
-
-
-
-
-						 <% unless winner_voter.sender.photo.blank? %>
-		  
-				  		<%= image_tag winner_voter.sender.photo.url,:width =>"128",:height => "128",:class => "voter_img" rescue nil %>
-				      <% else %>
-			             <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_img">  
-		      		<% end %>
-						
-							<strong><a href="#"><%= winner_voter.sender.fullname rescue nil%></a></strong>
-							<% if @prop_setting.assign_points == true %>
-								<br><%= winner_voter.points %><% if winner_voter.points == 1 %> point<% else %> points<% end %>
-							<% end %>
-							<br><%= winner_voter.description rescue nil%>
-							</br>
-							<hr>
-					 </div>
-					 
-			<% end %>		 
-		<% end %>			 
-			 
-					
-			</div>
-		 		
-					
-					
-		   
-		   
-	       
-	    <% if @previous_winner.present? %>   
-		  <h1 class = "wow_heading">Previous Winners</h1>
-		   <div class="row" style="text-align:center">
-		   	 <%  @previous_winner.each do |previous_winner| %>				
-				
-				<div class="col-md-4">
-			  <% unless previous_winner.receiver.photo.blank? %>		
-				<div><%=image_tag previous_winner.receiver.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%></div>
-		      <% else %>
-	             <div><img src="/assets/user2.png" alt="globe" width="128" height="128" class="winner_img"></div>
-		      <% end %> 
-		   		<div>
-				<h4><%= previous_winner.receiver.fullname rescue nil%></h4>
-				<h5><%= previous_winner.receiver.department rescue nil%>&nbsp;Department</h5>
-				<strong class="blue"><%= PropCount.find_by_receiver_id(previous_winner.receiver.id).points rescue nil%> </strong> Points (<%= previous_winner.prop_count rescue nil%>&nbsp;Voters) 
-		
-				<h5><%= previous_winner.end_cycle.strftime(" %B %Y") rescue nil%></h5> 
-				</div>
-		   		</div>
-				
-			<% end %>	
-				
-				
-				
-				
-				
-				
-				
-		   </div>
-		   
-		 <% end %>	
-		   
-	    </div>
-	     
-
-	     <% else %>
-	        <div class="container" style="margin-bottom:100px">
-		
-				<center> <h1>Wall of Winners (WoW)</h1></center>
-		
-					<div class="col-md-6">
-					<img src="assets/charactor.png" alt="">
-					</div>
-					
-					<div class="col-md-6">
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					  <h1>There are no winners to show just yet.</h1>
-						 <h4>
-						 <% if @current_user.admin_user_id.nil? %>
-						 	Winners will be displayed here after you select a winner from the <a href="/results/props">Results</a> screen. You will be allowed to select a winner towards the end of the awards cycle.
-						 <% else %>
-						 	Send <a href="/prop_displays/new">props</a> to your peers. Your administrator will select a winner at the end of the awards cycle.
-						 <% end %>
-						 </h4>
-					</div>
-				
-				    </div>
-
-
+	      <% else %>
+	        <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
+	      <% end %>
+	      <h3 class="blue"><%= @wall_of_winner.receiver.fullname rescue nil %></h3>
+	      <%= @wall_of_winner.receiver.department rescue nil %>&nbsp;Department
+        <br><%= @wall_of_winner.receiver.email rescue nil %><br>
+        <strong class="blue">
+       	<% if @prop_setting.present? %>
+					<% if @prop_setting.assign_points == true %> 
+		      	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%> </strong> points (<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)        
+	        <% else %>
+	        	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> </strong> points (<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)  
 	        <% end %>
-      
-   </div>   
-</div>
+        <% end %>
+	    </div>
+      <div class="col-md-3" style="text-align:center">
+	      <% if @prop_setting.present? %>
+	        <% if @prop_setting.assign_points == true %> 
+	         	<p><span class="button"><span style="font-size:40px; font-weight:bold">
+	         	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%></span> points</span>
+	         	<br><strong>(<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)</strong></p>
+	        <% else %>  
+	            <p><span class="button"><span style="font-size:40px; font-weight:bold">
+	          	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%></span> points</span></p>
+	          	<p><strong>(<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)</strong></p>
+	        <% end %>
+		    <% end %>    
+	    </div>
+    </div>
+
+    <h1 class="wow_heading">Props</h1>
+    <% if @wall_of_winner_voter.present? %>
+    	<% i = 1 %>
+			<% @wall_of_winner_voter.each do |winner_voter| %>
+				<% if i % 2 == 1 %><div class="row"><% end %>
+					<div class="col-md-6">
+						<% unless winner_voter.sender.photo.blank? %>
+				  		<%= image_tag winner_voter.sender.photo.url,:width =>"128",:height => "128",:class => "voter_img" rescue nil %>
+		    	  <% else %>
+	        	  <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_img">  
+		     		<% end %>
+						<strong><a href="#"><%= winner_voter.sender.fullname rescue nil%></a></strong>
+						<% if @prop_setting.assign_points == true %>
+							<br><%= winner_voter.points %><% if winner_voter.points == 1 %> point<% else %> points<% end %>
+						<% end %>
+						<br><%= winner_voter.description rescue nil%>
+						</br>
+						<hr>
+					</div>
+				<% i = i + 1 %>
+				<% if i % 2 == 1 %></div><% end %>
+			<% end %>
+			<% if i % 2 != 1 %></div><% end %>			
+		<% end %>			 
+
+    <% if @previous_winner.present? %>   
+		  <h1 class = "wow_heading">Previous Winners</h1>
+			<div class="row" style="text-align:center">
+		  	<% @previous_winner.each do |previous_winner| %>				
+					<div class="col-md-4">
+			  		<% unless previous_winner.receiver.photo.blank? %>		
+							<div>
+								<%=image_tag previous_winner.receiver.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%>
+							</div>
+		      	<% else %>
+	            <div>
+	            	<img src="/assets/user2.png" alt="globe" width="128" height="128" class="winner_img">
+	            </div>
+		      	<% end %> 
+		   			<div>
+							<h4><%= previous_winner.receiver.fullname rescue nil%></h4>
+							<h5><%= previous_winner.receiver.department rescue nil%>&nbsp;Department</h5>
+							<% if @prop_setting.assign_points == true %><%= PropCount.find_by_receiver_id(previous_winner.receiver.id).points rescue nil%> points <% end %>(<%= previous_winner.prop_count rescue nil%>&nbsp;voters) 
+							<h5><%= previous_winner.end_cycle.strftime(" %B %Y") rescue nil%></h5> 
+						</div>
+		  		</div>	
+				<% end %>	
+			</div>
+		<% end %>	
+
+	<% else %>
+		<div class="container" style="margin-bottom:100px">
+			<center> <h1>Wall of Winners (WoW)</h1></center>
+			<div class="col-md-6">
+				<img src="assets/charactor.png" alt="">
+			</div>
+			<div class="col-md-6">
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+	  		<h1>There are no winners to show just yet.</h1>
+				<h4>
+				<% if @current_user.admin_user_id.nil? %>
+					Winners will be displayed here after you select a winner from the <a href="/results/props">Results</a> screen. You will be allowed to select a winner towards the end of the awards cycle.
+				<% else %>
+					Send <a href="/prop_displays/new">props</a> to your peers. Your administrator will select a winner at the end of the awards cycle.
+				<% end %>
+				</h4>
+			</div>
+		</div>
+	<% end %>
+</div>   
