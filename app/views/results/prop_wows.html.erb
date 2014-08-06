@@ -12,16 +12,8 @@
 	        <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
 	      <% end %>
 	      <h3 class="blue"><%= @wall_of_winner.receiver.fullname rescue nil %></h3>
-	      <%= @wall_of_winner.receiver.department rescue nil %>&nbsp;Department
-        <br><%= @wall_of_winner.receiver.email rescue nil %><br>
-        <strong class="blue">
-       	<% if @prop_setting.present? %>
-					<% if @prop_setting.assign_points == true %> 
-		      	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.points rescue nil%> </strong> points (<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)        
-	        <% else %>
-	        	<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> </strong> points (<%= PropCount.find_all_by_receiver_id(@wall_of_winner.receiver.id).last.prop_count rescue nil%> props)  
-	        <% end %>
-        <% end %>
+        <%= @wall_of_winner.receiver.email rescue nil %><br>
+	      <%= @wall_of_winner.receiver.department rescue nil %>&nbsp;Department<br>
 	    </div>
       <div class="col-md-3" style="text-align:center">
 	      <% if @prop_setting.present? %>
@@ -38,8 +30,8 @@
 	    </div>
     </div>
 
-    <h1 class="wow_heading">Props</h1>
     <% if @wall_of_winner_voter.present? %>
+	    <h1 class="wow_heading">Props</h1>
     	<% i = 1 %>
 			<% @wall_of_winner_voter.each do |winner_voter| %>
 				<% if i % 2 == 1 %><div class="row"><% end %>

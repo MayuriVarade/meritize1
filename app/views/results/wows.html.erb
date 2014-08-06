@@ -1,158 +1,92 @@
+<div id="info" class="award">
+	<% if @wall_of_winner.present? %>
+		<div class="container" style="margin-bottom:100px">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="wow_heading">Wall of Winners - <%= @vote_cycle.award_program_name rescue nil %></h1>
+				</div>
+				<div class="col-md-9">
+					<% unless @wall_of_winner.voteable.photo.blank? %>
+						<%= image_tag @wall_of_winner.voteable.photo.url,:width =>"128",:height => "128",:class => "voter_main_img" rescue nil %>
+					<% else %>
+						<img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
+					<% end %>
+					<h3 class="blue"><%= @wall_of_winner.voteable.fullname rescue nil %></h3>
+					<%= @wall_of_winner.voteable.email rescue nil %><br>
+					<%= @wall_of_winner.voteable.department rescue nil %>&nbsp;Department <br>
+				</div>
+				<div class="col-md-3">
+					<p><span class="button"><span style="font-size:40px; font-weight:bold"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </span><% if VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count == 1%> vote<% else %> votes<% end %></span></p>
+				</div>
+			</div>
+			<hr>
+			<% if @wall_of_winner_voter.present? %>
+				<h1 class="wow_heading">User votes</h1>
+	    	<% i = 1 %>
+				<% @wall_of_winner_voter.each do |winner_voter| %>
+					<% if i % 2 == 1 %><div class="row"><% end %>
+						<div class="col-md-6">
+							<% unless winner_voter.voter.photo.blank? %>
+								<%= image_tag winner_voter.voter.photo.url,:width =>"128",:height => "128",:class => "voter_img" rescue nil %>
+							<% else %>
+								<img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_img">  
+							<% end %>
+							<strong><%= winner_voter.voter.fullname rescue nil%></strong>
+							<br><%= winner_voter.description rescue nil%>
+							<hr>
+						</div>
+						<% i = i + 1 %>
+					<% if i % 2 == 1 %></div><% end %>
+				<% end %>
+				<% if i % 2 != 1 %></div><% end %>			
+			<% end %>			 
 
-	<div id="info" class="award">
-		
-    <% if @wall_of_winner.present? %>
-	  <div class="container" style="margin-bottom:100px">
-				  
-			      
-			      <div class="row">
-				 
-				  
-				  <div class="col-md-12">
-				  <h1 class="wow_heading">Wall of Winners - <%= @vote_cycle.award_program_name rescue nil %></h1>
-				  </div>
-							
-							
-				   
-				  <div class="col-md-9">
-
-				     <% unless @wall_of_winner.voteable.photo.blank? %>
-				  
-				  		<%= image_tag @wall_of_winner.voteable.photo.url,:width =>"128",:height => "128",:class => "voter_main_img" rescue nil %>
-				      <% else %>
-			             <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_main_img">  
-				      <% end %>
-			          <h3 class="blue"><%= @wall_of_winner.voteable.fullname rescue nil %></h3>
-			           <%= @wall_of_winner.voteable.department rescue nil %>&nbsp;Department <br>
-			          
-			           
-			          <%= @wall_of_winner.voteable.email rescue nil %><br>
-			        
-			          <strong class="blue"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </strong><% if VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count == 1%> vote<% else %> votes<% end %></div>
-				  
-				  
-				  
-				  
-				 
-			        <div class="col-md-3">
-
-			          <p><span class="button"><span style="font-size:40px; font-weight:bold"><%= VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count rescue nil%> </span><% if VoteCount.find_all_by_voteable_id(@wall_of_winner.voteable.id).last.vote_count == 1%> vote<% else %> votes<% end %></span></p>
-			         
-			        </div>
-			        
-			      </div>
-			    
-				  
-				  
-				 
-			      <hr>
-			       <h1 class="wow_heading">User votes</h1>
-			    <% if @wall_of_winner_voter.present? %>
-				   <% @wall_of_winner_voter.each do |winner_voter| %>
-				   <div class="row">
-							<div class="col-md-6">
-
-
-
-
-								 <% unless winner_voter.voter.photo.blank? %>
-				  
-						  		<%= image_tag winner_voter.voter.photo.url,:width =>"128",:height => "128",:class => "voter_img" rescue nil %>
-						      <% else %>
-					             <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_img">  
-				      		<% end %>
-								
-									<strong><a href="#"><%= winner_voter.voter.fullname rescue nil%></a></strong>
-									<strong><a href="#"></a></strong>
-									<br><%= winner_voter.description rescue nil%>
-									<hr>
-							 </div>
-							 
-					<% end %>		 
-				<% end %>			 
-							 
-							 
-							 
-							 
-							 
-							
-							 
-							
-							
-							 
-							 
-							 
-							 
-							
-					</div>
-						
-							
-							
-				   
-				   
-			      
-			    <% if @previous_winner.present? %>   
-				    <h1 class = "wow_heading">Previous Winners</h1>
-				   <div class="row" style="text-align:center">
-				   					
+			<% if @previous_winner.present? %>   
+				<h1 class = "wow_heading">Previous Winners</h1>
+				<div class="row" style="text-align:center">
 					<%  @previous_winner.each do |previous_winner| %>
 						<div class="col-md-3">
-					  <% unless previous_winner.voteable.photo.blank? %>		
-						<div><%=image_tag previous_winner.voteable.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%></div>
-				      <% else %>
-			             <div><img src="/assets/user2.png" alt="globe" width="128" height="128" class="winner_img"></div>
-				      <% end %> 
-				   		<div>
-						<h4><%= previous_winner.voteable.fullname rescue nil%></h4>
-						<h5><%= previous_winner.voteable.department rescue nil%>&nbsp;Department</h5>
-						<strong class="blue"><%= previous_winner.vote_count rescue nil%> </strong> Voters 
-				
-						<h5><%= previous_winner.end_cycle.strftime(" %B %Y") rescue nil%></h5> 
+							<% unless previous_winner.voteable.photo.blank? %>		
+								<div>
+									<%=image_tag previous_winner.voteable.photo.url ,:width => "128",:height => "128",:class =>"winner_img" rescue nil%>
+								</div>
+							<% else %>
+								<div>
+									<img src="/assets/user2.png" alt="globe" width="128" height="128" class="winner_img">
+								</div>
+							<% end %> 
+							<div>
+								<h4><%= previous_winner.voteable.fullname rescue nil%></h4>
+								<h5><%= previous_winner.voteable.department rescue nil%>&nbsp;department</h5>
+								<%= previous_winner.vote_count rescue nil%> votes
+								<h5><%= previous_winner.end_cycle.strftime(" %B %Y") rescue nil%></h5> 
+							</div>
 						</div>
-				   		</div>
-						
 					<% end %>	
-						
-						
-						
-					 
-						
-						
-						
-				   </div>
-				<% end %>	   
-				 
-				   
-	   </div>
-     <% else %>
-        		<div class="container" style="margin-bottom:100px">
-	
-					<center> <h1>Wall of Winners (WoW)</h1></center>
-	
-					<div class="col-md-6">
-						<img src="assets/charactor.png" alt="">
-					</div>
-		
-					<div class="col-md-6">
-						<p>&nbsp;</p>
-						<p>&nbsp;</p>
-						<p>&nbsp;</p>
-						<p>&nbsp;</p>
-						<p>&nbsp;</p>
-						 <h1>There are no winners to show just yet.</h1>
-						 <h4>
-						 <% if @current_user.admin_user_id.nil? %>
-						 	Winners will be displayed here after you select a winner from the <a href="/results/votes">Results</a> screen. You will be allowed to select a winner towards the end of the awards cycle.
-						 <% else %>
-						 	<a href="/votes/new">Vote</a> for a peer. Your administrator will select a winner at the end of the awards cycle.
-						 <% end %>
-						 </h4>
-					</div>
-	
 				</div>
-     <% end %> 	
-      
-   
-	
-</div>	
+			<% end %>	   
+		</div>
+	<% else %>
+		<div class="container" style="margin-bottom:100px">
+			<center> <h1>Wall of Winners (WoW)</h1></center>
+			<div class="col-md-6">
+				<img src="assets/charactor.png" alt="">
+			</div>
+			<div class="col-md-6">
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<h1>There are no winners to show just yet.</h1>
+				<h4>
+				<% if @current_user.admin_user_id.nil? %>
+					Winners will be displayed here after you select a winner from the <a href="/results/votes">Results</a> screen. You will be allowed to select a winner towards the end of the awards cycle.
+				<% else %>
+					<a href="/votes/new">Vote</a> for a peer. Your administrator will select a winner at the end of the awards cycle.
+				<% end %>
+				</h4>
+			</div>
+		</div>
+	<% end %> 	
 </div>
