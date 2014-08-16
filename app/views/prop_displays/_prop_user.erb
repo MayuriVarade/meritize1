@@ -10,8 +10,13 @@
                     <%= image_tag prop_display.receiver.photo.url(:small), :class => "voter_img" %>
                     <% end %>
                     <%= prop_display.receiver.fullname rescue nil%>
-                  </h4> 
+                  </h4>
 
+                    <% if prop_display.core_values.nil? %>
+                      <% else %>
+                        Core values: <%= prop_display.core_values.gsub("-","") %><br>
+                      <% end if %>
+                      
                     <p class="text-left" style="width:auto">
                       <% if prop_display.points.nil? || current_user.admin_user.prop.assign_points == false %>
                       <!-- No points awarded -->

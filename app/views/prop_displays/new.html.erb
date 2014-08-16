@@ -52,10 +52,22 @@
               <%= f.text_field :receiver_id, :class => "form-control ",:placeholder => "Enter the name of the person you want to send props to" %>
               <br/>
               <%= f.text_area :description, :class => "form-control ", :rows => 6 ,:placeholder => "Share with everyone what they did to deserve the props", maxlength: 600 %>
-              <br/>
+
+                <% unless @core_values.nil? %>
+                <% i = 1 %>
+                 <% @core_values.each do |a_value| %>
+                    <% if i == 1 %><br/>Core values exhibited:<% end %>
+                    <% if i % 3 == 1 %><div class="row"><% end %><div class="col-md-4">
+                    <%= f.check_box(:core_values, { :multiple => true }, a_value.title,nil) %> <%= link_to a_value.title, "javascript:void(0);", :rel =>'tooltip',:title => "#{a_value.description rescue nil}"%>
+                  </div><% i = i + 1 %><% if i % 3 == 1 %></div><% end %>
+
+                <% end %>
+                <% if i % 3 != 1 %></div><% end %>
+               <% end %>
+
               <% if current_user.admin_user.prop.present? %>
               <% if current_user.admin_user.prop.assign_points == true %>
-              Points : <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
+              <br/>Points: <% a = points.to_a.collect{|p| ["#{p}", p]} rescue nil%>
 
               <%= f.select :points,a ,{}, { :class => 'form-control' }  rescue "" %>
 
@@ -98,6 +110,10 @@
                     <%= prop_display.receiver.fullname rescue nil%>
                   </h4> 
 
+                      <% if prop_display.core_values.nil? %>
+                      <% else %>
+                        Core values: <%= prop_display.core_values.gsub("-","") %><br>
+                      <% end if %>
                     <p class="text-left" style="width:auto">
                       <% if prop_display.points.nil? || current_user.admin_user.prop.assign_points == false %>
                       <!-- No points awarded -->

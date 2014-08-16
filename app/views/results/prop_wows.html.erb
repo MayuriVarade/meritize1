@@ -42,6 +42,12 @@
 	        	  <img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_img">  
 		     		<% end %>
 						<strong><a href="#"><%= winner_voter.sender.fullname rescue nil%></a></strong>
+
+						<% if winner_voter.core_values.nil? %>
+                      	<% else %>
+                        	<br>Core values: <%= winner_voter.core_values.gsub("-","") %>
+                      	<% end if %>
+
 						<% if @prop_setting.assign_points == true %>
 							<br><%= winner_voter.points %><% if winner_voter.points == 1 %> point<% else %> points<% end %>
 						<% end %>

@@ -31,8 +31,13 @@
 							<% else %>
 								<img src="/assets/user2.png" alt="globe" width="128" height="128" class="voter_img">  
 							<% end %>
-							<strong><%= winner_voter.voter.fullname rescue nil%></strong>
-							<br><%= winner_voter.description rescue nil%>
+							<strong><%= winner_voter.voter.fullname rescue nil%></strong><br>
+							<% if winner_voter.core_values.nil? %>
+                      		<% else %>
+                        		Core values: <%= winner_voter.core_values.gsub("-","") %><br>
+                      		<% end if %>
+
+							<%= winner_voter.description rescue nil%>
 							<hr>
 						</div>
 						<% i = i + 1 %>
