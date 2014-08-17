@@ -1,3 +1,4 @@
+ <%= stylesheet_link_tag "dashboard.css" %>
 <%= stylesheet_link_tag "facebox" %>
 <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" %>
 <%= javascript_include_tag "facebox" %>
@@ -206,6 +207,11 @@
          });
 
         });
+             jQuery(document).ready(function(){
+  
+        jQuery("[rel='tooltip']").tooltip();
+    })
+
          </script>
          <%= stylesheet_link_tag "jquery-ui-1.8.16.custom.css" %>
 
