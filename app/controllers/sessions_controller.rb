@@ -47,7 +47,7 @@ class SessionsController < ApplicationController
             end
 
        elsif user.admin_user.status == false
-            flash.now[:error] = "Your account has been deactivated. Please contact administrator."
+            flash.now[:error] = "Your account has been deactivated. Please contact your Meritize administrator."
             @title = "Sign in"
             render 'new'
       else

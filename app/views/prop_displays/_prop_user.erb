@@ -31,7 +31,7 @@
                       <% # Let user edit the prop if they are the one that gave the prop %>
                       <% if current_user.id == prop_display.sender_id %>
                         <%= link_to edit_prop_display_path(prop_display.id) do %>
-                          <span class="fa fa-pencil" title="Click to edit Prop"></span>
+                          <span class="fa fa-pencil" title="Click to edit props"></span>
                         <% end %>
                       <% end %>
                     </p>

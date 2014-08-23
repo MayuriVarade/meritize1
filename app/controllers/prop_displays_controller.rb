@@ -9,7 +9,7 @@ class PropDisplaysController < ApplicationController
   def edit
     @prop_display = PropDisplay.find(params[:id])
     unless current_user.id == @prop_display.sender_id || current_user.id == @prop_display.admin_user_id
-      flash[:notice] = "You cannot edit the Prop you have selected"
+      flash[:notice] = "You cannot edit the props you have selected"
       redirect_to :back
     end
   end
@@ -17,12 +17,12 @@ class PropDisplaysController < ApplicationController
   def update
     @prop_display = PropDisplay.find(params[:id])
     unless current_user.id == @prop_display.sender_id || current_user.id == @prop_display.admin_user_id
-      flash[:notice] = "You cannot edit the Prop you have selected"
+      flash[:notice] = "You cannot edit the props you have selected"
       redirect_to :back
     else
       @prop_display.update_column(:description, "#{params[:prop_display][:description]}")
       @prop_display.update_column(:updated_at, Time.zone.now)
-      flash[:notice] = "Prop has been changed"
+      flash[:notice] = "The props have been updated"
       if current_user.id == @prop_display.admin_user_id
         redirect_to "/prop_displays"
       else
