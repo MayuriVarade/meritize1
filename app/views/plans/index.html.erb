@@ -7,7 +7,7 @@
       <ul>
         Welcome <%= current_user.firstname %> <%= current_user.lastname %><br/><br/>
   <% elsif (current_user.role? :admin) && (plan_expiry <= 0) && (current_user.plan_type == "free")%>
-      Your Trial Period is finished.Please select the plan to continue with Meritize
+      Your trial period has expired. Please select a paid plan to continue using Meritize.
   <% elsif (current_user.role? :admin) && (plan_expiry >= 0) && (current_user.plan_type == "free") %>
      <div id="deletesuccess" class="jumbotron">
       Only <%= plan_expiry %> days left for your trial plan to expire. You can upgrade at any time.
@@ -16,7 +16,7 @@
      
   <% end %>
 </div>
-
+a
   
 
   <div id="first-option">

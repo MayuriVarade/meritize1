@@ -1,134 +1,58 @@
 <% content_for :styles do %>
- <%= stylesheet_link_tag "application"%>
- 
- 
+  <%= stylesheet_link_tag "application"%>
 <% end %>
-
-
 <div id="masthead">
-
-<div class="container">
-
-<div class="masthead-pad">
-
-<div class="masthead-text">
-<h2>Payment History</h2>
-
-
-</div> <!-- /.masthead-text -->
-
-</div>
-
-</div> <!-- /.container -->
-
+  <div class="container">
+    <div class="masthead-pad">
+      <div class="masthead-text">
+        <h2>Payment History</h2>
+      </div> <!-- /.masthead-text -->
+    </div>
+  </div> <!-- /.container -->
 </div> <!-- /#masthead -->
 
 <div id="content">
-
-<div class="container"style="margin-bottom:100px">
-        <%= form_for :vehicle do |f| %>
-  
-  <table>
-      
-     <tr>
-       <td> <label>From Date</label></td>
-        <td>
-       <label class="label2">&nbsp;</label>
-      </td>
-     
-      <td>
-         <label >To Date</label>
-      </td>
-    </tr>
-
- 
-  <tr>
-     <td> <%= f.text_field :start_date, :value=> "#{params[:vehicle][:start_date] if request.post?}",:class=>"form-control" %> </td>
-      <td>
-       &nbsp;&nbsp;&nbsp;&nbsp;
-      </td>
-   
-     <td>
-      <%= f.text_field :end_date, :value=> "#{params[:vehicle][:end_date] if request.post?}",:class=>"form-control" %>
-     </td>
-     <td>
-       &nbsp;&nbsp;&nbsp;&nbsp;
-      </td>
-
-
-
-   
-   
-      
-     <td>
-       &nbsp;&nbsp;&nbsp;&nbsp;
-      </td>
-   
-     
-     <td>
-    
-        <%= f.submit "Submit" ,:class => "btn btn-primary"%>
-         
-    </td>
-      
-   </tr>
-   
-  </table>
+  <%= form_for :vehicle do |f| %>
+    <table>
+      <tr>
+        <td> <label>From Date</label></td>
+        <td><label class="label2">&nbsp;</label></td>
+        <td><label >To Date</label></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+      <tr>
+        <td> <%= f.text_field :start_date, :value=> "#{params[:vehicle][:start_date] if request.post?}",:class=>"form-control" %> </td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td><%= f.text_field :end_date, :value=> "#{params[:vehicle][:end_date] if request.post?}",:class=>"form-control" %></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td><%= f.submit "Submit" ,:class => "btn btn-primary"%></td>
+      </tr>
+    </table>
   <% end %>
   </br></br>
 
-
-
-
-
-
-       <table class="table table-bordered table-striped table-highlight">
-
-      <!-- CODE FOR PAYMENT HISTORY FOR ADMIN -->
-
-
-<% if request.post? %>
+  <table class="table table-bordered table-striped table-highlight">
+    <!-- CODE FOR PAYMENT HISTORY FOR ADMIN -->
+    <% if request.post? %>
       <% if current_user.role? :admin %>
-
         <thead>
-            <tr>
-            
-              <th>Date</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <tr>
-              
-              <td><%= @start_date.strftime("%e %b %Y") %> &nbsp TO
-                 &nbsp <%= @end_date.strftime("%e %b %Y") %></br>
-              </td>
-                 
-              
-             <td> <%= @sum %></td>
-
-            </tr>
-          </tbody>
-
-
-
-     
-        <!-- CODE FOR PAYMENT HISTORY FOR PRODUCTADMIN -->    
-    
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @start_date.strftime("%e %b %Y") %> &nbsp TO &nbsp <%= @end_date.strftime("%e %b %Y") %></br></td>
+            <td> <%= @sum %></td>
+          </tr>
+        </tbody>
+    <!-- CODE FOR PAYMENT HISTORY FOR PRODUCTADMIN -->    
+      <% end %>
     <% end %>
-    <% end %>
- 
-       </table>Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
-
- 
- 
-
-      </div> <!-- /.container -->
-
-</div> <!-- /#content -->
-
-</div> <!-- /#wrapper -->
+  </table>
+  Send us an email support@imeritize.com if you have any questions or concerns about your billing and payments.
 </div>
 
 

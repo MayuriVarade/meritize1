@@ -82,6 +82,12 @@ end
      @end_date = params[:vehicle][:end_date].to_s.to_date
      @user = params[:vehicle][:user].to_i
      
+     if @start_date.nil?
+      @start_date = 1.month.ago
+     end
+     if @end_date.nil?
+      @end_date = 1.day.ago
+     end
          if  @start_date < @end_date 
              if current_user.role?(:admin) 
                 @s = SubscriptionHistory.where("created_at >='#{@start_date }' AND updated_at <='#{@end_date }' AND user_id = '#{current_user.id}' ") rescue nil
@@ -90,7 +96,7 @@ end
                 @sum = (@user)*(@price).to_f rescue nil
               end  
          else
-          redirect_to :back, :notice=> "Endate cannot be greater than start date"
+          redirect_to :back, :notice=> "The dates you entered are not correct. Make sure To Date is after From Date."
         end  
 
     end 
